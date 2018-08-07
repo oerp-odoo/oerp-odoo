@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <!-- CPUs -->
+    <!-- Vendors -->
+    <record id="machine_cpu_vendor_intel" model="machine.cpu.vendor">
+        <field name="name">Intel</field>
+    </record>
+    <record id="machine_cpu_vendor_amd" model="machine.cpu.vendor">
+        <field name="name">AMD</field>
+    </record>
+    <!-- Brands -->
+    <!-- Intel brands -->
+    <record id="machine_cpu_brand_core" model="machine.cpu.brand">
+        <field name="name">Core</field>
+        <field name="cpu_vendor_id" ref="machine_cpu_vendor_intel"/>
+    </record>
+    <record id="machine_cpu_brand_pentium" model="machine.cpu.brand">
+        <field name="name">Pentium</field>
+        <field name="cpu_vendor_id" ref="machine_cpu_vendor_intel"/>
+    </record>
+    <record id="machine_cpu_brand_xeon" model="machine.cpu.brand">
+        <field name="name">Xeon</field>
+        <field name="cpu_vendor_id" ref="machine_cpu_vendor_intel"/>
+    </record>
+    <!-- AMD brands -->
+    <record id="machine_cpu_brand_athlon" model="machine.cpu.brand">
+        <field name="name">Athlon</field>
+        <field name="cpu_vendor_id" ref="machine_cpu_vendor_amd"/>
+    </record>
+    <record id="machine_cpu_brand_phenom" model="machine.cpu.brand">
+        <field name="name">Phenom</field>
+        <field name="cpu_vendor_id" ref="machine_cpu_vendor_amd"/>
+    </record>
+    <record id="machine_cpu_brand_opteron" model="machine.cpu.brand">
+        <field name="name">Opteron</field>
+        <field name="cpu_vendor_id" ref="machine_cpu_vendor_amd"/>
+    </record>
+</odoo>

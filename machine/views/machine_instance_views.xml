@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+    <!-- Machine Template Views -->
+    <record id="machine_instance_template_view_tree" model="ir.ui.view">
+        <field name="name">machine.instance.tree.template</field>
+        <field name="model">machine.instance</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="fields_sync"/>
+                <field name="cpu_id"/>
+                <field name="amount_storage_capacity"/>
+                <field name="amount_ram"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="machine_instance_template_view_form" model="ir.ui.view">
+        <field name="name">machine.instance.form.template</field>
+        <field name="model">machine.instance</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group name="left">
+                            <field name="name"/>
+                            <field name="fields_sync"/>
+                            <field name="is_template" invisible="1"/>
+                            <field name="is_virtual"/>
+                            <field name="is_container"/>
+                        </group>
+                        <group name="right">
+                            <field name="cpu_id"/>
+                            <field name="os_instance_id"/>
+                            <field name="amount_storage_capacity"/>
+                            <field name="amount_ram"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="machine_instance_template_action" model="ir.actions.act_window">
+        <field name="name">Machine Templates</field>
+        <field name="res_model">machine.instance</field>
+        <field name="domain">[('is_template', '=', True)]</field>
+        <field name="context">{'default_is_template': True}</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="machine_instance_template_action_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="0"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="machine_instance_template_view_tree"/>
+        <field name="act_window_id" ref="machine_instance_template_action"/>
+    </record>
+
+    <record id="machine_instance_template_action_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="machine_instance_template_view_form"/>
+        <field name="act_window_id" ref="machine_instance_template_action"/>
+    </record>
+
+    <menuitem id="machine_instance_template_menu"
+        action="machine_instance_template_action"
+        parent="machine_menu"
+        sequence="1"/>
+
+    <!-- Machine Instance Views -->
+    <record id="machine_instance_view_tree" model="ir.ui.view">
+        <field name="name">machine.instance.tree</field>
+        <field name="model">machine.instance</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="template_id"/>
+                <field name="ip"/>
+                <field name="domain"/>
+                <field name="cpu_id"/>
+                <field name="amount_storage_capacity"/>
+                <field name="amount_ram"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="machine_instance_view_form" model="ir.ui.view">
+        <field name="name">machine.instance.form.instance</field>
+        <field name="model">machine.instance</field>
+        <field name="priority" eval="6"/>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group name="left">
+                            <field name="name"/>
+                            <field name="is_template" invisible="1"/>
+                            <field name="template_id" context="{'form_view_ref': 'machine.machine_instance_template_view_form', 'default_is_template': True}"/>
+                            <field name="is_virtual"/>
+                            <field name="is_container"/>
+                            <field name="ip"/>
+                            <field name="domain"/>
+                        </group>
+                        <group name="right">
+                            <field name="cpu_id"/>
+                            <field name="amount_storage_capacity"/>
+                            <field name="amount_ram"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="machine_instance_action" model="ir.actions.act_window">
+        <field name="name">Machine Instances</field>
+        <field name="res_model">machine.instance</field>
+        <field name="domain">[('is_template', '=', False)]</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="machine_instance_action_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="0"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="machine_instance_view_tree"/>
+        <field name="act_window_id" ref="machine_instance_action"/>
+    </record>
+
+    <record id="machine_instance_action_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="machine_instance_view_form"/>
+        <field name="act_window_id" ref="machine_instance_action"/>
+    </record>
+
+    <menuitem id="machine_instance_menu"
+        action="machine_instance_action"
+        parent="machine_menu"
+        sequence="2"/>
+</odoo>

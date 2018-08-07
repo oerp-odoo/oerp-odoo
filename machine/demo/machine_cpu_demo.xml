@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <!-- CPUs -->
+    <record id="machine_cpu_xeon_e3113" model="machine.cpu">
+        <field name="name">E3113</field>
+        <field name="clockspeed" eval="3.0"/>
+        <field name="cores" eval="2"/>
+        <field name="cpu_brand_id" ref="machine_cpu_brand_xeon"/>
+    </record>
+    <record id="machine_cpu_opteron_x3216_apu" model="machine.cpu">
+        <field name="name">X3216 APU</field>
+        <field name="clockspeed" eval="1.6"/>
+        <field name="cores" eval="2"/>
+        <field name="cpu_brand_id" ref="machine_cpu_brand_opteron"/>
+    </record>
+</odoo>
