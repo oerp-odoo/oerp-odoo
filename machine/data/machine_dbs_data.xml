@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <!-- Database Systems -->
+    <!-- Names -->
+    <record id="machine_db_name_postgresql" model="machine.dbs.name">
+        <field name="name">PostgreSQL</field>
+    </record>
+    <record id="machine_db_name_mysql" model="machine.dbs.name">
+        <field name="name">MySQL</field>
+    </record>
+    <!-- Versions -->
+    <!-- PostgreSQL -->
+    <record id="machine_db_postgresql_840" model="machine.dbs">
+        <field name="name">8.40</field>
+        <field name="dbs_name_id" ref="machine_db_name_postgresql"/>
+    </record>
+    <record id="machine_db_postgresql_900" model="machine.dbs">
+        <field name="name">9.00</field>
+        <field name="dbs_name_id" ref="machine_db_name_postgresql"/>
+    </record>
+    <record id="machine_db_postgresql_910" model="machine.dbs">
+        <field name="name">9.10</field>
+        <field name="dbs_name_id" ref="machine_db_name_postgresql"/>
+    </record>
+    <record id="machine_db_postgresql_920" model="machine.dbs">
+        <field name="name">9.20</field>
+        <field name="dbs_name_id" ref="machine_db_name_postgresql"/>
+    </record>
+    <record id="machine_db_postgresql_930" model="machine.dbs">
+        <field name="name">9.30</field>
+        <field name="dbs_name_id" ref="machine_db_name_postgresql"/>
+    </record>
+    <record id="machine_db_postgresql_940" model="machine.dbs">
+        <field name="name">9.40</field>
+        <field name="dbs_name_id" ref="machine_db_name_postgresql"/>
+    </record>
+    <record id="machine_db_postgresql_950" model="machine.dbs">
+        <field name="name">9.50</field>
+        <field name="dbs_name_id" ref="machine_db_name_postgresql"/>
+    </record>
+    <record id="machine_db_postgresql_960" model="machine.dbs">
+        <field name="name">9.60</field>
+        <field name="dbs_name_id" ref="machine_db_name_postgresql"/>
+    </record>
+    <record id="machine_db_postgresql_100" model="machine.dbs">
+        <field name="name">10.0</field>
+        <field name="dbs_name_id" ref="machine_db_name_postgresql"/>
+    </record>
+    <record id="machine_db_postgresql_101" model="machine.dbs">
+        <field name="name">10.1</field>
+        <field name="dbs_name_id" ref="machine_db_name_postgresql"/>
+    </record>
+    <record id="machine_db_postgresql_102" model="machine.dbs">
+        <field name="name">10.2</field>
+        <field name="dbs_name_id" ref="machine_db_name_postgresql"/>
+    </record>
+    <record id="machine_db_postgresql_103" model="machine.dbs">
+        <field name="name">10.3</field>
+        <field name="dbs_name_id" ref="machine_db_name_postgresql"/>
+    </record>
+    <record id="machine_db_postgresql_104" model="machine.dbs">
+        <field name="name">10.4</field>
+        <field name="dbs_name_id" ref="machine_db_name_postgresql"/>
+    </record>
+    <!-- MySQL -->
+    <record id="machine_db_mysql_51" model="machine.dbs">
+        <field name="name">5.1</field>
+        <field name="dbs_name_id" ref="machine_db_name_mysql"/>
+    </record>
+    <record id="machine_db_mysql_55" model="machine.dbs">
+        <field name="name">5.5</field>
+        <field name="dbs_name_id" ref="machine_db_name_mysql"/>
+    </record>
+    <record id="machine_db_mysql_56" model="machine.dbs">
+        <field name="name">5.6</field>
+        <field name="dbs_name_id" ref="machine_db_name_mysql"/>
+    </record>
+    <record id="machine_db_mysql_57" model="machine.dbs">
+        <field name="name">5.7</field>
+        <field name="dbs_name_id" ref="machine_db_name_mysql"/>
+    </record>
+    <record id="machine_db_mysql_80" model="machine.dbs">
+        <field name="name">8.0</field>
+        <field name="dbs_name_id" ref="machine_db_name_mysql"/>
+    </record>
+</odoo>

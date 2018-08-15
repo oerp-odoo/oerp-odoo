@@ -1,4 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo noupdate="1">
+    <!-- Templates -->
+    <record id="machine_instance_template_1" model="machine.instance">
+        <field name="name">Production</field>
+        <field name="cpu_id" ref="machine_cpu_xeon_e3113"/>
+        <field name="os_id" ref="machine_os_ubuntu_1604"/>
+        <field name="amount_storage_capacity" eval="50"/>
+        <field name="amount_ram" eval="8"/>
+        <field name="fields_sync" eval="True"/>
+        <field name="is_template" eval="True"/>
+    </record>
 
+    <record id="machine_instance_template_2" model="machine.instance">
+        <field name="name">Experimental</field>
+        <field name="cpu_id" ref="machine_cpu_opteron_x3216_apu"/>
+        <field name="os_id" ref="machine_os_windows_server_2012_r2"/>
+        <field name="amount_storage_capacity" eval="40"/>
+        <field name="amount_ram" eval="4"/>
+        <field name="is_template" eval="True"/>
+        <field name="fields_sync" eval="False"/>
+    </record>
+
+    <!-- Production Instances -->
+    <record id="machine_instance_template_1_instance_1" model="machine.instance">
+        <field name="name">ASUSTEK Production</field>
+        <field name="cpu_id" ref="machine_cpu_xeon_e3113"/>
+        <field name="os_id" ref="machine_os_ubuntu_1604"/>
+        <field name="amount_storage_capacity" eval="50"/>
+        <field name="amount_ram" eval="8"/>
+        <field name="partner_id" ref="base.res_partner_1"/>
+        <field name="fields_sync" eval="True"/>
+        <field name="is_template" eval="False"/>
+        <field name="parent_id" ref="machine_instance_template_1"/>
+        <field name="ip">172.217.21.142</field>
+        <field name="domain">asustek.com</field>
+    </record>
+    <record id="machine_instance_template_1_instance_2" model="machine.instance">
+        <field name="name">Agrolait Production</field>
+        <field name="cpu_id" ref="machine_cpu_xeon_e3113"/>
+        <field name="os_id" ref="machine_os_ubuntu_1604"/>
+        <field name="amount_storage_capacity" eval="50"/>
+        <field name="amount_ram" eval="8"/>
+        <field name="partner_id" ref="base.res_partner_2"/>
+        <field name="fields_sync" eval="True"/>
+        <field name="is_template" eval="False"/>
+        <field name="parent_id" ref="machine_instance_template_1"/>
+        <field name="ip">108.174.10.10</field>
+        <field name="domain">agrolait.com</field>
+    </record>
+    <record id="machine_instance_template_1_instance_3" model="machine.instance">
+        <field name="name">China Export Production</field>
+        <field name="cpu_id" ref="machine_cpu_xeon_e3113"/>
+        <field name="os_id" ref="machine_os_ubuntu_1604"/>
+        <field name="amount_storage_capacity" eval="30"/>
+        <field name="amount_ram" eval="8"/>
+        <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="fields_sync" eval="False"/>
+        <field name="is_template" eval="False"/>
+        <field name="parent_id" ref="machine_instance_template_1"/>
+        <field name="ip">64.4.250.33</field>
+        <field name="domain">china-export.com</field>
+    </record>
+    <!-- Experimental Instances -->
+    <record id="machine_instance_template_2_instance_1" model="machine.instance">
+        <field name="name">Delta PC Experimental</field>
+        <field name="cpu_id" ref="machine_cpu_opteron_x3216_apu"/>
+        <field name="os_id" ref="machine_os_windows_server_2012_r2"/>
+        <field name="amount_storage_capacity" eval="40"/>
+        <field name="amount_ram" eval="4"/>
+        <field name="partner_id" ref="base.res_partner_4"/>
+        <field name="fields_sync" eval="False"/>
+        <field name="is_template" eval="True"/>
+        <field name="is_template" eval="False"/>
+        <field name="parent_id" ref="machine_instance_template_2"/>
+        <field name="ip">143.166.147.101</field>
+        <field name="domain">deltapc.com</field>
+    </record>
 </odoo>

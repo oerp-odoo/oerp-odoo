@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-
-
     <!-- Machine Template Views -->
     <record id="machine_instance_template_view_tree" model="ir.ui.view">
         <field name="name">machine.instance.tree.template</field>
@@ -11,8 +9,11 @@
                 <field name="name"/>
                 <field name="fields_sync"/>
                 <field name="cpu_id"/>
+                <field name="os_id"/>
                 <field name="amount_storage_capacity"/>
                 <field name="amount_ram"/>
+                <field name="is_virtual"/>
+                <field name="is_container"/>
             </tree>
         </field>
     </record>
@@ -24,20 +25,23 @@
             <form>
                 <sheet>
                     <group>
-                        <group name="left">
-                            <field name="name"/>
+                        <group name="options" string="Options">
+                            <field name="name" />
                             <field name="fields_sync"/>
                             <field name="is_template" invisible="1"/>
+                        </group>
+                        <group name="parameters" string="Parameters">
+                            <field name="cpu_id"/>
+                            <field name="os_id"/>
+                            <field name="amount_storage_capacity"/>
+                            <field name="amount_ram"/>
                             <field name="is_virtual"/>
                             <field name="is_container"/>
                         </group>
-                        <group name="right">
-                            <field name="cpu_id"/>
-                            <field name="os_instance_id"/>
-                            <field name="amount_storage_capacity"/>
-                            <field name="amount_ram"/>
-                        </group>
                     </group>
+                    <separator string="Machine Instances"/>
+                    <field name="child_ids"
+                        context="{'tree_view_ref': 'machine.machine_instance_view_tree', 'form_view_ref': 'machine.machine_instance_view_form', 'default_is_template': False, 'default_fields_sync': fields_sync, 'default_parent_id': active_id, 'default_is_virtual': is_virtual, 'default_is_container': is_container, 'default_cpu_id': cpu_id, 'default_os_id': os_id, 'default_amount_storage_capacity': amount_storage_capacity, 'default_amount_ram': amount_ram}"/>
                 </sheet>
             </form>
         </field>
@@ -78,12 +82,17 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
-                <field name="template_id"/>
                 <field name="ip"/>
                 <field name="domain"/>
+                <field name="partner_id"/>
+                <field name="parent_id"/>
+                <field name="fields_sync"/>
                 <field name="cpu_id"/>
+                <field name="os_id"/>
                 <field name="amount_storage_capacity"/>
                 <field name="amount_ram"/>
+                <field name="is_virtual"/>
+                <field name="is_container"/>
             </tree>
         </field>
     </record>
@@ -96,21 +105,37 @@
             <form>
                 <sheet>
                     <group>
-                        <group name="left">
-                            <field name="name"/>
+                        <group name="options" string="Options">
+                            <field name="name" />
+                            <field name="partner_id"/>
+                            <field name="fields_sync"/>
                             <field name="is_template" invisible="1"/>
-                            <field name="template_id" context="{'form_view_ref': 'machine.machine_instance_template_view_form', 'default_is_template': True}"/>
+                            <field name="parent_id" required="1" context="{'form_view_ref': 'machine.machine_instance_template_view_form', 'default_is_template': True}"/>
+                        </group>
+                        <group name="parameters" string="Parameters">
+                            <field name="cpu_id"/>
+                            <field name="os_id"/>
+                            <field name="amount_storage_capacity"/>
+                            <field name="amount_ram"/>
                             <field name="is_virtual"/>
                             <field name="is_container"/>
                             <field name="ip"/>
                             <field name="domain"/>
                         </group>
-                        <group name="right">
-                            <field name="cpu_id"/>
-                            <field name="amount_storage_capacity"/>
-                            <field name="amount_ram"/>
-                        </group>
                     </group>
+                    <notebook>
+                        <page name="dbs" string="Database Systems">
+                            <field name="dbs_instance_ids"/>
+                        </page>
+                        <page name="os" string="Operating System Users" attrs="{'invisible': [('os_id', '=', False)]}">
+                            <field name="os_user_ids">
+                                <tree string="OS Users" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="username"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

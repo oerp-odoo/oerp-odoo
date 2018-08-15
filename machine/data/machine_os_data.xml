@@ -1,4 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-
+    <!-- Types -->
+    <record id="machine_os_type_linux" model="machine.os.type">
+        <field name="name">Linux</field>
+    </record>
+    <record id="machine_os_type_windows" model="machine.os.type">
+        <field name="name">Windows</field>
+    </record>
+    <!-- Names -->
+    <record id="machine_os_name_ubuntu" model="machine.os.name">
+        <field name="name">Ubuntu</field>
+        <field name="os_type_id" ref="machine_os_type_linux"/>
+    </record>
+    <record id="machine_os_name_debian" model="machine.os.name">
+        <field name="name">Debian</field>
+        <field name="os_type_id" ref="machine_os_type_linux"/>
+    </record>
+    <!-- Windows type and name matches -->
+    <record id="machine_os_name_windows" model="machine.os.name">
+        <field name="name">Windows</field>
+        <field name="os_type_id" ref="machine_os_type_windows"/>
+    </record>
+    <!-- Specific OS versions. -->
+    <record id="machine_os_ubuntu_1404" model="machine.os">
+        <field name="name">14.04</field>
+        <field name="os_name_id" ref="machine_os_name_ubuntu"/>
+    </record>
+    <record id="machine_os_ubuntu_1604" model="machine.os">
+        <field name="name">16.04</field>
+        <field name="os_name_id" ref="machine_os_name_ubuntu"/>
+    </record>
+    <record id="machine_os_ubuntu_1804" model="machine.os">
+        <field name="name">18.04</field>
+        <field name="os_name_id" ref="machine_os_name_ubuntu"/>
+    </record>
+    <record id="machine_os_debian_wheezy" model="machine.os">
+        <field name="name">Wheezy</field>
+        <field name="os_name_id" ref="machine_os_name_debian"/>
+    </record>
+    <record id="machine_os_debian_jessie" model="machine.os">
+        <field name="name">Jessie</field>
+        <field name="os_name_id" ref="machine_os_name_debian"/>
+    </record>
+    <record id="machine_os_debian_stretch" model="machine.os">
+        <field name="name">Stretch</field>
+        <field name="os_name_id" ref="machine_os_name_debian"/>
+    </record>
+    <record id="machine_os_windows_10" model="machine.os">
+        <field name="name">10</field>
+        <field name="os_name_id" ref="machine_os_name_windows"/>
+    </record>
+    <record id="machine_os_windows_server_2012_r2" model="machine.os">
+        <field name="name">Server 2012 R2</field>
+        <field name="os_name_id" ref="machine_os_name_windows"/>
+    </record>
+    <record id="machine_os_windows_server_2016" model="machine.os">
+        <field name="name">Server 2016</field>
+        <field name="os_name_id" ref="machine_os_name_windows"/>
+    </record>
 </odoo>
