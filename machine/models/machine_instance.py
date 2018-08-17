@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 
 class MachineInstance(models.Model):
@@ -43,10 +43,41 @@ class MachineInstance(models.Model):
     domain = fields.Char()
     # Template only fields.
     is_template = fields.Boolean("Is Template")
-    fields_sync = fields.Boolean(
+    sync = fields.Boolean(
         "Fields Synchronization",
-        help="If set, specified fields will be synced using template. In this"
+        help="If set, specified fields will be synced using template.\nIn this"
         " mode, those fields can't be edited on instance.")
+    related_sync = fields.Boolean(
+        "Fields Synchronization on Template",
+        related='parent_id.sync',
+        help="Technical field: used to check if sync option\nis enabled on "
+        "template from machine instance.")
+
+    @api.model
+    def get_sync_fields(self):
+        """Return machine fields that can be synced.
+
+        Can be extended to include new fields to sync.
+
+        Synchronization happens by propagating fields values from
+        template to its instances if template and instances have
+        syncing enabled.
+        """
+        return [
+            'is_virtual',
+            'is_container',
+            'cpu_id',
+            'os_id',
+            'amount_ram',
+            'amount_storage_capacity',
+        ]
+
+    def _filter_sync_values(self, vals):
+        self.ensure_one()
+        if not self.sync:
+            return {}
+        sync_fields = self.get_sync_fields()
+        return {k: v for (k, v) in vals.items() if k in sync_fields}
 
 
 class MachineInstanceOsUser(models.Model):

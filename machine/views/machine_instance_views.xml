@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
-                <field name="fields_sync"/>
+                <field name="sync"/>
                 <field name="cpu_id"/>
                 <field name="os_id"/>
                 <field name="amount_storage_capacity"/>
@@ -27,7 +27,7 @@
                     <group>
                         <group name="options" string="Options">
                             <field name="name" />
-                            <field name="fields_sync"/>
+                            <field name="sync"/>
                             <field name="is_template" invisible="1"/>
                         </group>
                         <group name="parameters" string="Parameters">
@@ -41,7 +41,7 @@
                     </group>
                     <separator string="Machine Instances"/>
                     <field name="child_ids"
-                        context="{'tree_view_ref': 'machine.machine_instance_view_tree', 'form_view_ref': 'machine.machine_instance_view_form', 'default_is_template': False, 'default_fields_sync': fields_sync, 'default_parent_id': active_id, 'default_is_virtual': is_virtual, 'default_is_container': is_container, 'default_cpu_id': cpu_id, 'default_os_id': os_id, 'default_amount_storage_capacity': amount_storage_capacity, 'default_amount_ram': amount_ram}"/>
+                        context="{'tree_view_ref': 'machine.machine_instance_view_tree', 'form_view_ref': 'machine.machine_instance_view_form', 'default_is_template': False, 'default_sync': sync, 'default_parent_id': active_id, 'default_is_virtual': is_virtual, 'default_is_container': is_container, 'default_cpu_id': cpu_id, 'default_os_id': os_id, 'default_amount_storage_capacity': amount_storage_capacity, 'default_amount_ram': amount_ram}"/>
                 </sheet>
             </form>
         </field>
@@ -86,7 +86,7 @@
                 <field name="domain"/>
                 <field name="partner_id"/>
                 <field name="parent_id"/>
-                <field name="fields_sync"/>
+                <field name="sync"/>
                 <field name="cpu_id"/>
                 <field name="os_id"/>
                 <field name="amount_storage_capacity"/>
@@ -107,18 +107,20 @@
                     <group>
                         <group name="options" string="Options">
                             <field name="name" />
-                            <field name="partner_id"/>
-                            <field name="fields_sync"/>
-                            <field name="is_template" invisible="1"/>
+                            <field name="related_sync" invisible="1"/>
                             <field name="parent_id" required="1" context="{'form_view_ref': 'machine.machine_instance_template_view_form', 'default_is_template': True}"/>
+                            <field name="sync"
+                                attrs="{'invisible': [('related_sync', '=', False)]}"/>
+                            <field name="is_template" invisible="1"/>
+                            <field name="partner_id"/>
                         </group>
                         <group name="parameters" string="Parameters">
-                            <field name="cpu_id"/>
-                            <field name="os_id"/>
-                            <field name="amount_storage_capacity"/>
-                            <field name="amount_ram"/>
-                            <field name="is_virtual"/>
-                            <field name="is_container"/>
+                            <field name="cpu_id" attrs="{'readonly': [('sync', '=', True), ('related_sync', '=', True)]}"/>
+                            <field name="os_id" attrs="{'readonly': [('sync', '=', True), ('related_sync', '=', True)]}"/>
+                            <field name="amount_storage_capacity" attrs="{'readonly': [('sync', '=', True), ('related_sync', '=', True)]}"/>
+                            <field name="amount_ram" attrs="{'readonly': [('sync', '=', True), ('related_sync', '=', True)]}"/>
+                            <field name="is_virtual" attrs="{'readonly': [('sync', '=', True), ('related_sync', '=', True)]}"/>
+                            <field name="is_container" attrs="{'readonly': [('sync', '=', True), ('related_sync', '=', True)]}"/>
                             <field name="ip"/>
                             <field name="domain"/>
                         </group>
