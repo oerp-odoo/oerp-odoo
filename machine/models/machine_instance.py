@@ -74,10 +74,30 @@ class MachineInstance(models.Model):
 
     def _filter_sync_values(self, vals):
         self.ensure_one()
-        if not self.sync:
-            return {}
         sync_fields = self.get_sync_fields()
         return {k: v for (k, v) in vals.items() if k in sync_fields}
+
+    def _get_sync_instances(self):
+        """Return instances that can be synchronized with templates."""
+        templates = self.filtered(lambda r: r.sync)
+        return templates.mapped('child_ids').filtered(lambda r: r.sync)
+
+    def do_sync(self, vals):
+        """Synchronize template with instances.
+
+        vals here is expected to be coming from `write` method.
+        """
+        sync_instances = self._get_sync_instances()
+        if sync_instances:
+            vals_to_sync = self._filter_sync_values(vals)
+            sync_instances.write(vals_to_sync)
+
+    @api.multi
+    def write(self, vals):
+        """Extend to sync common fields with template and instances."""
+        res = super(MachineInstance, self).write(vals)
+        self.do_sync(vals)
+        return res
 
 
 class MachineInstanceOsUser(models.Model):

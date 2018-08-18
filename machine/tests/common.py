@@ -12,6 +12,8 @@ class TestMachineCommon(common.SavepointCase):
     def setUpClass(cls):
         """Set up common data for all test classes."""
         super(TestMachineCommon, cls).setUpClass()
+        # Models.
+        cls.MachineInstance = cls.env['machine.instance']
         # Production machine template.
         cls.machine_template_1 = cls.env.ref(
             'machine.machine_instance_template_1')  # sync
