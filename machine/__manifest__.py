@@ -14,7 +14,7 @@
     ],
     'data': [
         'security/machine_security.xml',
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'data/machine_cpu_data.xml',
         'data/machine_dbs_data.xml',
         'data/machine_os_data.xml',
