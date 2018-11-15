@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Author: Andrius Laukavičius. Copyright: Andrius Laukavičius.
 # See LICENSE file for full copyright and licensing details.
 {
@@ -20,6 +19,7 @@
         'data/machine_os_data.xml',
         'views/machine_menus.xml',
         'views/machine_instance_views.xml',
+        'views/machine_tag_views.xml',
         'views/machine_cpu_views.xml',
         'views/machine_os_views.xml',
         'views/machine_dbs_views.xml',

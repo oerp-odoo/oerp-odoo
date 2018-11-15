@@ -113,6 +113,7 @@
                                 attrs="{'invisible': [('related_sync', '=', False)]}"/>
                             <field name="is_template" invisible="1"/>
                             <field name="partner_id"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
                         </group>
                         <group name="parameters" string="Parameters">
                             <field name="cpu_id" attrs="{'readonly': [('sync', '=', True), ('related_sync', '=', True)]}"/>
@@ -132,8 +133,8 @@
                         <page name="os" string="Operating System Users" attrs="{'invisible': [('os_id', '=', False)]}">
                             <field name="os_user_ids">
                                 <tree string="OS Users" editable="bottom">
-                                    <field name="name"/>
                                     <field name="username"/>
+                                    <field name="name"/>
                                 </tree>
                             </field>
                         </page>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="machine_tag_view_tree" model="ir.ui.view">
+        <field name="name">machine.tag.tree</field>
+        <field name="model">machine.tag</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="parent_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="machine_tag_view_form" model="ir.ui.view">
+        <field name="name">machine.tag.form</field>
+        <field name="model">machine.tag</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group name="left">
+                            <field name="name"/>
+                        </group>
+                        <group name="right">
+                            <!-- Set domain to exclude self. -->
+                            <field name="parent_id" domain="[('id', '!=', id)]"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="machine_tag_action" model="ir.actions.act_window">
+        <field name="name">Tags</field>
+        <field name="res_model">machine.tag</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="machine_tag_menu" parent="machine_config_menu" action="machine_tag_action" sequence="100"/>
+</odoo>

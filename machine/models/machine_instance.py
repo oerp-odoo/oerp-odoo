@@ -41,7 +41,8 @@ class MachineInstance(models.Model):
         help="Partner that uses this machine instance.")
     ip = fields.Char("External IP")
     domain = fields.Char()
-    # Template only fields.
+    tag_ids = fields.Many2many('machine.tag', string="Tags")
+    # Fields used for template only.
     is_template = fields.Boolean("Is Template")
     sync = fields.Boolean(
         "Fields Synchronization",
@@ -105,8 +106,13 @@ class MachineInstanceOsUser(models.Model):
 
     _name = 'machine.instance.os_user'
     _description = 'Machine Instance OS Users'
+    _rec_name = 'username'
 
     name = fields.Char("Name and Surname")
     username = fields.Char("Username", required=True)
     machine_instance_id = fields.Many2one(
         'machine.instance', "Machine Instance", required=True,)
+
+    _sql_constraints = [
+        ('username_uniq', 'unique (username)', "Username already exists !"),
+    ]
