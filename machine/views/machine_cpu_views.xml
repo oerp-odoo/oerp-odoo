@@ -75,6 +75,7 @@
                             <field name="name"/>
                         </group>
                         <group name="right">
+                            <field name="cpu_vendor_id"/>
                         </group>
                     </group>
                 </sheet>

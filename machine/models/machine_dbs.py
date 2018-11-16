@@ -1,4 +1,6 @@
-from odoo import models, fields, _
+from odoo import models, fields, api, _
+
+from ..utils import generate_name_get
 
 
 class MachineDbsInstance(models.Model):
@@ -64,6 +66,11 @@ class MachineDbs(models.Model):
             _('The name must be unique per Database Name !')
         ),
     ]
+
+    @api.depends('name', 'dbs_name_id.name')
+    def name_get(self):
+        """Override to show custom display_name."""
+        return generate_name_get('{dbs_name_id.name} {name}', self)
 
 
 class MachineDbsName(models.Model):

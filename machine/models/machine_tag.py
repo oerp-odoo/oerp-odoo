@@ -1,6 +1,8 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
+from ..utils import generate_name_get
+
 
 class MachineTag(models.Model):
     """Model to segment machines by tags."""
@@ -23,14 +25,7 @@ class MachineTag(models.Model):
             raise ValidationError(
                 _('Error! You cannot create recursive tags.'))
 
-    @api.multi
-    @api.depends('name', 'parent_id')
+    @api.depends('name', 'parent_id.name')
     def name_get(self):
-        """Override to show parent_id name if one is set."""
-        res = []
-        for rec in self:
-            name = rec.name
-            if rec.parent_id:
-                name = "%s / %s" % (rec.parent_id.name, rec.name)
-            res.append((rec.id, name))
-        return res
+        """Override to show custom display_name."""
+        return generate_name_get('{parent_id.name} / {name}', self)

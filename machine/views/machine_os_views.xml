@@ -71,6 +71,7 @@
                             <field name="name"/>
                         </group>
                         <group name="right">
+                            <field name="os_type_id"/>
                         </group>
                     </group>
                 </sheet>

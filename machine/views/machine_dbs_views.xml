@@ -79,9 +79,9 @@
                     <group>
                         <group name="left">
                             <field name="name"/>
-                            <field name="dbs_name_id"/>
                         </group>
                         <group name="right">
+                            <field name="dbs_name_id"/>
                         </group>
                     </group>
                 </sheet>

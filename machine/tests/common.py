@@ -30,3 +30,5 @@ class TestMachineCommon(common.SavepointCase):
         # Experimental machine instance.
         cls.mit_2_1 = cls.env.ref(
             'machine.machine_instance_template_2_instance_1')  # no sync
+        # ASUSTeK
+        cls.partner_1 = cls.env.ref('base.res_partner_1')

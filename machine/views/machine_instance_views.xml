@@ -113,6 +113,7 @@
                                 attrs="{'invisible': [('related_sync', '=', False)]}"/>
                             <field name="is_template" invisible="1"/>
                             <field name="partner_id"/>
+                            <field name="partner_contact_id"/>
                             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
                         </group>
                         <group name="parameters" string="Parameters">

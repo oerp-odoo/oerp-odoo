@@ -1,4 +1,6 @@
-from odoo import models, fields
+from odoo import models, fields, api
+
+from ..utils import generate_name_get
 
 
 class MachineCpu(models.Model):
@@ -13,6 +15,14 @@ class MachineCpu(models.Model):
     cores = fields.Integer(required=True, default=2)
     clockspeed = fields.Float("Clockspeed in GHz", required=True)
 
+    @api.depends(
+        'name', 'cpu_brand_id.name', 'cpu_brand_id.cpu_vendor_id.name')
+    def name_get(self):
+        """Override to show custom display_name."""
+        pattern = (
+            '{cpu_brand_id.cpu_vendor_id.name} {cpu_brand_id.name} {name}')
+        return generate_name_get(pattern, self)
+
 
 class MachineCpuBrand(models.Model):
     """Model to show CPU brands."""
@@ -23,6 +33,12 @@ class MachineCpuBrand(models.Model):
     name = fields.Char(required=True,)
     cpu_vendor_id = fields.Many2one(
         'machine.cpu.vendor', "CPU Vendor", required=True)
+
+    @api.depends(
+        'name', 'cpu_vendor_id.name')
+    def name_get(self):
+        """Override to show custom display_name."""
+        return generate_name_get('{cpu_vendor_id.name} {name}', self)
 
 
 class MachineCpuVendor(models.Model):

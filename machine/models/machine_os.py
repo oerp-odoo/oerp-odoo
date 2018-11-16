@@ -1,4 +1,6 @@
-from odoo import models, fields, _
+from odoo import models, fields, api, _
+
+from ..utils import generate_name_get
 
 
 class MachineOs(models.Model):
@@ -17,6 +19,11 @@ class MachineOs(models.Model):
             _('The name must be unique per OS Name !')
         ),
     ]
+
+    @api.depends('name', 'os_name_id.name')
+    def name_get(self):
+        """Override to show custom display_name."""
+        return generate_name_get('{os_name_id.name} {name}', self)
 
 
 class MachineOsName(models.Model):
@@ -38,6 +45,11 @@ class MachineOsName(models.Model):
             _('The name must be unique per OS Type !')
         ),
     ]
+
+    @api.depends('name', 'os_type_id.name')
+    def name_get(self):
+        """Override to show custom display_name."""
+        return generate_name_get('{os_type_id.name} {name}', self)
 
 
 class MachineOsType(models.Model):

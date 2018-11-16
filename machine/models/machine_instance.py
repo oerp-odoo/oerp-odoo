@@ -39,6 +39,11 @@ class MachineInstance(models.Model):
         'res.partner',
         "Partner",
         help="Partner that uses this machine instance.")
+    partner_contact_id = fields.Many2one(
+        'res.partner',
+        "Contact",
+        help="Contact which email will be used when communicating about "
+        "machine.")
     ip = fields.Char("External IP")
     domain = fields.Char()
     tag_ids = fields.Many2many('machine.tag', string="Tags")
@@ -53,6 +58,15 @@ class MachineInstance(models.Model):
         related='parent_id.sync',
         help="Technical field: used to check if sync option\nis enabled on "
         "template from machine instance.")
+
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        if self.partner_id:
+            addr = self.partner_id.address_get(['contact'])
+            self.partner_contact_id = (
+                addr.get('contact') or self.partner_id.id)
+        else:
+            self.partner_contact_id = False
 
     @api.model
     def get_sync_fields(self):
