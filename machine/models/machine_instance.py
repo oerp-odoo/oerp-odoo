@@ -35,6 +35,7 @@ class MachineInstance(models.Model):
         'parent_id',
         "Machine Instances",
         domain=[('is_template', '=', False)])
+    active = fields.Boolean(default=True)
     partner_id = fields.Many2one(
         'res.partner',
         "Partner",
