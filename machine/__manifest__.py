@@ -9,7 +9,7 @@
     'website': "https://github.com/oerp-odoo",
     'category': 'Extra Tools',
     'depends': [
-        'base'
+        'mail'
     ],
     'data': [
         'security/machine_security.xml',

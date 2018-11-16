@@ -133,6 +133,17 @@
                         </group>
                     </group>
                     <notebook>
+                        <page name="change_log" string="Changes Log">
+                            <field name="change_log_ids">
+                                <tree editable="bottom">
+                                    <field name="name" attrs="{'readonly': [('id', '!=', False)]}"/>
+                                    <field name="date" attrs="{'readonly': [('id', '!=', False)]}"/>
+                                    <field name="duration" attrs="{'readonly': [('id', '!=', False)]}"/>
+                                    <field name="user_id" attrs="{'readonly': [('id', '!=', False)]}"/>
+                                    <field name="priority" attrs="{'readonly': [('id', '!=', False)]}"/>
+                                </tree>
+                            </field>
+                        </page>
                         <page name="dbs" string="Database Systems">
                             <field name="dbs_instance_ids"/>
                         </page>

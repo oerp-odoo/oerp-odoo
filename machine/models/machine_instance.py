@@ -11,6 +11,7 @@ class MachineInstance(models.Model):
 
     _name = 'machine.instance'
     _description = 'Machine Instance'
+    # TODO: use 'mail.alias.mixin', 'mail.thread'.
 
     name = fields.Char(required=True)
     is_virtual = fields.Boolean(default=True)
@@ -23,6 +24,8 @@ class MachineInstance(models.Model):
         'machine.dbs.instance',
         'machine_instance_id',
         "Database System Instances")
+    change_log_ids = fields.One2many(
+        'machine.instance.change_log', 'machine_instance_id', "Change Log")
     amount_storage_capacity = fields.Float(
         "Storage Capacity (GB)")
     amount_ram = fields.Float("RAM (GB)")
@@ -114,6 +117,32 @@ class MachineInstance(models.Model):
         res = super(MachineInstance, self).write(vals)
         self.do_sync(vals)
         return res
+
+
+class MachineInstanceChangeLog(models.Model):
+    """Model to specify changes that occurred for specific instance."""
+
+    _name = 'machine.instance.change_log'
+    _description = 'Machine Instance Change Log'
+    _order = 'date'
+
+    name = fields.Char(
+        "Description", required=True, help="Change description")
+    machine_instance_id = fields.Many2one(
+        'machine.instance', "Machine Instance", required=True)
+    date = fields.Datetime(
+        required=True,
+        help="When change happened or specify date it is being planned "
+        "to be changed in advance)")
+    duration = fields.Float(required=True, default=1)
+    user_id = fields.Many2one('res.users', "Responsible")
+    priority = fields.Selection(
+        [(1, 'Low'), (2, 'Normal'), (3, 'High')],
+        default=2,
+        required=True,
+        help="How important is the change. "
+        "Low can be treated as wishlist change\n. Normal as regularly planned"
+        " change. High as emergency when something needs to be fixed fast.")
 
 
 class MachineInstanceOsUser(models.Model):
