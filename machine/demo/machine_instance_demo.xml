@@ -42,6 +42,8 @@
         <field name="amount_storage_capacity" eval="50"/>
         <field name="amount_ram" eval="8"/>
         <field name="partner_id" ref="base.res_partner_2"/>
+        <field name="partner_contact_id" ref="base.res_partner_address_4"/>
+        <field name="user_id" ref="base.user_demo"/>
         <field name="sync" eval="True"/>
         <field name="is_template" eval="False"/>
         <field name="parent_id" ref="machine_instance_template_1"/>
@@ -55,6 +57,7 @@
         <field name="amount_storage_capacity" eval="30"/>
         <field name="amount_ram" eval="8"/>
         <field name="partner_id" ref="base.res_partner_3"/>
+        <field name="partner_contact_id" ref="base.res_partner_5"/>
         <field name="sync" eval="False"/>
         <field name="is_template" eval="False"/>
         <field name="parent_id" ref="machine_instance_template_1"/>
@@ -69,6 +72,7 @@
         <field name="amount_storage_capacity" eval="40"/>
         <field name="amount_ram" eval="4"/>
         <field name="partner_id" ref="base.res_partner_4"/>
+        <field name="partner_contact_id" ref="base.res_partner_address_13"/>
         <field name="sync" eval="False"/>
         <field name="is_template" eval="True"/>
         <field name="is_template" eval="False"/>

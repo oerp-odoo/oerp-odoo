@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="machine_group_view_tree" model="ir.ui.view">
+        <field name="name">machine.group.tree</field>
+        <field name="model">machine.group</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="machine_group_view_form" model="ir.ui.view">
+        <field name="name">machine.group.form</field>
+        <field name="model">machine.group</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group name="left">
+                            <field name="name"/>
+                        </group>
+                        <group name="right">
+                            <field name="machine_instance_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="machine_group_action" model="ir.actions.act_window">
+        <field name="name">Groups</field>
+        <field name="res_model">machine.group</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="machine_group_menu" parent="machine_config_menu" action="machine_group_action" sequence="90"/>
+</odoo>

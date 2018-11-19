@@ -32,3 +32,16 @@ class TestMachineCommon(common.SavepointCase):
             'machine.machine_instance_template_2_instance_1')  # no sync
         # ASUSTeK
         cls.partner_1 = cls.env.ref('base.res_partner_1')
+        # Agrolait
+        cls.partner_2 = cls.env.ref('base.res_partner_2')
+        # Agrolait, Michel Fletcher
+        cls.partner_address_4 = cls.env.ref('base.res_partner_address_4')
+        # China Export
+        cls.partner_3 = cls.env.ref('base.res_partner_3')
+        # China Export, Chao Wang
+        cls.partner_address_5 = cls.env.ref('base.res_partner_address_5')
+        # Delta PC.
+        cls.partner_4 = cls.env.ref('base.res_partner_4')
+        # Delta PC, Charlie Bernard
+        cls.partner_address_13 = cls.env.ref('base.res_partner_address_13')
+        cls.partner_demo = cls.env.ref('base.user_demo_res_partner')

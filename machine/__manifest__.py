@@ -19,6 +19,7 @@
         'data/machine_os_data.xml',
         'views/machine_menus.xml',
         'views/machine_instance_views.xml',
+        'views/machine_group_views.xml',
         'views/machine_tag_views.xml',
         'views/machine_cpu_views.xml',
         'views/machine_os_views.xml',
@@ -28,6 +29,7 @@
     'demo': [
         'demo/machine_cpu_demo.xml',
         'demo/machine_instance_demo.xml',
+        'demo/machine_group_demo.xml',
     ],
     'application': True,
 }

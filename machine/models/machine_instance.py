@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 
 class MachineInstance(models.Model):
@@ -10,8 +10,8 @@ class MachineInstance(models.Model):
     """
 
     _name = 'machine.instance'
+    _inherit = 'mail.thread'
     _description = 'Machine Instance'
-    # TODO: use 'mail.alias.mixin', 'mail.thread'.
 
     name = fields.Char(required=True)
     is_virtual = fields.Boolean(default=True)
@@ -48,9 +48,16 @@ class MachineInstance(models.Model):
         "Contact",
         help="Contact which email will be used when communicating about "
         "machine.")
+    user_id = fields.Many2one('res.users', "Responsible")
     ip = fields.Char("External IP")
     domain = fields.Char()
     tag_ids = fields.Many2many('machine.tag', string="Tags")
+    machine_group_ids = fields.Many2many(
+        'machine.group',
+        'machine_group_machine_instance_rel',
+        'instance_id',
+        'group_id',
+        string="Machine Groups")
     # Fields used for template only.
     is_template = fields.Boolean("Is Template")
     sync = fields.Boolean(
@@ -116,6 +123,34 @@ class MachineInstance(models.Model):
         """Extend to sync common fields with template and instances."""
         res = super(MachineInstance, self).write(vals)
         self.do_sync(vals)
+        return res
+
+    # mail.thread specific.
+    @api.multi
+    def message_get_suggested_recipients(self):
+        """Add suggested recipients for machine.instance model."""
+        recipients = super(
+            MachineInstance, self).message_get_suggested_recipients()
+        for rec in self.filtered(lambda r: r.partner_contact_id):
+            rec._message_add_suggested_recipient(
+                recipients,
+                partner=rec.partner_contact_id,
+                reason=_("Partner Contact"))
+        return recipients
+
+    @api.multi
+    def message_get_default_recipients(self):
+        """Get default recipients using machine.instance model."""
+        res = {}
+        for rec in self:
+            email_cc = rec.user_id.partner_id.email
+            partner_contact_id = rec.partner_contact_id.id
+            res[rec.id] = {
+                'partner_ids': [
+                    partner_contact_id] if partner_contact_id else [],
+                'email_to': False,
+                'email_cc': email_cc
+            }
         return res
 
 

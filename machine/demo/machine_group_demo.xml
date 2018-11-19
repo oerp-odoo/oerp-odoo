@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="machine_group_1" model="machine.group">
+        <field name="name">Production</field>
+        <field name="machine_instance_ids"
+            eval="[(6, 0, [ref('machine_instance_template_1_instance_1'), ref('machine_instance_template_1_instance_2'), ref('machine_instance_template_1_instance_3')])]"/>
+    </record>
+    <record id="machine_group_2" model="machine.group">
+        <field name="name">Test</field>
+        <field name="machine_instance_ids"
+            eval="[(6, 0, [ref('machine_instance_template_2_instance_1')])]"/>
+    </record>
+</odoo>
