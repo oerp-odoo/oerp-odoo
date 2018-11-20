@@ -14,6 +14,7 @@ class TestMachineCommon(common.SavepointCase):
         super(TestMachineCommon, cls).setUpClass()
         # Models.
         cls.MachineInstance = cls.env['machine.instance']
+        cls.ResPartner = cls.env['res.partner']
         # Production machine template.
         cls.machine_template_1 = cls.env.ref(
             'machine.machine_instance_template_1')  # sync
@@ -45,3 +46,6 @@ class TestMachineCommon(common.SavepointCase):
         # Delta PC, Charlie Bernard
         cls.partner_address_13 = cls.env.ref('base.res_partner_address_13')
         cls.partner_demo = cls.env.ref('base.user_demo_res_partner')
+        # Machine Groups.
+        cls.machine_group_1 = cls.env.ref('machine.machine_group_1')
+        cls.machine_group_2 = cls.env.ref('machine.machine_group_2')

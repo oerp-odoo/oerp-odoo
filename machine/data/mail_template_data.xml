@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="mail_template_planned_machine_change" model="mail.template">
+        <field name="name">Machine Instance - Scheduled Change</field>
+        <field name="email_from"></field>
+        <field name="subject">Scheduled maintenance for ${object.get_machine_name()} (${object.name}).</field>
+        <field name="partner_to"></field>
+        <field name="model_id" ref="machine.model_machine_instance_change_log"/>
+        <field name="lang">${object.machine_instance_id.partner_id.lang}</field>
+        <field name="body_html"><![CDATA[<p>Dear Customer,</p><p>at ${object.date} we will do scheduled maintenance for environment you are using (${object.get_machine_name()}).</p><p>Maintenance estimated duration is ${object.duration} hour(s). If you have any questions or issues with this maintenance, please reply to this email.</p>]]></field>
+    </record>
+</odoo>

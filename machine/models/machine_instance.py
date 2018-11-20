@@ -1,5 +1,7 @@
 from odoo import models, fields, api, _
 
+PRIORITY = [(1, 'Low'), (2, 'Normal'), (3, 'High')]
+
 
 class MachineInstance(models.Model):
     """Machine instance to create specific environment used.
@@ -143,13 +145,12 @@ class MachineInstance(models.Model):
         """Get default recipients using machine.instance model."""
         res = {}
         for rec in self:
-            email_cc = rec.user_id.partner_id.email
             partner_contact_id = rec.partner_contact_id.id
             res[rec.id] = {
                 'partner_ids': [
                     partner_contact_id] if partner_contact_id else [],
                 'email_to': False,
-                'email_cc': email_cc
+                'email_cc': False
             }
         return res
 
@@ -169,15 +170,25 @@ class MachineInstanceChangeLog(models.Model):
         required=True,
         help="When change happened or specify date it is being planned "
         "to be changed in advance)")
-    duration = fields.Float(required=True, default=1)
+    duration = fields.Float(required=True, default=1.0)
     user_id = fields.Many2one('res.users', "Responsible")
     priority = fields.Selection(
-        [(1, 'Low'), (2, 'Normal'), (3, 'High')],
+        PRIORITY,
         default=2,
         required=True,
         help="How important is the change. "
         "Low can be treated as wishlist change\n. Normal as regularly planned"
         " change. High as emergency when something needs to be fixed fast.")
+
+    # Helper methods for email template.
+    def get_machine_name(self):
+        """Retrieve machine name used for customer.
+
+        We use this order: domain -> IP -> Machine Name.
+        """
+        self.ensure_one()
+        machine = self.machine_instance_id
+        return machine.domain or machine.ip or machine.name
 
 
 class MachineInstanceOsUser(models.Model):

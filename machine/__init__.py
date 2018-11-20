@@ -1,2 +1,2 @@
-from . import models, utils
-__all__ = ['models', 'utils']
+from . import models, wizards, utils
+__all__ = ['models', 'wizards', 'utils']

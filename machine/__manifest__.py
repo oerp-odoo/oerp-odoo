@@ -17,6 +17,7 @@
         'data/machine_cpu_data.xml',
         'data/machine_dbs_data.xml',
         'data/machine_os_data.xml',
+        'data/mail_template_data.xml',
         'views/machine_menus.xml',
         'views/machine_instance_views.xml',
         'views/machine_group_views.xml',
