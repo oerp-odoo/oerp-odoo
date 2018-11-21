@@ -176,6 +176,7 @@ class TestMachineEmail(common.TestMachineCommon):
                 cl.duration,
                 cl.name,
                 cl.priority,
+                cl.user_id,
                 cl.machine_instance_id
             ),
             dest_tuple
@@ -248,6 +249,7 @@ class TestMachineEmail(common.TestMachineCommon):
                 self.wizard.duration,
                 self.wizard.sub_subject,
                 self.wizard.priority,
+                self.wizard.user_id,
                 self.mit_1_2
             )
         )
@@ -268,6 +270,7 @@ class TestMachineEmail(common.TestMachineCommon):
                 self.wizard.duration,
                 self.wizard.sub_subject,
                 self.wizard.priority,
+                self.wizard.user_id,
                 self.mit_1_3
             )
         )

@@ -26,6 +26,7 @@
         'views/machine_os_views.xml',
         'views/machine_dbs_views.xml',
         'views/res_partner_views.xml',
+        'wizards/machine_email_views.xml',
     ],
     'demo': [
         'demo/machine_cpu_demo.xml',

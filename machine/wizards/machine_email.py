@@ -22,6 +22,8 @@ class MachineEmail(models.TransientModel):
         'mail.template',
         "Mail Template",
         domain=[('model_id.model', '=', 'machine.instance.change_log')])
+    # Fields uses when creating change log record.
+    user_id = fields.Many2one('res.users', "Responsible")
     priority = fields.Selection(
         PRIORITY,
         default=2)
@@ -32,7 +34,7 @@ class MachineEmail(models.TransientModel):
     body = fields.Html(
         "Contents", default='', sanitize_style=True, strip_classes=True)
     date = fields.Datetime(default=fields.Datetime.now)
-    duration = fields.Float()
+    duration = fields.Float(default=1.0)
 
     @api.one
     def check_recipients(self):
@@ -52,7 +54,7 @@ class MachineEmail(models.TransientModel):
             if not self.subject:
                 raise UserError(_("Subject is required to send an email."))
             if not self.body:
-                raise UserError(_("Content is required to send an email."))
+                raise UserError(_("Contents is required to send an email."))
         elif self.email_type == 'scheduled':
             if not self.date:
                 raise UserError(_("Date is required to send an email."))
@@ -64,7 +66,7 @@ class MachineEmail(models.TransientModel):
                 raise UserError(_("Sub Subject is required to send an email."))
             if not self.mail_template_id:
                 raise UserError(
-                    _("Maiil Template is required to send an email."))
+                    _("Mail Template is required to send an email."))
 
     @api.onchange('machine_group_ids')
     def _onchange_machine_group_ids(self):
@@ -134,11 +136,11 @@ class MachineEmailRecipient(models.TransientModel):
     def _add_change_log(self):
         """Create change log record and relate with recipient."""
         wiz = self.machine_email_id
-        # TODO: add user_id?
         change_log = self.env['machine.instance.change_log'].create({
             'name': wiz.sub_subject,
             'date': wiz.date,
             'duration': wiz.duration,
+            'user_id': wiz.user_id.id,
             'priority': wiz.priority,
             'machine_instance_id': self.machine_instance_id.id,
 

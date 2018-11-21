@@ -10,6 +10,10 @@
         name="Machines"
         parent="machine_root_menu"
         sequence="1"/>
+    <menuitem id="machine_action_menu"
+        name="Actions"
+        parent="machine_root_menu"
+        sequence="2"/>
     <menuitem id="machine_config_menu"
         name="Configuration"
         parent="machine_root_menu"

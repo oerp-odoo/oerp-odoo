@@ -150,7 +150,7 @@ class MachineInstance(models.Model):
                 'partner_ids': [
                     partner_contact_id] if partner_contact_id else [],
                 'email_to': False,
-                'email_cc': False
+                'email_cc': rec.user_id.partner_id.email
             }
         return res
 
@@ -169,7 +169,7 @@ class MachineInstanceChangeLog(models.Model):
     date = fields.Datetime(
         required=True,
         help="When change happened or specify date it is being planned "
-        "to be changed in advance)")
+        "to be changed in advance")
     duration = fields.Float(required=True, default=1.0)
     user_id = fields.Many2one('res.users', "Responsible")
     priority = fields.Selection(
