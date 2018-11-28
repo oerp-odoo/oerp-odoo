@@ -1,8 +1,6 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
-from ..utils import generate_name_get
-
 
 class MachineTag(models.Model):
     """Model to segment machines by tags."""
@@ -28,4 +26,18 @@ class MachineTag(models.Model):
     @api.depends('name', 'parent_id.name')
     def name_get(self):
         """Override to show custom display_name."""
-        return generate_name_get('{parent_id.name} / {name}', self)
+        def get_parent_name(parent):
+            while parent.parent_id:
+                parent = parent.parent_id
+                yield parent.name
+
+        res = []
+        for rec in self:
+            # Include current record name.
+            names = [rec.name]
+            for parent_name in get_parent_name(rec):
+                names.append(parent_name)
+            # We reverse names list, because we display most parent
+            # names first.
+            res.append((rec.id, ' / '.join(reversed(names))))
+        return res

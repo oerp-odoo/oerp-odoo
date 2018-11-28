@@ -26,7 +26,7 @@ class MachineDbsInstance(models.Model):
     amount_databases = fields.Integer("Databases Count")
 
 
-class MachineInstanceDbsUser(models.Model):
+class MachineDbsInstanceUser(models.Model):
     """Model representing database system users on instance."""
 
     _name = 'machine.dbs.instance.user'
@@ -38,7 +38,7 @@ class MachineInstanceDbsUser(models.Model):
         'machine.dbs.instance', "Database System Instance")
 
 
-class MachineInstanceDbsDatabase(models.Model):
+class MachineDbsInstanceDatabase(models.Model):
     """Model representing database for database system instance."""
 
     _name = 'machine.dbs.instance.database'

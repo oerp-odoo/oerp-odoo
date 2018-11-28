@@ -34,7 +34,7 @@ class MachineEmail(models.TransientModel):
     body = fields.Html(
         "Contents", default='', sanitize_style=True, strip_classes=True)
     date = fields.Datetime(default=fields.Datetime.now)
-    duration = fields.Float(default=1.0)
+    duration = fields.Float(default=1.0, help="In Hours")
 
     @api.one
     def check_recipients(self):
@@ -50,23 +50,20 @@ class MachineEmail(models.TransientModel):
     @api.one
     def check_message(self):
         """Check fields for message."""
-        if self.email_type == 'general':
-            if not self.subject:
-                raise UserError(_("Subject is required to send an email."))
-            if not self.body:
-                raise UserError(_("Contents is required to send an email."))
-        elif self.email_type == 'scheduled':
-            if not self.date:
-                raise UserError(_("Date is required to send an email."))
-            if not self.duration:
-                raise UserError(_("Duration is required to send an email."))
-            if not self.priority:
-                raise UserError(_("Priority is required to send an email."))
-            if not self.sub_subject:
-                raise UserError(_("Sub Subject is required to send an email."))
-            if not self.mail_template_id:
+        def check(fld_key):
+            if not self[fld_key]:
+                string = self._fields[fld_key].string
                 raise UserError(
-                    _("Mail Template is required to send an email."))
+                    _("%s field required to send an email.") % string)
+        if self.email_type == 'general':
+            check('subject')
+            check('body')
+        elif self.email_type == 'scheduled':
+            check('date')
+            check('duration')
+            check('priority')
+            check('sub_subject')
+            check('mail_template_id')
 
     @api.onchange('machine_group_ids')
     def _onchange_machine_group_ids(self):

@@ -25,7 +25,7 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <group>
+                    <group name="main">
                         <group name="left">
                             <field name="name"/>
                             <field name="cpu_brand_id"/>

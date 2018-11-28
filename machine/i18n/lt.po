@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-21 08:56+0000\n"
-"PO-Revision-Date: 2018-11-21 08:56+0000\n"
+"POT-Creation-Date: 2018-11-29 14:57+0000\n"
+"PO-Revision-Date: 2018-11-29 14:57+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,9 +22,15 @@ msgid "%s Machine recipient is missing Partners set."
 msgstr "%s nenurodyti partneriai mašinos gavėjui."
 
 #. module: machine
+#: code:addons/machine/wizards/machine_email.py:57
+#, python-format
+msgid "%s field required to send an email."
+msgstr "%s laukas yra privalomas, kad išsiųsti laišką."
+
+#. module: machine
 #: model:mail.template,body_html:machine.mail_template_planned_machine_change
 msgid "<p>Dear Customer,</p><p>at ${object.date} we will do scheduled maintenance for environment you are using (${object.get_machine_name()}).</p><p>Maintenance estimated duration is ${object.duration} hour(s). If you have any questions or issues with this maintenance, please reply to this email.</p>"
-msgstr "<p>Dear Customer,</p><p>at ${object.date} we will do scheduled maintenance for environment you are using (${object.get_machine_name()}).</p><p>Maintenance estimated duration is ${object.duration} hour(s). If you have any questions or issues with this maintenance, please reply to this email.</p>"
+msgstr "<p>Gerbiamas kliente,</p><p>${object.date} bus atliekami suplanuoti aptarnavimo darbai aplinkai, kuria naudojatės (${object.get_machine_name()}).</p><p>Aptarnavimo planuojama trukmė yra ${object.duration} valanda (-os). Jeigu turite klausimų ar iškilo bėdų dėl šio aptarnavimo, prašome atrašyti į šį laišką.</p>"
 
 #. module: machine
 #: model:ir.ui.menu,name:machine.machine_action_menu
@@ -85,17 +91,17 @@ msgstr "Central Processing Units"
 #: model:ir.model.fields,field_description:machine.field_machine_email_recipient_change_log_id
 #: model:ir.model.fields,field_description:machine.field_machine_instance_change_log_ids
 msgid "Change Log"
-msgstr "Pakeitimų logas"
+msgstr "Pakeitimo istorija"
 
 #. module: machine
 #: model:ir.model.fields,help:machine.field_machine_instance_change_log_name
 msgid "Change description"
-msgstr "Change description"
+msgstr "Pakeitimo aprašymas"
 
 #. module: machine
 #: model:ir.ui.view,arch_db:machine.machine_instance_view_form
 msgid "Changes Log"
-msgstr "Pakeitimų logas"
+msgstr "Pakeitimų istorija"
 
 #. module: machine
 #: model:ir.model.fields,field_description:machine.field_machine_cpu_clockspeed
@@ -121,13 +127,7 @@ msgstr "Kontaktas"
 #. module: machine
 #: model:ir.model.fields,help:machine.field_machine_instance_partner_contact_id
 msgid "Contact which email will be used when communicating about machine."
-msgstr "Kontaktas, kurio e-paštas bus naudojamas komunikacijai apie mašiną."
-
-#. module: machine
-#: code:addons/machine/wizards/machine_email.py:57
-#, python-format
-msgid "Contents is required to send an email."
-msgstr "Turinys privalomas, kad išsiųsti laišką."
+msgstr "Kontaktas, kurio el. paštas bus naudojamas komunikacijai apie mašiną."
 
 #. module: machine
 #: model:ir.model.fields,field_description:machine.field_machine_email_body
@@ -249,12 +249,6 @@ msgid "Date"
 msgstr "Data"
 
 #. module: machine
-#: code:addons/machine/wizards/machine_email.py:60
-#, python-format
-msgid "Date is required to send an email."
-msgstr "Data yra privaloma, kad išsiųsti laišką."
-
-#. module: machine
 #: model:ir.model.fields,field_description:machine.field_machine_instance_change_log_name
 msgid "Description"
 msgstr "Aprašymas"
@@ -293,18 +287,12 @@ msgid "Duration"
 msgstr "Trukmė"
 
 #. module: machine
-#: code:addons/machine/wizards/machine_email.py:62
-#, python-format
-msgid "Duration is required to send an email."
-msgstr "Trukmė yra privaloma, kad išsiųsti laišką."
-
-#. module: machine
 #: model:ir.model.fields,field_description:machine.field_machine_email_email_type
 msgid "Email Type"
 msgstr "Email Type"
 
 #. module: machine
-#: code:addons/machine/models/machine_tag.py:26
+#: code:addons/machine/models/machine_tag.py:24
 #, python-format
 msgid "Error! You cannot create recursive tags."
 msgstr "Klaida! Negalima kurti rekusyvių žymų."
@@ -381,6 +369,12 @@ msgid "If set, specified fields will be synced using template.\n"
 "In this mode, those fields can't be edited on instance."
 msgstr "Jeigu nustatyta, nurodyti laukai bus sinchronizuoti su šablonu.\n"
 "Šiame rėžime, tie laukai negali būti redaguojami per instanciją."
+
+#. module: machine
+#: model:ir.model.fields,help:machine.field_machine_email_duration
+#: model:ir.model.fields,help:machine.field_machine_instance_change_log_duration
+msgid "In Hours"
+msgstr "Valandomis"
 
 #. module: machine
 #: model:ir.model.fields,field_description:machine.field_machine_instance_is_container
@@ -497,7 +491,7 @@ msgstr "Machine Database System Name"
 #. module: machine
 #: model:ir.model.fields,field_description:machine.field_machine_email_recipient_machine_email_id
 msgid "Machine Email"
-msgstr "Mašinos e-paštas"
+msgstr "Mašinos el. paštas"
 
 #. module: machine
 #: model:ir.model,name:machine.model_machine_email_recipient
@@ -527,7 +521,7 @@ msgstr "Mašinos instancija"
 #. module: machine
 #: model:ir.model,name:machine.model_machine_instance_change_log
 msgid "Machine Instance Change Log"
-msgstr "Mašinos instancijos pakeitimų logas"
+msgstr "Mašinos instancijos pakeitimų istorija"
 
 #. module: machine
 #: model:ir.model.fields,field_description:machine.field_res_partner_machine_instance_count
@@ -605,12 +599,6 @@ msgstr "Mašinos šablonas"
 #: model:ir.ui.view,arch_db:machine.view_partner_form_inherit
 msgid "Machines"
 msgstr "Mašinos"
-
-#. module: machine
-#: code:addons/machine/wizards/machine_email.py:69
-#, python-format
-msgid "Mail Template is required to send an email."
-msgstr "E-pašto šablonas yra privalomas, kad išsiųsti laišką."
 
 #. module: machine
 #: model:ir.model.fields,field_description:machine.field_machine_email_mail_template_id
@@ -752,13 +740,7 @@ msgid "Priority"
 msgstr "Svarbumas"
 
 #. module: machine
-#: code:addons/machine/wizards/machine_email.py:64
-#, python-format
-msgid "Priority is required to send an email."
-msgstr "Prioritetas yra privalomas, kad išsiųsti laišką."
-
-#. module: machine
-#: code:addons/machine/wizards/machine_email.py:168
+#: code:addons/machine/wizards/machine_email.py:165
 #, python-format
 msgid "Programming error: %s email_type does not exist"
 msgstr "Programavimo klaida: %s email_type neegzistuoja"
@@ -795,12 +777,12 @@ msgstr "Scheduled maintenance for ${object.get_machine_name()} (${object.name}).
 #: model:ir.ui.menu,name:machine.machine_email_menu
 #: model:ir.ui.view,arch_db:machine.machine_email_view_form
 msgid "Send Emails"
-msgstr "Siųsti e-laiškus"
+msgstr "Siųsti el. laiškus"
 
 #. module: machine
 #: model:ir.model,name:machine.model_machine_email
 msgid "Send Emails to Machine Contacts"
-msgstr "Siųsti e-laiškus mašinų kontaktams"
+msgstr "Siųsti el. laiškus mašinų kontaktams"
 
 #. module: machine
 #: model:ir.model.fields,field_description:machine.field_machine_instance_amount_storage_capacity
@@ -813,21 +795,9 @@ msgid "Sub Subject"
 msgstr "Sub tema"
 
 #. module: machine
-#: code:addons/machine/wizards/machine_email.py:66
-#, python-format
-msgid "Sub Subject is required to send an email."
-msgstr "Sub tema yra privaloma, norint išsiųsti laišką."
-
-#. module: machine
 #: model:ir.model.fields,field_description:machine.field_machine_email_subject
 msgid "Subject"
 msgstr "Tema"
-
-#. module: machine
-#: code:addons/machine/wizards/machine_email.py:55
-#, python-format
-msgid "Subject is required to send an email."
-msgstr "Tema yra privaloma, norint išsiųsti laišką."
 
 #. module: machine
 #: sql_constraint:machine.tag:0
@@ -889,7 +859,7 @@ msgstr "Vartotojas"
 #: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user_username
 #: model:ir.model.fields,field_description:machine.field_machine_instance_os_user_username
 msgid "Username"
-msgstr "Vartotojo vardas"
+msgstr "Naudotojo vardas"
 
 #. module: machine
 #: sql_constraint:machine.instance.os_user:0

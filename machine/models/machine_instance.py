@@ -170,7 +170,7 @@ class MachineInstanceChangeLog(models.Model):
         required=True,
         help="When change happened or specify date it is being planned "
         "to be changed in advance")
-    duration = fields.Float(required=True, default=1.0)
+    duration = fields.Float(required=True, default=1.0, help="In Hours")
     user_id = fields.Many2one('res.users', "Responsible")
     priority = fields.Selection(
         PRIORITY,
