@@ -1,6 +1,16 @@
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 PRIORITY = [(1, 'Low'), (2, 'Normal'), (3, 'High')]
+# Machine fields that can be synced.
+SYNC_FIELDS = [
+    'is_virtual',
+    'is_container',
+    'cpu_id',
+    'os_id',
+    'amount_ram',
+    'amount_storage_capacity',
+]
 
 
 class MachineInstance(models.Model):
@@ -64,13 +74,17 @@ class MachineInstance(models.Model):
     is_template = fields.Boolean("Is Template")
     sync = fields.Boolean(
         "Fields Synchronization",
-        help="If set, specified fields will be synced using template.\nIn this"
-        " mode, those fields can't be edited on instance.")
-    related_sync = fields.Boolean(
-        "Fields Synchronization on Template",
-        related='parent_id.sync',
-        help="Technical field: used to check if sync option\nis enabled on "
-        "template from machine instance.")
+        help="If set, specified fields will be synced using template.")
+
+    @api.one
+    @api.constrains('is_template', 'sync', *SYNC_FIELDS)
+    def _check_sync(self):
+        if not self.is_template and self.sync:
+            template = self.parent_id
+            if any(self[fld] != template[fld] for fld in SYNC_FIELDS):
+                raise ValidationError(
+                    _("Synced fields values can't be modified on machine"
+                        " instance, if syncing is enabled."))
 
     @api.onchange('partner_id')
     def _onchange_partner_id(self):
@@ -102,8 +116,7 @@ class MachineInstance(models.Model):
 
     def _filter_sync_values(self, vals):
         self.ensure_one()
-        sync_fields = self.get_sync_fields()
-        return {k: v for (k, v) in vals.items() if k in sync_fields}
+        return {k: v for (k, v) in vals.items() if k in SYNC_FIELDS}
 
     def _get_sync_instances(self):
         """Return instances that can be synchronized with templates."""

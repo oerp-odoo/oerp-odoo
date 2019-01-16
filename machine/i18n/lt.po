@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-29 14:57+0000\n"
-"PO-Revision-Date: 2018-11-29 14:57+0000\n"
+"POT-Creation-Date: 2019-01-16 09:04+0000\n"
+"PO-Revision-Date: 2019-01-16 09:04+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "%s laukas yra privalomas, kad išsiųsti laišką."
 #. module: machine
 #: model:mail.template,body_html:machine.mail_template_planned_machine_change
 msgid "<p>Dear Customer,</p><p>at ${object.date} we will do scheduled maintenance for environment you are using (${object.get_machine_name()}).</p><p>Maintenance estimated duration is ${object.duration} hour(s). If you have any questions or issues with this maintenance, please reply to this email.</p>"
-msgstr "<p>Gerbiamas kliente,</p><p>${object.date} bus atliekami suplanuoti aptarnavimo darbai aplinkai, kuria naudojatės (${object.get_machine_name()}).</p><p>Aptarnavimo planuojama trukmė yra ${object.duration} valanda (-os). Jeigu turite klausimų ar iškilo bėdų dėl šio aptarnavimo, prašome atrašyti į šį laišką.</p>"
+msgstr "<p>Gerbiamas kliente,</p><p>${object.date} bus atliekami suplanuoti aptarnavimo darbai aplinkai, kuria naudojatės (${object.get_machine_name()}).</p><p>Planuojama aptarnavimo trukmė yra ${object.duration} valanda (-os). Jeigu turite klausimų ar iškilo bėdų dėl šio aptarnavimo, prašome atrašyti į šį laišką.</p>"
 
 #. module: machine
 #: model:ir.ui.menu,name:machine.machine_action_menu
@@ -273,7 +273,7 @@ msgstr "Aprašymas"
 #: model:ir.model.fields,field_description:machine.field_machine_os_type_display_name
 #: model:ir.model.fields,field_description:machine.field_machine_tag_display_name
 msgid "Display Name"
-msgstr "Rodomas pavadinimas"
+msgstr "Vaizduojamas pavadinimas"
 
 #. module: machine
 #: model:ir.model.fields,field_description:machine.field_machine_instance_domain
@@ -306,11 +306,6 @@ msgstr "Išorinis IP"
 #: model:ir.model.fields,field_description:machine.field_machine_instance_sync
 msgid "Fields Synchronization"
 msgstr "Laukų sinchronizacija"
-
-#. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_instance_related_sync
-msgid "Fields Synchronization on Template"
-msgstr "Šablono laukų sinchronizacija"
 
 #. module: machine
 #: selection:machine.email,email_type:0
@@ -365,10 +360,8 @@ msgstr "ID"
 
 #. module: machine
 #: model:ir.model.fields,help:machine.field_machine_instance_sync
-msgid "If set, specified fields will be synced using template.\n"
-"In this mode, those fields can't be edited on instance."
-msgstr "Jeigu nustatyta, nurodyti laukai bus sinchronizuoti su šablonu.\n"
-"Šiame rėžime, tie laukai negali būti redaguojami per instanciją."
+msgid "If set, specified fields will be synced using template."
+msgstr "Jeigu nustatyta, nurodyti laukai bus sinchronizuoti su šablonu."
 
 #. module: machine
 #: model:ir.model.fields,help:machine.field_machine_email_duration
@@ -708,7 +701,7 @@ msgid "Partner"
 msgstr "Partneris"
 
 #. module: machine
-#: code:addons/machine/models/machine_instance.py:140
+#: code:addons/machine/models/machine_instance.py:153
 #, python-format
 msgid "Partner Contact"
 msgstr "Partnerio kontaktas"
@@ -770,7 +763,7 @@ msgstr "Suplanuotas"
 #. module: machine
 #: model:mail.template,subject:machine.mail_template_planned_machine_change
 msgid "Scheduled maintenance for ${object.get_machine_name()} (${object.name})."
-msgstr "Scheduled maintenance for ${object.get_machine_name()} (${object.name})."
+msgstr "Suplanuoti aptarnavimo darbai aplinkai ${object.get_machine_name()} (${object.name})."
 
 #. module: machine
 #: model:ir.actions.act_window,name:machine.machine_email_action
@@ -800,6 +793,12 @@ msgid "Subject"
 msgstr "Tema"
 
 #. module: machine
+#: code:addons/machine/models/machine_instance.py:86
+#, python-format
+msgid "Synced fields values can't be modified on machine instance, if syncing is enabled."
+msgstr "Sinchronizuojamų laukų reikšmės negali būti modifikuojamos mašinos instancijai, jeigu yra įjungta sinchronizacija."
+
+#. module: machine
 #: sql_constraint:machine.tag:0
 msgid "Tag name already exists !"
 msgstr "Žymos pavadinimas jau egzistuoja !"
@@ -810,13 +809,6 @@ msgstr "Žymos pavadinimas jau egzistuoja !"
 #: model:ir.ui.menu,name:machine.machine_tag_menu
 msgid "Tags"
 msgstr "Žymos"
-
-#. module: machine
-#: model:ir.model.fields,help:machine.field_machine_instance_related_sync
-msgid "Technical field: used to check if sync option\n"
-"is enabled on template from machine instance."
-msgstr "Techninis laukas: naudojamas patikrinti ar synchronizavimo opcija\n"
-"yra įjungta ant šablono iš mašinos instancijos."
 
 #. module: machine
 #: code:addons/machine/models/machine_dbs.py:91

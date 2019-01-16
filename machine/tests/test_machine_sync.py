@@ -1,3 +1,5 @@
+from odoo.exceptions import ValidationError
+
 from . import common
 
 
@@ -112,7 +114,7 @@ class TestMachineSync(common.TestMachineCommon):
 
     def test_sync_2(self):
         """Change machine_template_2 to sync with instances."""
-        # We expect no changes machine_template_2 instance, because
+        # We expect no changes from machine_template_2 instance, because
         # no sync is enabled.
         expected_vals = {
             'is_virtual': True,
@@ -137,3 +139,23 @@ class TestMachineSync(common.TestMachineCommon):
         expected_vals.update(amount_storage_capacity=40.0, amount_ram=4.0)
         self._test_sync(self.mit_2_1, expected_vals)
         self.assertEqual(self.mit_2_1.name, 'Delta PC Experimental')
+
+    def test_sync_3(self):
+        """Try to change synced fields on machine instance.
+
+        Case: sync is enabled.
+        """
+        self.assertRaises(
+            ValidationError, self.mit_1_1.write, {'amount_ram': 10.0})
+
+    def test_sync_4(self):
+        """Try to change synced fields on machine instance.
+
+        Case: sync is disabled.
+        """
+        try:
+            self.mit_1_3.amount_ram = 5.0
+        except ValidationError:
+            self.fail(
+                "When sync is disabled, it should allow changing synced field"
+                " on instance.")

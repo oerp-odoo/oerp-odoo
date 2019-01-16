@@ -152,14 +152,9 @@ class MachineEmailRecipient(models.TransientModel):
         elif wiz.email_type == 'scheduled':
             # Add change log, so we can render template from it.
             self._add_change_log()
-            model = 'machine.instance.change_log'
             change_log_id = self.change_log_id.id
-            MailTemplate = self.env['mail.template']
-            subject = MailTemplate.render_template(
-                wiz.mail_template_id.subject, model, change_log_id)
-            body = MailTemplate.render_template(
-                wiz.mail_template_id.body_html, model, change_log_id)
-            return subject, body
+            res = wiz.mail_template_id.generate_email(change_log_id)
+            return res['subject'], res['body_html']
         else:
             raise ValidationError(
                 _("Programming error: %s email_type does not exist"))

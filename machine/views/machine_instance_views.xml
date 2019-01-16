@@ -112,10 +112,8 @@
                     <group>
                         <group name="options" string="Options">
                             <field name="name" />
-                            <field name="related_sync" invisible="1"/>
                             <field name="parent_id" required="1" context="{'form_view_ref': 'machine.machine_instance_template_view_form', 'default_is_template': True}"/>
-                            <field name="sync"
-                                attrs="{'invisible': [('related_sync', '=', False)]}"/>
+                            <field name="sync"/>
                             <field name="is_template" invisible="1"/>
                             <field name="partner_id"/>
                             <field name="partner_contact_id"/>
@@ -124,12 +122,12 @@
                             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
                         </group>
                         <group name="parameters" string="Parameters">
-                            <field name="cpu_id" attrs="{'readonly': [('sync', '=', True), ('related_sync', '=', True)]}"/>
-                            <field name="os_id" attrs="{'readonly': [('sync', '=', True), ('related_sync', '=', True)]}"/>
-                            <field name="amount_storage_capacity" attrs="{'readonly': [('sync', '=', True), ('related_sync', '=', True)]}"/>
-                            <field name="amount_ram" attrs="{'readonly': [('sync', '=', True), ('related_sync', '=', True)]}"/>
-                            <field name="is_virtual" attrs="{'readonly': [('sync', '=', True), ('related_sync', '=', True)]}"/>
-                            <field name="is_container" attrs="{'readonly': [('sync', '=', True), ('related_sync', '=', True)]}"/>
+                            <field name="cpu_id"/>
+                            <field name="os_id"/>
+                            <field name="amount_storage_capacity"/>
+                            <field name="amount_ram"/>
+                            <field name="is_virtual"/>
+                            <field name="is_container"/>
                             <field name="ip"/>
                             <field name="domain"/>
                         </group>
