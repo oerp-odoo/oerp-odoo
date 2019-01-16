@@ -95,25 +95,6 @@ class MachineInstance(models.Model):
         else:
             self.partner_contact_id = False
 
-    @api.model
-    def get_sync_fields(self):
-        """Return machine fields that can be synced.
-
-        Can be extended to include new fields to sync.
-
-        Synchronization happens by propagating fields values from
-        template to its instances if template and instances have
-        syncing enabled.
-        """
-        return [
-            'is_virtual',
-            'is_container',
-            'cpu_id',
-            'os_id',
-            'amount_ram',
-            'amount_storage_capacity',
-        ]
-
     def _filter_sync_values(self, vals):
         self.ensure_one()
         return {k: v for (k, v) in vals.items() if k in SYNC_FIELDS}

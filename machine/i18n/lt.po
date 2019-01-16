@@ -295,7 +295,7 @@ msgstr "Email Type"
 #: code:addons/machine/models/machine_tag.py:24
 #, python-format
 msgid "Error! You cannot create recursive tags."
-msgstr "Klaida! Negalima kurti rekusyvių žymų."
+msgstr "Klaida! Negalima kurti rekursyvių žymų."
 
 #. module: machine
 #: model:ir.model.fields,field_description:machine.field_machine_instance_ip
@@ -333,8 +333,8 @@ msgstr "Aukštas"
 #: model:ir.model.fields,help:machine.field_machine_instance_change_log_priority
 msgid "How important is the change. Low can be treated as wishlist change\n"
 ". Normal as regularly planned change. High as emergency when something needs to be fixed fast."
-msgstr "Kaip svarbus yra pakeitimas. Žemas gali būti skaitomas kaip pageidaujamas pakeitimas\n"
-". Normalus kaip regulariai planuojamas pakeitimas. Aukštas kaip skubus, kai reikia greitai kažką pataisyti."
+msgstr "Pakeitimo svarbumas. Žemas - kaip pageidaujamas pakeitimas\n"
+". Normalus - kaip regulariai planuojamas pakeitimas. Aukštas - kaip skubus, kai reikia greitai kažką pataisyti."
 
 #. module: machine
 #: model:ir.model.fields,field_description:machine.field_machine_cpu_brand_id
@@ -583,7 +583,7 @@ msgstr "Mašinos šablonas"
 #: model:ir.actions.act_window,name:machine.machine_instance_template_action
 #: model:ir.ui.menu,name:machine.machine_instance_template_menu
 msgid "Machine Templates"
-msgstr "Mašinos šablonas"
+msgstr "Mašinos šablonai"
 
 #. module: machine
 #: model:ir.module.category,name:machine.module_category_machines_management
@@ -785,7 +785,7 @@ msgstr "Saugojimo talpa (GB)"
 #. module: machine
 #: model:ir.model.fields,field_description:machine.field_machine_email_sub_subject
 msgid "Sub Subject"
-msgstr "Sub tema"
+msgstr "Potemė"
 
 #. module: machine
 #: model:ir.model.fields,field_description:machine.field_machine_email_subject
@@ -851,7 +851,7 @@ msgstr "Vartotojas"
 #: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user_username
 #: model:ir.model.fields,field_description:machine.field_machine_instance_os_user_username
 msgid "Username"
-msgstr "Naudotojo vardas"
+msgstr "Vartotojo vardas"
 
 #. module: machine
 #: sql_constraint:machine.instance.os_user:0
