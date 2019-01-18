@@ -197,6 +197,8 @@ class MachineInstanceOsUser(models.Model):
     machine_instance_id = fields.Many2one(
         'machine.instance', "Machine Instance", required=True,)
 
-    _sql_constraints = [
-        ('username_uniq', 'unique (username)', "Username already exists !"),
-    ]
+    _sql_constraints = [(
+        'username_uniq',
+        'unique (username, machine_instance_id)',
+        "Username already exists !",
+    )]
