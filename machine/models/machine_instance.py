@@ -25,11 +25,12 @@ class MachineInstance(models.Model):
     _inherit = 'mail.thread'
     _description = 'Machine Instance'
 
-    name = fields.Char(required=True)
-    is_virtual = fields.Boolean(default=True)
-    is_container = fields.Boolean()
-    cpu_id = fields.Many2one('machine.cpu', "CPU")
-    os_id = fields.Many2one('machine.os', "Operating System")
+    name = fields.Char(required=True, track_visibility='onchange')
+    is_virtual = fields.Boolean(default=True, track_visibility='onchange')
+    is_container = fields.Boolean(track_visibility='onchange')
+    cpu_id = fields.Many2one('machine.cpu', "CPU", track_visibility='onchange')
+    os_id = fields.Many2one(
+        'machine.os', "Operating System", track_visibility='onchange')
     os_user_ids = fields.One2many(
         'machine.instance.os_user', 'machine_instance_id', "OS Users")
     dbs_instance_ids = fields.One2many(
@@ -39,12 +40,13 @@ class MachineInstance(models.Model):
     change_log_ids = fields.One2many(
         'machine.instance.change_log', 'machine_instance_id', "Change Log")
     amount_storage_capacity = fields.Float(
-        "Storage Capacity (GB)")
-    amount_ram = fields.Float("RAM (GB)")
+        "Storage Capacity (GB)", track_visibility='onchange')
+    amount_ram = fields.Float("RAM (GB)", track_visibility='onchange')
     parent_id = fields.Many2one(
         'machine.instance',
         "Machine Template",
-        domain=[('is_template', '=', True)])
+        domain=[('is_template', '=', True)],
+        track_visibility='onchange')
     child_ids = fields.One2many(
         'machine.instance',
         'parent_id',
@@ -54,15 +56,18 @@ class MachineInstance(models.Model):
     partner_id = fields.Many2one(
         'res.partner',
         "Partner",
-        help="Partner that uses this machine instance.")
+        help="Partner that uses this machine instance.",
+        track_visibility='onchange')
     partner_contact_id = fields.Many2one(
         'res.partner',
         "Contact",
         help="Contact which email will be used when communicating about "
-        "machine.")
-    user_id = fields.Many2one('res.users', "Responsible")
-    ip = fields.Char("External IP")
-    domain = fields.Char()
+        "machine.",
+        track_visibility='onchange')
+    user_id = fields.Many2one(
+        'res.users', "Responsible", track_visibility='onchange')
+    ip = fields.Char("External IP", track_visibility='onchange')
+    domain = fields.Char(track_visibility='onchange')
     tag_ids = fields.Many2many('machine.tag', string="Tags")
     machine_group_ids = fields.Many2many(
         'machine.group',
@@ -71,10 +76,11 @@ class MachineInstance(models.Model):
         'group_id',
         string="Machine Groups")
     # Fields used for template only.
-    is_template = fields.Boolean("Is Template")
+    is_template = fields.Boolean("Is Template", track_visibility='onchange')
     sync = fields.Boolean(
         "Fields Synchronization",
-        help="If set, specified fields will be synced using template.")
+        help="If set, specified fields will be synced using template.",
+        track_visibility='onchange')
 
     @api.one
     @api.constrains('is_template', 'sync', *SYNC_FIELDS)
