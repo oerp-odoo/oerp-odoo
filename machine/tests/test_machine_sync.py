@@ -104,13 +104,13 @@ class TestMachineSync(common.TestMachineCommon):
         self._test_sync(
             self.machine_template_1 | self.mit_1_1 | self.mit_1_2,
             expected_vals)
-        self.assertEqual(self.mit_1_1.name, 'ASUSTEK Production')
-        self.assertEqual(self.mit_1_2.name, 'Agrolait Production')
+        self.assertEqual(self.mit_1_1.name, 'Wood Corner Production')
+        self.assertEqual(self.mit_1_2.name, 'Deco Addict Production')
         # Update expected values, because we do not expect mit_1_3 to
         # be synchronized.
         expected_vals.update(amount_storage_capacity=30, amount_ram=8)
         self._test_sync(self.mit_1_3, expected_vals)
-        self.assertEqual(self.mit_1_3.name, 'China Export Production')
+        self.assertEqual(self.mit_1_3.name, 'Gemini Furniture Production')
 
     def test_sync_2(self):
         """Change machine_template_2 to sync with instances."""
@@ -138,7 +138,7 @@ class TestMachineSync(common.TestMachineCommon):
         # changed).
         expected_vals.update(amount_storage_capacity=40.0, amount_ram=4.0)
         self._test_sync(self.mit_2_1, expected_vals)
-        self.assertEqual(self.mit_2_1.name, 'Delta PC Experimental')
+        self.assertEqual(self.mit_2_1.name, 'Ready Mat Experimental')
 
     def test_sync_3(self):
         """Try to change synced fields on machine instance.

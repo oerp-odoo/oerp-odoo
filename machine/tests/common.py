@@ -31,21 +31,28 @@ class TestMachineCommon(common.SavepointCase):
         # Experimental machine instance.
         cls.mit_2_1 = cls.env.ref(
             'machine.machine_instance_template_2_instance_1')  # no sync
-        # ASUSTeK
+        # Wood Corner
         cls.partner_1 = cls.env.ref('base.res_partner_1')
-        # Agrolait
+        # Deco Addict
         cls.partner_2 = cls.env.ref('base.res_partner_2')
         # Agrolait, Michel Fletcher
         cls.partner_address_4 = cls.env.ref('base.res_partner_address_4')
-        # China Export
+        # Gemini Furniture
         cls.partner_3 = cls.env.ref('base.res_partner_3')
-        # China Export, Chao Wang
+        # Gemini Furniture, Edwin Hansen
         cls.partner_address_5 = cls.env.ref('base.res_partner_address_5')
-        # Delta PC.
+        # Ready Mat.
         cls.partner_4 = cls.env.ref('base.res_partner_4')
-        # Delta PC, Charlie Bernard
+        # Ready Mat, Kim Snyder
         cls.partner_address_13 = cls.env.ref('base.res_partner_address_13')
         cls.partner_demo = cls.env.ref('base.user_demo_res_partner')
         # Machine Groups.
         cls.machine_group_1 = cls.env.ref('machine.machine_group_1')
         cls.machine_group_2 = cls.env.ref('machine.machine_group_2')
+        # CPU
+        cls.cpu_xeon = cls.env.ref('machine.machine_cpu_xeon_e3113')
+        # OS
+        cls.os_ubuntu_1604 = cls.env.ref('machine.machine_os_ubuntu_1604')
+        # DB
+        cls.db_postgresql_960 = cls.env.ref(
+            'machine.machine_db_postgresql_960')

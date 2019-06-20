@@ -1,6 +1,6 @@
-from odoo import models, fields, api
+from footil.formatting import generate_names
 
-from ..utils import generate_name_get
+from odoo import models, fields, api
 
 
 class MachineCpu(models.Model):
@@ -21,7 +21,7 @@ class MachineCpu(models.Model):
         """Override to show custom display_name."""
         pattern = (
             '{cpu_brand_id.cpu_vendor_id.name} {cpu_brand_id.name} {name}')
-        return generate_name_get(pattern, self)
+        return generate_names({'pattern': pattern, 'objects': self})
 
 
 class MachineCpuBrand(models.Model):
@@ -38,7 +38,10 @@ class MachineCpuBrand(models.Model):
         'name', 'cpu_vendor_id.name')
     def name_get(self):
         """Override to show custom display_name."""
-        return generate_name_get('{cpu_vendor_id.name} {name}', self)
+        return generate_names({
+            'pattern': '{cpu_vendor_id.name} {name}',
+            'objects': self,
+        })
 
 
 class MachineCpuVendor(models.Model):

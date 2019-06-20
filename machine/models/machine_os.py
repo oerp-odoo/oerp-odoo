@@ -1,6 +1,6 @@
-from odoo import models, fields, api, _
+from footil.formatting import generate_names
 
-from ..utils import generate_name_get
+from odoo import models, fields, api, _
 
 
 class MachineOs(models.Model):
@@ -23,7 +23,10 @@ class MachineOs(models.Model):
     @api.depends('name', 'os_name_id.name')
     def name_get(self):
         """Override to show custom display_name."""
-        return generate_name_get('{os_name_id.name} {name}', self)
+        return generate_names({
+            'pattern': '{os_name_id.name} {name}',
+            'objects': self,
+        })
 
 
 class MachineOsName(models.Model):
@@ -49,7 +52,10 @@ class MachineOsName(models.Model):
     @api.depends('name', 'os_type_id.name')
     def name_get(self):
         """Override to show custom display_name."""
-        return generate_name_get('{os_type_id.name} {name}', self)
+        return generate_names({
+            'pattern': '{os_type_id.name} {name}',
+            'objects': self,
+        })
 
 
 class MachineOsType(models.Model):

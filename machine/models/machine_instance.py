@@ -33,6 +33,12 @@ class MachineInstance(models.Model):
         'machine.os', "Operating System", track_visibility='onchange')
     os_user_ids = fields.One2many(
         'machine.instance.os_user', 'machine_instance_id', "OS Users")
+    _os_users_count = fields.Integer("_os_users_count")
+    os_users_count = fields.Integer(
+        "OS Users Count",
+        compute='_compute_os_users_count',
+        inverse='_inverse_os_users_count',
+        store=True)
     dbs_instance_ids = fields.One2many(
         'machine.dbs.instance',
         'machine_instance_id',
@@ -81,6 +87,16 @@ class MachineInstance(models.Model):
         "Fields Synchronization",
         help="If set, specified fields will be synced using template.",
         track_visibility='onchange')
+
+    @api.one
+    @api.depends('os_user_ids', '_os_users_count')
+    def _compute_os_users_count(self):
+        os_users_count = len(self.os_user_ids) or self._os_users_count
+        self.os_users_count = os_users_count
+
+    @api.one
+    def _inverse_os_users_count(self):
+        self._os_users_count = self.os_users_count
 
     @api.one
     @api.constrains('is_template', 'sync', *SYNC_FIELDS)
@@ -153,6 +169,15 @@ class MachineInstance(models.Model):
                 'email_cc': rec.user_id.partner_id.email
             }
         return res
+
+    @api.multi
+    def toggle_active(self):
+        """Override to propagate change to template childs."""
+        for record in self:
+            super(MachineInstance, record).toggle_active()
+            if record.is_template:
+                record.with_context(active_test=False).child_ids.write(
+                    {'active': record.active})
 
 
 class MachineInstanceChangeLog(models.Model):

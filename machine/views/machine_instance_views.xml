@@ -6,11 +6,14 @@
         <field name="model">machine.instance</field>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <!-- TODO: might be better to have archive button on both forms.
-            Though when archiving template, it should archive its instances
-            too. -->
             <form>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active"
+                            type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                        </button>
+                    </div>
                     <group name="main">
                         <group name="options" string="Options">
                             <field name="name" />
@@ -90,11 +93,6 @@
         <field name="act_window_id" ref="machine_instance_template_action"/>
     </record>
 
-    <menuitem id="machine_instance_template_menu"
-        action="machine_instance_template_action"
-        parent="machine_menu"
-        sequence="1"/>
-
     <!-- Machine Instance Views -->
     <record id="machine_instance_view_tree" model="ir.ui.view">
         <field name="name">machine.instance.tree</field>
@@ -118,14 +116,6 @@
         <field name="inherit_id" ref="machine_instance_common_view_form"/>
         <field name="priority" eval="6"/>
         <field name="arch" type="xml">
-            <group name="main" position="before">
-                <div class="oe_button_box" name="button_box">
-                    <button name="toggle_active"
-                        type="object" class="oe_stat_button" icon="fa-archive">
-                        <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
-                    </button>
-                </div>
-            </group>
             <field name="is_template" position="after">
                 <field name="parent_id"/>
                 <field name="partner_id"/>
@@ -157,6 +147,13 @@
                         <field name="dbs_instance_ids"/>
                     </page>
                     <page name="os" string="Operating System Users" attrs="{'invisible': [('os_id', '=', False)]}">
+                        <group name="os_main">
+                            <group name="os_left">
+                                <field name="os_users_count" attrs="{'readonly': [('os_user_ids', '!=', [])]}"/>
+                            </group>
+                            <group name="os_right">
+                            </group>
+                        </group>
                         <field name="os_user_ids">
                             <tree string="OS Users" editable="bottom">
                                 <field name="username"/>
@@ -191,8 +188,15 @@
         <field name="act_window_id" ref="machine_instance_action"/>
     </record>
 
+    <!-- It is more convenient to show instances by default instead
+    showing templates. -->
     <menuitem id="machine_instance_menu"
         action="machine_instance_action"
         parent="machine_menu"
-        sequence="2"/>
+        sequence="1"/>
+
+    <menuitem id="machine_instance_template_menu"
+        action="machine_instance_template_action"
+        parent="machine_menu"
+        sequence="10"/>
 </odoo>

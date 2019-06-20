@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0+e\n"
+"Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-16 09:04+0000\n"
-"PO-Revision-Date: 2019-01-16 09:04+0000\n"
+"POT-Creation-Date: 2019-06-21 07:45+0000\n"
+"PO-Revision-Date: 2019-06-21 07:45+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -33,12 +33,17 @@ msgid "<p>Dear Customer,</p><p>at ${object.date} we will do scheduled maintenanc
 msgstr "<p>Gerbiamas kliente,</p><p>${object.date} bus atliekami suplanuoti aptarnavimo darbai aplinkai, kuria naudojatės (${object.get_machine_name()}).</p><p>Planuojama aptarnavimo trukmė yra ${object.duration} valanda (-os). Jeigu turite klausimų ar iškilo bėdų dėl šio aptarnavimo, prašome atrašyti į šį laišką.</p>"
 
 #. module: machine
+#: model:ir.model.fields,field_description:machine.field_machine_instance__message_needaction
+msgid "Action Needed"
+msgstr "Reikia atlikti veiksmą"
+
+#. module: machine
 #: model:ir.ui.menu,name:machine.machine_action_menu
 msgid "Actions"
 msgstr "Veiksmai"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_instance_active
+#: model:ir.model.fields,field_description:machine.field_machine_instance__active
 msgid "Active"
 msgstr "Aktyvus"
 
@@ -49,67 +54,72 @@ msgid "At least one recipient must be specified."
 msgstr "Turi būti nurodytas bent vienas gavėjas."
 
 #. module: machine
-#: model:ir.actions.act_window,name:machine.machine_cpu_action
-#: model:ir.model.fields,field_description:machine.field_machine_instance_cpu_id
-#: model:ir.ui.menu,name:machine.machine_cpu_menu
-msgid "CPU"
-msgstr "CPU"
+#: model:ir.model.fields,field_description:machine.field_machine_instance__message_attachment_count
+msgid "Attachment Count"
+msgstr "Priedų skaičius"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_cpu_brand_id
+#: model:ir.actions.act_window,name:machine.machine_cpu_action
+#: model:ir.model.fields,field_description:machine.field_machine_instance__cpu_id
+#: model:ir.ui.menu,name:machine.machine_cpu_menu
+msgid "CPU"
+msgstr ""
+
+#. module: machine
+#: model:ir.model.fields,field_description:machine.field_machine_cpu__cpu_brand_id
 msgid "CPU Brand"
-msgstr "CPU Brand"
+msgstr ""
 
 #. module: machine
 #: model:ir.actions.act_window,name:machine.machine_cpu_brand_action
 #: model:ir.ui.menu,name:machine.machine_cpu_brand_menu
 msgid "CPU Brands"
-msgstr "CPU Brands"
+msgstr ""
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand_cpu_vendor_id
+#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand__cpu_vendor_id
 msgid "CPU Vendor"
-msgstr "CPU Vendor"
+msgstr ""
 
 #. module: machine
 #: model:ir.actions.act_window,name:machine.machine_cpu_vendor_action
 #: model:ir.ui.menu,name:machine.machine_cpu_vendor_menu
 msgid "CPU Vendors"
-msgstr "CPU Vendors"
+msgstr ""
 
 #. module: machine
-#: model:ir.ui.view,arch_db:machine.machine_email_view_form
+#: model_terms:ir.ui.view,arch_db:machine.machine_email_view_form
 msgid "Cancel"
 msgstr "Atšaukti"
 
 #. module: machine
 #: model:ir.ui.menu,name:machine.machine_cpu_top_menu
 msgid "Central Processing Units"
-msgstr "Central Processing Units"
+msgstr "Centriniai procesoriai"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_email_recipient_change_log_id
-#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log_ids
+#: model:ir.model.fields,field_description:machine.field_machine_email_recipient__change_log_id
+#: model:ir.model.fields,field_description:machine.field_machine_instance__change_log_ids
 msgid "Change Log"
-msgstr "Pakeitimo istorija"
+msgstr "Pakeitimo įrašas"
 
 #. module: machine
-#: model:ir.model.fields,help:machine.field_machine_instance_change_log_name
+#: model:ir.model.fields,help:machine.field_machine_instance_change_log__name
 msgid "Change description"
 msgstr "Pakeitimo aprašymas"
 
 #. module: machine
-#: model:ir.ui.view,arch_db:machine.machine_instance_view_form
+#: model_terms:ir.ui.view,arch_db:machine.machine_instance_view_form
 msgid "Changes Log"
-msgstr "Pakeitimų istorija"
+msgstr "Pakeitimų įrašai"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_clockspeed
+#: model:ir.model.fields,field_description:machine.field_machine_cpu__clockspeed
 msgid "Clockspeed in GHz"
-msgstr "Clockspeed in GHz"
+msgstr "Taktų dažnis (Ghz)"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_tag_color
+#: model:ir.model.fields,field_description:machine.field_machine_tag__color
 msgid "Color Index"
 msgstr "Spalvos indeksas"
 
@@ -120,66 +130,66 @@ msgstr "Nustatymai"
 
 #. module: machine
 #: model:ir.model,name:machine.model_res_partner
-#: model:ir.model.fields,field_description:machine.field_machine_instance_partner_contact_id
+#: model:ir.model.fields,field_description:machine.field_machine_instance__partner_contact_id
 msgid "Contact"
 msgstr "Kontaktas"
 
 #. module: machine
-#: model:ir.model.fields,help:machine.field_machine_instance_partner_contact_id
+#: model:ir.model.fields,help:machine.field_machine_instance__partner_contact_id
 msgid "Contact which email will be used when communicating about machine."
 msgstr "Kontaktas, kurio el. paštas bus naudojamas komunikacijai apie mašiną."
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_email_body
+#: model:ir.model.fields,field_description:machine.field_machine_email__body
 msgid "Contents"
 msgstr "Turinys"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_cores
+#: model:ir.model.fields,field_description:machine.field_machine_cpu__cores
 msgid "Cores"
-msgstr "Cores"
+msgstr "Branduoliai"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand_create_uid
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_create_uid
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_vendor_create_uid
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_create_uid
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_create_uid
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database_create_uid
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user_create_uid
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_name_create_uid
-#: model:ir.model.fields,field_description:machine.field_machine_email_create_uid
-#: model:ir.model.fields,field_description:machine.field_machine_email_recipient_create_uid
-#: model:ir.model.fields,field_description:machine.field_machine_group_create_uid
-#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log_create_uid
-#: model:ir.model.fields,field_description:machine.field_machine_instance_create_uid
-#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user_create_uid
-#: model:ir.model.fields,field_description:machine.field_machine_os_create_uid
-#: model:ir.model.fields,field_description:machine.field_machine_os_name_create_uid
-#: model:ir.model.fields,field_description:machine.field_machine_os_type_create_uid
-#: model:ir.model.fields,field_description:machine.field_machine_tag_create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_cpu__create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand__create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_cpu_vendor__create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_dbs__create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance__create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database__create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user__create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_name__create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_email__create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_email_recipient__create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_group__create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_instance__create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log__create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user__create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_os__create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_os_name__create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_os_type__create_uid
+#: model:ir.model.fields,field_description:machine.field_machine_tag__create_uid
 msgid "Created by"
 msgstr "Sukūrė"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand_create_date
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_create_date
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_vendor_create_date
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_create_date
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_create_date
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database_create_date
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user_create_date
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_name_create_date
-#: model:ir.model.fields,field_description:machine.field_machine_email_create_date
-#: model:ir.model.fields,field_description:machine.field_machine_email_recipient_create_date
-#: model:ir.model.fields,field_description:machine.field_machine_group_create_date
-#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log_create_date
-#: model:ir.model.fields,field_description:machine.field_machine_instance_create_date
-#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user_create_date
-#: model:ir.model.fields,field_description:machine.field_machine_os_create_date
-#: model:ir.model.fields,field_description:machine.field_machine_os_name_create_date
-#: model:ir.model.fields,field_description:machine.field_machine_os_type_create_date
-#: model:ir.model.fields,field_description:machine.field_machine_tag_create_date
+#: model:ir.model.fields,field_description:machine.field_machine_cpu__create_date
+#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand__create_date
+#: model:ir.model.fields,field_description:machine.field_machine_cpu_vendor__create_date
+#: model:ir.model.fields,field_description:machine.field_machine_dbs__create_date
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance__create_date
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database__create_date
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user__create_date
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_name__create_date
+#: model:ir.model.fields,field_description:machine.field_machine_email__create_date
+#: model:ir.model.fields,field_description:machine.field_machine_email_recipient__create_date
+#: model:ir.model.fields,field_description:machine.field_machine_group__create_date
+#: model:ir.model.fields,field_description:machine.field_machine_instance__create_date
+#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log__create_date
+#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user__create_date
+#: model:ir.model.fields,field_description:machine.field_machine_os__create_date
+#: model:ir.model.fields,field_description:machine.field_machine_os_name__create_date
+#: model:ir.model.fields,field_description:machine.field_machine_os_type__create_date
+#: model:ir.model.fields,field_description:machine.field_machine_tag__create_date
 msgid "Created on"
 msgstr "Sukurta"
 
@@ -187,7 +197,7 @@ msgstr "Sukurta"
 #: model:ir.actions.act_window,name:machine.machine_dbs_action
 #: model:ir.ui.menu,name:machine.machine_dbs_menu
 msgid "DBS"
-msgstr "DBS"
+msgstr ""
 
 #. module: machine
 #: model:ir.actions.act_window,name:machine.machine_dbs_name_action
@@ -196,7 +206,7 @@ msgid "DBS Names"
 msgstr "DBS pavadinimai"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_dbs_instance_user_ids
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance__dbs_instance_user_ids
 msgid "DBS Users"
 msgstr "DBS vartotojai"
 
@@ -206,90 +216,90 @@ msgid "Database Management Systems"
 msgstr "Duomenų bazių valdymo sistemos"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_dbs_name_id
+#: model:ir.model.fields,field_description:machine.field_machine_dbs__dbs_name_id
 msgid "Database Name"
 msgstr "Duomenų bazės pavadinimas"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_dbs_id
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance__dbs_id
 msgid "Database System"
-msgstr "Duomenų bazių sistema"
+msgstr "Duomenų bazės sistema"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database_dbs_instance_id
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user_dbs_instance_id
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database__dbs_instance_id
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user__dbs_instance_id
 msgid "Database System Instance"
-msgstr "Duomenų bazių sistemos instancija"
+msgstr "Duomenų bazės sistemų instancija"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_instance_dbs_instance_ids
+#: model:ir.model.fields,field_description:machine.field_machine_instance__dbs_instance_ids
 msgid "Database System Instances"
-msgstr "Duomenų bazių sistemos instancijos"
+msgstr "Duomenų bazės sistemos instancijos"
 
 #. module: machine
-#: model:ir.ui.view,arch_db:machine.machine_instance_view_form
+#: model_terms:ir.ui.view,arch_db:machine.machine_instance_view_form
 msgid "Database Systems"
 msgstr "Duomenų bazių sistemos"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_dbs_instance_db_ids
-#: model:ir.ui.view,arch_db:machine.machine_dbs_instance_view_form
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance__dbs_instance_db_ids
+#: model_terms:ir.ui.view,arch_db:machine.machine_dbs_instance_view_form
 msgid "Databases"
 msgstr "Duomenų bazės"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_amount_databases
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance__databases_count
 msgid "Databases Count"
 msgstr "Duomenų bazių skaičius"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_email_date
-#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log_date
+#: model:ir.model.fields,field_description:machine.field_machine_email__date
+#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log__date
 msgid "Date"
 msgstr "Data"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log_name
+#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log__name
 msgid "Description"
 msgstr "Aprašymas"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand_display_name
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_display_name
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_vendor_display_name
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_display_name
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database_display_name
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_display_name
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user_display_name
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_name_display_name
-#: model:ir.model.fields,field_description:machine.field_machine_email_display_name
-#: model:ir.model.fields,field_description:machine.field_machine_email_recipient_display_name
-#: model:ir.model.fields,field_description:machine.field_machine_group_display_name
-#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log_display_name
-#: model:ir.model.fields,field_description:machine.field_machine_instance_display_name
-#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user_display_name
-#: model:ir.model.fields,field_description:machine.field_machine_os_display_name
-#: model:ir.model.fields,field_description:machine.field_machine_os_name_display_name
-#: model:ir.model.fields,field_description:machine.field_machine_os_type_display_name
-#: model:ir.model.fields,field_description:machine.field_machine_tag_display_name
+#: model:ir.model.fields,field_description:machine.field_machine_cpu__display_name
+#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand__display_name
+#: model:ir.model.fields,field_description:machine.field_machine_cpu_vendor__display_name
+#: model:ir.model.fields,field_description:machine.field_machine_dbs__display_name
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance__display_name
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database__display_name
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user__display_name
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_name__display_name
+#: model:ir.model.fields,field_description:machine.field_machine_email__display_name
+#: model:ir.model.fields,field_description:machine.field_machine_email_recipient__display_name
+#: model:ir.model.fields,field_description:machine.field_machine_group__display_name
+#: model:ir.model.fields,field_description:machine.field_machine_instance__display_name
+#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log__display_name
+#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user__display_name
+#: model:ir.model.fields,field_description:machine.field_machine_os__display_name
+#: model:ir.model.fields,field_description:machine.field_machine_os_name__display_name
+#: model:ir.model.fields,field_description:machine.field_machine_os_type__display_name
+#: model:ir.model.fields,field_description:machine.field_machine_tag__display_name
 msgid "Display Name"
-msgstr "Vaizduojamas pavadinimas"
+msgstr "Rodomas pavadinimas"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_instance_domain
+#: model:ir.model.fields,field_description:machine.field_machine_instance__domain
 msgid "Domain"
-msgstr "Sritis"
+msgstr "Domenas"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_email_duration
-#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log_duration
+#: model:ir.model.fields,field_description:machine.field_machine_email__duration
+#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log__duration
 msgid "Duration"
 msgstr "Trukmė"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_email_email_type
+#: model:ir.model.fields,field_description:machine.field_machine_email__email_type
 msgid "Email Type"
-msgstr "Email Type"
+msgstr "El. pašto tipas"
 
 #. module: machine
 #: code:addons/machine/models/machine_tag.py:24
@@ -298,14 +308,29 @@ msgid "Error! You cannot create recursive tags."
 msgstr "Klaida! Negalima kurti rekursyvių žymų."
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_instance_ip
+#: model:ir.model.fields,field_description:machine.field_machine_instance__ip
 msgid "External IP"
 msgstr "Išorinis IP"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_instance_sync
+#: model:ir.model.fields,field_description:machine.field_machine_instance__sync
 msgid "Fields Synchronization"
 msgstr "Laukų sinchronizacija"
+
+#. module: machine
+#: model:ir.model.fields,field_description:machine.field_machine_instance__message_follower_ids
+msgid "Followers"
+msgstr "Sekėjai"
+
+#. module: machine
+#: model:ir.model.fields,field_description:machine.field_machine_instance__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Sekėjai (kanalai)"
+
+#. module: machine
+#: model:ir.model.fields,field_description:machine.field_machine_instance__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Sekėjai (partneriai)"
 
 #. module: machine
 #: selection:machine.email,email_type:0
@@ -330,123 +355,143 @@ msgid "High"
 msgstr "Aukštas"
 
 #. module: machine
-#: model:ir.model.fields,help:machine.field_machine_instance_change_log_priority
+#: model:ir.model.fields,help:machine.field_machine_instance_change_log__priority
 msgid "How important is the change. Low can be treated as wishlist change\n"
 ". Normal as regularly planned change. High as emergency when something needs to be fixed fast."
 msgstr "Pakeitimo svarbumas. Žemas - kaip pageidaujamas pakeitimas\n"
 ". Normalus - kaip regulariai planuojamas pakeitimas. Aukštas - kaip skubus, kai reikia greitai kažką pataisyti."
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand_id
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_id
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_vendor_id
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_id
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database_id
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_id
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user_id
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_name_id
-#: model:ir.model.fields,field_description:machine.field_machine_email_id
-#: model:ir.model.fields,field_description:machine.field_machine_email_recipient_id
-#: model:ir.model.fields,field_description:machine.field_machine_group_id
-#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log_id
-#: model:ir.model.fields,field_description:machine.field_machine_instance_id
-#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user_id
-#: model:ir.model.fields,field_description:machine.field_machine_os_id
-#: model:ir.model.fields,field_description:machine.field_machine_os_name_id
-#: model:ir.model.fields,field_description:machine.field_machine_os_type_id
-#: model:ir.model.fields,field_description:machine.field_machine_tag_id
+#: model:ir.model.fields,field_description:machine.field_machine_cpu__id
+#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand__id
+#: model:ir.model.fields,field_description:machine.field_machine_cpu_vendor__id
+#: model:ir.model.fields,field_description:machine.field_machine_dbs__id
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance__id
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database__id
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user__id
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_name__id
+#: model:ir.model.fields,field_description:machine.field_machine_email__id
+#: model:ir.model.fields,field_description:machine.field_machine_email_recipient__id
+#: model:ir.model.fields,field_description:machine.field_machine_group__id
+#: model:ir.model.fields,field_description:machine.field_machine_instance__id
+#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log__id
+#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user__id
+#: model:ir.model.fields,field_description:machine.field_machine_os__id
+#: model:ir.model.fields,field_description:machine.field_machine_os_name__id
+#: model:ir.model.fields,field_description:machine.field_machine_os_type__id
+#: model:ir.model.fields,field_description:machine.field_machine_tag__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: machine
-#: model:ir.model.fields,help:machine.field_machine_instance_sync
+#: model:ir.model.fields,help:machine.field_machine_instance__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Jeigu pažymėta, naujiems pranešimams reikės jūsų dėmesio."
+
+#. module: machine
+#: model:ir.model.fields,help:machine.field_machine_instance__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Jeigu pažymėta, naujiems pranešimams reikės jūsų dėmesio."
+
+#. module: machine
+#: model:ir.model.fields,help:machine.field_machine_instance__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Jei pažymėta, yra žinučių, turinčių pristatymo klaidų."
+
+#. module: machine
+#: model:ir.model.fields,help:machine.field_machine_instance__sync
 msgid "If set, specified fields will be synced using template."
 msgstr "Jeigu nustatyta, nurodyti laukai bus sinchronizuoti su šablonu."
 
 #. module: machine
-#: model:ir.model.fields,help:machine.field_machine_email_duration
-#: model:ir.model.fields,help:machine.field_machine_instance_change_log_duration
+#: model:ir.model.fields,help:machine.field_machine_email__duration
+#: model:ir.model.fields,help:machine.field_machine_instance_change_log__duration
 msgid "In Hours"
 msgstr "Valandomis"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_instance_is_container
+#: model:ir.model.fields,field_description:machine.field_machine_instance__is_container
 msgid "Is Container"
 msgstr "Yra konteineris"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_instance_is_template
+#: model:ir.model.fields,field_description:machine.field_machine_instance__message_is_follower
+msgid "Is Follower"
+msgstr "Yra sekėjas"
+
+#. module: machine
+#: model:ir.model.fields,field_description:machine.field_machine_instance__is_template
 msgid "Is Template"
 msgstr "Yra šablonas"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_instance_is_virtual
+#: model:ir.model.fields,field_description:machine.field_machine_instance__is_virtual
 msgid "Is Virtual"
 msgstr "Yra virtuali"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_cpu___last_update
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand___last_update
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_vendor___last_update
-#: model:ir.model.fields,field_description:machine.field_machine_dbs___last_update
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance___last_update
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database___last_update
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user___last_update
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_name___last_update
-#: model:ir.model.fields,field_description:machine.field_machine_email___last_update
-#: model:ir.model.fields,field_description:machine.field_machine_email_recipient___last_update
-#: model:ir.model.fields,field_description:machine.field_machine_group___last_update
-#: model:ir.model.fields,field_description:machine.field_machine_instance___last_update
-#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log___last_update
-#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user___last_update
-#: model:ir.model.fields,field_description:machine.field_machine_os___last_update
-#: model:ir.model.fields,field_description:machine.field_machine_os_name___last_update
-#: model:ir.model.fields,field_description:machine.field_machine_os_type___last_update
-#: model:ir.model.fields,field_description:machine.field_machine_tag___last_update
+#: model:ir.model.fields,field_description:machine.field_machine_cpu____last_update
+#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand____last_update
+#: model:ir.model.fields,field_description:machine.field_machine_cpu_vendor____last_update
+#: model:ir.model.fields,field_description:machine.field_machine_dbs____last_update
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance____last_update
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database____last_update
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user____last_update
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_name____last_update
+#: model:ir.model.fields,field_description:machine.field_machine_email____last_update
+#: model:ir.model.fields,field_description:machine.field_machine_email_recipient____last_update
+#: model:ir.model.fields,field_description:machine.field_machine_group____last_update
+#: model:ir.model.fields,field_description:machine.field_machine_instance____last_update
+#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log____last_update
+#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user____last_update
+#: model:ir.model.fields,field_description:machine.field_machine_os____last_update
+#: model:ir.model.fields,field_description:machine.field_machine_os_name____last_update
+#: model:ir.model.fields,field_description:machine.field_machine_os_type____last_update
+#: model:ir.model.fields,field_description:machine.field_machine_tag____last_update
 msgid "Last Modified on"
 msgstr "Paskutinį kartą keista"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand_write_uid
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_vendor_write_uid
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_write_uid
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database_write_uid
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user_write_uid
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_write_uid
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_name_write_uid
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_write_uid
-#: model:ir.model.fields,field_description:machine.field_machine_email_recipient_write_uid
-#: model:ir.model.fields,field_description:machine.field_machine_email_write_uid
-#: model:ir.model.fields,field_description:machine.field_machine_group_write_uid
-#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log_write_uid
-#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user_write_uid
-#: model:ir.model.fields,field_description:machine.field_machine_instance_write_uid
-#: model:ir.model.fields,field_description:machine.field_machine_os_name_write_uid
-#: model:ir.model.fields,field_description:machine.field_machine_os_type_write_uid
-#: model:ir.model.fields,field_description:machine.field_machine_os_write_uid
-#: model:ir.model.fields,field_description:machine.field_machine_tag_write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_cpu__write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand__write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_cpu_vendor__write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_dbs__write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance__write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database__write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user__write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_name__write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_email__write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_email_recipient__write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_group__write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_instance__write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log__write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user__write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_os__write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_os_name__write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_os_type__write_uid
+#: model:ir.model.fields,field_description:machine.field_machine_tag__write_uid
 msgid "Last Updated by"
 msgstr "Paskutinį kartą atnaujino"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand_write_date
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_vendor_write_date
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_write_date
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database_write_date
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user_write_date
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_write_date
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_name_write_date
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_write_date
-#: model:ir.model.fields,field_description:machine.field_machine_email_recipient_write_date
-#: model:ir.model.fields,field_description:machine.field_machine_email_write_date
-#: model:ir.model.fields,field_description:machine.field_machine_group_write_date
-#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log_write_date
-#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user_write_date
-#: model:ir.model.fields,field_description:machine.field_machine_instance_write_date
-#: model:ir.model.fields,field_description:machine.field_machine_os_name_write_date
-#: model:ir.model.fields,field_description:machine.field_machine_os_type_write_date
-#: model:ir.model.fields,field_description:machine.field_machine_os_write_date
-#: model:ir.model.fields,field_description:machine.field_machine_tag_write_date
+#: model:ir.model.fields,field_description:machine.field_machine_cpu__write_date
+#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand__write_date
+#: model:ir.model.fields,field_description:machine.field_machine_cpu_vendor__write_date
+#: model:ir.model.fields,field_description:machine.field_machine_dbs__write_date
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance__write_date
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database__write_date
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user__write_date
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_name__write_date
+#: model:ir.model.fields,field_description:machine.field_machine_email__write_date
+#: model:ir.model.fields,field_description:machine.field_machine_email_recipient__write_date
+#: model:ir.model.fields,field_description:machine.field_machine_group__write_date
+#: model:ir.model.fields,field_description:machine.field_machine_instance__write_date
+#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log__write_date
+#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user__write_date
+#: model:ir.model.fields,field_description:machine.field_machine_os__write_date
+#: model:ir.model.fields,field_description:machine.field_machine_os_name__write_date
+#: model:ir.model.fields,field_description:machine.field_machine_os_type__write_date
+#: model:ir.model.fields,field_description:machine.field_machine_tag__write_date
 msgid "Last Updated on"
 msgstr "Paskutinį kartą atnaujinta"
 
@@ -459,30 +504,30 @@ msgstr "Žemas"
 #. module: machine
 #: model:ir.model,name:machine.model_machine_cpu
 msgid "Machine CPU"
-msgstr "Machine CPU"
+msgstr "Mašinos CPU"
 
 #. module: machine
 #: model:ir.model,name:machine.model_machine_cpu_brand
 msgid "Machine CPU Brand"
-msgstr "Machine CPU Brand"
+msgstr "Mašinos CPU prekės ženklas"
 
 #. module: machine
 #: model:ir.model,name:machine.model_machine_cpu_vendor
 msgid "Machine CPU Vendor"
-msgstr "Machine CPU Vendor"
+msgstr "Mašinos CPU gamintojas"
 
 #. module: machine
 #: model:ir.model,name:machine.model_machine_dbs
 msgid "Machine Database System"
-msgstr "Machine Database System"
+msgstr "Mašinos duomenų bazės sistema"
 
 #. module: machine
 #: model:ir.model,name:machine.model_machine_dbs_name
 msgid "Machine Database System Name"
-msgstr "Machine Database System Name"
+msgstr "Mašinos duomenų bazės sistemos pavadinimas"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_email_recipient_machine_email_id
+#: model:ir.model.fields,field_description:machine.field_machine_email_recipient__machine_email_id
 msgid "Machine Email"
 msgstr "Mašinos el. paštas"
 
@@ -497,17 +542,17 @@ msgid "Machine Group"
 msgstr "Mašinos grupė"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_email_machine_group_ids
-#: model:ir.model.fields,field_description:machine.field_machine_instance_machine_group_ids
+#: model:ir.model.fields,field_description:machine.field_machine_email__machine_group_ids
+#: model:ir.model.fields,field_description:machine.field_machine_instance__machine_group_ids
 msgid "Machine Groups"
 msgstr "Mašinos grupės"
 
 #. module: machine
 #: model:ir.model,name:machine.model_machine_instance
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_machine_instance_id
-#: model:ir.model.fields,field_description:machine.field_machine_email_recipient_machine_instance_id
-#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log_machine_instance_id
-#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user_machine_instance_id
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance__machine_instance_id
+#: model:ir.model.fields,field_description:machine.field_machine_email_recipient__machine_instance_id
+#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log__machine_instance_id
+#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user__machine_instance_id
 msgid "Machine Instance"
 msgstr "Mašinos instancija"
 
@@ -517,45 +562,45 @@ msgid "Machine Instance Change Log"
 msgstr "Mašinos instancijos pakeitimų istorija"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_res_partner_machine_instance_count
-#: model:ir.model.fields,field_description:machine.field_res_users_machine_instance_count
+#: model:ir.model.fields,field_description:machine.field_res_partner__machine_instance_count
+#: model:ir.model.fields,field_description:machine.field_res_users__machine_instance_count
 msgid "Machine Instance Count"
-msgstr "Mašinų instancijų skaičius"
+msgstr "Mašinos instancijų skaičus"
 
 #. module: machine
 #: model:ir.model,name:machine.model_machine_dbs_instance_database
 msgid "Machine Instance DBS Database"
-msgstr "Machine Instance DBS Database"
+msgstr "Mašinos instancijos DBS duomenų bazė"
 
 #. module: machine
 #: model:ir.model,name:machine.model_machine_dbs_instance_user
 msgid "Machine Instance DBS Users"
-msgstr "Machine Instance DBS Users"
+msgstr "Mašinos instancijos DBS vartotojai"
 
 #. module: machine
 #: model:ir.model,name:machine.model_machine_dbs_instance
 msgid "Machine Instance Database System"
-msgstr "Machine Instance Database System"
+msgstr "Mašinos instancijos duomenų bazės sistema"
 
 #. module: machine
 #: model:ir.model,name:machine.model_machine_instance_os_user
 msgid "Machine Instance OS Users"
-msgstr "Machine Instance OS Users"
+msgstr "Mašinos instancijos OS vartotojai"
 
 #. module: machine
 #: model:ir.model,name:machine.model_machine_tag
 msgid "Machine Instance Tag"
-msgstr "Machine Instance Tag"
+msgstr "Mašinos instancijos žyma"
 
 #. module: machine
 #: model:ir.actions.act_window,name:machine.machine_instance_action
 #: model:ir.actions.act_window,name:machine.machine_instance_partner_action
-#: model:ir.model.fields,field_description:machine.field_machine_group_machine_instance_ids
-#: model:ir.model.fields,field_description:machine.field_machine_instance_child_ids
-#: model:ir.model.fields,field_description:machine.field_res_partner_machine_instance_ids
-#: model:ir.model.fields,field_description:machine.field_res_users_machine_instance_ids
+#: model:ir.model.fields,field_description:machine.field_machine_group__machine_instance_ids
+#: model:ir.model.fields,field_description:machine.field_machine_instance__child_ids
+#: model:ir.model.fields,field_description:machine.field_res_partner__machine_instance_ids
+#: model:ir.model.fields,field_description:machine.field_res_users__machine_instance_ids
 #: model:ir.ui.menu,name:machine.machine_instance_menu
-#: model:ir.ui.view,arch_db:machine.machine_instance_template_view_form
+#: model_terms:ir.ui.view,arch_db:machine.machine_instance_template_view_form
 msgid "Machine Instances"
 msgstr "Mašinų instancijos"
 
@@ -575,7 +620,7 @@ msgid "Machine OS Type"
 msgstr "Mašinos OS tipas"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_instance_parent_id
+#: model:ir.model.fields,field_description:machine.field_machine_instance__parent_id
 msgid "Machine Template"
 msgstr "Mašinos šablonas"
 
@@ -589,37 +634,52 @@ msgstr "Mašinos šablonai"
 #: model:ir.module.category,name:machine.module_category_machines_management
 #: model:ir.ui.menu,name:machine.machine_menu
 #: model:ir.ui.menu,name:machine.machine_root_menu
-#: model:ir.ui.view,arch_db:machine.view_partner_form_inherit
+#: model_terms:ir.ui.view,arch_db:machine.view_partner_form_inherit
 msgid "Machines"
 msgstr "Mašinos"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_email_mail_template_id
+#: model:ir.model.fields,field_description:machine.field_machine_email__mail_template_id
 msgid "Mail Template"
-msgstr "E-pašto šablonas"
+msgstr "Pašto šablonas"
+
+#. module: machine
+#: model:ir.model.fields,field_description:machine.field_machine_instance__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Pagrindinis priedas"
 
 #. module: machine
 #: model:res.groups,name:machine.machine_group_manager
 msgid "Manager"
-msgstr "Manager"
+msgstr "Vadybininkas"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand_name
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_name
-#: model:ir.model.fields,field_description:machine.field_machine_cpu_vendor_name
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database_name
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_name
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_name_name
-#: model:ir.model.fields,field_description:machine.field_machine_group_name
-#: model:ir.model.fields,field_description:machine.field_machine_instance_name
-#: model:ir.model.fields,field_description:machine.field_machine_os_name_name
-#: model:ir.model.fields,field_description:machine.field_machine_os_type_name
-#: model:ir.model.fields,field_description:machine.field_machine_tag_name
+#: model:ir.model.fields,field_description:machine.field_machine_instance__message_has_error
+msgid "Message Delivery error"
+msgstr "Žinutės pristatymo klaida"
+
+#. module: machine
+#: model:ir.model.fields,field_description:machine.field_machine_instance__message_ids
+msgid "Messages"
+msgstr "Žinutės"
+
+#. module: machine
+#: model:ir.model.fields,field_description:machine.field_machine_cpu__name
+#: model:ir.model.fields,field_description:machine.field_machine_cpu_brand__name
+#: model:ir.model.fields,field_description:machine.field_machine_cpu_vendor__name
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance__name
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_database__name
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_name__name
+#: model:ir.model.fields,field_description:machine.field_machine_group__name
+#: model:ir.model.fields,field_description:machine.field_machine_instance__name
+#: model:ir.model.fields,field_description:machine.field_machine_os_name__name
+#: model:ir.model.fields,field_description:machine.field_machine_os_type__name
+#: model:ir.model.fields,field_description:machine.field_machine_tag__name
 msgid "Name"
 msgstr "Pavadinimas"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user_name
+#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user__name
 msgid "Name and Surname"
 msgstr "Vardas ir pavardė"
 
@@ -630,13 +690,38 @@ msgid "Normal"
 msgstr "Normalus"
 
 #. module: machine
+#: model:ir.model.fields,field_description:machine.field_machine_instance__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Veiksmų skaičius"
+
+#. module: machine
+#: model:ir.model.fields,field_description:machine.field_machine_instance__message_has_error_counter
+msgid "Number of error"
+msgstr "Klaidų skaičius"
+
+#. module: machine
+#: model:ir.model.fields,help:machine.field_machine_instance__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Žinučių, kurioms reikia jūsų veiksmo, skaičius"
+
+#. module: machine
+#: model:ir.model.fields,help:machine.field_machine_instance__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Žinučių su pristatymo klaida skaičius"
+
+#. module: machine
+#: model:ir.model.fields,help:machine.field_machine_instance__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Neperskaitytų žinučių skaičius"
+
+#. module: machine
 #: model:ir.actions.act_window,name:machine.machine_os_action
 #: model:ir.ui.menu,name:machine.machine_os_menu
 msgid "OS"
-msgstr "OS"
+msgstr ""
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_os_os_name_id
+#: model:ir.model.fields,field_description:machine.field_machine_os__os_name_id
 msgid "OS Name"
 msgstr "OS pavadinimas"
 
@@ -647,7 +732,7 @@ msgid "OS Names"
 msgstr "OS pavadinimai"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_os_name_os_type_id
+#: model:ir.model.fields,field_description:machine.field_machine_os_name__os_type_id
 msgid "OS Type"
 msgstr "OS tipas"
 
@@ -658,18 +743,23 @@ msgid "OS Types"
 msgstr "OS tipai"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user_ids
-#: model:ir.ui.view,arch_db:machine.machine_instance_view_form
+#: model:ir.model.fields,field_description:machine.field_machine_instance__os_user_ids
+#: model_terms:ir.ui.view,arch_db:machine.machine_instance_view_form
 msgid "OS Users"
 msgstr "OS vartotojai"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_instance_os_id
+#: model:ir.model.fields,field_description:machine.field_machine_instance__os_users_count
+msgid "OS Users Count"
+msgstr "OS vartotojų skaičius"
+
+#. module: machine
+#: model:ir.model.fields,field_description:machine.field_machine_instance__os_id
 msgid "Operating System"
 msgstr "Operacinė sistema"
 
 #. module: machine
-#: model:ir.ui.view,arch_db:machine.machine_instance_view_form
+#: model_terms:ir.ui.view,arch_db:machine.machine_instance_view_form
 msgid "Operating System Users"
 msgstr "Operacinės sistemos vartotojai"
 
@@ -679,79 +769,77 @@ msgid "Operating Systems"
 msgstr "Operacinės sistemos"
 
 #. module: machine
-#: model:ir.ui.view,arch_db:machine.machine_instance_template_view_form
-#: model:ir.ui.view,arch_db:machine.machine_instance_view_form
+#: model_terms:ir.ui.view,arch_db:machine.machine_instance_common_view_form
 msgid "Options"
-msgstr "Opcijos"
+msgstr "Nustatymai"
 
 #. module: machine
-#: model:ir.ui.view,arch_db:machine.machine_instance_template_view_form
-#: model:ir.ui.view,arch_db:machine.machine_instance_view_form
+#: model_terms:ir.ui.view,arch_db:machine.machine_instance_common_view_form
 msgid "Parameters"
 msgstr "Parametrai"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_tag_parent_id
+#: model:ir.model.fields,field_description:machine.field_machine_tag__parent_id
 msgid "Parent Tag"
 msgstr "Tėvinė žyma"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_instance_partner_id
+#: model:ir.model.fields,field_description:machine.field_machine_instance__partner_id
 msgid "Partner"
 msgstr "Partneris"
 
 #. module: machine
-#: code:addons/machine/models/machine_instance.py:153
+#: code:addons/machine/models/machine_instance.py:156
 #, python-format
 msgid "Partner Contact"
 msgstr "Partnerio kontaktas"
 
 #. module: machine
-#: model:ir.model.fields,help:machine.field_machine_instance_partner_id
+#: model:ir.model.fields,help:machine.field_machine_instance__partner_id
 msgid "Partner that uses this machine instance."
-msgstr "Patneris, kuris naudoja šią mašinos instanciją."
+msgstr "Partneris, kuris naudoja šią mašinos instanciją"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_email_recipient_partner_ids
+#: model:ir.model.fields,field_description:machine.field_machine_email_recipient__partner_ids
 msgid "Partners"
 msgstr "Partneriai"
 
 #. module: machine
-#: model:ir.model.fields,help:machine.field_machine_email_recipient_partner_ids
+#: model:ir.model.fields,help:machine.field_machine_email_recipient__partner_ids
 msgid "Partners that will receive this email"
 msgstr "Partneriai, kurie gaus šį laišką"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_port
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance__port
 msgid "Port"
 msgstr "Prievadas"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_email_priority
-#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log_priority
+#: model:ir.model.fields,field_description:machine.field_machine_email__priority
+#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log__priority
 msgid "Priority"
-msgstr "Svarbumas"
+msgstr "Svarba"
 
 #. module: machine
-#: code:addons/machine/wizards/machine_email.py:165
+#: code:addons/machine/wizards/machine_email.py:160
 #, python-format
 msgid "Programming error: %s email_type does not exist"
 msgstr "Programavimo klaida: %s email_type neegzistuoja"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_instance_amount_ram
+#: model:ir.model.fields,field_description:machine.field_machine_instance__amount_ram
 msgid "RAM (GB)"
-msgstr "RAM (GB)"
+msgstr ""
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_email_recipient_ids
+#: model:ir.model.fields,field_description:machine.field_machine_email__recipient_ids
 msgid "Recipients"
 msgstr "Gavėjai"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_email_user_id
-#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log_user_id
-#: model:ir.model.fields,field_description:machine.field_machine_instance_user_id
+#: model:ir.model.fields,field_description:machine.field_machine_email__user_id
+#: model:ir.model.fields,field_description:machine.field_machine_instance__user_id
+#: model:ir.model.fields,field_description:machine.field_machine_instance_change_log__user_id
 msgid "Responsible"
 msgstr "Atsakingas"
 
@@ -768,7 +856,7 @@ msgstr "Suplanuoti aptarnavimo darbai aplinkai ${object.get_machine_name()} (${o
 #. module: machine
 #: model:ir.actions.act_window,name:machine.machine_email_action
 #: model:ir.ui.menu,name:machine.machine_email_menu
-#: model:ir.ui.view,arch_db:machine.machine_email_view_form
+#: model_terms:ir.ui.view,arch_db:machine.machine_email_view_form
 msgid "Send Emails"
 msgstr "Siųsti el. laiškus"
 
@@ -778,22 +866,22 @@ msgid "Send Emails to Machine Contacts"
 msgstr "Siųsti el. laiškus mašinų kontaktams"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_instance_amount_storage_capacity
+#: model:ir.model.fields,field_description:machine.field_machine_instance__amount_storage_capacity
 msgid "Storage Capacity (GB)"
 msgstr "Saugojimo talpa (GB)"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_email_sub_subject
+#: model:ir.model.fields,field_description:machine.field_machine_email__sub_subject
 msgid "Sub Subject"
 msgstr "Potemė"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_email_subject
+#: model:ir.model.fields,field_description:machine.field_machine_email__subject
 msgid "Subject"
 msgstr "Tema"
 
 #. module: machine
-#: code:addons/machine/models/machine_instance.py:86
+#: code:addons/machine/models/machine_instance.py:108
 #, python-format
 msgid "Synced fields values can't be modified on machine instance, if syncing is enabled."
 msgstr "Sinchronizuojamų laukų reikšmės negali būti modifikuojamos mašinos instancijai, jeigu yra įjungta sinchronizacija."
@@ -805,15 +893,15 @@ msgstr "Žymos pavadinimas jau egzistuoja !"
 
 #. module: machine
 #: model:ir.actions.act_window,name:machine.machine_tag_action
-#: model:ir.model.fields,field_description:machine.field_machine_instance_tag_ids
+#: model:ir.model.fields,field_description:machine.field_machine_instance__tag_ids
 #: model:ir.ui.menu,name:machine.machine_tag_menu
 msgid "Tags"
 msgstr "Žymos"
 
 #. module: machine
-#: code:addons/machine/models/machine_dbs.py:91
+#: code:addons/machine/models/machine_dbs.py:126
 #: code:addons/machine/models/machine_group.py:23
-#: code:addons/machine/models/machine_os.py:67
+#: code:addons/machine/models/machine_os.py:73
 #: sql_constraint:machine.dbs.name:0
 #: sql_constraint:machine.group:0
 #: sql_constraint:machine.os.type:0
@@ -822,7 +910,7 @@ msgid "The name must be unique !"
 msgstr "Pavadinimas turi būti unikalus !"
 
 #. module: machine
-#: code:addons/machine/models/machine_dbs.py:66
+#: code:addons/machine/models/machine_dbs.py:98
 #: sql_constraint:machine.dbs:0
 #, python-format
 msgid "The name must be unique per Database Name !"
@@ -836,11 +924,21 @@ msgid "The name must be unique per OS Name !"
 msgstr "Pavadinimas turi būti unikalus pagal OS pavadinimą !"
 
 #. module: machine
-#: code:addons/machine/models/machine_os.py:45
+#: code:addons/machine/models/machine_os.py:48
 #: sql_constraint:machine.os.name:0
 #, python-format
 msgid "The name must be unique per OS Type !"
 msgstr "Pavadinimas turi būti unikalus pagal OS tipą !"
+
+#. module: machine
+#: model:ir.model.fields,field_description:machine.field_machine_instance__message_unread
+msgid "Unread Messages"
+msgstr "Neperskaitytos žinutės"
+
+#. module: machine
+#: model:ir.model.fields,field_description:machine.field_machine_instance__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Neperskaitytų žinučių skaičiuoklis"
 
 #. module: machine
 #: model:res.groups,name:machine.machine_group_user
@@ -848,8 +946,8 @@ msgid "User"
 msgstr "Vartotojas"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user_username
-#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user_username
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_user__username
+#: model:ir.model.fields,field_description:machine.field_machine_instance_os_user__username
 msgid "Username"
 msgstr "Vartotojo vardas"
 
@@ -859,23 +957,38 @@ msgid "Username already exists !"
 msgstr "Toks vartotojo vardas jau egzistuoja !"
 
 #. module: machine
-#: model:ir.ui.view,arch_db:machine.machine_dbs_instance_view_form
+#: model_terms:ir.ui.view,arch_db:machine.machine_dbs_instance_view_form
 msgid "Users"
 msgstr "Vartotojai"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance_amount_users
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance__users_count
 msgid "Users Count"
 msgstr "Vartotojų skaičius"
 
 #. module: machine
-#: model:ir.model.fields,field_description:machine.field_machine_dbs_name
-#: model:ir.model.fields,field_description:machine.field_machine_os_name
+#: model:ir.model.fields,field_description:machine.field_machine_dbs__name
+#: model:ir.model.fields,field_description:machine.field_machine_os__name
 msgid "Version"
 msgstr "Versija"
 
 #. module: machine
-#: model:ir.model.fields,help:machine.field_machine_instance_change_log_date
+#: model:ir.model.fields,help:machine.field_machine_instance_change_log__date
 msgid "When change happened or specify date it is being planned to be changed in advance"
 msgstr "Kada įvyko pakeitimas arba nurodyti datą į priekį, kada planuojamas pakeitimas"
+
+#. module: machine
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance___databases_count
+msgid "_databases_count"
+msgstr ""
+
+#. module: machine
+#: model:ir.model.fields,field_description:machine.field_machine_instance___os_users_count
+msgid "_os_users_count"
+msgstr ""
+
+#. module: machine
+#: model:ir.model.fields,field_description:machine.field_machine_dbs_instance___users_count
+msgid "_users_count"
+msgstr ""
 

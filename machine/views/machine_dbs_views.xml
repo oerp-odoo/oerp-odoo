@@ -14,8 +14,8 @@
                 <field name="name"/>
                 <field name="dbs_id"/>
                 <field name="port"/>
-                <field name="amount_users"/>
-                <field name="amount_databases"/>
+                <field name="users_count"/>
+                <field name="databases_count"/>
             </tree>
         </field>
     </record>
@@ -33,8 +33,10 @@
                             <field name="port"/>
                         </group>
                         <group name="right">
-                            <field name="amount_users"/>
-                            <field name="amount_databases"/>
+                            <field name="users_count"
+                                attrs="{'readonly': [('dbs_instance_user_ids', '!=', [])]}"/>
+                            <field name="databases_count"
+                                attrs="{'readonly': [('dbs_instance_db_ids', '!=', [])]}"/>
                         </group>
                     </group>
                     <notebook>

@@ -14,6 +14,6 @@
         <field name="name">Manager</field>
         <field name="category_id" ref="module_category_machines_management"/>
         <field name="implied_ids" eval="[(4, ref('machine_group_user'))]"/>
-        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
     </record>
 </odoo>

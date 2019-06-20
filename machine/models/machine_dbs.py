@@ -1,6 +1,6 @@
-from odoo import models, fields, api, _
+from footil.formatting import generate_names
 
-from ..utils import generate_name_get
+from odoo import models, fields, api, _
 
 
 class MachineDbsInstance(models.Model):
@@ -21,9 +21,41 @@ class MachineDbsInstance(models.Model):
     dbs_instance_db_ids = fields.One2many(
         'machine.dbs.instance.database', 'dbs_instance_id', "Databases")
     port = fields.Integer(required=True,)
-    # TODO: add possibility to specify users and databases.
-    amount_users = fields.Integer("Users Count")
-    amount_databases = fields.Integer("Databases Count")
+    _users_count = fields.Integer("_users_count")
+    users_count = fields.Integer(
+        "Users Count",
+        compute='_compute_users_count',
+        inverse='_inverse_users_count',
+        store=True,
+        oldname='amount_users')
+    _databases_count = fields.Integer("_databases_count")
+    databases_count = fields.Integer(
+        "Databases Count",
+        compute='_compute_databases_count',
+        inverse='_inverse_databases_count',
+        store=True,
+        oldname='amount_databases')
+
+    @api.one
+    @api.depends('dbs_instance_user_ids', '_users_count')
+    def _compute_users_count(self):
+        users_count = len(self.dbs_instance_user_ids) or self._users_count
+        self.users_count = users_count
+
+    @api.one
+    def _inverse_users_count(self):
+        self._users_count = self.users_count
+
+    @api.one
+    @api.depends('dbs_instance_db_ids', '_databases_count')
+    def _compute_databases_count(self):
+        databases_count = (
+            len(self.dbs_instance_db_ids) or self._databases_count)
+        self.databases_count = databases_count
+
+    @api.one
+    def _inverse_databases_count(self):
+        self._databases_count = self.databases_count
 
 
 class MachineDbsInstanceUser(models.Model):
@@ -70,7 +102,10 @@ class MachineDbs(models.Model):
     @api.depends('name', 'dbs_name_id.name')
     def name_get(self):
         """Override to show custom display_name."""
-        return generate_name_get('{dbs_name_id.name} {name}', self)
+        return generate_names({
+            'pattern': '{dbs_name_id.name} {name}',
+            'objects': self,
+        })
 
 
 class MachineDbsName(models.Model):

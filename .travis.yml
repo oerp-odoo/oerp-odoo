@@ -7,6 +7,7 @@ sudo: false
 cache: pip
 
 addons:
+  postgresql: "9.6"
   apt:
     packages:
       - expect-dev  # provides unbuffer utility
@@ -14,7 +15,7 @@ addons:
 
 env:
   global:
-  - VERSION="11.0" TESTS="0" LINT_CHECK="0"
+  - VERSION="12.0" TESTS="0" LINT_CHECK="0"
   - PHANTOMJS_VERSION="latest"
   matrix:
   # - LINT_CHECK="1"
@@ -23,6 +24,7 @@ env:
 
 
 install:
+  - pip install footil
   - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly

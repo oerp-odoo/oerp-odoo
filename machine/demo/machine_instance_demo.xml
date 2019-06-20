@@ -23,7 +23,7 @@
 
     <!-- Production Instances -->
     <record id="machine_instance_template_1_instance_1" model="machine.instance">
-        <field name="name">ASUSTEK Production</field>
+        <field name="name">Wood Corner Production</field>
         <field name="cpu_id" ref="machine_cpu_xeon_e3113"/>
         <field name="os_id" ref="machine_os_ubuntu_1604"/>
         <field name="amount_storage_capacity" eval="50"/>
@@ -33,10 +33,10 @@
         <field name="is_template" eval="False"/>
         <field name="parent_id" ref="machine_instance_template_1"/>
         <field name="ip">172.217.21.142</field>
-        <field name="domain">asustek.com</field>
+        <field name="domain">wood-corner.com</field>
     </record>
     <record id="machine_instance_template_1_instance_2" model="machine.instance">
-        <field name="name">Agrolait Production</field>
+        <field name="name">Deco Addict Production</field>
         <field name="cpu_id" ref="machine_cpu_xeon_e3113"/>
         <field name="os_id" ref="machine_os_ubuntu_1604"/>
         <field name="amount_storage_capacity" eval="50"/>
@@ -48,10 +48,10 @@
         <field name="is_template" eval="False"/>
         <field name="parent_id" ref="machine_instance_template_1"/>
         <field name="ip">108.174.10.10</field>
-        <field name="domain">agrolait.com</field>
+        <field name="domain">deco-addict.com</field>
     </record>
     <record id="machine_instance_template_1_instance_3" model="machine.instance">
-        <field name="name">China Export Production</field>
+        <field name="name">Gemini Furniture Production</field>
         <field name="cpu_id" ref="machine_cpu_xeon_e3113"/>
         <field name="os_id" ref="machine_os_ubuntu_1604"/>
         <field name="amount_storage_capacity" eval="30"/>
@@ -62,11 +62,11 @@
         <field name="is_template" eval="False"/>
         <field name="parent_id" ref="machine_instance_template_1"/>
         <field name="ip">64.4.250.33</field>
-        <field name="domain">china-export.com</field>
+        <field name="domain">gemini-furniture.com</field>
     </record>
     <!-- Experimental Instances -->
     <record id="machine_instance_template_2_instance_1" model="machine.instance">
-        <field name="name">Delta PC Experimental</field>
+        <field name="name">Ready Mat Experimental</field>
         <field name="cpu_id" ref="machine_cpu_opteron_x3216_apu"/>
         <field name="os_id" ref="machine_os_windows_server_2012_r2"/>
         <field name="amount_storage_capacity" eval="40"/>
@@ -78,6 +78,6 @@
         <field name="is_template" eval="False"/>
         <field name="parent_id" ref="machine_instance_template_2"/>
         <field name="ip">143.166.147.101</field>
-        <field name="domain">deltapc.com</field>
+        <field name="domain">readymat.com</field>
     </record>
 </odoo>

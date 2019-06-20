@@ -11,6 +11,7 @@
     'depends': [
         'mail'
     ],
+    'external_dependencies': {'python': ['footil']},
     'data': [
         'security/machine_security.xml',
         'security/ir.model.access.csv',
