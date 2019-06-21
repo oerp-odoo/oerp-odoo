@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Define used server machines",
-    'version': '1.0.0',
+    'version': '1.0.1',
     'summary': 'Define used server machines per partner',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
@@ -13,7 +13,7 @@
     ],
     'external_dependencies': {'python': ['footil']},
     'images': [
-        'static/description/machine_instance.png.jpg',
+        'static/description/machine_instance.png',
     ],
     'data': [
         'security/machine_security.xml',
