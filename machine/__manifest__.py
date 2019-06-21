@@ -12,6 +12,9 @@
         'mail'
     ],
     'external_dependencies': {'python': ['footil']},
+    'images': [
+        'static/description/machine_instance.png.jpg',
+    ],
     'data': [
         'security/machine_security.xml',
         'security/ir.model.access.csv',
