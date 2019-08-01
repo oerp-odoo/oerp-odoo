@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Searches all modules by default, makes tree view default. -->
+    <record id="base.open_module_tree" model="ir.actions.act_window">
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>
