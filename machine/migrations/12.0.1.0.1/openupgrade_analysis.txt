@@ -1,0 +1,1144 @@
+---Fields in module 'machine'---
+machine      / account.account          / internal_group (selection)    : NEW selection_keys: function, isrelated: related, stored: stored
+machine      / account.account.type     / internal_group (selection)    : NEW selection_keys: ['asset', 'equity', 'expense', 'income', 'liability']
+machine      / account.analytic.account / group_id (many2one)           : NEW relation: account.analytic.group
+machine      / account.analytic.account / message_last_post (datetime)  : DEL
+machine      / account.analytic.account / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / account.analytic.account / project_ids (one2many)        : DEL relation: project.project
+machine      / account.analytic.account / tag_ids (many2many)           : DEL relation: account.analytic.tag
+machine      / account.analytic.distribution / account_id (many2one)         : NEW relation: account.analytic.account, required: required
+machine      / account.analytic.distribution / percentage (float)            : NEW required: required, req_default: function, hasdefault: hasdefault
+machine      / account.analytic.distribution / tag_id (many2one)             : NEW relation: account.analytic.tag, required: required
+machine      / account.analytic.group   / children_ids (one2many)       : NEW relation: account.analytic.group
+machine      / account.analytic.group   / company_id (many2one)         : NEW relation: res.company
+machine      / account.analytic.group   / complete_name (char)          : NEW isfunction: function, stored: stored
+machine      / account.analytic.group   / description (text)            : NEW
+machine      / account.analytic.group   / name (char)                   : NEW required: required
+machine      / account.analytic.group   / parent_id (many2one)          : NEW relation: account.analytic.group
+machine      / account.analytic.group   / parent_path (char)            : NEW
+machine      / account.analytic.line    / amount_currency (float)       : DEL
+machine      / account.analytic.line    / company_id (many2one)         : not related anymore
+machine      / account.analytic.line    / company_id (many2one)         : now required, req_default: function
+machine      / account.analytic.line    / group_id (many2one)           : NEW relation: account.analytic.group, isrelated: related, stored: stored
+machine      / account.analytic.line    / partner_id (many2one)         : not related anymore
+machine      / account.analytic.line    / product_uom_id (many2one)     : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / account.analytic.tag     / active_analytic_distribution (boolean): NEW
+machine      / account.analytic.tag     / analytic_distribution_ids (one2many): NEW relation: account.analytic.distribution
+machine      / account.analytic.tag     / company_id (many2one)         : NEW relation: res.company
+machine      / account.asset.asset      / account_analytic_id (many2one): NEW relation: account.analytic.account
+machine      / account.asset.asset      / analytic_tag_ids (many2many)  : NEW relation: account.analytic.tag
+machine      / account.asset.asset      / asset_number (char)           : now required
+machine      / account.asset.asset      / asset_number (char)           : was renamed to number [nothing to do]
+machine      / account.asset.asset      / date_first_depreciation (selection): NEW required: required, selection_keys: ['last_day_period', 'manual'], req_default: function, hasdefault: hasdefault
+machine      / account.asset.asset      / depreciation_ratio (char)     : type is now 'float' ('char')
+machine      / account.asset.asset      / first_depreciation_manual_date (date): NEW
+machine      / account.asset.asset      / message_last_post (datetime)  : DEL
+machine      / account.asset.asset      / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / account.asset.asset      / responsible_employee_id (many2one): was renamed to employee_id [nothing to do]
+machine      / account.asset.category   / analytic_tag_ids (many2many)  : NEW relation: account.analytic.tag
+machine      / account.asset.category   / date_first_depreciation (selection): NEW required: required, selection_keys: ['last_day_period', 'manual'], req_default: function, hasdefault: hasdefault
+machine      / account.asset.history    / related_invoice_id (many2one) : was renamed to invoice_id [nothing to do]
+machine      / account.asset.history    / related_partner_id (many2one) : was renamed to partner_id [nothing to do]
+machine      / account.bank.statement   / accounting_date (date)        : NEW
+machine      / account.bank.statement   / message_last_post (datetime)  : DEL
+machine      / account.bank.statement   / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / account.bank.statement.line / account_number (char)         : NEW
+machine      / account.bank.statement.line / online_identifier (char)      : NEW
+machine      / account.bank.statement.line / online_partner_bank_account (char): NEW
+machine      / account.bank.statement.line / online_partner_vendor_name (char): NEW
+machine      / account.chart.template   / bank_account_code_prefix (char): now required
+machine      / account.chart.template   / cash_account_code_prefix (char): now required
+machine      / account.chart.template   / company_id (many2one)         : DEL relation: res.company
+machine      / account.chart.template   / transfer_account_code_prefix (char): NEW required: required
+machine      / account.chart.template   / transfer_account_id (many2one): DEL relation: account.account.template, required: required
+machine      / account.financial.html.report / applicable_filters_ids (many2many): NEW relation: ir.filters
+machine      / account.financial.html.report.line / parent_path (char)            : NEW
+machine      / account.financial.html.report.line / print_on_new_page (boolean)   : NEW
+machine      / account.fiscal.year      / company_id (many2one)         : NEW relation: res.company, required: required, req_default: function, hasdefault: hasdefault
+machine      / account.fiscal.year      / date_from (date)              : NEW required: required
+machine      / account.fiscal.year      / date_to (date)                : NEW required: required
+machine      / account.fiscal.year      / name (char)                   : NEW required: required
+machine      / account.group            / parent_left (integer)         : DEL
+machine      / account.group            / parent_path (char)            : NEW
+machine      / account.group            / parent_right (integer)        : DEL
+machine      / account.invoice          / activity_date_deadline (date) : not related anymore
+machine      / account.invoice          / activity_date_deadline (date) : not stored anymore
+machine      / account.invoice          / activity_date_deadline (date) : now a function
+machine      / account.invoice          / default_note_id (many2one)    : DEL relation: account.invoice.note
+machine      / account.invoice          / extract_remoteid (integer)    : NEW hasdefault: hasdefault
+machine      / account.invoice          / extract_state (selection)     : NEW required: required, selection_keys: ['done', 'error_status', 'extract_not_ready', 'no_extract_requested', 'not_enough_credit', 'waiting_extraction', 'waiting_validation'], req_default: function, hasdefault: hasdefault
+machine      / account.invoice          / extract_word_ids (one2many)   : NEW relation: account.invoice_extract.words
+machine      / account.invoice          / incoterm_id (many2one)        : NEW relation: account.incoterms, hasdefault: hasdefault
+machine      / account.invoice          / incoterms_id (many2one)       : relation is now 'account.incoterms' ('stock.incoterms') [nothing to do]
+machine      / account.invoice          / message_last_post (datetime)  : DEL
+machine      / account.invoice          / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / account.invoice          / note_id (many2one)            : NEW relation: account.invoice.note
+machine      / account.invoice          / reference_type (selection)    : DEL required: required, selection_keys: function, req_default: function
+machine      / account.invoice          / source_email (char)           : NEW
+machine      / account.invoice          / state (selection)             : selection_keys is now '['cancel', 'draft', 'in_payment', 'open', 'paid']' ('['cancel', 'draft', 'open', 'paid']')
+machine      / account.invoice          / transaction_ids (many2many)   : NEW relation: payment.transaction
+machine      / account.invoice          / vendor_bill_id (many2one)     : NEW relation: account.invoice
+machine      / account.invoice          / vendor_bill_purchase_id (many2one): NEW relation: purchase.bill.union
+machine      / account.invoice          / vendor_display_name (char)    : NEW isfunction: function, stored: stored
+machine      / account.invoice.line     / display_type (selection)      : NEW selection_keys: ['line_note', 'line_section'], hasdefault: hasdefault
+machine      / account.invoice.line     / layout_category_id (many2one) : DEL relation: sale.layout_category
+machine      / account.invoice.line     / layout_category_sequence (integer): DEL
+machine      / account.invoice.line     / uom_id (many2one)             : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / account.invoice.line     / uom_vendor_id (many2one)      : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / account.invoice.tax      / analytic_tag_ids (many2many)  : NEW relation: account.analytic.tag
+machine      / account.invoice_extract.words / field (char)                  : NEW
+machine      / account.invoice_extract.words / invoice_id (many2one)         : NEW relation: account.invoice
+machine      / account.invoice_extract.words / selected_status (integer)     : NEW
+machine      / account.invoice_extract.words / user_selected (boolean)       : NEW
+machine      / account.invoice_extract.words / word_box_angle (float)        : NEW
+machine      / account.invoice_extract.words / word_box_height (float)       : NEW
+machine      / account.invoice_extract.words / word_box_midX (float)         : NEW
+machine      / account.invoice_extract.words / word_box_midY (float)         : NEW
+machine      / account.invoice_extract.words / word_box_width (float)        : NEW
+machine      / account.invoice_extract.words / word_page (integer)           : NEW
+machine      / account.invoice_extract.words / word_text (char)              : NEW
+machine      / account.journal          / account_online_journal_id (many2one): NEW relation: account.online.journal
+machine      / account.journal          / accountable_partner_id (many2one): DEL relation: res.partner
+machine      / account.journal          / alias_id (many2one)           : NEW relation: mail.alias
+machine      / account.journal          / bank_statement_creation (selection): NEW selection_keys: function, hasdefault: hasdefault
+machine      / account.journal          / bank_statements_source (selection): selection_keys is now 'function' ('['file_import', 'manual', 'undefined']')
+machine      / account.journal          / post_at_bank_rec (boolean)    : NEW
+machine      / account.move             / auto_reverse (boolean)        : NEW hasdefault: hasdefault
+machine      / account.move             / reverse_date (date)           : NEW
+machine      / account.move             / reverse_entry_id (many2one)   : NEW relation: account.move
+machine      / account.move             / tax_type_domain (char)        : NEW
+machine      / account.move.line        / product_uom_id (many2one)     : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / account.move.line        / recompute_tax_line (boolean)  : NEW
+machine      / account.move.line        / tax_line_grouping_key (char)  : NEW
+machine      / account.online.journal   / account_number (char)         : NEW
+machine      / account.online.journal   / account_online_provider_id (many2one): NEW relation: account.online.provider
+machine      / account.online.journal   / balance (float)               : NEW
+machine      / account.online.journal   / journal_ids (one2many)        : NEW relation: account.journal
+machine      / account.online.journal   / last_sync (date)              : NEW
+machine      / account.online.journal   / name (char)                   : NEW required: required
+machine      / account.online.journal   / online_identifier (char)      : NEW
+machine      / account.online.journal   / ponto_last_synchronization_identifier (char): NEW
+machine      / account.online.journal   / yodlee_account_status (char)  : NEW
+machine      / account.online.journal   / yodlee_status_code (integer)  : NEW
+machine      / account.online.provider  / account_online_journal_ids (one2many): NEW relation: account.online.journal
+machine      / account.online.provider  / action_required (boolean)     : NEW hasdefault: hasdefault
+machine      / account.online.provider  / company_id (many2one)         : NEW relation: res.company, required: required, req_default: function, hasdefault: hasdefault
+machine      / account.online.provider  / last_refresh (datetime)       : NEW hasdefault: hasdefault
+machine      / account.online.provider  / message (char)                : NEW
+machine      / account.online.provider  / message_follower_ids (one2many): NEW relation: mail.followers
+machine      / account.online.provider  / message_ids (one2many)        : NEW relation: mail.message
+machine      / account.online.provider  / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / account.online.provider  / name (char)                   : NEW
+machine      / account.online.provider  / plaid_error_type (char)       : NEW
+machine      / account.online.provider  / plaid_item_id (char)          : NEW
+machine      / account.online.provider  / ponto_token (char)            : NEW
+machine      / account.online.provider  / provider_account_identifier (char): NEW
+machine      / account.online.provider  / provider_identifier (char)    : NEW
+machine      / account.online.provider  / provider_type (selection)     : NEW selection_keys: ['plaid', 'ponto', 'yodlee']
+machine      / account.online.provider  / status (char)                 : NEW
+machine      / account.online.provider  / status_code (char)            : NEW
+machine      / account.online.provider  / website_message_ids (one2many): NEW relation: mail.message
+machine      / account.payment          / company_id (many2one)         : not stored anymore
+machine      / account.payment          / message_last_post (datetime)  : DEL
+machine      / account.payment          / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / account.payment          / multi (boolean)               : NEW
+machine      / account.payment          / partner_bank_account_id (many2one): NEW relation: res.partner.bank
+machine      / account.payment.term.line / day_of_the_month (integer)    : NEW
+machine      / account.payment.term.line / option (selection)            : selection_keys is now '['after_invoice_month', 'day_after_invoice_date', 'day_current_month', 'day_following_month']' ('['day_after_invoice_date', 'fix_day_following_month', 'last_day_current_month', 'last_day_following_month']')
+machine      / account.reconcile.model  / analytic_tag_ids (many2many)  : NEW relation: account.analytic.tag
+machine      / account.reconcile.model  / auto_reconcile (boolean)      : NEW
+machine      / account.reconcile.model  / force_second_tax_included (boolean): NEW
+machine      / account.reconcile.model  / force_tax_included (boolean)  : NEW
+machine      / account.reconcile.model  / match_amount (selection)      : NEW selection_keys: ['between', 'greater', 'lower']
+machine      / account.reconcile.model  / match_amount_max (float)      : NEW
+machine      / account.reconcile.model  / match_amount_min (float)      : NEW
+machine      / account.reconcile.model  / match_journal_ids (many2many) : NEW relation: account.journal
+machine      / account.reconcile.model  / match_label (selection)       : NEW selection_keys: ['contains', 'match_regex', 'not_contains']
+machine      / account.reconcile.model  / match_label_param (char)      : NEW
+machine      / account.reconcile.model  / match_nature (selection)      : NEW required: required, selection_keys: ['amount_paid', 'amount_received', 'both'], req_default: function, hasdefault: hasdefault
+machine      / account.reconcile.model  / match_partner (boolean)       : NEW
+machine      / account.reconcile.model  / match_partner_category_ids (many2many): NEW relation: res.partner.category
+machine      / account.reconcile.model  / match_partner_ids (many2many) : NEW relation: res.partner
+machine      / account.reconcile.model  / match_same_currency (boolean) : NEW hasdefault: hasdefault
+machine      / account.reconcile.model  / match_total_amount (boolean)  : NEW hasdefault: hasdefault
+machine      / account.reconcile.model  / match_total_amount_param (float): NEW hasdefault: hasdefault
+machine      / account.reconcile.model  / rule_type (selection)         : NEW required: required, selection_keys: ['invoice_matching', 'writeoff_button', 'writeoff_suggestion'], req_default: function, hasdefault: hasdefault
+machine      / account.reconcile.model  / second_analytic_tag_ids (many2many): NEW relation: account.analytic.tag
+machine      / account.reconcile.model.template / auto_reconcile (boolean)      : NEW
+machine      / account.reconcile.model.template / force_second_tax_included (boolean): NEW
+machine      / account.reconcile.model.template / force_tax_included (boolean)  : NEW
+machine      / account.reconcile.model.template / match_amount (selection)      : NEW selection_keys: ['between', 'greater', 'lower']
+machine      / account.reconcile.model.template / match_amount_max (float)      : NEW
+machine      / account.reconcile.model.template / match_amount_min (float)      : NEW
+machine      / account.reconcile.model.template / match_journal_ids (many2many) : NEW relation: account.journal
+machine      / account.reconcile.model.template / match_label (selection)       : NEW selection_keys: ['contains', 'match_regex', 'not_contains']
+machine      / account.reconcile.model.template / match_label_param (char)      : NEW
+machine      / account.reconcile.model.template / match_nature (selection)      : NEW required: required, selection_keys: ['amount_paid', 'amount_received', 'both'], req_default: function, hasdefault: hasdefault
+machine      / account.reconcile.model.template / match_partner (boolean)       : NEW
+machine      / account.reconcile.model.template / match_partner_category_ids (many2many): NEW relation: res.partner.category
+machine      / account.reconcile.model.template / match_partner_ids (many2many) : NEW relation: res.partner
+machine      / account.reconcile.model.template / match_same_currency (boolean) : NEW hasdefault: hasdefault
+machine      / account.reconcile.model.template / match_total_amount (boolean)  : NEW hasdefault: hasdefault
+machine      / account.reconcile.model.template / match_total_amount_param (float): NEW hasdefault: hasdefault
+machine      / account.reconcile.model.template / rule_type (selection)         : NEW required: required, selection_keys: ['invoice_matching', 'writeoff_button', 'writeoff_suggestion'], req_default: function, hasdefault: hasdefault
+machine      / account.tax              / cash_basis_account (many2one) : was renamed to cash_basis_account_id [nothing to do]
+machine      / account.tax              / tax_adjustment (boolean)      : DEL
+machine      / account.tax              / tax_code_id (many2one)        : was renamed to code_id [nothing to do]
+machine      / account.tax              / type_tax_use (selection)      : selection_keys is now '['adjustment', 'none', 'purchase', 'sale']' ('['none', 'purchase', 'sale']')
+machine      / account.tax.template     / cash_basis_account (many2one) : was renamed to cash_basis_account_id [nothing to do]
+machine      / account.tax.template     / cash_basis_base_account_id (many2one): NEW relation: account.account.template
+machine      / account.tax.template     / code_id (many2one)            : NEW relation: account.tax.code
+machine      / account.tax.template     / company_id (many2one)         : DEL relation: res.company
+machine      / account.tax.template     / reverse_tax_id (many2one)     : NEW relation: account.tax.template
+machine      / account.tax.template     / tax_adjustment (boolean)      : DEL
+machine      / account.tax.template     / type_tax_use (selection)      : selection_keys is now '['adjustment', 'none', 'purchase', 'sale']' ('['none', 'purchase', 'sale']')
+machine      / advanced.copy.config     / actions_server_id (many2one)  : NEW relation: ir.actions.server
+machine      / advanced.copy.config     / form_no_copy_view_id (many2one): NEW relation: ir.ui.view
+machine      / base_import.mapping      / column_name (char)            : NEW
+machine      / base_import.mapping      / field_name (char)             : NEW
+machine      / base_import.mapping      / res_model (char)              : NEW
+machine      / base_import.tests.models.complex / c (char)                      : NEW
+machine      / base_import.tests.models.complex / currency_id (many2one)        : NEW relation: res.currency
+machine      / base_import.tests.models.complex / d (date)                      : NEW
+machine      / base_import.tests.models.complex / dt (datetime)                 : NEW
+machine      / base_import.tests.models.complex / f (float)                     : NEW
+machine      / base_import.tests.models.complex / m (float)                     : NEW
+machine      / base_import.tests.models.float / currency_id (many2one)        : NEW relation: res.currency
+machine      / base_import.tests.models.float / value (float)                 : NEW
+machine      / base_import.tests.models.float / value2 (float)                : NEW
+machine      / calendar.event           / message_last_post (datetime)  : DEL
+machine      / calendar.event           / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / calendar.event           / partner_address_id (many2one) : NEW relation: res.partner
+machine      / compose                  / active (boolean)              : NEW
+machine      / compose                  / line_ids (one2many)           : NEW relation: compose.line
+machine      / compose                  / log_ids (one2many)            : NEW relation: compose.log
+machine      / compose                  / name (char)                   : NEW required: required
+machine      / compose.line             / compose_id (many2one)         : NEW relation: compose, required: required
+machine      / compose.line             / section_id (many2one)         : NEW relation: compose.section, required: required
+machine      / compose.line             / sequence (integer)            : NEW hasdefault: hasdefault
+machine      / compose.log              / action (selection)            : NEW required: required, selection_keys: ['install', 'setup']
+machine      / compose.log              / compose_id (many2one)         : NEW relation: compose
+machine      / compose.log              / date (datetime)               : NEW required: required, req_default: function, hasdefault: hasdefault
+machine      / compose.log              / name (text)                   : NEW required: required
+machine      / compose.log              / user_id (many2one)            : NEW relation: res.users, required: required, req_default: function, hasdefault: hasdefault
+machine      / compose.section          / item_ids (one2many)           : NEW relation: compose.section.item
+machine      / compose.section          / langs_to_install (char)       : NEW
+machine      / compose.section          / name (char)                   : NEW required: required
+machine      / compose.section          / unexpected_modules_exclusions (char): NEW
+machine      / compose.section.item     / company_ids (many2many)       : NEW relation: res.company
+machine      / compose.section.item     / data_variable_company_id (many2one): NEW relation: compose.section.item.data_variable
+machine      / compose.section.item     / data_variable_ids (many2many) : NEW relation: compose.section.item.data_variable
+machine      / compose.section.item     / item_type (selection)         : NEW required: required, selection_keys: ['cfg_opt', 'company_field', 'data', 'exec', 'module', 'sys_param']
+machine      / compose.section.item     / item_type_priority (integer)  : NEW isfunction: function, stored: stored
+machine      / compose.section.item     / key (char)                    : NEW
+machine      / compose.section.item     / noupdate (boolean)            : NEW hasdefault: hasdefault
+machine      / compose.section.item     / section_id (many2one)         : NEW relation: compose.section, required: required
+machine      / compose.section.item     / sequence (integer)            : NEW
+machine      / compose.section.item     / value (char)                  : NEW required: required
+machine      / compose.section.item.data_variable / model (char)                  : NEW
+machine      / compose.section.item.data_variable / name (char)                   : NEW required: required
+machine      / compose.section.item.data_variable / value (char)                  : NEW required: required, req_default: function, hasdefault: hasdefault
+machine      / compose.section.item.data_variable / var_type (selection)          : NEW required: required, selection_keys: ['eval', 'record'], req_default: function, hasdefault: hasdefault
+machine      / crm.lead                 / _total_variable_cost (float)  : NEW
+machine      / crm.lead                 / activity_date_deadline (date) : not related anymore
+machine      / crm.lead                 / activity_date_deadline (date) : not stored anymore
+machine      / crm.lead                 / activity_date_deadline (date) : now a function
+machine      / crm.lead                 / amount_total_won (float)      : NEW isfunction: function, stored: stored
+machine      / crm.lead                 / contribution (float)          : DEL
+machine      / crm.lead                 / days_exceeding_closing (float): NEW isfunction: function, stored: stored
+machine      / crm.lead                 / days_to_convert (float)       : NEW isfunction: function, stored: stored
+machine      / crm.lead                 / expected_revenue (float)      : NEW isfunction: function, stored: stored
+machine      / crm.lead                 / message_last_post (datetime)  : DEL
+machine      / crm.lead                 / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / crm.lead                 / offer_id (many2one)           : NEW relation: crm.offer
+machine      / crm.lead                 / one_offer_ids (one2many)      : DEL relation: crm.lead.one_offer
+machine      / crm.lead                 / opp_offer_line_ids (one2many) : NEW relation: crm.lead.offer_line
+machine      / crm.lead                 / opt_out (boolean)             : DEL
+machine      / crm.lead                 / sale_order_id (many2one)      : NEW relation: sale.order
+machine      / crm.lead                 / selling_price (float)         : NEW isfunction: function, stored: stored
+machine      / crm.lead                 / stage_deadline (datetime)     : is now stored
+machine      / crm.lead                 / stage_deadline (datetime)     : was renamed to date_stage_deadline [nothing to do]
+machine      / crm.lead                 / start_time (datetime)         : was renamed to date_start [nothing to do]
+machine      / crm.lead                 / throughput_ratio (float)      : was renamed to throughput_percent [nothing to do]
+machine      / crm.lead                 / total_variable_cost (float)   : now a function
+machine      / crm.lead                 / transit_log_ids (one2many)    : NEW relation: crm.lead.transit.log
+machine      / crm.lead                 / transition_ids (one2many)     : DEL relation: crm.lead.transition
+machine      / crm.lead                 / uom_production_id (many2one)  : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / crm.lead                 / won_amount_total (float)      : DEL
+machine      / crm.lead                 / won_quantity_total (float)    : DEL
+machine      / crm.lead                 / won_status (selection)        : NEW selection_keys: ['lost', 'pending', 'won'], isfunction: function, stored: stored
+machine      / crm.lead.offer_line      / name (char)                   : NEW required: required
+machine      / crm.lead.offer_line      / product_id (many2one)         : NEW relation: product.product
+machine      / crm.lead.one_offer       / description (text)            : DEL required: required
+machine      / crm.lead.one_offer       / opportunity_id (many2one)     : now required
+machine      / crm.lead.one_offer       / partner_id (many2one)         : DEL relation: res.partner, required: required
+machine      / crm.lead.one_offer       / state (selection)             : selection_keys is now '['lost', 'open', 'won']' ('['lost', 'progress', 'won']')
+machine      / crm.lead.one_offer       / uom_id (many2one)             : is now stored
+machine      / crm.lead.one_offer       / uom_id (many2one)             : not related anymore
+machine      / crm.lead.one_offer       / uom_id (many2one)             : now required, req_default: function
+machine      / crm.lead.one_offer       / uom_id (many2one)             : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / crm.lead.one_offer       / user_id (many2one)            : DEL relation: res.users, required: required, req_default: function
+machine      / crm.lead.transit.log     / parent_id (many2one)          : NEW relation: crm.lead.transit.log
+machine      / crm.lead.transit.log     / tracked_active (boolean)      : NEW
+machine      / crm.lead.transit.log     / tracked_buffer_consumed (float): NEW
+machine      / crm.lead.transit.log     / tracked_date_deadline (date)  : NEW
+machine      / crm.lead.transit.log     / tracked_date_quote_deadline (date): NEW
+machine      / crm.lead.transit.log     / tracked_date_start (datetime) : NEW
+machine      / crm.lead.transit.log     / tracked_delta_oe (integer)    : NEW
+machine      / crm.lead.transit.log     / tracked_description (text)    : NEW
+machine      / crm.lead.transit.log     / tracked_lost_reason (many2one): NEW relation: crm.lost.reason
+machine      / crm.lead.transit.log     / tracked_name (char)           : NEW
+machine      / crm.lead.transit.log     / tracked_opportunity_completed (float): NEW
+machine      / crm.lead.transit.log     / tracked_partner_id (many2one) : NEW relation: res.partner
+machine      / crm.lead.transit.log     / tracked_probability (float)   : NEW
+machine      / crm.lead.transit.log     / tracked_quote_developer_id (many2one): NEW relation: res.users
+machine      / crm.lead.transit.log     / tracked_segment_id (many2one) : NEW relation: res.partner.segment
+machine      / crm.lead.transit.log     / tracked_selling_price (float) : NEW
+machine      / crm.lead.transit.log     / tracked_stage_id (many2one)   : NEW relation: crm.stage
+machine      / crm.lead.transit.log     / tracked_team_id (many2one)    : NEW relation: crm.team
+machine      / crm.lead.transit.log     / tracked_throughput (float)    : NEW
+machine      / crm.lead.transit.log     / tracked_total_variable_cost (float): NEW
+machine      / crm.lead.transit.log     / tracked_type (selection)      : NEW selection_keys: function
+machine      / crm.lead.transit.log     / tracked_user_id (many2one)    : NEW relation: res.users
+machine      / crm.lead.transit.log     / transit_is_latest (boolean)   : NEW
+machine      / crm.lead.transit.log     / transit_rel_record_id (many2one): NEW relation: crm.lead, required: required
+machine      / crm.lead.transition      / buffer_consumed (float)       : DEL
+machine      / crm.lead.transition      / current_stage_id (many2one)   : DEL relation: crm.stage
+machine      / crm.lead.transition      / date_deadline (date)          : DEL
+machine      / crm.lead.transition      / date_quote_deadline (date)    : DEL
+machine      / crm.lead.transition      / delta_oe (integer)            : DEL
+machine      / crm.lead.transition      / description (text)            : DEL
+machine      / crm.lead.transition      / lead_id (many2one)            : DEL relation: crm.lead
+machine      / crm.lead.transition      / lost_reason (many2one)        : DEL relation: crm.lost.reason
+machine      / crm.lead.transition      / name (char)                   : DEL required: required
+machine      / crm.lead.transition      / opportunity_completed (float) : DEL
+machine      / crm.lead.transition      / partner_id (many2one)         : DEL relation: res.partner
+machine      / crm.lead.transition      / planned_revenue (float)       : DEL
+machine      / crm.lead.transition      / prev_stage_id (many2one)      : now related
+machine      / crm.lead.transition      / probability (float)           : DEL
+machine      / crm.lead.transition      / quote_developer_id (many2one) : DEL relation: res.users
+machine      / crm.lead.transition      / segment_id (many2one)         : DEL relation: res.partner.segment
+machine      / crm.lead.transition      / start_time (datetime)         : DEL
+machine      / crm.lead.transition      / team_id (many2one)            : DEL relation: crm.team
+machine      / crm.lead.transition      / throughput (float)            : DEL
+machine      / crm.lead.transition      / total_variable_cost (float)   : DEL
+machine      / crm.lead.transition      / type (selection)              : DEL required: required, selection_keys: ['lead', 'opportunity']
+machine      / crm.lead.transition      / user_id (many2one)            : DEL relation: res.users
+machine      / crm.offer                / amount_total_won (float)      : NEW isfunction: function, stored: stored
+machine      / crm.offer                / company_id (many2one)         : NEW relation: res.company, required: required, req_default: function, hasdefault: hasdefault
+machine      / crm.offer                / line_ids (one2many)           : NEW relation: crm.offer.line, isfunction: function, stored: stored
+machine      / crm.offer                / lost_reason_id (many2one)     : NEW relation: crm.lost.reason
+machine      / crm.offer                / mode (selection)              : NEW required: required, selection_keys: function, req_default: function, hasdefault: hasdefault
+machine      / crm.offer                / name (char)                   : NEW required: required
+machine      / crm.offer                / opportunity_ids (one2many)    : NEW relation: crm.lead
+machine      / crm.offer                / single_opportunity_win (boolean): NEW
+machine      / crm.offer                / state (selection)             : NEW selection_keys: ['draft', 'lost', 'open', 'won'], isfunction: function, stored: stored
+machine      / crm.offer                / team_id (many2one)            : NEW relation: crm.team, required: required
+machine      / crm.offer                / user_id (many2one)            : NEW relation: res.users, hasdefault: hasdefault
+machine      / crm.offer.line           / name (char)                   : NEW required: required
+machine      / crm.offer.line           / offer_id (many2one)           : NEW relation: crm.offer, required: required
+machine      / crm.offer.line           / opp_offer_line_id (many2one)  : NEW relation: crm.lead.offer_line
+machine      / crm.offer.line           / order_line_id (many2one)      : NEW relation: sale.order.line
+machine      / crm.offer.line           / price_unit (float)            : NEW
+machine      / crm.offer.line           / product_id (many2one)         : NEW relation: product.product
+machine      / crm.offer.line           / quantity (float)              : NEW required: required, req_default: function, hasdefault: hasdefault
+machine      / crm.offer.line           / state (selection)             : NEW required: required, selection_keys: ['lost', 'open', 'won'], req_default: function, hasdefault: hasdefault
+machine      / crm.offer.line           / uom_id (many2one)             : NEW relation: uom.uom, required: required, req_default: function, hasdefault: hasdefault
+machine      / crm.team                 / dashboard_graph_model (selection): selection_keys is now '['account.invoice.report', 'crm.lead', 'sale.report']' ('['account.invoice.report', 'crm.opportunity.report', 'sale.report']')
+machine      / crm.team                 / message_last_post (datetime)  : DEL
+machine      / crm.team                 / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / crm.team                 / one_offer (boolean)           : DEL
+machine      / crm.team                 / stages_adjacent_left_count (integer): NEW hasdefault: hasdefault
+machine      / crm.team                 / stages_adjacent_right_count (integer): NEW hasdefault: hasdefault
+machine      / crm.team                 / stages_visibility (selection) : NEW selection_keys: ['adjacent', 'adjacent_sides']
+machine      / crm.team                 / team_type_id (many2one)       : DEL relation: crm.team.type
+machine      / digest.digest            / company_id (many2one)         : NEW relation: res.company, hasdefault: hasdefault
+machine      / digest.digest            / kpi_account_bank_cash (boolean): NEW
+machine      / digest.digest            / kpi_account_total_revenue (boolean): NEW
+machine      / digest.digest            / kpi_all_sale_total (boolean)  : NEW
+machine      / digest.digest            / kpi_crm_lead_created (boolean): NEW
+machine      / digest.digest            / kpi_crm_opportunities_won (boolean): NEW
+machine      / digest.digest            / kpi_mail_message_total (boolean): NEW
+machine      / digest.digest            / kpi_project_task_opened (boolean): NEW
+machine      / digest.digest            / kpi_res_users_connected (boolean): NEW
+machine      / digest.digest            / name (char)                   : NEW required: required
+machine      / digest.digest            / next_run_date (date)          : NEW
+machine      / digest.digest            / periodicity (selection)       : NEW required: required, selection_keys: ['monthly', 'quarterly', 'weekly'], req_default: function, hasdefault: hasdefault
+machine      / digest.digest            / state (selection)             : NEW selection_keys: ['activated', 'deactivated'], hasdefault: hasdefault
+machine      / digest.digest            / template_id (many2one)        : NEW relation: mail.template, required: required, req_default: function, hasdefault: hasdefault
+machine      / digest.digest            / user_ids (many2many)          : NEW relation: res.users
+machine      / digest.tip               / group_id (many2one)           : NEW relation: res.groups, hasdefault: hasdefault
+machine      / digest.tip               / sequence (integer)            : NEW hasdefault: hasdefault
+machine      / digest.tip               / tip_description (html)        : NEW
+machine      / digest.tip               / user_ids (many2many)          : NEW relation: res.users
+machine      / exchange.action          / message_last_post (datetime)  : DEL
+machine      / exchange.action          / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / fetchmail.server         / action_id (many2one)          : DEL relation: ir.actions.server
+machine      / fleet.vehicle            / activity_ids (one2many)       : NEW relation: mail.activity
+machine      / fleet.vehicle            / brand_id (many2one)           : NEW relation: fleet.vehicle.model.brand, isrelated: related, stored: stored
+machine      / fleet.vehicle            / first_contract_date (date)    : NEW hasdefault: hasdefault
+machine      / fleet.vehicle            / log_drivers (one2many)        : NEW relation: fleet.vehicle.assignation.log
+machine      / fleet.vehicle            / message_last_post (datetime)  : DEL
+machine      / fleet.vehicle            / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / fleet.vehicle.assignation.log / date_end (date)               : NEW
+machine      / fleet.vehicle.assignation.log / date_start (date)             : NEW
+machine      / fleet.vehicle.assignation.log / driver_id (many2one)          : NEW relation: res.partner, required: required
+machine      / fleet.vehicle.assignation.log / vehicle_id (many2one)         : NEW relation: fleet.vehicle, required: required
+machine      / fleet.vehicle.log.contract / activity_ids (one2many)       : NEW relation: mail.activity
+machine      / fleet.vehicle.log.contract / message_last_post (datetime)  : DEL
+machine      / fleet.vehicle.log.contract / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / fleet.vehicle.log.contract / user_id (many2one)            : NEW relation: res.users, hasdefault: hasdefault
+machine      / hr.contract              / active (boolean)              : NEW hasdefault: hasdefault
+machine      / hr.contract              / activity_ids (one2many)       : NEW relation: mail.activity
+machine      / hr.contract              / message_last_post (datetime)  : DEL
+machine      / hr.contract              / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / hr.contract              / reported_to_secretariat (boolean): NEW
+machine      / hr.department            / message_last_post (datetime)  : DEL
+machine      / hr.department            / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / hr.employee              / activity_ids (one2many)       : NEW relation: mail.activity
+machine      / hr.employee              / additional_note (text)        : NEW
+machine      / hr.employee              / asset_ids (one2many)          : NEW relation: account.asset.asset
+machine      / hr.employee              / certificate (selection)       : NEW selection_keys: ['bachelor', 'master', 'other'], hasdefault: hasdefault
+machine      / hr.employee              / country_of_birth (many2one)   : NEW relation: res.country
+machine      / hr.employee              / emergency_contact (char)      : NEW
+machine      / hr.employee              / emergency_phone (char)        : NEW
+machine      / hr.employee              / expense_manager_id (many2one) : NEW relation: res.users
+machine      / hr.employee              / google_drive_link (char)      : NEW
+machine      / hr.employee              / job_title (char)              : NEW
+machine      / hr.employee              / km_home_work (integer)        : NEW
+machine      / hr.employee              / message_last_post (datetime)  : DEL
+machine      / hr.employee              / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / hr.employee              / resource_calendar_id (many2one): is now stored
+machine      / hr.employee              / spouse_birthdate (date)       : NEW
+machine      / hr.employee              / spouse_complete_name (char)   : NEW
+machine      / hr.employee              / study_field (char)            : NEW
+machine      / hr.employee              / study_school (char)           : NEW
+machine      / hr.employee              / user_id (many2one)            : is now stored
+machine      / hr.employee              / vehicle_distance (integer)    : DEL
+machine      / hr.expense               / activity_ids (one2many)       : NEW relation: mail.activity
+machine      / hr.expense               / analytic_tag_ids (many2many)  : NEW relation: account.analytic.tag
+machine      / hr.expense               / company_currency_id (many2one): NEW relation: res.currency, isrelated: related, stored: stored
+machine      / hr.expense               / message_last_post (datetime)  : DEL
+machine      / hr.expense               / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / hr.expense               / product_uom_id (many2one)     : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / hr.expense               / state (selection)             : selection_keys is now '['approved', 'done', 'draft', 'refused', 'reported']' ('['done', 'draft', 'refused', 'reported']')
+machine      / hr.expense               / total_amount_company (float)  : NEW isfunction: function, stored: stored
+machine      / hr.expense.sheet         / activity_ids (one2many)       : NEW relation: mail.activity
+machine      / hr.expense.sheet         / message_last_post (datetime)  : DEL
+machine      / hr.expense.sheet         / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / hr.expense.sheet         / responsible_id (many2one)     : was renamed to user_id [nothing to do]
+machine      / hr.expense.sheet         / state (selection)             : selection_keys is now '['approve', 'cancel', 'done', 'draft', 'post', 'submit']' ('['approve', 'cancel', 'done', 'post', 'submit']')
+machine      / hr.job                   / message_last_post (datetime)  : DEL
+machine      / hr.job                   / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / ir.actions.act_window.view / view_mode (selection)         : selection_keys is now '['activity', 'calendar', 'cohort', 'dashboard', 'form', 'gantt', 'graph', 'grid', 'kanban', 'pivot', 'tree']' ('['calendar', 'form', 'gantt', 'graph', 'grid', 'kanban', 'pivot', 'tree']')
+machine      / ir.actions.report        / report_type (selection)       : selection_keys is now '['qweb-html', 'qweb-pdf', 'qweb-text']' ('['qweb-html', 'qweb-pdf']')
+machine      / ir.actions.server        / activity_date_deadline_range (integer): NEW
+machine      / ir.actions.server        / activity_date_deadline_range_type (selection): NEW selection_keys: ['days', 'months', 'weeks'], hasdefault: hasdefault
+machine      / ir.actions.server        / activity_note (html)          : NEW
+machine      / ir.actions.server        / activity_summary (char)       : NEW
+machine      / ir.actions.server        / activity_type_id (many2one)   : NEW relation: mail.activity.type
+machine      / ir.actions.server        / activity_user_field_name (char): NEW hasdefault: hasdefault
+machine      / ir.actions.server        / activity_user_id (many2one)   : NEW relation: res.users
+machine      / ir.actions.server        / activity_user_type (selection): NEW required: required, selection_keys: ['generic', 'specific'], req_default: function, hasdefault: hasdefault
+machine      / ir.actions.server        / state (selection)             : selection_keys is now '['code', 'email', 'followers', 'multi', 'next_activity', 'object_create', 'object_write']' ('['code', 'email', 'followers', 'multi', 'object_create', 'object_write']')
+machine      / ir.attachment            / active (boolean)              : NEW hasdefault: hasdefault
+machine      / ir.attachment            / key (char)                    : NEW
+machine      / ir.attachment            / res_model_name (char)         : NEW isfunction: function, stored: stored
+machine      / ir.attachment            / theme_template_id (many2one)  : NEW relation: theme.ir.attachment
+machine      / ir.attachment            / thumbnail (binary)            : NEW attachment: True
+machine      / ir.attachment            / website_id (many2one)         : NEW relation: website
+machine      / ir.mail_server           / email_from (char)             : NEW
+machine      / ir.mail_server           / email_from_name (char)        : NEW
+machine      / ir.mail_server           / email_from_replace (boolean)  : NEW
+machine      / ir.mail_server           / email_name (char)             : DEL
+machine      / ir.mail_server           / force_use (boolean)           : DEL
+machine      / ir.mail_server           / force_user_server (boolean)   : NEW
+machine      / ir.mail_server           / ignored_domains_from (char)   : NEW
+machine      / ir.mail_server           / ignored_emails_from (char)    : NEW
+machine      / ir.model                 / rule_ids (one2many)           : NEW relation: ir.rule
+machine      / ir.model.fields          / copy (boolean)                : was renamed to copied [nothing to do]
+machine      / ir.model.fields          / related_field_id (many2one)   : NEW relation: ir.model.fields, isfunction: function, stored: stored
+machine      / ir.model.fields          / relation_field_id (many2one)  : NEW relation: ir.model.fields, isfunction: function, stored: stored
+machine      / ir.module.module         / to_buy (boolean)              : NEW hasdefault: hasdefault
+machine      / ir.server.object.lines   / type (selection)              : selection_keys is now '['equation', 'reference', 'value']' ('['equation', 'value']')
+machine      / ir.translation           / type (selection)              : selection_keys is now '['code', 'constraint', 'model', 'model_terms', 'selection', 'sql_constraint']' ('['code', 'constraint', 'field', 'help', 'model', 'report', 'selection', 'sql_constraint', 'view']')
+machine      / ir.ui.menu               / parent_left (integer)         : DEL
+machine      / ir.ui.menu               / parent_path (char)            : NEW
+machine      / ir.ui.menu               / parent_right (integer)        : DEL
+machine      / ir.ui.view               / page_ids (one2many)           : is now stored
+machine      / ir.ui.view               / page_ids (one2many)           : not a function anymore
+machine      / ir.ui.view               / theme_template_id (many2one)  : NEW relation: theme.ir.ui.view
+machine      / ir.ui.view               / type (selection)              : selection_keys is now '['activity', 'calendar', 'cohort', 'dashboard', 'diagram', 'form', 'gantt', 'graph', 'grid', 'kanban', 'pivot', 'qweb', 'search', 'tree']' ('['calendar', 'diagram', 'form', 'gantt', 'graph', 'grid', 'kanban', 'pivot', 'qweb', 'search', 'tree']')
+machine      / ir.ui.view               / website_meta_og_img (char)    : NEW
+machine      / lt.vat.report.settings   / company_id (many2one)         : NEW relation: res.company, required: required, req_default: function, hasdefault: hasdefault
+machine      / lt.vat.report.settings   / sequence (integer)            : NEW hasdefault: hasdefault
+machine      / lt.vat.report.settings.line / report_seq (integer)          : was renamed to field_number [nothing to do]
+machine      / lt.vat.report.settings.line / setting_id (many2one)         : now required
+machine      / lt.vat.report.settings.line / setting_id (many2one)         : was renamed to settings_id [nothing to do]
+machine      / lt.vat.report.settings.line / taxes (many2many)             : was renamed to tax_ids [nothing to do]
+machine      / machine.dbs.instance     / _databases_count (integer)    : NEW
+machine      / machine.dbs.instance     / _users_count (integer)        : NEW
+machine      / machine.dbs.instance     / amount_databases (integer)    : now a function
+machine      / machine.dbs.instance     / amount_databases (integer)    : was renamed to databases_count [nothing to do]
+machine      / machine.dbs.instance     / amount_users (integer)        : now a function
+machine      / machine.dbs.instance     / amount_users (integer)        : was renamed to users_count [nothing to do]
+machine      / machine.instance         / _os_users_count (integer)     : NEW
+machine      / machine.instance         / message_last_post (datetime)  : DEL
+machine      / machine.instance         / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / machine.instance         / os_users_count (integer)      : NEW isfunction: function, stored: stored
+machine      / mail.activity            / automated (boolean)           : NEW
+machine      / mail.activity            / create_user_id (many2one)     : NEW relation: res.users, hasdefault: hasdefault
+machine      / mail.activity.history    / automated (boolean)           : NEW
+machine      / mail.activity.history    / create_user_id (many2one)     : NEW relation: res.users, hasdefault: hasdefault
+machine      / mail.activity.type       / days (integer)                : was renamed to delay_count [nothing to do]
+machine      / mail.activity.type       / decoration_type (selection)   : NEW selection_keys: ['danger', 'warning']
+machine      / mail.activity.type       / default_next_type_id (many2one): NEW relation: mail.activity.type
+machine      / mail.activity.type       / delay_from (selection)        : NEW required: required, selection_keys: ['current_date', 'previous_activity'], req_default: function, hasdefault: hasdefault
+machine      / mail.activity.type       / delay_unit (selection)        : NEW required: required, selection_keys: ['days', 'months', 'weeks'], req_default: function, hasdefault: hasdefault
+machine      / mail.activity.type       / force_next (boolean)          : NEW hasdefault: hasdefault
+machine      / mail.activity.type       / is_default (boolean)          : DEL
+machine      / mail.activity.type       / mail_template_ids (many2many) : NEW relation: mail.template
+machine      / mail.activity.type       / res_model_change (boolean)    : NEW hasdefault: hasdefault
+machine      / mail.activity.type       / use_default_deadline (boolean): DEL
+machine      / mail.blacklist           / active (boolean)              : NEW hasdefault: hasdefault
+machine      / mail.blacklist           / email (char)                  : NEW required: required
+machine      / mail.blacklist           / message_follower_ids (one2many): NEW relation: mail.followers
+machine      / mail.blacklist           / message_ids (one2many)        : NEW relation: mail.message
+machine      / mail.blacklist           / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / mail.blacklist           / website_message_ids (one2many): NEW relation: mail.message
+machine      / mail.channel             / message_last_post (datetime)  : DEL
+machine      / mail.channel             / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / mail.channel             / moderation (boolean)          : NEW
+machine      / mail.channel             / moderation_guidelines (boolean): NEW
+machine      / mail.channel             / moderation_guidelines_msg (text): NEW
+machine      / mail.channel             / moderation_ids (one2many)     : NEW relation: mail.moderation
+machine      / mail.channel             / moderation_notify (boolean)   : NEW
+machine      / mail.channel             / moderation_notify_msg (text)  : NEW
+machine      / mail.channel             / moderator_ids (many2many)     : NEW relation: res.users
+machine      / mail.channel             / subscription_department_ids (many2many): NEW relation: hr.department
+machine      / mail.message             / add_sign (boolean)            : NEW hasdefault: hasdefault
+machine      / mail.message             / layout (char)                 : NEW
+machine      / mail.message             / moderation_status (selection) : NEW selection_keys: ['accepted', 'pending_moderation', 'rejected']
+machine      / mail.message             / moderator_id (many2one)       : NEW relation: res.users
+machine      / mail.message             / rating_ids (one2many)         : NEW relation: rating.rating
+machine      / mail.moderation          / channel_id (many2one)         : NEW relation: mail.channel, required: required
+machine      / mail.moderation          / email (char)                  : NEW required: required
+machine      / mail.moderation          / status (selection)            : NEW required: required, selection_keys: ['allow', 'ban']
+machine      / mail.notification        / email_status (selection)      : selection_keys is now '['bounce', 'canceled', 'exception', 'ready', 'sent']' ('['bounce', 'exception', 'ready', 'sent']')
+machine      / mail.notification        / failure_reason (text)         : NEW
+machine      / mail.notification        / failure_type (selection)      : NEW selection_keys: ['BOUNCE', 'RECIPIENT', 'SMTP', 'UNKNOWN']
+machine      / mail.notification        / mail_id (many2one)            : NEW relation: mail.mail
+machine      / mail.shortcode           / shortcode_type (selection)    : DEL required: required, selection_keys: ['image', 'text'], req_default: function
+machine      / mail.shortcode           / unicode_source (char)         : DEL
+machine      / mail.tracking.value      / track_sequence (integer)      : NEW hasdefault: hasdefault
+machine      / maintenance.equipment    / activity_date_deadline (date) : not related anymore
+machine      / maintenance.equipment    / activity_date_deadline (date) : not stored anymore
+machine      / maintenance.equipment    / activity_date_deadline (date) : now a function
+machine      / maintenance.equipment    / company_id (many2one)         : NEW relation: res.company, hasdefault: hasdefault
+machine      / maintenance.equipment    / effective_date (date)         : NEW required: required, req_default: function, hasdefault: hasdefault
+machine      / maintenance.equipment    / expected_mtbf (integer)       : NEW
+machine      / maintenance.equipment    / message_last_post (datetime)  : DEL
+machine      / maintenance.equipment    / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / maintenance.equipment    / warranty (date)               : was renamed to warranty_date [nothing to do]
+machine      / maintenance.equipment    / workcenter_id (many2one)      : NEW relation: mrp.workcenter
+machine      / maintenance.equipment.category / company_id (many2one)         : NEW relation: res.company, hasdefault: hasdefault
+machine      / maintenance.equipment.category / message_last_post (datetime)  : DEL
+machine      / maintenance.equipment.category / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / maintenance.request      / activity_date_deadline (date) : not related anymore
+machine      / maintenance.request      / activity_date_deadline (date) : not stored anymore
+machine      / maintenance.request      / activity_date_deadline (date) : now a function
+machine      / maintenance.request      / company_id (many2one)         : NEW relation: res.company, hasdefault: hasdefault
+machine      / maintenance.request      / message_last_post (datetime)  : DEL
+machine      / maintenance.request      / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / maintenance.request      / production_id (many2one)      : NEW relation: mrp.production
+machine      / maintenance.request      / technician_user_id (many2one) : was renamed to user_id [nothing to do]
+machine      / maintenance.request      / workorder_id (many2one)       : NEW relation: mrp.workorder
+machine      / maintenance.team         / active (boolean)              : NEW hasdefault: hasdefault
+machine      / maintenance.team         / company_id (many2one)         : NEW relation: res.company, hasdefault: hasdefault
+machine      / mrp.bom                  / message_last_post (datetime)  : DEL
+machine      / mrp.bom                  / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / mrp.bom                  / product_uom_id (many2one)     : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / mrp.bom.line             / product_uom_id (many2one)     : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / mrp.production           / activity_date_deadline (date) : not related anymore
+machine      / mrp.production           / activity_date_deadline (date) : not stored anymore
+machine      / mrp.production           / activity_date_deadline (date) : now a function
+machine      / mrp.production           / message_last_post (datetime)  : DEL
+machine      / mrp.production           / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / mrp.production           / product_uom_id (many2one)     : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / mrp.production           / product_uom_qty (float)       : NEW isfunction: function, stored: stored
+machine      / mrp.production           / quality_alert_ids (one2many)  : DEL relation: quality.alert
+machine      / mrp.production           / request_ids (one2many)        : NEW relation: maintenance.request
+machine      / mrp.unbuild              / activity_date_deadline (date) : not related anymore
+machine      / mrp.unbuild              / activity_date_deadline (date) : not stored anymore
+machine      / mrp.unbuild              / activity_date_deadline (date) : now a function
+machine      / mrp.unbuild              / message_last_post (datetime)  : DEL
+machine      / mrp.unbuild              / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / mrp.unbuild              / product_uom_id (many2one)     : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / mrp.workcenter           / equipment_ids (one2many)      : NEW relation: maintenance.equipment
+machine      / mrp.workcenter           / resource_calendar_id (many2one): is now stored
+machine      / mrp.workcenter.productivity.loss / loss_id (many2one)            : NEW relation: mrp.workcenter.productivity.loss.type
+machine      / mrp.workcenter.productivity.loss / loss_type (selection)         : now related
+machine      / mrp.workcenter.productivity.loss / loss_type (selection)         : selection_keys is now 'function' ('['availability', 'performance', 'productive', 'quality']')
+machine      / mrp.workcenter.productivity.loss.type / loss_type (selection)         : NEW required: required, selection_keys: ['availability', 'performance', 'productive', 'quality'], req_default: function, hasdefault: hasdefault
+machine      / mrp.workorder            / _barcode_scanned (char)       : NEW
+machine      / mrp.workorder            / component_uom_id (many2one)   : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / mrp.workorder            / message_last_post (datetime)  : DEL
+machine      / mrp.workorder            / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / mrp.workorder            / product_uom_id (many2one)     : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / payment.acquirer         / qr_code (boolean)             : NEW
+machine      / payment.acquirer         / so_reference_type (selection) : NEW selection_keys: ['partner', 'so_name'], hasdefault: hasdefault
+machine      / payment.transaction      / date (datetime)               : NEW
+machine      / payment.transaction      / date_validate (datetime)      : DEL
+machine      / payment.transaction      / invoice_ids (many2many)       : NEW relation: account.invoice
+machine      / payment.transaction      / is_processed (boolean)        : NEW hasdefault: hasdefault
+machine      / payment.transaction      / payment_id (many2one)         : NEW relation: account.payment
+machine      / payment.transaction      / return_url (char)             : NEW
+machine      / payment.transaction      / sale_order_ids (many2many)    : NEW relation: sale.order
+machine      / payment.transaction      / state (selection)             : selection_keys is now '['authorized', 'cancel', 'done', 'draft', 'error', 'pending']' ('['authorized', 'cancel', 'done', 'draft', 'error', 'pending', 'refunded', 'refunding']')
+machine      / procurement.rule         / action (selection)            : selection_keys is now '['buy', 'manufacture', 'pull', 'pull_push', 'push']' ('['buy', 'manufacture', 'move']')
+machine      / procurement.rule         / location_id (many2one)        : now required
+machine      / product.attribute        / attribute_line_ids (one2many) : relation is now 'product.template.attribute.line' ('product.attribute.line') [nothing to do]
+machine      / product.attribute        / create_variant (boolean)      : now required, req_default: function
+machine      / product.attribute        / create_variant (boolean)      : selection_keys is now '['always', 'dynamic', 'no_variant']' ('False')
+machine      / product.attribute        / create_variant (boolean)      : type is now 'selection' ('boolean')
+machine      / product.attribute        / type (selection)              : NEW required: required, selection_keys: ['color', 'radio', 'select'], req_default: function, hasdefault: hasdefault
+machine      / product.attribute.custom.value / attribute_value_id (many2one) : NEW relation: product.attribute.value
+machine      / product.attribute.custom.value / custom_value (char)           : NEW
+machine      / product.attribute.custom.value / sale_order_line_id (many2one) : NEW relation: sale.order.line
+machine      / product.attribute.line   / value_ids (many2many)         : table is now 'product_attribute_value_product_template_attribute_line_rel' ('product_attribute_line_product_attribute_value_rel')
+machine      / product.attribute.price  / value_id (many2one)           : DEL relation: product.attribute.value, required: required
+machine      / product.attribute.value  / html_color (char)             : NEW
+machine      / product.attribute.value  / is_custom (boolean)           : NEW
+machine      / product.attribute.value  / price_ids (one2many)          : DEL relation: product.attribute.price
+machine      / product.attribute.value  / product_ids (many2many)       : DEL relation: product.product
+machine      / product.category         / location_priority_removal (boolean): DEL
+machine      / product.category         / parent_left (integer)         : DEL
+machine      / product.category         / parent_path (char)            : NEW
+machine      / product.category         / parent_right (integer)        : DEL
+machine      / product.packaging        / weight (float)                : NEW
+machine      / product.product          / activity_date_deadline (date) : not related anymore
+machine      / product.product          / activity_date_deadline (date) : not stored anymore
+machine      / product.product          / activity_date_deadline (date) : now a function
+machine      / product.product          / attribute_line_ids (one2many) : relation is now 'product.template.attribute.line' ('product.attribute.line') [nothing to do]
+machine      / product.product          / bom_line_ids (one2many)       : NEW relation: mrp.bom.line
+machine      / product.product          / message_last_post (datetime)  : DEL
+machine      / product.product          / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / product.product          / sales_count (integer)         : type is now 'float' ('integer')
+machine      / product.product          / uom_id (many2one)             : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / product.product          / uom_po_id (many2one)          : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / product.product          / uom_vendor_id (many2one)      : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / product.product          / variant_bom_ids (one2many)    : NEW relation: mrp.bom
+machine      / product.putaway          / product_location_ids (one2many): NEW relation: stock.fixed.putaway.strat
+machine      / product.supplierinfo     / product_uom (many2one)        : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / product.template         / activity_date_deadline (date) : not related anymore
+machine      / product.template         / activity_date_deadline (date) : not stored anymore
+machine      / product.template         / activity_date_deadline (date) : now a function
+machine      / product.template         / attribute_line_ids (one2many) : relation is now 'product.template.attribute.line' ('product.attribute.line') [nothing to do]
+machine      / product.template         / bom_line_ids (one2many)       : NEW relation: mrp.bom.line
+machine      / product.template         / message_last_post (datetime)  : DEL
+machine      / product.template         / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / product.template         / optional_product_ids (many2many): NEW relation: product.template
+machine      / product.template         / raw_material (boolean)        : DEL
+machine      / product.template         / sales_count (integer)         : type is now 'float' ('integer')
+machine      / product.template         / service_to_purchase (boolean) : NEW
+machine      / product.template         / uom_id (many2one)             : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / product.template         / uom_po_id (many2one)          : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / product.template         / uom_vendor_id (many2one)      : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / product.template.attribute.exclusion / product_template_attribute_value_id (many2one): NEW relation: product.template.attribute.value
+machine      / product.template.attribute.exclusion / product_tmpl_id (many2one)    : NEW relation: product.template, required: required
+machine      / product.template.attribute.exclusion / value_ids (many2many)         : NEW relation: product.template.attribute.value
+machine      / product.template.attribute.value / exclude_for (one2many)        : NEW relation: product.template.attribute.exclusion
+machine      / product.template.attribute.value / product_attribute_value_id (many2one): NEW relation: product.attribute.value, required: required
+machine      / product.uom              / category_id (many2one)        : relation is now 'uom.category' ('product.uom.categ') [nothing to do]
+machine      / project.project          / access_token (char)           : NEW
+machine      / project.project          / analytic_account_id (many2one): DEL relation: account.analytic.account, required: required
+machine      / project.project          / company_id (many2one)         : is now stored
+machine      / project.project          / company_id (many2one)         : not related anymore
+machine      / project.project          / message_last_post (datetime)  : DEL
+machine      / project.project          / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / project.project          / name (char)                   : is now stored
+machine      / project.project          / name (char)                   : not related anymore
+machine      / project.project          / partner_id (many2one)         : is now stored
+machine      / project.project          / partner_id (many2one)         : not related anymore
+machine      / project.project          / percentage_satisfaction_project (integer): NEW hasdefault: hasdefault, isfunction: function, stored: stored
+machine      / project.project          / percentage_satisfaction_task (integer): NEW hasdefault: hasdefault, isfunction: function, stored: stored
+machine      / project.project          / portal_show_rating (boolean)  : NEW
+machine      / project.project          / rating_request_deadline (datetime): NEW isfunction: function, stored: stored
+machine      / project.project          / rating_status (selection)     : NEW required: required, selection_keys: ['no', 'periodic', 'stage'], req_default: function, hasdefault: hasdefault
+machine      / project.project          / rating_status_period (selection): NEW selection_keys: ['bimonthly', 'daily', 'monthly', 'quarterly', 'weekly', 'yearly']
+machine      / project.task             / access_token (char)           : NEW
+machine      / project.task             / activity_date_deadline (date) : not related anymore
+machine      / project.task             / activity_date_deadline (date) : not stored anymore
+machine      / project.task             / activity_date_deadline (date) : now a function
+machine      / project.task             / custom_number (char)          : NEW
+machine      / project.task             / generate_custom_number (boolean): NEW
+machine      / project.task             / generate_seq_number (boolean) : DEL
+machine      / project.task             / message_last_post (datetime)  : DEL
+machine      / project.task             / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / project.task             / rating_ids (one2many)         : NEW relation: rating.rating
+machine      / project.task             / rating_last_value (float)     : NEW isfunction: function, stored: stored
+machine      / project.task             / remaining_hours (float)       : DEL
+machine      / project.task             / seq_number (char)             : DEL
+machine      / project.task.type        / auto_validation_kanban_state (boolean): NEW hasdefault: hasdefault
+machine      / project.task.type        / rating_template_id (many2one) : NEW relation: mail.template
+machine      / purchase.order           / access_token (char)           : NEW
+machine      / purchase.order           / activity_date_deadline (date) : not related anymore
+machine      / purchase.order           / activity_date_deadline (date) : not stored anymore
+machine      / purchase.order           / activity_date_deadline (date) : now a function
+machine      / purchase.order           / incoterm_id (many2one)        : relation is now 'account.incoterms' ('stock.incoterms') [nothing to do]
+machine      / purchase.order           / message_last_post (datetime)  : DEL
+machine      / purchase.order           / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / purchase.order.line      / product_uom (many2one)        : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / purchase.order.line      / product_uom_qty (float)       : NEW isfunction: function, stored: stored
+machine      / purchase.order.line      / qty_received (float)          : not a function anymore
+machine      / purchase.order.line      / sale_line_id (many2one)       : NEW relation: sale.order.line
+machine      / purchase.order.line      / sale_order_id (many2one)      : NEW relation: sale.order, isrelated: related, stored: stored
+machine      / purchase.order.line      / uom_vendor_id (many2one)      : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / quality.alert            / action_corrective (text)      : type is now 'html' ('text')
+machine      / quality.alert            / action_preventive (text)      : type is now 'html' ('text')
+machine      / quality.alert            / description (text)            : type is now 'html' ('text')
+machine      / quality.alert            / message_last_post (datetime)  : DEL
+machine      / quality.alert            / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / quality.alert.team       / message_last_post (datetime)  : DEL
+machine      / quality.alert.team       / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / quality.check            / component_is_byproduct (boolean): NEW hasdefault: hasdefault
+machine      / quality.check            / component_uom_id (many2one)   : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / quality.check            / measure (float)               : DEL
+machine      / quality.check            / measure_success (selection)   : DEL selection_keys: ['fail', 'none', 'pass']
+machine      / quality.check            / message_last_post (datetime)  : DEL
+machine      / quality.check            / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / quality.point            / failure_message (html)        : DEL
+machine      / quality.point            / measure_frequency_type (selection): DEL required: required, selection_keys: ['all', 'periodical', 'random'], req_default: function
+machine      / quality.point            / measure_frequency_unit (selection): DEL selection_keys: ['day', 'month', 'week']
+machine      / quality.point            / measure_frequency_unit_value (integer): DEL
+machine      / quality.point            / measure_frequency_value (float): DEL
+machine      / quality.point            / message_last_post (datetime)  : DEL
+machine      / quality.point            / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / quality.point            / norm (float)                  : DEL
+machine      / quality.point            / norm_unit (char)              : DEL
+machine      / quality.point            / tolerance_max (float)         : DEL
+machine      / quality.point            / tolerance_min (float)         : DEL
+machine      / rating.rating            / access_token (char)           : NEW hasdefault: hasdefault
+machine      / rating.rating            / consumed (boolean)            : NEW
+machine      / rating.rating            / feedback (text)               : NEW
+machine      / rating.rating            / message_id (many2one)         : NEW relation: mail.message
+machine      / rating.rating            / parent_res_id (integer)       : NEW
+machine      / rating.rating            / parent_res_model (char)       : NEW isrelated: related, stored: stored
+machine      / rating.rating            / parent_res_model_id (many2one): NEW relation: ir.model
+machine      / rating.rating            / parent_res_name (char)        : NEW isfunction: function, stored: stored
+machine      / rating.rating            / partner_id (many2one)         : NEW relation: res.partner
+machine      / rating.rating            / rated_partner_id (many2one)   : NEW relation: res.partner
+machine      / rating.rating            / rating (float)                : NEW hasdefault: hasdefault
+machine      / rating.rating            / rating_text (selection)       : NEW selection_keys: ['highly_dissatisfied', 'no_rating', 'not_satisfied', 'satisfied'], isfunction: function, stored: stored
+machine      / rating.rating            / res_id (integer)              : NEW required: required
+machine      / rating.rating            / res_model (char)              : NEW isrelated: related, stored: stored
+machine      / rating.rating            / res_model_id (many2one)       : NEW relation: ir.model
+machine      / rating.rating            / res_name (char)               : NEW isfunction: function, stored: stored
+machine      / rating.rating            / website_published (boolean)   : NEW isrelated: related, stored: stored
+machine      / report.layout            / image (char)                  : NEW
+machine      / report.layout            / pdf (char)                    : NEW
+machine      / report.layout            / view_id (many2one)            : NEW relation: ir.ui.view, required: required
+machine      / res.company              / account_bank_reconciliation_start (date): NEW
+machine      / res.company              / account_dashboard_onboarding_state (selection): NEW selection_keys: ['closed', 'done', 'just_done', 'not_done'], hasdefault: hasdefault
+machine      / res.company              / account_invoice_onboarding_state (selection): NEW selection_keys: ['closed', 'done', 'just_done', 'not_done'], hasdefault: hasdefault
+machine      / res.company              / account_onboarding_invoice_layout_state (selection): NEW selection_keys: ['done', 'just_done', 'not_done'], hasdefault: hasdefault
+machine      / res.company              / account_onboarding_sale_tax_state (selection): NEW selection_keys: ['done', 'just_done', 'not_done'], hasdefault: hasdefault
+machine      / res.company              / account_onboarding_sample_invoice_state (selection): NEW selection_keys: ['done', 'just_done', 'not_done'], hasdefault: hasdefault
+machine      / res.company              / account_purchase_tax_id (many2one): NEW relation: account.tax
+machine      / res.company              / account_sale_tax_id (many2one): NEW relation: account.tax
+machine      / res.company              / account_setup_bank_data_done (boolean): DEL
+machine      / res.company              / account_setup_bank_data_state (selection): NEW selection_keys: ['done', 'just_done', 'not_done'], hasdefault: hasdefault
+machine      / res.company              / account_setup_bar_closed (boolean): DEL
+machine      / res.company              / account_setup_coa_done (boolean): DEL
+machine      / res.company              / account_setup_coa_state (selection): NEW selection_keys: ['done', 'just_done', 'not_done'], hasdefault: hasdefault
+machine      / res.company              / account_setup_company_data_done (boolean): DEL
+machine      / res.company              / account_setup_fy_data_done (boolean): DEL
+machine      / res.company              / account_setup_fy_data_state (selection): NEW selection_keys: ['done', 'just_done', 'not_done'], hasdefault: hasdefault
+machine      / res.company              / account_tax_code_required (boolean): NEW
+machine      / res.company              / accounts_code_digits (integer): DEL
+machine      / res.company              / base_config_loaded (boolean)  : DEL
+machine      / res.company              / base_onboarding_company_state (selection): NEW selection_keys: ['done', 'just_done', 'not_done'], hasdefault: hasdefault
+machine      / res.company              / currency_provider (selection) : selection_keys is now '['banxico', 'boc', 'ecb', 'fta', 'xe_com', 'yahoo']' ('['banxico', 'ecb', 'fta', 'yahoo']')
+machine      / res.company              / days_delta_mrp_materials (integer): NEW hasdefault: hasdefault
+machine      / res.company              / external_report_layout (selection): DEL selection_keys: ['background', 'boxed', 'clean', 'simplified', 'standard']
+machine      / res.company              / external_report_layout_id (many2one): NEW relation: ir.ui.view
+machine      / res.company              / extract_show_ocr_option_selection (selection): NEW required: required, selection_keys: ['auto_send', 'manual_send', 'no_send'], req_default: function, hasdefault: hasdefault
+machine      / res.company              / incoterm_id (many2one)        : NEW relation: account.incoterms
+machine      / res.company              / invoice_is_email (boolean)    : NEW hasdefault: hasdefault
+machine      / res.company              / invoice_is_print (boolean)    : NEW hasdefault: hasdefault
+machine      / res.company              / invoice_is_snailmail (boolean): NEW hasdefault: hasdefault
+machine      / res.company              / invoice_reference_type (selection): NEW selection_keys: function, hasdefault: hasdefault
+machine      / res.company              / is_tax_code_update_needed (boolean): DEL
+machine      / res.company              / nomenclature_id (many2one)    : NEW relation: barcode.nomenclature, hasdefault: hasdefault
+machine      / res.company              / partner_country_required (boolean): NEW
+machine      / res.company              / partner_gid (integer)         : NEW isrelated: related, stored: stored
+machine      / res.company              / payment_acquirer_onboarding_state (selection): NEW selection_keys: ['done', 'just_done', 'not_done'], hasdefault: hasdefault
+machine      / res.company              / payment_onboarding_payment_method (selection): NEW selection_keys: ['manual', 'other', 'paypal', 'stripe']
+machine      / res.company              / portal_confirmation_pay (boolean): NEW
+machine      / res.company              / portal_confirmation_sign (boolean): NEW
+machine      / res.company              / project_time_mode_id (many2one): DEL relation: product.uom
+machine      / res.company              / qr_code (boolean)             : NEW
+machine      / res.company              / quotation_validity_days (integer): NEW hasdefault: hasdefault
+machine      / res.company              / sale_onboarding_order_confirmation_state (selection): NEW selection_keys: ['done', 'just_done', 'not_done'], hasdefault: hasdefault
+machine      / res.company              / sale_onboarding_payment_method (selection): NEW selection_keys: ['digital_signature', 'manual', 'other', 'paypal', 'stripe']
+machine      / res.company              / sale_onboarding_sample_quotation_state (selection): NEW selection_keys: ['done', 'just_done', 'not_done'], hasdefault: hasdefault
+machine      / res.company              / sale_quotation_onboarding_state (selection): NEW selection_keys: ['closed', 'done', 'just_done', 'not_done'], hasdefault: hasdefault
+machine      / res.company              / snailmail_color (boolean)     : NEW hasdefault: hasdefault
+machine      / res.company              / snailmail_duplex (boolean)    : NEW hasdefault: hasdefault
+machine      / res.company              / social_instagram (char)       : NEW
+machine      / res.company              / totals_below_sections (boolean): NEW
+machine      / res.company              / transfer_account_code_prefix (char): NEW
+machine      / res.company              / uom_potential_id (many2one)   : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / res.company              / uom_production_id (many2one)  : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / res.company              / use_activity_edit_date (boolean): NEW
+machine      / res.company              / use_schedule_po_from_mo (boolean): NEW
+machine      / res.company              / use_special_taxation (boolean): NEW
+machine      / res.company              / vat_invoice_ref_required (boolean): NEW
+machine      / res.company              / vat_report_settings_id (many2one): DEL relation: lt.vat.report.settings
+machine      / res.company              / yodlee_access_token (char)    : NEW
+machine      / res.company              / yodlee_user_access_token (char): NEW
+machine      / res.company              / yodlee_user_login (char)      : NEW
+machine      / res.company              / yodlee_user_password (char)   : NEW
+machine      / res.country.state        / lau1_ids (one2many)           : NEW relation: res.country.state.lau1
+machine      / res.country.state.lau1   / code (char)                   : NEW required: required
+machine      / res.country.state.lau1   / country_id (many2one)         : NEW relation: res.country, isrelated: related, stored: stored
+machine      / res.country.state.lau1   / lau2_ids (one2many)           : NEW relation: res.country.state.lau1.lau2
+machine      / res.country.state.lau1   / name (char)                   : NEW required: required
+machine      / res.country.state.lau1   / state_id (many2one)           : NEW relation: res.country.state, required: required
+machine      / res.country.state.lau1.lau2 / code (char)                   : NEW required: required
+machine      / res.country.state.lau1.lau2 / country_id (many2one)         : NEW relation: res.country, isrelated: related, stored: stored
+machine      / res.country.state.lau1.lau2 / lau1_id (many2one)            : NEW relation: res.country.state.lau1, required: required
+machine      / res.country.state.lau1.lau2 / name (char)                   : NEW required: required
+machine      / res.currency             / decimal_places (integer)      : is now stored
+machine      / res.groups               / is_portal (boolean)           : DEL
+machine      / res.partner              / activity_date_deadline (date) : not related anymore
+machine      / res.partner              / activity_date_deadline (date) : not stored anymore
+machine      / res.partner              / activity_date_deadline (date) : now a function
+machine      / res.partner              / additional_info (char)        : NEW
+machine      / res.partner              / commercial_partner_country_id (many2one): DEL relation: res.country
+machine      / res.partner              / company_ids (one2many)        : DEL relation: res.company
+machine      / res.partner              / device_identity_ids (one2many): DEL relation: mail_push.device
+machine      / res.partner              / lau1_id (many2one)            : NEW relation: res.country.state.lau1
+machine      / res.partner              / lau2_id (many2one)            : NEW relation: res.country.state.lau1.lau2
+machine      / res.partner              / message_last_post (datetime)  : DEL
+machine      / res.partner              / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / res.partner              / ocn_token (char)              : NEW
+machine      / res.partner              / online_partner_bank_account (char): NEW
+machine      / res.partner              / online_partner_vendor_name (char): NEW
+machine      / res.partner              / opt_out (boolean)             : DEL
+machine      / res.partner              / partner_gid (integer)         : NEW
+machine      / res.partner              / partner_number (char)         : now required
+machine      / res.partner              / partner_number (char)         : was renamed to number [nothing to do]
+machine      / res.partner              / payment_next_action (text)    : DEL
+machine      / res.partner              / uom_potential_id (many2one)   : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / res.partner              / website_id (many2one)         : NEW relation: website
+machine      / res.partner.autocomplete.sync / partner_id (many2one)         : NEW relation: res.partner
+machine      / res.partner.autocomplete.sync / synched (boolean)             : NEW hasdefault: hasdefault
+machine      / res.partner.bank         / acc_holder_name (char)        : NEW
+machine      / res.partner.bank         / acc_type (char)               : selection_keys is now 'function' ('False')
+machine      / res.partner.bank         / acc_type (char)               : type is now 'selection' ('char')
+machine      / res.partner.bank         / partner_id (many2one)         : now required
+machine      / res.partner.brand        / parent_left (integer)         : DEL
+machine      / res.partner.brand        / parent_path (char)            : NEW
+machine      / res.partner.brand        / parent_right (integer)        : DEL
+machine      / res.partner.category     / parent_left (integer)         : DEL
+machine      / res.partner.category     / parent_path (char)            : NEW
+machine      / res.partner.category     / parent_right (integer)        : DEL
+machine      / res.partner.segment      / message_last_post (datetime)  : DEL
+machine      / res.partner.segment      / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / res.users                / context_keep_message_unread (boolean): DEL
+machine      / res.users                / keep_message_unread (boolean) : NEW
+machine      / res.users                / moderation_channel_ids (many2many): NEW relation: mail.channel
+machine      / res.users                / odoobot_state (selection)     : NEW required: required, selection_keys: ['disabled', 'idle', 'not_initialized', 'onboarding_attachement', 'onboarding_command', 'onboarding_emoji', 'onboarding_ping'], req_default: function, hasdefault: hasdefault
+machine      / res.users                / partner_number (char)         : now required
+machine      / res.users                / partner_number (char)         : was renamed to number [nothing to do]
+machine      / res.users                / password (char)               : not stored anymore
+machine      / res.users                / password_crypt (char)         : DEL
+machine      / res.users                / uom_potential_id (many2one)   : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / res.users                / website_id (many2one)         : NEW relation: website, isrelated: related, stored: stored
+machine      / resource.calendar        / hours_per_day (float)         : NEW hasdefault: hasdefault
+machine      / resource.calendar        / tz (selection)                : NEW required: required, selection_keys: function, req_default: function, hasdefault: hasdefault
+machine      / resource.calendar.attendance / day_period (selection)        : NEW required: required, selection_keys: ['afternoon', 'morning'], req_default: function, hasdefault: hasdefault
+machine      / resource.calendar.leaves / time_type (selection)         : NEW selection_keys: ['leave', 'other'], hasdefault: hasdefault
+machine      / resource.calendar.leaves / tz (selection)                : DEL selection_keys: function
+machine      / resource.resource        / tz (selection)                : NEW required: required, selection_keys: function, req_default: function, hasdefault: hasdefault
+machine      / resource.test            / resource_calendar_id (many2one): is now stored
+machine      / sale.order               / activity_date_deadline (date) : not related anymore
+machine      / sale.order               / activity_date_deadline (date) : not stored anymore
+machine      / sale.order               / activity_date_deadline (date) : now a function
+machine      / sale.order               / commitment_date (datetime)    : not a function anymore
+machine      / sale.order               / currency_rate (float)         : NEW isfunction: function, stored: stored
+machine      / sale.order               / default_invoice_note_id (many2one): DEL relation: account.invoice.note
+machine      / sale.order               / expense_ids (one2many)        : NEW relation: hr.expense
+machine      / sale.order               / incoterm (many2one)           : relation is now 'account.incoterms' ('stock.incoterms') [nothing to do]
+machine      / sale.order               / invoice_note_content (html)   : DEL
+machine      / sale.order               / margin (float)                : NEW isfunction: function, stored: stored
+machine      / sale.order               / message_last_post (datetime)  : DEL
+machine      / sale.order               / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / sale.order               / note_content (html)           : NEW
+machine      / sale.order               / note_id (many2one)            : NEW relation: account.invoice.note
+machine      / sale.order               / purchase_price_total (float)  : NEW isfunction: function, stored: stored
+machine      / sale.order               / reference (char)              : NEW
+machine      / sale.order               / requested_date (datetime)     : DEL
+machine      / sale.order               / require_payment (boolean)     : NEW hasdefault: hasdefault
+machine      / sale.order               / require_signature (boolean)   : NEW hasdefault: hasdefault
+machine      / sale.order               / sale_order_option_ids (one2many): NEW relation: sale.order.option
+machine      / sale.order               / sale_order_template_id (many2one): NEW relation: sale.order.template
+machine      / sale.order               / signature (binary)            : NEW attachment: True
+machine      / sale.order               / signed_by (char)              : NEW
+machine      / sale.order               / throughput (float)            : DEL
+machine      / sale.order               / total_variable_cost (float)   : DEL
+machine      / sale.order               / transaction_ids (many2many)   : NEW relation: payment.transaction
+machine      / sale.order.line          / amt_invoiced (float)          : DEL
+machine      / sale.order.line          / amt_to_invoice (float)        : DEL
+machine      / sale.order.line          / analytic_line_ids (one2many)  : NEW relation: account.analytic.line
+machine      / sale.order.line          / display_type (selection)      : NEW selection_keys: ['line_note', 'line_section'], hasdefault: hasdefault
+machine      / sale.order.line          / is_expense (boolean)          : NEW
+machine      / sale.order.line          / layout_category_id (many2one) : DEL relation: sale.layout_category
+machine      / sale.order.line          / layout_category_sequence (integer): DEL
+machine      / sale.order.line          / margin (float)                : NEW isfunction: function, stored: stored
+machine      / sale.order.line          / margin_unit (float)           : NEW isfunction: function, stored: stored
+machine      / sale.order.line          / product_custom_attribute_value_ids (one2many): NEW relation: product.attribute.custom.value
+machine      / sale.order.line          / product_no_variant_attribute_value_ids (many2many): NEW relation: product.template.attribute.value
+machine      / sale.order.line          / product_uom (many2one)        : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / sale.order.line          / purchase_line_ids (one2many)  : NEW relation: purchase.order.line
+machine      / sale.order.line          / purchase_price (float)        : NEW
+machine      / sale.order.line          / qty_delivered (float)         : now a function
+machine      / sale.order.line          / qty_delivered_manual (float)  : NEW hasdefault: hasdefault
+machine      / sale.order.line          / qty_delivered_method (selection): NEW selection_keys: ['analytic', 'manual', 'stock_move'], isfunction: function, stored: stored
+machine      / sale.order.line          / sale_order_option_ids (one2many): NEW relation: sale.order.option
+machine      / sale.order.line          / throughput_unit (float)       : DEL
+machine      / sale.order.line          / tvc_unit (float)              : DEL
+machine      / sale.order.line          / untaxed_amount_invoiced (float): NEW isfunction: function, stored: stored
+machine      / sale.order.line          / untaxed_amount_to_invoice (float): NEW isfunction: function, stored: stored
+machine      / sale.order.option        / discount (float)              : NEW
+machine      / sale.order.option        / line_id (many2one)            : NEW relation: sale.order.line
+machine      / sale.order.option        / name (text)                   : NEW required: required
+machine      / sale.order.option        / order_id (many2one)           : NEW relation: sale.order
+machine      / sale.order.option        / price_unit (float)            : NEW required: required
+machine      / sale.order.option        / product_id (many2one)         : NEW relation: product.product, required: required
+machine      / sale.order.option        / quantity (float)              : NEW required: required, req_default: function, hasdefault: hasdefault
+machine      / sale.order.option        / sequence (integer)            : NEW
+machine      / sale.order.option        / uom_id (many2one)             : NEW relation: uom.uom, required: required
+machine      / sale.order.template      / active (boolean)              : NEW hasdefault: hasdefault
+machine      / sale.order.template      / mail_template_id (many2one)   : NEW relation: mail.template
+machine      / sale.order.template      / name (char)                   : NEW required: required
+machine      / sale.order.template      / note (text)                   : NEW
+machine      / sale.order.template      / number_of_days (integer)      : NEW
+machine      / sale.order.template      / require_payment (boolean)     : NEW hasdefault: hasdefault
+machine      / sale.order.template      / require_signature (boolean)   : NEW hasdefault: hasdefault
+machine      / sale.order.template      / sale_order_template_line_ids (one2many): NEW relation: sale.order.template.line
+machine      / sale.order.template      / sale_order_template_option_ids (one2many): NEW relation: sale.order.template.option
+machine      / sale.order.template.line / discount (float)              : NEW hasdefault: hasdefault
+machine      / sale.order.template.line / display_type (selection)      : NEW selection_keys: ['line_note', 'line_section'], hasdefault: hasdefault
+machine      / sale.order.template.line / name (text)                   : NEW required: required
+machine      / sale.order.template.line / price_unit (float)            : NEW required: required
+machine      / sale.order.template.line / product_id (many2one)         : NEW relation: product.product
+machine      / sale.order.template.line / product_uom_id (many2one)     : NEW relation: uom.uom
+machine      / sale.order.template.line / product_uom_qty (float)       : NEW required: required, req_default: function, hasdefault: hasdefault
+machine      / sale.order.template.line / sale_order_template_id (many2one): NEW relation: sale.order.template, required: required
+machine      / sale.order.template.line / sequence (integer)            : NEW hasdefault: hasdefault
+machine      / sale.order.template.option / discount (float)              : NEW
+machine      / sale.order.template.option / name (text)                   : NEW required: required
+machine      / sale.order.template.option / price_unit (float)            : NEW required: required
+machine      / sale.order.template.option / product_id (many2one)         : NEW relation: product.product, required: required
+machine      / sale.order.template.option / quantity (float)              : NEW required: required, req_default: function, hasdefault: hasdefault
+machine      / sale.order.template.option / sale_order_template_id (many2one): NEW relation: sale.order.template, required: required
+machine      / sale.order.template.option / uom_id (many2one)             : NEW relation: uom.uom, required: required
+machine      / snailmail.letter         / attachment_id (many2one)      : NEW relation: ir.attachment
+machine      / snailmail.letter         / color (boolean)               : NEW hasdefault: hasdefault
+machine      / snailmail.letter         / company_id (many2one)         : NEW relation: res.company, required: required, req_default: function, hasdefault: hasdefault
+machine      / snailmail.letter         / duplex (boolean)              : NEW hasdefault: hasdefault
+machine      / snailmail.letter         / info_msg (char)               : NEW
+machine      / snailmail.letter         / model (char)                  : NEW required: required
+machine      / snailmail.letter         / partner_id (many2one)         : NEW relation: res.partner, required: required
+machine      / snailmail.letter         / report_template (many2one)    : NEW relation: ir.actions.report
+machine      / snailmail.letter         / res_id (integer)              : NEW required: required
+machine      / snailmail.letter         / state (selection)             : NEW selection_keys: ['canceled', 'draft', 'error', 'pending', 'sent'], hasdefault: hasdefault
+machine      / snailmail.letter         / user_id (many2one)            : NEW relation: res.users
+machine      / stock.fixed.putaway.strat / product_id (many2one)         : NEW relation: product.product
+machine      / stock.inventory.line     / location_name (char)          : DEL
+machine      / stock.inventory.line     / prodlot_name (char)           : DEL
+machine      / stock.inventory.line     / product_code (char)           : DEL
+machine      / stock.inventory.line     / product_name (char)           : DEL
+machine      / stock.inventory.line     / product_uom_id (many2one)     : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / stock.location           / parent_left (integer)         : DEL
+machine      / stock.location           / parent_path (char)            : NEW
+machine      / stock.location           / parent_right (integer)        : DEL
+machine      / stock.location           / priority (integer)            : DEL
+machine      / stock.location.route     / pull_ids (one2many)           : DEL relation: procurement.rule
+machine      / stock.location.route     / push_ids (one2many)           : DEL relation: stock.location.path
+machine      / stock.location.route     / rule_ids (one2many)           : NEW relation: stock.rule
+machine      / stock.move               / ordered_qty (float)           : DEL
+machine      / stock.move               / package_level_id (many2one)   : NEW relation: stock.package_level
+machine      / stock.move               / product_uom (many2one)        : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / stock.move               / push_rule_id (many2one)       : DEL relation: stock.location.path
+machine      / stock.move               / rule_id (many2one)            : relation is now 'stock.rule' ('procurement.rule') [nothing to do]
+machine      / stock.move               / uom_vendor_id (many2one)      : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / stock.move               / weight_uom_id (many2one)      : DEL relation: product.uom, required: required, req_default: function
+machine      / stock.move.line          / ordered_qty (float)           : DEL
+machine      / stock.move.line          / package_level_id (many2one)   : NEW relation: stock.package_level
+machine      / stock.move.line          / product_uom_id (many2one)     : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / stock.move.line          / uom_vendor_id (many2one)      : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / stock.package_level      / location_dest_id (many2one)   : NEW relation: stock.location
+machine      / stock.package_level      / move_ids (one2many)           : NEW relation: stock.move
+machine      / stock.package_level      / move_line_ids (one2many)      : NEW relation: stock.move.line
+machine      / stock.package_level      / package_id (many2one)         : NEW relation: stock.quant.package, required: required
+machine      / stock.package_level      / picking_id (many2one)         : NEW relation: stock.picking
+machine      / stock.picking            / activity_date_deadline (date) : not related anymore
+machine      / stock.picking            / activity_date_deadline (date) : not stored anymore
+machine      / stock.picking            / activity_date_deadline (date) : now a function
+machine      / stock.picking            / backorder_ids (one2many)      : NEW relation: stock.picking
+machine      / stock.picking            / check_ids (one2many)          : DEL relation: quality.check
+machine      / stock.picking            / immediate_transfer (boolean)  : NEW hasdefault: hasdefault
+machine      / stock.picking            / message_last_post (datetime)  : DEL
+machine      / stock.picking            / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / stock.picking            / move_ids_without_package (one2many): NEW relation: stock.move
+machine      / stock.picking            / move_line_ids_without_package (one2many): NEW relation: stock.move.line
+machine      / stock.picking            / number_of_packages (integer)  : DEL
+machine      / stock.picking            / package_level_ids (one2many)  : NEW relation: stock.package_level
+machine      / stock.picking            / package_level_ids_details (one2many): NEW relation: stock.package_level
+machine      / stock.picking            / quality_alert_ids (one2many)  : DEL relation: quality.alert
+machine      / stock.picking            / weight_uom_id (many2one)      : not stored anymore
+machine      / stock.picking            / weight_uom_id (many2one)      : now a function
+machine      / stock.picking            / weight_uom_id (many2one)      : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / stock.picking.type       / barcode (char)                : NEW
+machine      / stock.picking.type       / barcode_nomenclature_id (many2one): DEL relation: barcode.nomenclature
+machine      / stock.production.lot     / activity_ids (one2many)       : NEW relation: mail.activity
+machine      / stock.production.lot     / message_last_post (datetime)  : DEL
+machine      / stock.production.lot     / message_main_attachment_id (many2one): NEW relation: ir.attachment
+machine      / stock.production.lot     / product_uom_id (many2one)     : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / stock.quant              / product_uom_id (many2one)     : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / stock.quant              / related_priority (integer)    : DEL
+machine      / stock.quant.package      / company_id (many2one)         : is now stored
+machine      / stock.quant.package      / location_id (many2one)        : is now stored
+machine      / stock.quant.package      / move_line_ids (one2many)      : DEL relation: stock.move.line
+machine      / stock.rule               / auto (selection)              : NEW required: required, selection_keys: ['manual', 'transparent'], req_default: function, hasdefault: hasdefault
+machine      / stock.scrap              / product_uom_id (many2one)     : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / stock.warehouse          / buy_pull_id (many2one)        : relation is now 'stock.rule' ('procurement.rule') [nothing to do]
+machine      / stock.warehouse          / default_resupply_wh_id (many2one): DEL relation: stock.warehouse
+machine      / stock.warehouse          / manufacture_pull_id (many2one): relation is now 'stock.rule' ('procurement.rule') [nothing to do]
+machine      / stock.warehouse          / manufacture_steps (selection) : NEW required: required, selection_keys: ['mrp_one_step', 'pbm', 'pbm_sam'], req_default: function, hasdefault: hasdefault
+machine      / stock.warehouse          / mto_pull_id (many2one)        : relation is now 'stock.rule' ('procurement.rule') [nothing to do]
+machine      / stock.warehouse          / pbm_loc_id (many2one)         : NEW relation: stock.location
+machine      / stock.warehouse          / pbm_mto_pull_id (many2one)    : NEW relation: stock.rule
+machine      / stock.warehouse          / pbm_route_id (many2one)       : NEW relation: stock.location.route
+machine      / stock.warehouse          / pbm_type_id (many2one)        : NEW relation: stock.picking.type
+machine      / stock.warehouse          / sam_loc_id (many2one)         : NEW relation: stock.location
+machine      / stock.warehouse          / sam_rule_id (many2one)        : NEW relation: stock.rule
+machine      / stock.warehouse          / sam_type_id (many2one)        : NEW relation: stock.picking.type
+machine      / stock.warehouse.orderpoint / product_uom (many2one)        : relation is now 'uom.uom' ('product.uom') [nothing to do]
+machine      / theme.ir.attachment      / copy_ids (one2many)           : NEW relation: ir.attachment
+machine      / theme.ir.attachment      / key (char)                    : NEW required: required
+machine      / theme.ir.attachment      / name (char)                   : NEW required: required
+machine      / theme.ir.attachment      / url (char)                    : NEW
+machine      / theme.ir.ui.view         / active (boolean)              : NEW hasdefault: hasdefault
+machine      / theme.ir.ui.view         / arch (text)                   : NEW
+machine      / theme.ir.ui.view         / arch_fs (char)                : NEW hasdefault: hasdefault
+machine      / theme.ir.ui.view         / copy_ids (one2many)           : NEW relation: ir.ui.view
+machine      / theme.ir.ui.view         / inherit_id (reference)        : NEW
+machine      / theme.ir.ui.view         / key (char)                    : NEW
+machine      / theme.ir.ui.view         / mode (selection)              : NEW selection_keys: ['extension', 'primary']
+machine      / theme.ir.ui.view         / name (char)                   : NEW required: required
+machine      / theme.ir.ui.view         / priority (integer)            : NEW required: required, req_default: function, hasdefault: hasdefault
+machine      / theme.ir.ui.view         / type (char)                   : NEW
+machine      / theme.website.menu       / copy_ids (one2many)           : NEW relation: website.menu
+machine      / theme.website.menu       / name (char)                   : NEW required: required
+machine      / theme.website.menu       / new_window (boolean)          : NEW
+machine      / theme.website.menu       / page_id (many2one)            : NEW relation: theme.website.page
+machine      / theme.website.menu       / parent_id (many2one)          : NEW relation: theme.website.menu
+machine      / theme.website.menu       / sequence (integer)            : NEW
+machine      / theme.website.menu       / url (char)                    : NEW hasdefault: hasdefault
+machine      / theme.website.page       / copy_ids (one2many)           : NEW relation: website.page
+machine      / theme.website.page       / url (char)                    : NEW
+machine      / theme.website.page       / view_id (many2one)            : NEW relation: theme.ir.ui.view, required: required
+machine      / theme.website.page       / website_indexed (boolean)     : NEW hasdefault: hasdefault
+machine      / transit.test             / date (date)                   : NEW hasdefault: hasdefault
+machine      / transit.test             / datetime (datetime)           : NEW
+machine      / transit.test             / name (char)                   : NEW required: required
+machine      / transit.test             / name_lower (char)             : NEW isfunction: function, stored: stored
+machine      / transit.test             / selection (selection)         : NEW selection_keys: ['s1', 's2']
+machine      / transit.test             / test_related_id (many2one)    : NEW relation: transit.test.related
+machine      / transit.test             / text (text)                   : NEW
+machine      / transit.test             / transit_log_ids (one2many)    : NEW relation: transit.test.transit.log
+machine      / transit.test             / transit_value (char)          : NEW required: required
+machine      / transit.test             / untracked_amount (integer)    : NEW
+machine      / transit.test             / untracked_description (text)  : NEW
+machine      / transit.test.related     / amount (float)                : NEW required: required
+machine      / transit.test.related     / name (char)                   : NEW required: required
+machine      / transit.test.transit.log / parent_id (many2one)          : NEW relation: transit.test.transit.log
+machine      / transit.test.transit.log / tracked_date (date)           : NEW
+machine      / transit.test.transit.log / tracked_datetime (datetime)   : NEW
+machine      / transit.test.transit.log / tracked_name (char)           : NEW required: required
+machine      / transit.test.transit.log / tracked_name_lower (char)     : NEW
+machine      / transit.test.transit.log / tracked_name_upper (char)     : NEW
+machine      / transit.test.transit.log / tracked_related_amount (float): NEW
+machine      / transit.test.transit.log / tracked_selection (selection) : NEW selection_keys: function
+machine      / transit.test.transit.log / tracked_test_related_id (many2one): NEW relation: transit.test.related
+machine      / transit.test.transit.log / tracked_text (text)           : NEW
+machine      / transit.test.transit.log / tracked_transit_value (char)  : NEW required: required
+machine      / transit.test.transit.log / transit_is_latest (boolean)   : NEW
+machine      / transit.test.transit.log / transit_rel_record_id (many2one): NEW relation: transit.test, required: required
+machine      / transit.test.transit.log2 / parent_id (many2one)          : NEW relation: transit.test.transit.log2
+machine      / transit.test.transit.log2 / tracked_date (date)           : NEW
+machine      / transit.test.transit.log2 / tracked_datetime (datetime)   : NEW
+machine      / transit.test.transit.log2 / tracked_name (char)           : NEW required: required
+machine      / transit.test.transit.log2 / tracked_name_lower (char)     : NEW
+machine      / transit.test.transit.log2 / tracked_name_upper (char)     : NEW
+machine      / transit.test.transit.log2 / tracked_related_amount (float): NEW
+machine      / transit.test.transit.log2 / tracked_selection (selection) : NEW selection_keys: function
+machine      / transit.test.transit.log2 / tracked_test_related_id (many2one): NEW relation: transit.test.related
+machine      / transit.test.transit.log2 / tracked_text (text)           : NEW
+machine      / transit.test.transit.log2 / tracked_transit_value (char)  : NEW required: required
+machine      / transit.test.transit.log2 / transit_is_latest (boolean)   : NEW
+machine      / transit.test.transit.log2 / transit_rel_record_id (many2one): NEW relation: transit.test2, required: required
+machine      / transit.test2            / date (date)                   : NEW hasdefault: hasdefault
+machine      / transit.test2            / datetime (datetime)           : NEW
+machine      / transit.test2            / name (char)                   : NEW required: required
+machine      / transit.test2            / name_lower (char)             : NEW isfunction: function, stored: stored
+machine      / transit.test2            / selection (selection)         : NEW selection_keys: ['s1', 's2']
+machine      / transit.test2            / test_related_id (many2one)    : NEW relation: transit.test.related
+machine      / transit.test2            / text (text)                   : NEW
+machine      / transit.test2            / transit_log_ids (one2many)    : NEW relation: transit.test.transit.log2
+machine      / transit.test2            / transit_value (char)          : NEW required: required
+machine      / transit.test2            / untracked_amount (integer)    : NEW
+machine      / transit.test2            / untracked_description (text)  : NEW
+machine      / uom.category             / measure_type (selection)      : NEW selection_keys: ['length', 'time', 'unit', 'volume', 'weight']
+machine      / uom.uom                  / measure_type (selection)      : NEW selection_keys: function, isrelated: related, stored: stored
+machine      / website                  / auth_signup_uninvited (selection): NEW selection_keys: ['b2b', 'b2c'], hasdefault: hasdefault
+machine      / website                  / company_id (many2one)         : now required, req_default: function
+machine      / website                  / country_group_ids (many2many) : NEW relation: res.country.group
+machine      / website                  / google_maps_api_key (char)    : NEW
+machine      / website                  / name (char)                   : now required
+machine      / website                  / social_default_image (binary) : NEW attachment: True
+machine      / website                  / social_facebook (char)        : is now stored
+machine      / website                  / social_facebook (char)        : not related anymore
+machine      / website                  / social_github (char)          : is now stored
+machine      / website                  / social_github (char)          : not related anymore
+machine      / website                  / social_googleplus (char)      : is now stored
+machine      / website                  / social_googleplus (char)      : not related anymore
+machine      / website                  / social_instagram (char)       : NEW hasdefault: hasdefault
+machine      / website                  / social_linkedin (char)        : is now stored
+machine      / website                  / social_linkedin (char)        : not related anymore
+machine      / website                  / social_twitter (char)         : is now stored
+machine      / website                  / social_twitter (char)         : not related anymore
+machine      / website                  / social_youtube (char)         : is now stored
+machine      / website                  / social_youtube (char)         : not related anymore
+machine      / website                  / specific_user_account (boolean): NEW
+machine      / website                  / theme_id (many2one)           : NEW relation: ir.module.module
+machine      / website.menu             / parent_left (integer)         : DEL
+machine      / website.menu             / parent_path (char)            : NEW
+machine      / website.menu             / parent_right (integer)        : DEL
+machine      / website.menu             / theme_template_id (many2one)  : NEW relation: theme.website.menu
+machine      / website.page             / header_color (char)           : NEW
+machine      / website.page             / header_overlay (boolean)      : NEW
+machine      / website.page             / is_published (boolean)        : NEW
+machine      / website.page             / theme_template_id (many2one)  : NEW relation: theme.website.page
+machine      / website.page             / website_id (many2one)         : is now stored
+machine      / website.page             / website_ids (many2many)       : DEL relation: website
+machine      / website.page             / website_published (boolean)   : not stored anymore
+machine      / website.page             / website_published (boolean)   : now a function
+machine      / website.redirect         / type (selection)              : now required, req_default: function
+machine      / website.redirect         / url_from (char)               : now required
+machine      / website.redirect         / url_to (char)                 : now required
+---XML records in module 'machine'---

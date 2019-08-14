@@ -6,7 +6,7 @@
     'summary': 'Define used server machines per partner',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
-    'website': "https://github.com/oerp-odoo",
+    'website': "https://timefordev.com",
     'category': 'Extra Tools',
     'depends': [
         'mail'

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="snippet_code" name="Code Highlight">
+        <section class="o_website_snippet_code auto">
+            <div class="container">
+                <div class="row">
+                    <pre class="o_website_snippet_code_raw">def test():
+    pass</pre>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="snippets" inherit_id="website.snippets">
+        <xpath expr="//div[@id='snippet_effect']/div[hasclass('o_panel_body')]">
+            <t t-snippet="website_snippet_code.snippet_code"
+               t-thumbnail="/website_snippet_code/static/src/img/code.png"/>
+        </xpath>
+    </template>
+
+    <template id="snippet_code_opt" name="Snippet Code Options" inherit_id="website.snippet_options">
+        <xpath expr="//div[@data-js='background']" position="before">
+            <div data-selector=".o_website_snippet_code"> <!-- Options group -->
+                <div class="dropdown-submenu">
+                    <a tabindex="-2" href="#" class="dropdown-item"><i class="fa fa-sun-o"/>Syntax</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item" data-select-class="auto">Automatic</a>
+                        <a href="#" class="dropdown-item" data-select-class="plaintext">Plain Text</a>
+                        <a href="#" class="dropdown-item" data-select-class="python">Python</a>
+                        <a href="#" class="dropdown-item" data-select-class="xml">HTML, XML</a>
+                        <a href="#" class="dropdown-item" data-select-class="css">CSS</a>
+                        <a href="#" class="dropdown-item" data-select-class="javascript">Javascript</a>
+                        <a href="#" class="dropdown-item" data-select-class="coffeescript">CoffeeScript</a>
+                        <a href="#" class="dropdown-item" data-select-class="java">Java</a>
+                        <a href="#" class="dropdown-item" data-select-class="ruby">Ruby</a>
+                        <a href="#" class="dropdown-item" data-select-class="markdown">Markdown</a>
+                        <a href="#" class="dropdown-item" data-select-class="php">PHP</a>
+                        <a href="#" class="dropdown-item" data-select-class="objectivec">Objective-C</a>
+                        <a href="#" class="dropdown-item" data-select-class="bash">Bash</a>
+                        <a href="#" class="dropdown-item" data-select-class="shell">Shell Session</a>
+                        <a href="#" class="dropdown-item" data-select-class="sql">SQL</a>
+                        <a href="#" class="dropdown-item" data-select-class="json">JSON</a>
+                        <a href="#" class="dropdown-item" data-select-class="cs">C#</a>
+                        <a href="#" class="dropdown-item" data-select-class="cpp">C++</a>
+                        <a href="#" class="dropdown-item" data-select-class="perl">Perl</a>
+                        <a href="#" class="dropdown-item" data-select-class="diff">Diff</a>
+                        <a href="#" class="dropdown-item" data-select-class="http">HTTP</a>
+                        <a href="#" class="dropdown-item" data-select-class="properties">Properties</a>
+                        <a href="#" class="dropdown-item" data-select-class="ini">Ini, TOML</a>
+                        <a href="#" class="dropdown-item" data-select-class="nginx">Nginx</a>
+                        <a href="#" class="dropdown-item" data-select-class="apache">Apache</a>
+                        <a href="#" class="dropdown-item" data-select-class="makefile">Makefile</a>
+                        <a href="#" class="dropdown-item" data-select-class="nohighlight">No Highlighting</a>
+                    </div>
+                </div>
+                <div data-js="snippet_code_options" data-selector=".o_website_snippet_code"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

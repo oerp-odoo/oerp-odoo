@@ -1,0 +1,70 @@
+<section class="oe_container bg-gray-lighter">
+    <div class="oe_row">
+        <div class="oe_span12">
+            <h2 class="oe_slogan">Website Snippet Code</h2>
+            <h3 class="oe_slogan">Highlight blocks of code on your blog/website</h3>
+        </div>
+        <div class="oe_span12 oe_mb32">
+            <img class="oe_picture oe_screenshot" src="edit_highlight_code.png">
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced oe_mt32">
+        <div class="oe_span6">
+            <img class="oe_picture oe_screenshot" src="code_snippet.png">
+        </div>
+        <div class="oe_span6">
+            <p class="oe_mt32">Adds code highlight snippet. Uses highlight.js library for syntax
+highlighting. By default, snippet uses automatic syntax detection. So no need to
+specify which language is used (for supported syntaxes, see <strong>web_highlight</strong>
+module). This module was inspired by another module with same <a href="https://github.com/hibou-io/odoo-website-code-snippet">name</a> (for older Odoo version)</p>
+            <div class="oe_row">
+                <div class="oe_span6 oe_centeralign oe_websiteonly">
+                    <a href="https://github.com/oerp-odoo/oerp-odoo/" class="oe_button oe_tacky">Check Repository</a>
+                </div>
+                <div class="oe_span6 oe_centeralign oe_websiteonly">
+                    <a href="https://www.youtube.com/watch?v=nggAzp7NEFU" class="oe_button oe_tacky">Check Video Demonstration</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Choose custom syntax to highlight</h2>
+        <div class="oe_span6">
+            <p class="oe_mt32">If needed, it is possible to force specify which syntax is used if
+for example, auto detection incorrectly guesses language (e.g. same
+block of code could be interpreted by different languages). To do that, there is snippet option <strong>Syntax</strong>, which allows to set wanted syntax. There is also possibility to disable highlighting (if needed for some reason), then simply select <strong>No Highlighting</strong> from a drop down.</p>
+        </div>
+        <div class="oe_span6">
+            <div class="oe_row_img oe_centered">
+                <img class="oe_picture oe_screenshot" src="select_syntax.png">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Highlights code when in read mode</h2>
+        <div class="oe_span6">
+            <div class="oe_row_img oe_centered">
+                <img class="oe_picture" src="read_highlight_code.png">
+            </div>
+        </div>
+        <div class="oe_span6">
+            <p class="oe_mt32">
+Code is highlighted in read mode only. After saving edited website page,
+it will refresh and code should become highlighted. When in edit mode,
+once snippet is clicked to edit, it will go in <strong>no highlight</strong> mode and
+will go back to highlight mode, once it is saved again (this is a
+limitation, how Odoo handles edited blocks, which clash with the way
+blocks are supposed to be highlighted/updated).
+            </p>
+        </div>
+    </div>
+</section>

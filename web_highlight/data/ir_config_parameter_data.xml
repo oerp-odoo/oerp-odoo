@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="if_config_parameter_highlight_style" forcecreate="False" model="ir.config_parameter">
+        <field name="key">web_highlight.style</field>
+        <field name="value">github.css</field>
+    </record>
+</odoo>
