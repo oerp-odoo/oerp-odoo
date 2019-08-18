@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "highlight.js library",
-    'version': '0.1.0',
+    'version': '1.0.0',
     'summary': 'highlight, javascript, library, code',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
