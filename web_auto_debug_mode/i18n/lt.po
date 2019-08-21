@@ -1,0 +1,42 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* web_auto_debug_mode
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-22 15:53+0000\n"
+"PO-Revision-Date: 2019-08-22 15:53+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: web_auto_debug_mode
+#: model:ir.model.fields,field_description:web_auto_debug_mode.field_res_users__debug_mode
+msgid "Auto Developer Mode"
+msgstr "Automatinis kūrėjo rėžimas"
+
+#. module: web_auto_debug_mode
+#: selection:res.users,debug_mode:0
+msgid "Developer Mode"
+msgstr "Kurėjo rėžimas"
+
+#. module: web_auto_debug_mode
+#: selection:res.users,debug_mode:0
+msgid "Developer Mode (With Assets)"
+msgstr "Kūrėjo rėžimas (su turiniu)"
+
+#. module: web_auto_debug_mode
+#: model:ir.model,name:web_auto_debug_mode.model_res_users
+msgid "Users"
+msgstr "Vartotojai"
+
+#. module: web_auto_debug_mode
+#: model:ir.model.fields,help:web_auto_debug_mode.field_res_users__debug_mode
+msgid "Will enable developer mode on login for user"
+msgstr "Įjungs kūrėjo rėžimą, kai vartotojas prisijungs"
+
