@@ -13,7 +13,7 @@ class HomeExtended(Home):
 
         It can be full redirect or its fragment.
         """
-        return ['/web/become', '?debug']
+        return ['/web/become', '/web/login', '?debug']
 
     def _check_redirect(self, redirect):
         for excluded in self.get_no_debug_redirects():
