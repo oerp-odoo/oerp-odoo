@@ -4,8 +4,10 @@
         <section class="o_website_snippet_code auto">
             <div class="container">
                 <div class="row">
-                    <pre class="o_website_snippet_code_raw">def test():
+                    <div class="col-lg-10 offset-lg-1">
+                        <pre class="o_website_snippet_code_raw">def test():
     pass</pre>
+                    </div>
                 </div>
             </div>
         </section>
