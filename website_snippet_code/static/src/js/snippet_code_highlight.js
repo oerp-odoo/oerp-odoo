@@ -65,13 +65,20 @@ odoo.define('website_snippet_code.code_highlight', function () {
         return $(getHtmlForHighlight(pre_raw, used_classes))
     }
 
+    function replaceBrWithNewLine(str){
+        return str.replace(/<br[^>]*>/gi, '\n')
+    }
+
     function highlight($pre_raw, $pre_hl){
+        // Replace br with \n, because br element is incorrectly
+        // interpreted when highlighting.
+        var html_str_to_hl = replaceBrWithNewLine($pre_hl.html());
+        $pre_hl.html(html_str_to_hl);
         $pre_raw.hide();
         $pre_hl.insertAfter($pre_raw[0]);
         hljs.highlightBlock($pre_hl[0]);
     }
     $(document).ready(function() {
-
         var snippets = $('.o_website_snippet_code');
         snippets.each(function(i, snippet){
             var $snippet = $(snippet);
@@ -101,6 +108,7 @@ odoo.define('website_snippet_code.code_highlight', function () {
             getClassesForHighlight: getClassesForHighlight,
             getHtmlForHighlight: getHtmlForHighlight,
             createElementForHighlight: createElementForHighlight,
+            replaceBrWithNewLine: replaceBrWithNewLine,
             highlight: highlight,
         }
     }

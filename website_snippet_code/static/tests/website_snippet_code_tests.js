@@ -11,6 +11,7 @@ QUnit.module('website_snippet_code', {
         this.getClassForHighlight = functions.getClassForHighlight;
         this.copyItems = functions.copyItems;
         this.createElementForHighlight = functions.createElementForHighlight;
+        this.replaceBrWithNewLine = functions.replaceBrWithNewLine
         this.highlight = functions.highlight;
         this.pre_raw_outer_html = `<pre class="`+`
         ${CodeHighlight['CLASS_CODE_RAW']}">def test():
@@ -85,6 +86,22 @@ QUnit.test("Copy items: full exclusion", function (assert) {
         this.copyItems(['a', 'b'], ['a', 'b']), []);
     assert.deepEqual(
         this.copyItems(['a', 'b', 'c'], ['a', 'b', 'c']), []);
+});
+
+QUnit.test("replace br element with \n", function (assert) {
+    assert.expect(4);
+    var s1 = '<pre><code>x = 10<code></pre>';
+    var s2 = '<pre><code>x = 10\n<code></pre>';
+    var s3 = '<pre><code>x = 10<br><code></pre>';
+    var s4 = '<pre><code>\nx = 10<br><br/><br class="test"/><code></pre>';
+    var res_s1 = this.replaceBrWithNewLine(s1);
+    assert.strictEqual(res_s1, s1)
+    var res_s2 = this.replaceBrWithNewLine(s2);
+    assert.strictEqual(res_s2, s2)
+    var res_s3 = this.replaceBrWithNewLine(s3);
+    assert.strictEqual(res_s3, '<pre><code>x = 10\n<code></pre>')
+    var res_s4 = this.replaceBrWithNewLine(s4);
+    assert.strictEqual(res_s4, '<pre><code>\nx = 10\n\n\n<code></pre>')
 });
 
 QUnit.test("createElementForHighlight: extra class copied", function (assert) {
