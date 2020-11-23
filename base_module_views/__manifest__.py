@@ -15,4 +15,5 @@
         'views/ir_module_views.xml',
     ],
     'auto_install': True,
+    'installable': False,
 }

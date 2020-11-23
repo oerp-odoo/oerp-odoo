@@ -13,5 +13,6 @@
         'web_auto_debug_mode',
         'website',
     ],
-    'auto_install': True
+    'auto_install': True,
+    'installable': False,
 }
