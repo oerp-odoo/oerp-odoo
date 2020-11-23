@@ -19,4 +19,5 @@
         'views/asset_templates.xml',
         'views/snippet_templates.xml'
     ],
+    'installable': False,
 }
