@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Website Snippet Code",
-    'version': '1.1.1',
+    'version': '14.0.2.0.0-rc.1',
     'summary': 'Highlight code in many languages',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",

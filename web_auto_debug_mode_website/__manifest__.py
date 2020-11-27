@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Developer Mode on Login with Website",
-    'version': '1.0.0',
+    'version': '14.0.2.0.0-rc.1',
     'summary': 'Extension to use developer mode when logging in, when '
     'website is installed',
     'license': 'LGPL-3',
