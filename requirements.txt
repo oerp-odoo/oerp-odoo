@@ -1,1 +1,1 @@
-footil
+footil >= 0.20.0

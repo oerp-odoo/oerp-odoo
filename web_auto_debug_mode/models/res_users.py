@@ -1,5 +1,7 @@
 from odoo import models, fields, api
 
+DEBUG_PREFIX = '?debug'
+
 
 class ResUsers(models.Model):
     """Extend to add debug_mode field."""
@@ -8,7 +10,8 @@ class ResUsers(models.Model):
 
     debug_mode = fields.Selection([
             ('debug', 'Developer Mode'),
-            ('debug_assets', 'Developer Mode (With Assets)')
+            ('debug_assets', 'Developer Mode (With Assets)'),
+            ('debug_assets_tests', 'Developer Mode (With Tests Assets)')
         ],
         string="Auto Developer Mode",
         help="Will enable developer mode on login for user"
@@ -18,8 +21,9 @@ class ResUsers(models.Model):
     def get_debug_parameters(self):
         """Return possible debug parameters."""
         return {
-            'debug': '?debug',
-            'debug_assets': '?debug=assets'
+            'debug': f'{DEBUG_PREFIX}=1',
+            'debug_assets': f'{DEBUG_PREFIX}=assets',
+            'debug_assets_tests': f'{DEBUG_PREFIX}=assets,tests',
         }
 
     def get_debug_parameter(self):

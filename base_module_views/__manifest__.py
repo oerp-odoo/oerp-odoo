@@ -7,7 +7,7 @@
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
     'website': "https://timefordev.com",
-    'category': 'Extra Tools',
+    'category': 'Technical/Tools',
     'depends': [
         'base'
     ],
@@ -15,5 +15,5 @@
         'views/ir_module_views.xml',
     ],
     'auto_install': True,
-    'installable': False,
+    'installable': True,
 }
