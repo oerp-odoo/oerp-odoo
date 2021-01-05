@@ -7,7 +7,7 @@
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
     'website': "https://timefordev.com",
-    'category': 'Technical/Tools',
+    'category': 'Hidden/Tools',
     'depends': [
         'base'
     ],
