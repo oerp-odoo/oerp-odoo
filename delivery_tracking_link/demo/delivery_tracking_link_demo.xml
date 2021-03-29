@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="delivery_tracking_link_demo" model="delivery.tracking.link">
+        <field name="name">Demo URL</field>
+        <field name="url_format">https://some-domain.com/track/{picking.carrier_tracking_ref}</field>
+    </record>
+</odoo>

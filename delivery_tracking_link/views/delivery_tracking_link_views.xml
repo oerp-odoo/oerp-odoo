@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="delivery_tracking_link_view_tree" model="ir.ui.view">
+        <field name="name">delivery.tracking.link.tree</field>
+        <field name="model">delivery.tracking.link</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="url_format"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="delivery_tracking_link_view_form" model="ir.ui.view">
+        <field name="name">delivery.tracking.link.form</field>
+        <field name="model">delivery.tracking.link</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="name"/>
+                        </group>
+                        <group name="right">
+                            <field name="url_format"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="delivery_tracking_link_action" model="ir.actions.act_window">
+        <field name="name">Tracking Links</field>
+        <field name="res_model">delivery.tracking.link</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="delivery_tracking_link_menu"
+        parent="delivery.menu_delivery"
+        action="delivery_tracking_link_action"
+        sequence="10"
+    />
+</odoo>
