@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_company_form_inherit" model="ir.ui.view">
+        <field name="name">res.company.form.b2x</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Business Notes" name="b2x_notes_page">
+                    <group name="b2x_notes_group">
+                        <field name="note_b2c" string="Business to Customer"/>
+                        <field name="note_b2b" string="Business to Business"/>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>
