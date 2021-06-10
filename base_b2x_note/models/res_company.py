@@ -6,5 +6,5 @@ class ResCompany(models.Model):
 
     _inherit = 'res.company'
 
-    note_b2c = fields.Text("Business to Customer Note")
-    note_b2b = fields.Text("Business to Business Note")
+    note_b2c = fields.Text("Business to Customer Note", translate=True)
+    note_b2b = fields.Text("Business to Business Note", translate=True)
