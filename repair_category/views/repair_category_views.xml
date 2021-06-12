@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="repair_category_view_tree" model="ir.ui.view">
+        <field name="name">repair.category.tree</field>
+        <field name="model">repair.category</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="repair_category_view_form" model="ir.ui.view">
+        <field name="name">repair.category.form</field>
+        <field name="model">repair.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="name"/>
+                        </group>
+                        <group name="right">
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="repair_category_action" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">repair.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="repair_category_menu"
+        parent="repair.menu_repair_order"
+        action="repair_category_action"
+        sequence="5"
+    />
+</odoo>

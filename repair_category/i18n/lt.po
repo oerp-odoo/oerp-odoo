@@ -1,0 +1,83 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* repair_category
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-12 10:16+0000\n"
+"PO-Revision-Date: 2021-06-12 10:16+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: repair_category
+#: model:ir.actions.act_window,name:repair_category.repair_category_action
+#: model:ir.ui.menu,name:repair_category.repair_category_menu
+msgid "Categories"
+msgstr "Kategorijos"
+
+#. module: repair_category
+#: model:ir.model.fields,field_description:repair_category.field_repair_order__category_id
+#: model_terms:ir.ui.view,arch_db:repair_category.view_repair_order_form_filter_inherit
+msgid "Category"
+msgstr "Kategorija"
+
+#. module: repair_category
+#: model:ir.model.fields,field_description:repair_category.field_repair_category__company_id
+msgid "Company"
+msgstr "Įmonė"
+
+#. module: repair_category
+#: model:ir.model.fields,field_description:repair_category.field_repair_category__create_uid
+msgid "Created by"
+msgstr "Sukūrė"
+
+#. module: repair_category
+#: model:ir.model.fields,field_description:repair_category.field_repair_category__create_date
+msgid "Created on"
+msgstr "Sukurta"
+
+#. module: repair_category
+#: model:ir.model.fields,field_description:repair_category.field_repair_category__display_name
+msgid "Display Name"
+msgstr "Rodomas pavadinimas"
+
+#. module: repair_category
+#: model:ir.model.fields,field_description:repair_category.field_repair_category__id
+msgid "ID"
+msgstr ""
+
+#. module: repair_category
+#: model:ir.model.fields,field_description:repair_category.field_repair_category____last_update
+msgid "Last Modified on"
+msgstr "Paskutinį kartą keista"
+
+#. module: repair_category
+#: model:ir.model.fields,field_description:repair_category.field_repair_category__write_uid
+msgid "Last Updated by"
+msgstr "Paskutinį kartą atnaujino"
+
+#. module: repair_category
+#: model:ir.model.fields,field_description:repair_category.field_repair_category__write_date
+msgid "Last Updated on"
+msgstr "Paskutinį kartą atnaujinta"
+
+#. module: repair_category
+#: model:ir.model.fields,field_description:repair_category.field_repair_category__name
+msgid "Name"
+msgstr "Pavadinimas"
+
+#. module: repair_category
+#: model:ir.model,name:repair_category.model_repair_category
+msgid "Repair Category"
+msgstr "Taisymo kategorija"
+
+#. module: repair_category
+#: model:ir.model,name:repair_category.model_repair_order
+msgid "Repair Order"
+msgstr "Taisymo užsakymas"
