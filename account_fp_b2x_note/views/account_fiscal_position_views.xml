@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_account_position_form_inherit" model="ir.ui.view">
+        <field name="name">account.fiscal.position.form.b2x</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form"/>
+        <field name="arch" type="xml">
+            <page name="account_mapping" position="after">
+                <page string="Business Notes" name="b2x_notes_page">
+                    <group name="b2x_notes_group">
+                        <field name="note_b2c" string="Business to Customer"/>
+                        <field name="note_b2b" string="Business to Business"/>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>
