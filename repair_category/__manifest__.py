@@ -2,13 +2,14 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Repairs Category",
-    'version': '12.0.1.0.0',
+    'version': '14.0.2.0.0-rc.1',
     'summary': 'Use categories to distinguish different type of repairs',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
     'website': "https://timefordev.com",
     'category': 'Manufacturing',
     'depends': [
+        # odoo
         'repair',
     ],
     'data': [

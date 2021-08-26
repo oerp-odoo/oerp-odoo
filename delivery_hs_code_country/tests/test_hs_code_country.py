@@ -1,7 +1,4 @@
-from psycopg2 import IntegrityError
-
 from odoo.exceptions import ValidationError
-from odoo.tools import mute_logger
 from odoo.tests.common import SavepointCase
 
 
@@ -161,9 +158,3 @@ class TestHsCodeCountry(SavepointCase):
                     {'is_origin_country': True}
                 )
             ]
-
-    @mute_logger('odoo.sql_db')
-    def test_08_check_hs_code_country_id(self):
-        """Make sure country is unique per product template HS code."""
-        with self.assertRaises(IntegrityError):
-            self.hs_code_lt.country_id = self.country_us.id

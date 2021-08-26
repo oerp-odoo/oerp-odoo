@@ -7,3 +7,4 @@ class RepairOrder(models.Model):
     _inherit = 'repair.order'
 
     category_id = fields.Many2one('repair.category')
+    product_uom_category_id = fields.Many2one(string="UoM Category")

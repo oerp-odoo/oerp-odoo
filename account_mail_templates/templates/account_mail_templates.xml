@@ -7,6 +7,7 @@
     name="Invoice: Send by email"
 >
     <t t-call="base_templates.mail_body_layout_basic">
+<<<<<<< HEAD
         <t t-call="base_templates.msg_partner_refer">
             <t t-set="partner" t-value="record.partner_id"/>
         </t>
@@ -33,6 +34,36 @@
             </t>
         </t>
         <t t-call="base_templates.msg_end_text">
+=======
+        <p name="p_refer">
+            <t t-call="base_templates.msg_partner_refer">
+                <t t-set="partner" t-value="record.partner_id"/>
+            </t>
+        </p>
+        <p name="p_description">
+            <t t-call="base_templates.msg_doc_description_with_amount">
+                <t t-set="doc_text">
+                    <span name="span_doc_text">Here is your invoice</span>
+                </t>
+                <t t-set="doc_number" t-value="record.number"/>
+                <t t-set="origin" t-value="record.origin"/>
+                <t
+                    t-set="amount"
+                    t-value="format_amount(record.amount_total, record.currency_id)"
+                />
+            </t>
+            <span
+                name="span_paid_text"
+                t-if="record.state == 'paid'"
+            >
+                This invoice is already paid.
+            </span>
+            <span name="span_not_paid_text" t-else="">
+                Please remit payment at your earliest convenience.
+            </span>
+        </p>
+        <t t-call="base_templates.msg_polite_end_text">
+>>>>>>> [ADD] templates rewrite: Jinja2 -> QWeb
             <t t-set="company_name" t-value="record.company_id.name"/>
         </t>
     </t>

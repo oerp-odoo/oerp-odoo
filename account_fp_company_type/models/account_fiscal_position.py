@@ -21,11 +21,11 @@ class AccountFiscalPosition(models.Model):
                 partner_chosen_id
             ).commercial_partner_id
             self = self.with_context(partner_is_company=partner.is_company)
-            fp_id = super(AccountFiscalPosition, self.with_context(
+            fp = super(AccountFiscalPosition, self.with_context(
                 partner_company_type=partner.company_type)
             ).get_fiscal_position(partner_id, delivery_id=delivery_id)
-            if fp_id:
-                return fp_id
+            if fp:
+                return fp
         return super(AccountFiscalPosition, self).get_fiscal_position(
             partner_id, delivery_id=delivery_id
         )

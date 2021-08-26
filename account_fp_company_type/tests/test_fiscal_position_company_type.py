@@ -46,41 +46,41 @@ class TestFiscalPositionCompanyType(SavepointCase):
         Case 2: partner is individual, but parent is company.
         """
         # Case 1.
-        fp_id = self.AccountFiscalPosition.get_fiscal_position(
+        fp = self.AccountFiscalPosition.get_fiscal_position(
             self.partner_azure.id
         )
-        self.assertEqual(fp_id, self.fp_company.id)
+        self.assertEqual(fp, self.fp_company)
         # Case 2.
-        fp_id = self.AccountFiscalPosition.get_fiscal_position(
+        fp = self.AccountFiscalPosition.get_fiscal_position(
             self.partner_azure_freeman.id
         )
-        self.assertEqual(fp_id, self.fp_company.id)
+        self.assertEqual(fp, self.fp_company)
 
     def test_02_get_fiscal_position(self):
         """Find fiscal position for individual partner.
 
         Case: only main partner passed.
         """
-        fp_id = self.AccountFiscalPosition.get_fiscal_position(
+        fp = self.AccountFiscalPosition.get_fiscal_position(
             self.partner_individual.id
         )
-        self.assertEqual(fp_id, self.fp_person.id)
+        self.assertEqual(fp, self.fp_person)
 
     def test_03_get_fiscal_position(self):
         """Find fiscal position for individual partner.
 
         Case: also delivery_id is passed.
         """
-        fp_id = self.AccountFiscalPosition.get_fiscal_position(
+        fp = self.AccountFiscalPosition.get_fiscal_position(
             self.partner_azure.id,
             delivery_id=self.partner_individual.id
         )
-        self.assertEqual(fp_id, self.fp_person.id)
+        self.assertEqual(fp, self.fp_person)
 
     def test_04_get_fiscal_position(self):
         """Find fiscal position when company_type can't be matched."""
         self.fp_company.country_id = self.env.ref('base.lt').id
-        fp_id = self.AccountFiscalPosition.get_fiscal_position(
+        fp = self.AccountFiscalPosition.get_fiscal_position(
             self.partner_azure.id
         )
-        self.assertEqual(fp_id, self.fp_no_company_type.id)
+        self.assertEqual(fp, self.fp_no_company_type)

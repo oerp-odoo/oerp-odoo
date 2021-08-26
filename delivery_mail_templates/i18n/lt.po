@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* delivery_mail_templates
+#   * delivery_mail_templates
 #
 msgid ""
 msgstr ""
@@ -27,4 +27,4 @@ msgstr "<span name=\"span_inform\">\n"
 #. module: delivery_mail_templates
 #: model_terms:ir.ui.view,arch_db:delivery_mail_templates._stock_picking_tracking_ref
 msgid "<span name=\"span_ref_label\">Your tracking reference is</span>"
-msgstr "<span name=\"span_ref_intro\">Jūsų sekimo nuoroda yra</span>"
+msgstr "<span name=\"span_ref_label\">Jūsų sekimo nuoroda yra</span>"
