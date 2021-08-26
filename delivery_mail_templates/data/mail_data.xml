@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Relating with Qweb templates, but not enabling by default. -->
+    <record id="delivery.mail_template_data_delivery_confirmation" model="mail.template">
+        <field
+            name="body_view_id"
+            ref="delivery_mail_templates.mail_body_delivery_confirmation"
+        />
+    </record>
+</odoo>

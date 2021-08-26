@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+<template id="mail_body_layout_basic">
+    <div class="o_b_tmpl_mail_body_container">
+        <p class="o_b_tmpl_mail_body_content">
+            <t t-raw="0"/>
+        </p>
+    </div>
+</template>
+
+</odoo>

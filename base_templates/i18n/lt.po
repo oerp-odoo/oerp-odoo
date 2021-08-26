@@ -1,0 +1,36 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* base_templates
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-08-26 12:30+0000\n"
+"PO-Revision-Date: 2021-08-26 12:30+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_templates
+#: model_terms:ir.ui.view,arch_db:base_templates.msg_doc_description_with_amount
+msgid "(with reference:"
+msgstr "(nuoroda:"
+
+#. module: base_templates
+#: model_terms:ir.ui.view,arch_db:base_templates.msg_doc_description_with_amount
+msgid "<span name=\"span_amount_text\">amounting in</span>"
+msgstr "<span name=\"span_amount_text\">o suma</span>"
+
+#. module: base_templates
+#: model_terms:ir.ui.view,arch_db:base_templates.msg_partner_refer
+msgid "<span name=\"span_title\">Dear</span>"
+msgstr "<span name=\"span_title\">Gerb.</span>"
+
+#. module: base_templates
+#: model_terms:ir.ui.view,arch_db:base_templates.msg_polite_end_text
+msgid "Do not hesitate to contact us if you have any questions."
+msgstr "Jei kyla klausimų, nedvejodami susisiekite su mumis."

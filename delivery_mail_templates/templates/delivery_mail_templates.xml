@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+<!-- Adapt delivery.mail_template_data_delivery_confirmation template -->
+<template id="_stock_picking_tracking_ref">
+    <t t-call="base_templates.wrap_without_whitespace">
+        <t t-set="left_el">
+            <span name="span_ref_intro">Your tracking reference is</span>
+            <strong name="strong_ref_value">
+                <t t-if="record.carrier_tracking_url">
+                    <t
+                        t-set="multiple_carrier_tracking"
+                        t-value="record.get_multiple_carrier_tracking()"
+                    />
+                    <t t-if="multiple_carrier_tracking">
+                        <t t-foreach="multiple_carrier_tracking" t-as="line">
+                            <br/>
+                            <a t-att-href="line[1]" target="_blank">
+                                <span t-esc="line[0]"/>
+                            </a>
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <a t-att-href="record.carrier_tracking_url" target="_blank">
+                            <span t-field="record.carrier_tracking_ref"/>
+                        </a>
+                    </t>
+                </t>
+                <t t-else="">
+                    <span t-field="record.carrier_tracking_ref"/>
+                </t>
+            </strong>
+        </t>
+        <t t-set="right_el"><span name="span_ref_end">.</span></t>
+    </t>
+</template>
+
+<template
+    id="mail_body_delivery_confirmation"
+    name="Delivery: Send by Email"
+>
+    <t t-call="base_templates.mail_body_layout_basic">
+        <p name="p_refer">
+            <t t-call="base_templates.msg_partner_refer">
+                <t t-set="partner" t-value="record.partner_id"/>
+            </t>
+        </p>
+        <p name="p_inform">
+            We are glad to inform you that your order has been shipped.
+            <t t-if="record.carrier_tracking_ref">
+                <t t-call="delivery_mail_templates._stock_picking_tracking_ref"/>
+            </t>
+        </p>
+        <p name="p_end_note">
+            Please find your delivery order attached for more details.
+        </p>
+        <p name="p_thank">Thank you.</p>
+    </t>
+</template>
+</odoo>

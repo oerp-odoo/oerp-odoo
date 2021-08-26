@@ -1,0 +1,8 @@
+.o_b_tmpl_mail_body_container {
+    @extend .p-0;
+    @extend .m-0;
+}
+.o_b_tmpl_mail_body_content {
+    @extend .o_b_tmpl_mail_body_container;
+    font-size: 13px;
+}
