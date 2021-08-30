@@ -5,7 +5,7 @@
 <template id="_stock_picking_tracking_ref">
     <t t-call="base_templates.wrap_without_whitespace">
         <t t-set="left_el">
-            <span name="span_ref_intro">Your tracking reference is</span>
+            <span name="span_ref_label">Your tracking reference is</span>
             <strong name="strong_ref_value">
                 <t t-if="record.carrier_tracking_url">
                     <t
@@ -40,21 +40,20 @@
     name="Delivery: Send by Email"
 >
     <t t-call="base_templates.mail_body_layout_basic">
-        <p name="p_refer">
-            <t t-call="base_templates.msg_partner_refer">
-                <t t-set="partner" t-value="record.partner_id"/>
-            </t>
-        </p>
+        <t t-call="base_templates.msg_partner_refer">
+            <t t-set="partner" t-value="record.partner_id"/>
+        </t>
         <p name="p_inform">
-            We are glad to inform you that your order has been shipped.
+            <span name="span_inform">
+                We are glad to inform you that your order has been shipped.
+            </span>
             <t t-if="record.carrier_tracking_ref">
                 <t t-call="delivery_mail_templates._stock_picking_tracking_ref"/>
             </t>
         </p>
-        <p name="p_end_note">
-            Please find your delivery order attached for more details.
-        </p>
-        <p name="p_thank">Thank you.</p>
+        <t t-call="base_templates.msg_end_text">
+            <t t-set="company_name" t-value="record.company_id.name"/>
+        </t>
     </t>
 </template>
 </odoo>

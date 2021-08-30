@@ -7,38 +7,34 @@
     name="Sales Order: Send by email"
 >
     <t t-call="base_templates.mail_body_layout_basic">
-        <p name="p_refer">
-            <t t-call="base_templates.msg_partner_refer">
-                <t t-set="partner" t-value="record.partner_id"/>
+        <t t-call="base_templates.msg_partner_refer">
+            <t t-set="partner" t-value="record.partner_id"/>
+        </t>
+        <t t-call="base_templates.msg_doc_description_with_amount">
+            <t t-set="doc_text">
+                <span name="span_start_text">Here is</span>
+                <span
+                    name="span_proforma_text"
+                    t-if="ctx.get('proforma')"
+                >
+                    pro-forma invoice
+                </span>
+                <span
+                    name="span_quotation_text"
+                    t-elif="record.state in ('draft', 'sent')"
+                >
+                    the quotation
+                </span>
+                <span name="span_order_text" t-else="">the order</span>
             </t>
-        </p>
-        <p name="p_description">
-            <t t-call="base_templates.msg_doc_description_with_amount">
-                <t t-set="doc_text">
-                    <span name="span_start_text">Here is</span>
-                    <span
-                        name="span_proforma_text"
-                        t-if="ctx.get('proforma')"
-                    >
-                        pro-forma invoice
-                    </span>
-                    <span
-                        name="span_quotation_text"
-                        t-elif="record.state in ('draft', 'sent')"
-                    >
-                        the quotation
-                    </span>
-                    <span name="span_order_text" t-else="">the order</span>
-                </t>
-                <t t-set="doc_number" t-value="record.name"/>
-                <t t-set="origin" t-value="record.origin"/>
-                <t
-                    t-set="amount"
-                    t-value="format_amount(record.amount_total, record.pricelist_id.currency_id)"
-                />
-            </t>
-        </p>
-        <t t-call="base_templates.msg_polite_end_text">
+            <t t-set="doc_number" t-value="record.name"/>
+            <t t-set="origin" t-value="record.origin"/>
+            <t
+                t-set="amount"
+                t-value="format_amount(record.amount_total, record.pricelist_id.currency_id)"
+            />
+        </t>
+        <t t-call="base_templates.msg_end_text">
             <t t-set="company_name" t-value="record.company_id.name"/>
         </t>
     </t>

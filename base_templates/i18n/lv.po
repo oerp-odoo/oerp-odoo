@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-06 13:10+0000\n"
-"PO-Revision-Date: 2021-09-06 13:10+0000\n"
+"POT-Creation-Date: 2021-09-06 13:20+0000\n"
+"PO-Revision-Date: 2021-09-06 13:20+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,19 +18,19 @@ msgstr ""
 #. module: base_templates
 #: model_terms:ir.ui.view,arch_db:base_templates.msg_doc_description_with_amount
 msgid "(with reference:"
-msgstr "(nuoroda:"
+msgstr ""
 
 #. module: base_templates
 #: model_terms:ir.ui.view,arch_db:base_templates.msg_doc_description_with_amount
 msgid "<span name=\"span_amount_text\">amounting in</span>"
-msgstr "<span name=\"span_amount_text\">o suma</span>"
+msgstr ""
 
 #. module: base_templates
 #: model_terms:ir.ui.view,arch_db:base_templates.msg_partner_refer
 msgid "<span name=\"span_title\">Dear</span>"
-msgstr "<span name=\"span_title\">Pirkėjas:</span>"
+msgstr ""
 
 #. module: base_templates
 #: model_terms:ir.ui.view,arch_db:base_templates.msg_end_text
 msgid "Do not hesitate to contact us if you have any questions."
-msgstr "Jei kyla klausimų, nedvejodami susisiekite su mumis."
+msgstr ""
