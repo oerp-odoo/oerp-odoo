@@ -18,14 +18,14 @@ msgstr ""
 #. module: account_mail_templates
 #: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
 msgid "<span name=\"span_doc_text\">Here is your invoice</span>"
-msgstr ""
+msgstr "<span name=\"span_doc_text\">Šeit ir jūsu rēķins</span>"
 
 #. module: account_mail_templates
 #: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
 msgid "Please remit payment at your earliest convenience."
-msgstr ""
+msgstr "Lūdzu, pārskaitiet maksājumu pēc iespējas ātrāk."
 
 #. module: account_mail_templates
 #: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
 msgid "This invoice is already paid."
-msgstr ""
+msgstr "Šis rēķins jau ir apmaksāts."

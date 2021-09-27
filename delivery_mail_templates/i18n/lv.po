@@ -20,9 +20,11 @@ msgstr ""
 msgid "<span name=\"span_inform\">\n"
 "                We are glad to inform you that your order has been shipped.\n"
 "            </span>"
-msgstr ""
+msgstr "<span name=\"span_inform\">\n"
+"                Mēs esam priecīgi Jūs informēt, ka Jūsu pasūtījums ir nosūtīts.\n"
+"            </span>"
 
 #. module: delivery_mail_templates
 #: model_terms:ir.ui.view,arch_db:delivery_mail_templates._stock_picking_tracking_ref
 msgid "<span name=\"span_ref_label\">Your tracking reference is</span>"
-msgstr ""
+msgstr "<span name=\"span_ref_label\">Jūsu izsekošanas kods ir</span>"

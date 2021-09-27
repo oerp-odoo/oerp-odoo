@@ -18,20 +18,20 @@ msgstr ""
 #. module: sale_mail_templates
 #: model_terms:ir.ui.view,arch_db:sale_mail_templates.mail_body_sale_send
 msgid "<span name=\"span_start_text\">Here is</span>"
-msgstr ""
+msgstr "<span name=\"span_start_text\">Šeit ir</span>"
 
 #. module: sale_mail_templates
 #: model_terms:ir.ui.view,arch_db:sale_mail_templates.mail_body_sale_send
 msgid "pro-forma invoice"
-msgstr ""
+msgstr "provizoriskais rēķins"
 
 #. module: sale_mail_templates
 #: model_terms:ir.ui.view,arch_db:sale_mail_templates.mail_body_sale_send
 msgid "the order"
-msgstr ""
+msgstr "pasūtījums"
 
 #. module: sale_mail_templates
 #: model_terms:ir.ui.view,arch_db:sale_mail_templates.mail_body_sale_send
 msgid "the quotation"
-msgstr ""
+msgstr "apraksts"
 

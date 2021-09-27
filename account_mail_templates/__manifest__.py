@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Invoices Custom QWeb Email Templates",
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.0',
     'summary': 'Invoices jinja2 templates rewritten to QWeb templates',
     'license': 'AGPL-3',
     'author': "Focusate",

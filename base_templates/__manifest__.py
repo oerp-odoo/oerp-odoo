@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "QWeb Template Utilities",
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.1.0',
     'summary': 'Helpers for QWeb templates',
     'license': 'LGPL-3',
     'author': "Focusate",

@@ -18,19 +18,19 @@ msgstr ""
 #. module: base_templates
 #: model_terms:ir.ui.view,arch_db:base_templates.msg_doc_description_with_amount
 msgid "(with reference:"
-msgstr ""
+msgstr "(ar atsauci:"
 
 #. module: base_templates
 #: model_terms:ir.ui.view,arch_db:base_templates.msg_doc_description_with_amount
 msgid "<span name=\"span_amount_text\">amounting in</span>"
-msgstr ""
+msgstr "<span name=\"span_amount_text\">Šeit ir jūsu rēķins</span>"
 
 #. module: base_templates
 #: model_terms:ir.ui.view,arch_db:base_templates.msg_partner_refer
 msgid "<span name=\"span_title\">Dear</span>"
-msgstr ""
+msgstr "<span name=\"span_title\">Dārgā/-ais</span>"
 
 #. module: base_templates
 #: model_terms:ir.ui.view,arch_db:base_templates.msg_end_text
 msgid "Do not hesitate to contact us if you have any questions."
-msgstr ""
+msgstr "Ja jums ir kādi jautājumi, lūgums sazināties ar mums."
