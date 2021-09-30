@@ -1,4 +1,4 @@
 [submodule "external/oca-social"]
 	path = external/oca-social
 	url = git@github.com:focusate/oca-social.git
-	branch = 12.0
+	branch = 14.0
