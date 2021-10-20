@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': 'EORI Number',
-    'version': '14.0.2.0.0-rc.1',
+    'version': '15.0.2.0.0-rc.1',
     'summary': 'eori, partner, company',
     'license': 'LGPL-3',
     'author': 'Andrius Laukavičius',
@@ -16,4 +16,5 @@
         'views/res_company_views.xml',
         'views/res_partner_views.xml',
     ],
+    'installable': False,
 }

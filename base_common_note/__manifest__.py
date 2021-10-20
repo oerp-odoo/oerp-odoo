@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Common Note",
-    'version': '12.0.1.0.0',
+    'version': '15.0.1.0.0',
     'summary': 'Common note that can use company data.',
     'license': 'LGPL-3',
     'author': "Focusate",
@@ -15,5 +15,5 @@
     'data': [
         'views/res_company_views.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

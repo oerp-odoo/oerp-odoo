@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Define used server machines",
-    'version': '14.0.2.0.0-rc.1',
+    'version': '15.0.2.0.0-rc.1',
     'summary': 'Define used server machines per partner',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
