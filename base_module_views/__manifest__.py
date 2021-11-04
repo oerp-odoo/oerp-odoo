@@ -14,6 +14,7 @@
     'data': [
         'views/ir_module_views.xml',
     ],
-    'auto_install': True,
+    # TODO: make it True after migrating
+    'auto_install': False,
     'installable': False,
 }

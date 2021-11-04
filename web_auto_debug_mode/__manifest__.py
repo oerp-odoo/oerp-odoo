@@ -15,6 +15,7 @@
         'data/res_users_data.xml',
         'views/res_users_views.xml',
     ],
-    'auto_install': True,
+    # TODO: make it True after migrating
+    'auto_install': False,
     'installable': False,
 }
