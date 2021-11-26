@@ -38,7 +38,7 @@
 
     <menuitem
         id="delivery_tracking_link_menu"
-        parent="delivery.menu_delivery"
+        parent="stock.menu_delivery"
         action="delivery_tracking_link_action"
         sequence="10"
     />

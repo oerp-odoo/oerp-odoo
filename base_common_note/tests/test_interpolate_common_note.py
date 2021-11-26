@@ -1,7 +1,7 @@
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestInterpolateCommonNote(SavepointCase):
+class TestInterpolateCommonNote(TransactionCase):
     """Test class for interpolate_common_note functionality."""
 
     @classmethod

@@ -43,7 +43,6 @@
     <record id="machine_cpu_action" model="ir.actions.act_window">
         <field name="name">CPU</field>
         <field name="res_model">machine.cpu</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
@@ -86,7 +85,6 @@
     <record id="machine_cpu_brand_action" model="ir.actions.act_window">
         <field name="name">CPU Brands</field>
         <field name="res_model">machine.cpu.brand</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
@@ -127,12 +125,12 @@
     <record id="machine_cpu_vendor_action" model="ir.actions.act_window">
         <field name="name">CPU Vendors</field>
         <field name="res_model">machine.cpu.vendor</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
     <menuitem id="machine_cpu_vendor_menu"
         parent="machine_cpu_top_menu"
         action="machine_cpu_vendor_action"
-        sequence="3"/>
+        sequence="3"
+    />
 </odoo>

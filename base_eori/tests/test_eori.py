@@ -1,7 +1,7 @@
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestEori(SavepointCase):
+class TestEori(TransactionCase):
     """Class to test EORI number field."""
 
     @classmethod

@@ -9,12 +9,12 @@
     'website': "https://timefordev.com",
     'category': 'Hidden/Tools',
     'depends': [
-        'base'
+        # odoo
+        'base',
     ],
     'data': [
         'views/ir_module_views.xml',
     ],
-    # TODO: make it True after migrating
-    'auto_install': False,
-    'installable': False,
+    'auto_install': True,
+    'installable': True,
 }

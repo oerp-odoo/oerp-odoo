@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.form.machine</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="85"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div
+                    class="app_settings_block"
+                    data-string="Machine"
+                    string="Machine"
+                    data-key="machine"
+                    groups="machine.machine_group_manager"
+                >
+                    <div id="machine_visibility">
+                        <h2>Visibility</h2>
+                        <div
+                            class="row mt16 o_settings_container"
+                            name="machine_settings_container_visibility"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                name="machine_resources_visibility"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="group_machine_show_resources"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="group_machine_show_resources"/>
+                                    <div class="text-muted">
+                                        Will show resources like CPU, RAM, Storage.
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                name="machine_env_details_visibility"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="group_machine_show_env_details"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="group_machine_show_env_details"/>
+                                    <div class="text-muted">
+                                        Show environment details like Operating System, Database System.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="machine_config_settings_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'machine', 'bin_size': False}</field>
+    </record>
+
+    <menuitem id="machine_settings_menu"
+        name="Settings"
+        parent="machine_config_menu"
+        action="machine_config_settings_action"
+        groups="base.group_system"
+        sequence="0"
+    />
+</odoo>

@@ -7,7 +7,7 @@
     'license': 'LGPL-3',
     'author': "Focusate",
     'website': "http://www.focusate.eu",
-    'category': 'Extra Tools',
+    'category': 'Hidden/Tools',
     'depends': [
         # odoo
         'base',
@@ -15,5 +15,5 @@
     'data': [
         'views/res_company_views.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

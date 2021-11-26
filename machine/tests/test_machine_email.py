@@ -1,3 +1,5 @@
+import markupsafe
+
 from . import common
 from odoo.exceptions import UserError
 
@@ -22,20 +24,27 @@ class TestMachineEmail(common.TestMachineCommon):
         self.assertEqual(len(items), len(recipients))
         for machine, partners in items:
             recipient = recipients.filtered(
-                lambda r: r.machine_instance_id == machine)
-            self.assertEqual(partners, recipient.partner_ids)
+                lambda r: r.machine_instance_id == machine
+            )
+            target_partners = recipient.partner_ids
+            self.assertEqual(
+                partners,
+                target_partners,
+                f'Machine: {machine.name} -> Partners: '
+                f'{partners.mapped("display_name")} != '
+                f'{target_partners.mapped("display_name")}'
+            )
 
-    def test_onchange_machine_group_ids(self):
+    def test_01_onchange_machine_group_ids(self):
         """Change machine_group_ids to trigger various onchange opts."""
         # Change to have Production group selected.
         self.wizard.machine_group_ids = self.machine_group_1
         self.wizard._onchange_machine_group_ids()
         self._test_recipients(
             [
-                (self.mit_1_1, self.ResPartner),
-                (self.mit_1_2, self.partner_address_4),
-                (self.mit_1_3, self.partner_address_5),
-
+                (self.machine_instance_wood, self.ResPartner),
+                (self.machine_instance_deco, self.partner_address_4),
+                (self.machine_instance_gemini, self.partner_address_5),
             ],
             self.wizard
         )
@@ -44,10 +53,10 @@ class TestMachineEmail(common.TestMachineCommon):
         self.wizard._onchange_machine_group_ids()
         self._test_recipients(
             [
-                (self.mit_1_1, self.ResPartner),
-                (self.mit_1_2, self.partner_address_4),
-                (self.mit_1_3, self.partner_address_5),
-                (self.mit_2_1, self.partner_address_13),
+                (self.machine_instance_wood, self.ResPartner),
+                (self.machine_instance_deco, self.partner_address_4),
+                (self.machine_instance_gemini, self.partner_address_5),
+                (self.machine_instance_readymat, self.partner_address_13),
 
             ],
             self.wizard
@@ -56,7 +65,7 @@ class TestMachineEmail(common.TestMachineCommon):
         self.wizard._onchange_machine_group_ids()
         self.assertFalse(self.wizard.recipient_ids)
 
-    def test_check_recipients(self):
+    def test_02_check_recipients(self):
         """Run various cases to check if proper recipients selected."""
         # Empty recipients.
         self.assertRaises(UserError, self.wizard.check_recipients)
@@ -65,15 +74,17 @@ class TestMachineEmail(common.TestMachineCommon):
             (
                 0, 0,
                 {
-                    'machine_instance_id': self.mit_1_1.id,
-                    'partner_ids': self.ResPartner
+                    'machine_instance_id': self.machine_instance_wood.id,
+                    'partner_ids': self.ResPartner,
                 }
             ),
             (
                 0, 0,
                 {
-                    'machine_instance_id': self.mit_1_2.id,
-                    'partner_ids': [(4, self.mit_1_2.partner_contact_id.id)]
+                    'machine_instance_id': self.machine_instance_deco.id,
+                    'partner_ids': [
+                        (4, self.machine_instance_deco.partner_contact_id.id)
+                    ],
                 }
             ),
         ]
@@ -97,10 +108,17 @@ class TestMachineEmail(common.TestMachineCommon):
             [(6, 0, recipient.partner_ids.ids)],
         )
         self.assertEqual(vals['subject'], dest_vals['subject'])
-        self.assertEqual(vals['body'], dest_vals['body'])
+        self.assertEqual(
+            vals['body'].striptags(),
+            markupsafe.Markup(dest_vals['body']).striptags(),
+        )
 
-    def test_send_email_1(self):
+    def test_03_send_email(self):
         """Generate mail.message vals using general type and send it."""
+        m_wood = self.machine_instance_wood
+        m_deco = self.machine_instance_deco
+        m_gemini = self.machine_instance_gemini
+        m_readymat = self.machine_instance_readymat
         # Run message checks before generating it (for general type).
         # No subject and no body.
         self.assertRaises(UserError, self.wizard.check_message)
@@ -112,17 +130,15 @@ class TestMachineEmail(common.TestMachineCommon):
                 (
                     0, 0,
                     {
-                        'machine_instance_id': self.mit_1_2.id,
-                        'partner_ids': [
-                            (4, self.mit_1_2.partner_contact_id.id)]
+                        'machine_instance_id': m_deco.id,
+                        'partner_ids': [(4, m_deco.partner_id.id)]
                     }
                 ),
                 (
                     0, 0,
                     {
-                        'machine_instance_id': self.mit_1_3.id,
-                        'partner_ids': [
-                            (4, self.mit_1_3.partner_contact_id.id)]
+                        'machine_instance_id': m_gemini.id,
+                        'partner_ids': [(4, m_gemini.partner_contact_id.id)]
                     }
                 ),
             ]
@@ -137,11 +153,11 @@ class TestMachineEmail(common.TestMachineCommon):
         recipients = self.wizard.recipient_ids
         dest_vals = {'subject': 'My Subject', 'body': '<p>test123</p>'}
         recipient_agrolait = recipients.filtered(
-            lambda r: r.machine_instance_id == self.mit_1_2)
+            lambda r: r.machine_instance_id == self.machine_instance_deco)
         vals = recipient_agrolait._prepare_mail_message()
         self._test_prepare_mail_message(vals, recipient_agrolait, dest_vals)
         recipient_china = recipients.filtered(
-            lambda r: r.machine_instance_id == self.mit_1_3)
+            lambda r: r.machine_instance_id == self.machine_instance_gemini)
         vals = recipient_china._prepare_mail_message()
         self._test_prepare_mail_message(vals, recipient_china, dest_vals)
         # Create messages and look for it on related machine.instance
@@ -158,14 +174,14 @@ class TestMachineEmail(common.TestMachineCommon):
         # Look for machine.instance messages where were expect no email
         # type of messages there yet.
         res = search_count(self.base_message_domain + [
-            ('res_id', 'in', (self.mit_1_1 | self.mit_2_1).ids)])
+            ('res_id', 'in', (m_wood | m_readymat).ids)])
         self.assertFalse(res)
         # Look for machine.instance messages
         res = search_count(self.base_message_domain + [
-            ('res_id', '=', self.mit_1_2.id)])
+            ('res_id', '=', self.machine_instance_deco.id)])
         self.assertEqual(res, 1)
         res = search_count(self.base_message_domain + [
-            ('res_id', '=', self.mit_1_3.id)])
+            ('res_id', '=', self.machine_instance_gemini.id)])
         self.assertEqual(res, 1)
 
     def _test_change_log(self, change_log, dest_tuple):
@@ -182,10 +198,14 @@ class TestMachineEmail(common.TestMachineCommon):
             dest_tuple
         )
 
-    def test_send_email_2(self):
+    def test_04_send_email(self):
         """Generate mail.message vals using planned type and send it."""
+        m_wood = self.machine_instance_wood
+        m_deco = self.machine_instance_deco
+        m_gemini = self.machine_instance_gemini
+        m_readymat = self.machine_instance_readymat
         # Run message checks before generating it (for planned type).
-        self.wizard.email_type = 'scheduled'
+        self.wizard.email_type = 'maintenance'
         # No date, no duration, no sub_subject, no mail_template_id.
         self.assertRaises(UserError, self.wizard.check_message)
         # Add date only.
@@ -211,17 +231,15 @@ class TestMachineEmail(common.TestMachineCommon):
                 (
                     0, 0,
                     {
-                        'machine_instance_id': self.mit_1_2.id,
-                        'partner_ids': [
-                            (4, self.mit_1_2.partner_contact_id.id)]
+                        'machine_instance_id': m_deco.id,
+                        'partner_ids': [(4, m_deco.partner_contact_id.id)]
                     }
                 ),
                 (
                     0, 0,
                     {
-                        'machine_instance_id': self.mit_1_3.id,
-                        'partner_ids': [
-                            (4, self.mit_1_3.partner_contact_id.id)]
+                        'machine_instance_id': m_gemini.id,
+                        'partner_ids': [(4, m_gemini.partner_contact_id.id)]
                     }
                 ),
             ]
@@ -230,15 +248,15 @@ class TestMachineEmail(common.TestMachineCommon):
         recipients = self.wizard.recipient_ids
         subject_pattern = "Scheduled maintenance for {name} (1.5.0)."
         body_pattern = (
-            "<p>Dear Customer,</p>"
+            "<p>Dear Customer, </p>"
             "<p>at 2018-02-19 09:00:00 we will do scheduled maintenance for "
-            "environment you are using ({name}).</p>"
+            "environment you are using ({name}). </p>"
             "<p>Maintenance estimated duration is 1.0 hour(s). If you have "
             "any questions or issues with this maintenance, please reply to "
             "this email.</p>"
         )
         recipient_agrolait = recipients.filtered(
-            lambda r: r.machine_instance_id == self.mit_1_2)
+            lambda r: r.machine_instance_id == self.machine_instance_deco)
         vals = recipient_agrolait._prepare_mail_message()
         # Look for related change log records on respective recipient
         # records.
@@ -250,18 +268,18 @@ class TestMachineEmail(common.TestMachineCommon):
                 self.wizard.sub_subject,
                 self.wizard.priority,
                 self.wizard.user_id,
-                self.mit_1_2
+                self.machine_instance_deco
             )
         )
         # dest_vals for Agrolait machine.
         dest_vals = {
             'subject': subject_pattern.format_map(
-                {'name': self.mit_1_2.domain}),
-            'body': body_pattern.format_map({'name': self.mit_1_2.domain})
+                {'name': self.machine_instance_deco.domain}),
+            'body': body_pattern.format_map({'name': m_deco.domain})
             }
         self._test_prepare_mail_message(vals, recipient_agrolait, dest_vals)
         recipient_china = recipients.filtered(
-            lambda r: r.machine_instance_id == self.mit_1_3)
+            lambda r: r.machine_instance_id == self.machine_instance_gemini)
         vals = recipient_china._prepare_mail_message()
         self._test_change_log(
             recipient_china.change_log_id,
@@ -271,14 +289,14 @@ class TestMachineEmail(common.TestMachineCommon):
                 self.wizard.sub_subject,
                 self.wizard.priority,
                 self.wizard.user_id,
-                self.mit_1_3
+                self.machine_instance_gemini
             )
         )
         # dest_vals for China machine.
         dest_vals = {
             'subject': subject_pattern.format_map(
-                {'name': self.mit_1_3.domain}),
-            'body': body_pattern.format_map({'name': self.mit_1_3.domain})
+                {'name': self.machine_instance_gemini.domain}),
+            'body': body_pattern.format_map({'name': m_gemini.domain})
             }
         self._test_prepare_mail_message(vals, recipient_china, dest_vals)
         # Create messages and look for it on related machine.instance
@@ -290,12 +308,15 @@ class TestMachineEmail(common.TestMachineCommon):
         # Look for machine.instance messages where were expect no email
         # type of messages there yet.
         res = search_count(self.base_message_domain + [
-            ('res_id', 'in', (self.mit_1_1 | self.mit_2_1).ids)])
+            ('res_id', 'in', (m_wood | m_readymat).ids)]
+        )
         self.assertFalse(res)
         # Look for machine.instance messages
         res = search_count(self.base_message_domain + [
-            ('res_id', '=', self.mit_1_2.id)])
+            ('res_id', '=', m_deco.id)]
+        )
         self.assertEqual(res, 1)
         res = search_count(self.base_message_domain + [
-            ('res_id', '=', self.mit_1_3.id)])
+            ('res_id', '=', m_gemini.id)]
+        )
         self.assertEqual(res, 1)

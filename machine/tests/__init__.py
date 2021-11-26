@@ -1,16 +1,10 @@
 from . import (
-    common,
-    test_machine_sync,
     test_machine_email,
-    test_name_get,
-    test_compute_methods,
-    test_machine_active
+    test_machine_values,
+    test_machine_constraints,
 )
 __all__ = [
-    'common',
-    'test_machine_sync',
-    'test_machine_email',
-    'test_name_get',
-    'test_compute_methods',
-    'test_machine_active'
+    test_machine_email,
+    test_machine_values,
+    test_machine_constraints,
 ]

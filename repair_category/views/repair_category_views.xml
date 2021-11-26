@@ -40,8 +40,8 @@
 
     <menuitem
         id="repair_category_menu"
-        parent="repair.menu_repair_order"
+        parent="repair.repair_menu_config"
         action="repair_category_action"
-        sequence="5"
+        sequence="15"
     />
 </odoo>

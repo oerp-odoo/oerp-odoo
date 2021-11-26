@@ -10,11 +10,11 @@
     'category': 'Hidden/Tools',
     'depends': [
         # odoo
-        'base'
+        'base',
     ],
     'data': [
         'views/res_company_views.xml',
         'views/res_partner_views.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0+e\n"
+"Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-12 19:42+0000\n"
-"PO-Revision-Date: 2021-10-12 19:42+0000\n"
+"POT-Creation-Date: 2021-11-26 15:52+0000\n"
+"PO-Revision-Date: 2021-11-26 15:52+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -55,25 +55,16 @@ msgstr "Sukurta"
 
 #. module: repair_category
 #: model:ir.model.fields,field_description:repair_category.field_repair_category__display_name
-#: model:ir.model.fields,field_description:repair_category.field_repair_fee__display_name
-#: model:ir.model.fields,field_description:repair_category.field_repair_line__display_name
-#: model:ir.model.fields,field_description:repair_category.field_repair_order__display_name
 msgid "Display Name"
 msgstr "Rodomas pavadinimas"
 
 #. module: repair_category
 #: model:ir.model.fields,field_description:repair_category.field_repair_category__id
-#: model:ir.model.fields,field_description:repair_category.field_repair_fee__id
-#: model:ir.model.fields,field_description:repair_category.field_repair_line__id
-#: model:ir.model.fields,field_description:repair_category.field_repair_order__id
 msgid "ID"
 msgstr ""
 
 #. module: repair_category
 #: model:ir.model.fields,field_description:repair_category.field_repair_category____last_update
-#: model:ir.model.fields,field_description:repair_category.field_repair_fee____last_update
-#: model:ir.model.fields,field_description:repair_category.field_repair_line____last_update
-#: model:ir.model.fields,field_description:repair_category.field_repair_order____last_update
 msgid "Last Modified on"
 msgstr "Paskutinį kartą keista"
 

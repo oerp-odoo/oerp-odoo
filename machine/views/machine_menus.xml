@@ -5,17 +5,16 @@
         name="Machines"
         sequence="7"
         web_icon="machine,static/description/icon.png"
-        groups="machine.machine_group_user"/>
-    <menuitem id="machine_menu"
-        name="Machines"
-        parent="machine_root_menu"
-        sequence="1"/>
+        groups="machine.machine_group_user"
+    />
     <menuitem id="machine_action_menu"
         name="Actions"
         parent="machine_root_menu"
-        sequence="2"/>
+        sequence="20"
+    />
     <menuitem id="machine_config_menu"
         name="Configuration"
         parent="machine_root_menu"
-        sequence="100"/>
+        sequence="100"
+    />
 </odoo>

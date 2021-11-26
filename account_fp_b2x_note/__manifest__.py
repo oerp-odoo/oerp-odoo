@@ -7,12 +7,13 @@
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
     'website': "https://timefordev.com",
-    'category': 'Accounting',
+    'category': 'Accounting/Fiscal Position',
     'depends': [
+        # odoo
         'account',
     ],
     'data': [
         'views/account_fiscal_position_views.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

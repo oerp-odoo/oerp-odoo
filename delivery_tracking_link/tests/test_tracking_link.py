@@ -1,8 +1,8 @@
 from odoo.exceptions import ValidationError
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestTrackingLink(SavepointCase):
+class TestTrackingLink(TransactionCase):
     """Test class for custom tracking links."""
 
     @classmethod

@@ -7,7 +7,7 @@
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
     'website': "https://timefordev.com",
-    'category': 'Manufacturing',
+    'category': 'Manufacturing/Maintenance',
     'depends': [
         # odoo
         'repair',
@@ -18,5 +18,5 @@
         'views/repair_category_views.xml',
         'views/repair_order_views.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

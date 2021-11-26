@@ -1,7 +1,7 @@
 from odoo.tests import common
 
 
-class TestMachineCommon(common.SavepointCase):
+class TestMachineCommon(common.TransactionCase):
     """Common test class for machine module test classes.
 
     It has common data and common methods used to test machine module
@@ -11,26 +11,26 @@ class TestMachineCommon(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
         """Set up common data for all test classes."""
-        super(TestMachineCommon, cls).setUpClass()
+        super().setUpClass()
         # Models.
         cls.MachineInstance = cls.env['machine.instance']
         cls.ResPartner = cls.env['res.partner']
-        # Production machine template.
-        cls.machine_template_1 = cls.env.ref(
-            'machine.machine_instance_template_1')  # sync
-        # Production template instances.
-        cls.mit_1_1 = cls.env.ref(
-            'machine.machine_instance_template_1_instance_1')  # sync
-        cls.mit_1_2 = cls.env.ref(
-            'machine.machine_instance_template_1_instance_2')  # sync
-        cls.mit_1_3 = cls.env.ref(
-            'machine.machine_instance_template_1_instance_3')  # no sync
-        # Experimental machine template.
-        cls.machine_template_2 = cls.env.ref(
-            'machine.machine_instance_template_2')  # no sync
+        # Production instances.
+        cls.machine_instance_wood = cls.env.ref(
+            'machine.machine_instance_wood'
+        )
+        cls.machine_instance_deco = cls.env.ref(
+            'machine.machine_instance_deco'
+        )
+        cls.machine_instance_gemini = cls.env.ref(
+            'machine.machine_instance_gemini'
+        )
         # Experimental machine instance.
-        cls.mit_2_1 = cls.env.ref(
-            'machine.machine_instance_template_2_instance_1')  # no sync
+        cls.machine_instance_readymat = cls.env.ref(
+            'machine.machine_instance_readymat'
+        )
+        # Companies.
+        cls.company_main = cls.env.ref('base.main_company')
         # Wood Corner
         cls.partner_1 = cls.env.ref('base.res_partner_1')
         # Deco Addict
@@ -45,7 +45,7 @@ class TestMachineCommon(common.SavepointCase):
         cls.partner_4 = cls.env.ref('base.res_partner_4')
         # Ready Mat, Kim Snyder
         cls.partner_address_13 = cls.env.ref('base.res_partner_address_13')
-        cls.partner_demo = cls.env.ref('base.user_demo_res_partner')
+        cls.partner_demo = cls.env.ref('base.user_demo').partner_id
         # Machine Groups.
         cls.machine_group_1 = cls.env.ref('machine.machine_group_1')
         cls.machine_group_2 = cls.env.ref('machine.machine_group_2')
@@ -55,4 +55,5 @@ class TestMachineCommon(common.SavepointCase):
         cls.os_ubuntu_1604 = cls.env.ref('machine.machine_os_ubuntu_1604')
         # DB
         cls.db_postgresql_960 = cls.env.ref(
-            'machine.machine_db_postgresql_960')
+            'machine.machine_db_postgresql_960'
+        )

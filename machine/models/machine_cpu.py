@@ -11,7 +11,8 @@ class MachineCpu(models.Model):
 
     name = fields.Char(required=True,)
     cpu_brand_id = fields.Many2one(
-        'machine.cpu.brand', "CPU Brand", required=True)
+        'machine.cpu.brand', "CPU Brand", required=True,
+    )
     cores = fields.Integer(required=True, default=2)
     clockspeed = fields.Float("Clockspeed in GHz", required=True)
 

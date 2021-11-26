@@ -7,15 +7,19 @@
     'license': 'LGPL-3',
     'author': "Focusate",
     'website': "http://www.focusate.eu",
-    'category': 'Extra Tools',
+    'category': 'Hidden/Tools',
     'depends': [
         # odoo
-        'web'
+        'web',
     ],
     'data': [
-        'templates/assets.xml',
         'templates/layouts.xml',
         'templates/base_templates.xml',
     ],
-    'installable': False,
+    'assets': {
+        'web.assets_backend': [
+            '/base_templates/static/src/scss/assets.scss',
+        ],
+    },
+    'installable': True,
 }

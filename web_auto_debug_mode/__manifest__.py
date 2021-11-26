@@ -9,13 +9,14 @@
     'website': "https://timefordev.com",
     'category': 'Hidden/Tools',
     'depends': [
+        # odoo
         'web',
     ],
+    'external_dependencies': {'python': ['footil']},
     'data': [
-        'data/res_users_data.xml',
+        'data/res_users.xml',
         'views/res_users_views.xml',
     ],
-    # TODO: make it True after migrating
-    'auto_install': False,
-    'installable': False,
+    'auto_install': True,
+    'installable': True,
 }

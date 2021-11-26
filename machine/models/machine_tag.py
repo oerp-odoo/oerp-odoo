@@ -6,7 +6,7 @@ class MachineTag(models.Model):
     """Model to segment machines by tags."""
 
     _name = 'machine.tag'
-    _description = 'Machine Instance Tag'
+    _description = 'Machine Tag'
 
     name = fields.Char(required=True)
     parent_id = fields.Many2one('machine.tag', "Parent Tag")
@@ -16,12 +16,12 @@ class MachineTag(models.Model):
         ('name_uniq', 'unique (name)', "Tag name already exists !"),
     ]
 
-    @api.one
     @api.constrains('parent_id')
     def _check_parent_id(self):
-        if not self._check_recursion():
-            raise ValidationError(
-                _('Error! You cannot create recursive tags.'))
+        for rec in self:
+            if not rec._check_recursion():
+                raise ValidationError(
+                    _("Error! You cannot create recursive tags."))
 
     @api.depends('name', 'parent_id.name')
     def name_get(self):

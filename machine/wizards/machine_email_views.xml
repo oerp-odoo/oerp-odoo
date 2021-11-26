@@ -8,15 +8,33 @@
                 <group name="main">
                     <group name="left">
                         <field name="machine_group_ids" widget="many2many_tags"/>
-                        <field name="sub_subject" attrs="{'invisible': [('email_type', '!=', 'scheduled')], 'required': [('email_type', '=', 'scheduled')]}"/>
-                        <field name="date" attrs="{'invisible': [('email_type', '!=', 'scheduled')], 'required': [('email_type', '=', 'scheduled')]}"/>
-                        <field name="duration" attrs="{'invisible': [('email_type', '!=', 'scheduled')], 'required': [('email_type', '=', 'scheduled')]}"/>
-                        <field name="priority" attrs="{'invisible': [('email_type', '!=', 'scheduled')], 'required': [('email_type', '=', 'scheduled')]}"/>
-                        <field name="user_id" attrs="{'invisible': [('email_type', '!=', 'scheduled')]}"/>
+                        <field
+                            name="sub_subject"
+                            attrs="{'invisible': [('email_type', '!=', 'maintenance')], 'required': [('email_type', '=', 'maintenance')]}"
+                        />
+                        <field
+                            name="date"
+                            attrs="{'invisible': [('email_type', '!=', 'maintenance')], 'required': [('email_type', '=', 'maintenance')]}"
+                        />
+                        <field
+                            name="duration"
+                            attrs="{'invisible': [('email_type', '!=', 'maintenance')], 'required': [('email_type', '=', 'maintenance')]}"
+                        />
+                        <field
+                            name="priority"
+                            attrs="{'invisible': [('email_type', '!=', 'maintenance')], 'required': [('email_type', '=', 'maintenance')]}"
+                        />
+                        <field
+                            name="user_id"
+                            attrs="{'invisible': [('email_type', '!=', 'maintenance')]}"
+                        />
                     </group>
                     <group name="right">
                         <field name="email_type"/>
-                        <field name="mail_template_id" attrs="{'invisible': [('email_type', '!=', 'scheduled')], 'required': [('email_type', '=', 'scheduled')]}"/>
+                        <field
+                            name="mail_template_id"
+                            attrs="{'invisible': [('email_type', '!=', 'maintenance')], 'required': [('email_type', '=', 'maintenance')]}"
+                        />
                     </group>
                 </group>
                 <group name="general_email">
@@ -43,10 +61,14 @@
     <record id="machine_email_action" model="ir.actions.act_window">
         <field name="name">Send Emails</field>
         <field name="res_model">machine.email</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
 
-    <menuitem id="machine_email_menu" parent="machine_action_menu" action="machine_email_action" sequence="1"/>
+    <menuitem
+        id="machine_email_menu"
+        parent="machine_action_menu"
+        action="machine_email_action"
+        sequence="1"
+    />
 </odoo>

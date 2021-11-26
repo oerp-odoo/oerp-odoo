@@ -1,8 +1,8 @@
 from odoo.exceptions import ValidationError
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestHsCodeCountry(SavepointCase):
+class TestHsCodeCountry(TransactionCase):
     """Test class for HS Code functionality per country."""
 
     @classmethod

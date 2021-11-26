@@ -1,7 +1,7 @@
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestFiscalPositionCompanyType(SavepointCase):
+class TestFiscalPositionCompanyType(TransactionCase):
     """Test class for fiscal position detection by company type."""
 
     @classmethod

@@ -3,7 +3,8 @@
     <menuitem id="machine_os_top_menu"
         name="Operating Systems"
         parent="machine_config_menu"
-        sequence="11"/>
+        sequence="11"
+    />
 
     <!-- OS -->
     <record id="machine_os_view_tree" model="ir.ui.view">
@@ -39,7 +40,6 @@
     <record id="machine_os_action" model="ir.actions.act_window">
         <field name="name">OS</field>
         <field name="res_model">machine.os</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
@@ -82,7 +82,6 @@
     <record id="machine_os_name_action" model="ir.actions.act_window">
         <field name="name">OS Names</field>
         <field name="res_model">machine.os.name</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
@@ -123,7 +122,6 @@
     <record id="machine_os_type_action" model="ir.actions.act_window">
         <field name="name">OS Types</field>
         <field name="res_model">machine.os.type</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 

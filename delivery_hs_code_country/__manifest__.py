@@ -7,7 +7,7 @@
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
     'website': "https://timefordev.com",
-    'category': 'Warehouse',
+    'category': 'Inventory/Delivery',
     'depends': [
         # odoo
         'delivery',
@@ -16,5 +16,5 @@
         'security/ir.model.access.csv',
         'views/product_template_views.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

@@ -1,2 +1,2 @@
-from . import main
-__all__ = [main]
+from . import home
+__all__ = [home]

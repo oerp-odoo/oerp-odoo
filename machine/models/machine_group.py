@@ -1,4 +1,4 @@
-from odoo import fields, models, _
+from odoo import fields, models
 
 
 class MachineGroup(models.Model):
@@ -16,9 +16,9 @@ class MachineGroup(models.Model):
         'machine_group_machine_instance_rel',
         'group_id',
         'instance_id',
-        string="Machine Instances",
-        domain=[('parent_id', '!=', False)])
+        string="Machines",
+    )
 
     _sql_constraints = [
-        ('name_uniq', 'unique (name)', _("The name must be unique !")),
+        ('name_uniq', 'unique (name)', "The name must be unique !"),
     ]

@@ -9,14 +9,16 @@ class ResPartner(models.Model):
     machine_instance_ids = fields.One2many(
         'machine.instance',
         'partner_id',
-        "Machine Instances",
-        groups="machine.machine_group_user")
+        "Machines",
+        groups="machine.machine_group_user",
+    )
     machine_instance_count = fields.Integer(
-        "Machine Instance Count",
+        "Machines Count",
         compute='_compute_machine_instance_count',
-        groups="machine.machine_group_user")
+        groups="machine.machine_group_user",
+    )
 
-    @api.one
     @api.depends('machine_instance_ids')
     def _compute_machine_instance_count(self):
-        self.machine_instance_count = len(self.machine_instance_ids)
+        for rec in self:
+            rec.machine_instance_count = len(rec.machine_instance_ids)

@@ -5,61 +5,6 @@
         parent="machine_config_menu"
         sequence="12"/>
 
-    <!-- DBS Instance -->
-    <record id="machine_dbs_instance_view_tree" model="ir.ui.view">
-        <field name="name">machine.dbs.instance.tree</field>
-        <field name="model">machine.dbs.instance</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="name"/>
-                <field name="dbs_id"/>
-                <field name="port"/>
-                <field name="users_count"/>
-                <field name="databases_count"/>
-            </tree>
-        </field>
-    </record>
-
-    <record id="machine_dbs_instance_view_form" model="ir.ui.view">
-        <field name="name">machine.dbs.instance.form</field>
-        <field name="model">machine.dbs.instance</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <group name="left">
-                            <field name="name"/>
-                            <field name="dbs_id"/>
-                            <field name="port"/>
-                        </group>
-                        <group name="right">
-                            <field name="users_count"
-                                attrs="{'readonly': [('dbs_instance_user_ids', '!=', [])]}"/>
-                            <field name="databases_count"
-                                attrs="{'readonly': [('dbs_instance_db_ids', '!=', [])]}"/>
-                        </group>
-                    </group>
-                    <notebook>
-                        <page name="users" string="Users">
-                            <field name="dbs_instance_user_ids">
-                                <tree editable="bottom">
-                                    <field name="username"/>
-                                </tree>
-                            </field>
-                        </page>
-                        <page name="databases" string="Databases">
-                            <field name="dbs_instance_db_ids">
-                                <tree editable="bottom">
-                                    <field name="name"/>
-                                </tree>
-                            </field>
-                        </page>
-                    </notebook>
-                </sheet>
-            </form>
-        </field>
-    </record>
-
     <!-- DBS -->
     <record id="machine_dbs_view_tree" model="ir.ui.view">
         <field name="name">machine.dbs.tree</field>
@@ -94,7 +39,6 @@
     <record id="machine_dbs_action" model="ir.actions.act_window">
         <field name="name">DBS</field>
         <field name="res_model">machine.dbs</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
@@ -135,12 +79,12 @@
     <record id="machine_dbs_name_action" model="ir.actions.act_window">
         <field name="name">DBS Names</field>
         <field name="res_model">machine.dbs.name</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
     <menuitem id="machine_dbs_name_menu"
         parent="machine_dbs_top_menu"
         action="machine_dbs_name_action"
-        sequence="2"/>
+        sequence="2"
+    />
 </odoo>

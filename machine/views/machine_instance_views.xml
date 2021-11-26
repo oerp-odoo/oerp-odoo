@@ -1,34 +1,145 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <!-- Common views. -->
-    <record id="machine_instance_common_view_form" model="ir.ui.view">
-        <field name="name">machine.instance.form.common</field>
+    <record id="machine_instance_view_tree" model="ir.ui.view">
+        <field name="name">machine.instance.tree</field>
         <field name="model">machine.instance</field>
-        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="domain"/>
+                <field name="ip" optional="show"/>
+                <field name="partner_id"/>
+                <field
+                    name="cpu_id"
+                    groups="machine.machine_group_show_resources"
+                    optional="show"
+                />
+                <field
+                    name="amount_storage_capacity"
+                    groups="machine.machine_group_show_resources"
+                    optional="show"
+                />
+                <field
+                    name="amount_ram"
+                    groups="machine.machine_group_show_resources"
+                    optional="show"
+                />
+                <field name="dbs_id"
+                    groups="machine.machine_group_show_env_details"
+                    optional="show"
+                />
+                <field name="os_id"
+                    groups="machine.machine_group_show_env_details"
+                    optional="show"
+                />
+                <field
+                    name="is_virtual"
+                    groups="machine.machine_group_show_env_details"
+                    optional="show"
+                />
+                <field
+                    name="is_container"
+                    groups="machine.machine_group_show_env_details"
+                    optional="show"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record id="machine_instance_view_form" model="ir.ui.view">
+        <field name="name">machine.instance.form</field>
+        <field name="model">machine.instance</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
-                        <button name="toggle_active"
-                            type="object" class="oe_stat_button" icon="fa-archive">
-                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
-                        </button>
-                    </div>
+                    <div class="oe_button_box" name="button_box"/>
+                    <field name="active" invisible="1"/>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
                     <group name="main">
                         <group name="options" string="Options">
                             <field name="name" />
-                            <field name="sync"/>
-                            <field name="is_template" invisible="1"/>
+                            <field
+                                name="partner_id"
+                                domain="[('parent_id', '=', False)]"
+                            />
+                            <field name="partner_contact_id"/>
+                            <field name="user_id"/>
+                            <field
+                                name="machine_group_ids"
+                                widget="many2many_tags"
+                                options="{'no_quick_create': True, 'no_create_edit': True}"
+                            />
+                            <field
+                                name="tag_ids"
+                                widget="many2many_tags"
+                                options="{'color_field': 'color', 'no_create_edit': True}"
+                            />
                         </group>
-                        <group name="parameters" string="Parameters">
+                        <group name="network" string="Network">
+                            <field name="domain"/>
+                            <field
+                                name="url"
+                                widget="url"
+                                attrs="{'invisible': ['|', ('domain', '=', False), ('http_protocol', '=', False)]}"
+                            />
+                            <field name="http_protocol"
+                                attrs="{'invisible': [('domain', '=', False)]}"
+                            />
+                            <field name="ip"/>
+                        </group>
+                        <group
+                            name="resources"
+                            string="Resources"
+                            groups="machine.machine_group_show_resources"
+                        >
                             <field name="cpu_id"/>
-                            <field name="os_id"/>
                             <field name="amount_storage_capacity"/>
                             <field name="amount_ram"/>
+                        </group>
+                        <group
+                            name="env_details"
+                            string="Environment Details"
+                            groups="machine.machine_group_show_env_details"
+                        >
+                            <field name="os_id"/>
+                            <field name="dbs_id"/>
                             <field name="is_virtual"/>
                             <field name="is_container"/>
                         </group>
                     </group>
+                    <notebook>
+                        <page name="change_log" string="Changes Log">
+                            <field name="change_log_ids">
+                                <tree editable="bottom">
+                                    <field
+                                        name="name"
+                                        attrs="{'readonly': [('id', '!=', False)]}"
+                                    />
+                                    <field
+                                        name="date"
+                                        attrs="{'readonly': [('id', '!=', False)]}"
+                                    />
+                                    <field
+                                        name="duration"
+                                        attrs="{'readonly': [('id', '!=', False)]}"
+                                    />
+                                    <field
+                                        name="user_id"
+                                        attrs="{'readonly': [('id', '!=', False)]}"
+                                    />
+                                    <field
+                                        name="priority"
+                                        attrs="{'readonly': [('id', '!=', False)]}"
+                                    />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>
@@ -37,166 +148,40 @@
             </form>
         </field>
     </record>
-    <!-- Machine Template Views -->
-    <record id="machine_instance_template_view_tree" model="ir.ui.view">
-        <field name="name">machine.instance.tree.template</field>
+
+    <record id="machine_instance_view_search" model="ir.ui.view">
+        <field name="name">machine.instance.search</field>
         <field name="model">machine.instance</field>
-        <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <tree>
-                <field name="name"/>
-                <field name="sync"/>
-                <field name="cpu_id"/>
-                <field name="os_id"/>
-                <field name="amount_storage_capacity"/>
-                <field name="amount_ram"/>
-                <field name="is_virtual"/>
-                <field name="is_container"/>
-            </tree>
-        </field>
-    </record>
-
-    <record id="machine_instance_template_view_form" model="ir.ui.view">
-        <field name="name">machine.instance.form.template</field>
-        <field name="model">machine.instance</field>
-        <field name="mode">primary</field>
-        <field name="inherit_id" ref="machine_instance_common_view_form"/>
-        <field name="arch" type="xml">
-            <group name="main" position="after">
-                <separator string="Machine Instances"/>
-                <field name="child_ids"
-                    context="{'tree_view_ref': 'machine.machine_instance_view_tree', 'form_view_ref': 'machine.machine_instance_view_form', 'default_is_template': False, 'default_sync': sync, 'default_parent_id': active_id, 'default_is_virtual': is_virtual, 'default_is_container': is_container, 'default_cpu_id': cpu_id, 'default_os_id': os_id, 'default_amount_storage_capacity': amount_storage_capacity, 'default_amount_ram': amount_ram}"/>
-            </group>
-        </field>
-    </record>
-
-    <record id="machine_instance_template_action" model="ir.actions.act_window">
-        <field name="name">Machine Templates</field>
-        <field name="res_model">machine.instance</field>
-        <field name="domain">[('is_template', '=', True)]</field>
-        <field name="context">{'default_is_template': True}</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
-    <record id="machine_instance_template_action_tree" model="ir.actions.act_window.view">
-        <field name="sequence" eval="0"/>
-        <field name="view_mode">tree</field>
-        <field name="view_id" ref="machine_instance_template_view_tree"/>
-        <field name="act_window_id" ref="machine_instance_template_action"/>
-    </record>
-
-    <record id="machine_instance_template_action_form" model="ir.actions.act_window.view">
-        <field name="sequence" eval="1"/>
-        <field name="view_mode">form</field>
-        <field name="view_id" ref="machine_instance_template_view_form"/>
-        <field name="act_window_id" ref="machine_instance_template_action"/>
-    </record>
-
-    <!-- Machine Instance Views -->
-    <record id="machine_instance_view_tree" model="ir.ui.view">
-        <field name="name">machine.instance.tree</field>
-        <field name="model">machine.instance</field>
-        <field name="mode">primary</field>
-        <field name="inherit_id" ref="machine_instance_template_view_tree"/>
-        <field name="arch" type="xml">
-            <field name="name" position="after">
-                <field name="ip"/>
-                <field name="domain"/>
+            <search>
+                <field
+                    name="name"
+                    filter_domain="['|', '|', ('name', 'ilike', self), ('domain', 'ilike', self), ('ip', 'ilike', self)]"
+                />
                 <field name="partner_id"/>
-                <field name="parent_id"/>
-            </field>
-        </field>
-    </record>
-
-    <record id="machine_instance_view_form" model="ir.ui.view">
-        <field name="name">machine.instance.form.instance</field>
-        <field name="model">machine.instance</field>
-        <field name="mode">primary</field>
-        <field name="inherit_id" ref="machine_instance_common_view_form"/>
-        <field name="priority" eval="6"/>
-        <field name="arch" type="xml">
-            <field name="is_template" position="after">
-                <field name="parent_id"/>
-                <field name="partner_id"/>
-                <field name="partner_contact_id"/>
-                <field name="user_id"/>
-                <field name="machine_group_ids" widget="many2many_tags"
-                    options="{'no_create_edit': True}"/>
-                <field name="tag_ids" widget="many2many_tags"
-                    options="{'color_field': 'color', 'no_create_edit': True}"/>
-            </field>
-            <field name="is_container" position="after">
-                <field name="ip"/>
-                <field name="domain"/>
-            </field>
-            <xpath expr="//sheet" position="inside">
-                <notebook>
-                    <page name="change_log" string="Changes Log">
-                        <field name="change_log_ids">
-                            <tree editable="bottom">
-                                <field name="name" attrs="{'readonly': [('id', '!=', False)]}"/>
-                                <field name="date" attrs="{'readonly': [('id', '!=', False)]}"/>
-                                <field name="duration" attrs="{'readonly': [('id', '!=', False)]}"/>
-                                <field name="user_id" attrs="{'readonly': [('id', '!=', False)]}"/>
-                                <field name="priority" attrs="{'readonly': [('id', '!=', False)]}"/>
-                            </tree>
-                        </field>
-                    </page>
-                    <page name="dbs" string="Database Systems">
-                        <field name="dbs_instance_ids"/>
-                    </page>
-                    <page name="os" string="Operating System Users" attrs="{'invisible': [('os_id', '=', False)]}">
-                        <group name="os_main">
-                            <group name="os_left">
-                                <field name="os_users_count" attrs="{'readonly': [('os_user_ids', '!=', [])]}"/>
-                            </group>
-                            <group name="os_right">
-                            </group>
-                        </group>
-                        <field name="os_user_ids">
-                            <tree string="OS Users" editable="bottom">
-                                <field name="username"/>
-                                <field name="name"/>
-                            </tree>
-                        </field>
-                    </page>
-                </notebook>
-            </xpath>
+                <field name="machine_group_ids"/>
+                <field name="tag_ids"/>
+                <separator/>
+                <filter
+                    string="All"
+                    name="all"
+                    domain="['|', ('active', '=', False), ('active', '=', True)]"
+                />
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <filter string="My" name="my_machines" domain="[('user_id', '=', uid)]"/>
+            </search>
         </field>
     </record>
 
     <record id="machine_instance_action" model="ir.actions.act_window">
-        <field name="name">Machine Instances</field>
+        <field name="name">Machines</field>
         <field name="res_model">machine.instance</field>
-        <field name="domain">[('is_template', '=', False)]</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-    <record id="machine_instance_action_tree" model="ir.actions.act_window.view">
-        <field name="sequence" eval="0"/>
-        <field name="view_mode">tree</field>
-        <field name="view_id" ref="machine_instance_view_tree"/>
-        <field name="act_window_id" ref="machine_instance_action"/>
-    </record>
-
-    <record id="machine_instance_action_form" model="ir.actions.act_window.view">
-        <field name="sequence" eval="1"/>
-        <field name="view_mode">form</field>
-        <field name="view_id" ref="machine_instance_view_form"/>
-        <field name="act_window_id" ref="machine_instance_action"/>
-    </record>
-
-    <!-- It is more convenient to show instances by default instead
-    showing templates. -->
     <menuitem id="machine_instance_menu"
         action="machine_instance_action"
-        parent="machine_menu"
-        sequence="1"/>
-
-    <menuitem id="machine_instance_template_menu"
-        action="machine_instance_template_action"
-        parent="machine_menu"
-        sequence="10"/>
+        parent="machine_root_menu"
+        sequence="1"
+    />
 </odoo>

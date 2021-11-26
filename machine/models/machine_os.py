@@ -1,6 +1,6 @@
 from footil.formatting import generate_names
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api
 
 
 class MachineOs(models.Model):
@@ -16,7 +16,7 @@ class MachineOs(models.Model):
         (
             'name_uniq',
             'unique (name, os_name_id)',
-            _('The name must be unique per OS Name !')
+            "The name must be unique per OS Name !",
         ),
     ]
 
@@ -45,7 +45,7 @@ class MachineOsName(models.Model):
         (
             'name_uniq',
             'unique (name, os_type_id)',
-            _('The name must be unique per OS Type !')
+            "The name must be unique per OS Type !",
         ),
     ]
 
@@ -70,5 +70,5 @@ class MachineOsType(models.Model):
     name = fields.Char(required=True,)
 
     _sql_constraints = [
-        ('name_uniq', 'unique (name)', _('The name must be unique !')),
+        ('name_uniq', 'unique (name)', "The name must be unique !"),
     ]

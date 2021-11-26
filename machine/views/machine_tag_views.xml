@@ -34,7 +34,6 @@
     <record id="machine_tag_action" model="ir.actions.act_window">
         <field name="name">Tags</field>
         <field name="res_model">machine.tag</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 

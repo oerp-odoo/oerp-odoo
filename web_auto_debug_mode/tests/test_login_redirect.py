@@ -2,9 +2,9 @@ from unittest.mock import patch
 
 from odoo.tests import common
 
-from ..controllers import main
+from ..controllers import home
 
-from odoo.addons.web.controllers import main as web_main
+from odoo.addons.web.controllers import main
 
 
 class _MockedSession:
@@ -17,7 +17,7 @@ class _MockedRequest:
         self.session = _MockedSession()
 
 
-class TestLoginRedirect(common.SavepointCase):
+class TestLoginRedirect(common.TransactionCase):
     """Class to test login redirect with debug mode."""
 
     @classmethod
@@ -31,13 +31,13 @@ class TestLoginRedirect(common.SavepointCase):
         cls.user_root = cls.env.ref('base.user_root')
         cls.user_admin = cls.env.ref('base.user_admin')
         cls.user_demo = cls.env.ref('base.user_demo')
-        cls.home = main.HomeExtended()
+        cls.home = home.Home()
 
     @classmethod
     def _get_patchers(cls):
         return [
-            patch.object(main, 'request', _MockedRequest(cls.env)),
-            patch.object(web_main, 'request', _MockedRequest(cls.env))
+            patch.object(home, 'request', _MockedRequest(cls.env)),
+            patch.object(main, 'request', _MockedRequest(cls.env))
         ]
 
     def test_01_login_redirect(self):
@@ -60,7 +60,7 @@ class TestLoginRedirect(common.SavepointCase):
         with patch.object(
                 # For some reason website returns binary string instead
                 # of normal string. And also append '?'.
-                web_main.Home, '_login_redirect', return_value=b'/web?'):
+                main.Home, '_login_redirect', return_value=b'/web?'):
             redirect = self.home._login_redirect(self.user_admin.id)
             self.assertEqual(redirect, '/web?debug=1')
 
