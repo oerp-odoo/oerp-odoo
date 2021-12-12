@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+
+    <template id="partner_welcome">
+        <p>Dear <t t-out="object.name or ''">Mitchell Admin,</t></p>
+        <p>Welcome joining us!</p>
+    </template>
+
+    <record id="mail_template_partner_welcome" model="mail.template">
+        <field name="name">Partner: Welcome</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="subject">Welcome Dear Customer</field>
+        <field name="email_from">{{ object.company_id.partner_id.email_formatted or 'test@example.com' }}</field>
+        <field name="view_qweb_id" ref="mail_template_qweb_view.partner_welcome"/>
+        <field name="email_to">{{ object.email_formatted }}</field>
+        <field name="body_html" type="html">
+            <p>Dear
+                <t
+                    t-out="object.name or ''"
+                    data-oe-t-inline="true"
+                    contenteditable="false"
+                >
+                    Mitchell Admin,
+                </t>
+            </p>
+            <p>Welcome being part of us.</p>
+        </field>
+        <field name="lang">{{ object.lang }}</field>
+        <field name="auto_delete" eval="True"/>
+        </record>
+</odoo>
