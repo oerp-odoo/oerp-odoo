@@ -1,14 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * delivery_mail_templates
+# 	* delivery_mail_templates
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-06 13:14+0000\n"
-"PO-Revision-Date: 2021-09-06 13:14+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2021-12-13 17:51+0000\n"
+"PO-Revision-Date: 2021-12-13 17:51+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,14 +17,40 @@ msgstr ""
 
 #. module: delivery_mail_templates
 #: model_terms:ir.ui.view,arch_db:delivery_mail_templates.mail_body_delivery_confirmation
-msgid "<span name=\"span_inform\">\n"
-"                We are glad to inform you that your order has been shipped.\n"
-"            </span>"
-msgstr "<span name=\"span_inform\">\n"
-"                Norime pranešti, jog jūsų užsakymas buvo išsiųstas.\n"
-"            </span>"
+msgid ""
+",<br/><br/>\n"
+"            We are glad to inform you that your order has been shipped."
+msgstr ""
+",<br/><br/>\n"
+"            Norime pranešti, jog jūsų užsakymas buvo išsiųstas."
 
 #. module: delivery_mail_templates
-#: model_terms:ir.ui.view,arch_db:delivery_mail_templates._stock_picking_tracking_ref
-msgid "<span name=\"span_ref_label\">Your tracking reference is</span>"
-msgstr "<span name=\"span_ref_label\">Jūsų sekimo nuoroda yra</span>"
+#: model_terms:ir.ui.view,arch_db:delivery_mail_templates.mail_body_delivery_confirmation
+msgid "--<br/>Mitchell Admin"
+msgstr ""
+
+#. module: delivery_mail_templates
+#: model_terms:ir.ui.view,arch_db:delivery_mail_templates.mail_body_delivery_confirmation
+msgid ""
+"<br/><br/>\n"
+"            Please find your delivery order attached for more details.<br/><br/>\n"
+"            Thank you,"
+msgstr ""
+"<br/><br/>\n"
+"            Norėdami sužinoti daugiau, prašome žiūrėti prisegtą užsakymo dokumentą.<br/><br/>\n"
+"            Ačiū,"
+
+#. module: delivery_mail_templates
+#: model_terms:ir.ui.view,arch_db:delivery_mail_templates.mail_body_delivery_confirmation
+msgid "Brandon Freeman"
+msgstr ""
+
+#. module: delivery_mail_templates
+#: model_terms:ir.ui.view,arch_db:delivery_mail_templates.mail_body_delivery_confirmation
+msgid "Hello"
+msgstr "Sveiki"
+
+#. module: delivery_mail_templates
+#: model_terms:ir.ui.view,arch_db:delivery_mail_templates.mail_body_delivery_confirmation
+msgid "Your tracking reference is"
+msgstr "Jūsų sekimo nuoroda yra"

@@ -10,13 +10,13 @@ class MailTemplate(models.Model):
         [('qweb', "QWeb"), ('qweb_view', "QWeb View")],
         default='qweb',
     )
-    view_qweb_id = fields.Many2one(
+    view_body_qweb_id = fields.Many2one(
         'ir.ui.view',
         domain=[('type', '=', 'qweb')],
         string="QWeb View",
     )
     view_qweb_arch_base = fields.Text(
-        related='view_qweb_id.arch_base', readonly=False
+        related='view_body_qweb_id.arch_base', readonly=False
     )
 
     def _render_field(
@@ -29,14 +29,14 @@ class MailTemplate(models.Model):
         add_context=None,
         options=None,
             post_process=False):
-        if self.body_engine == 'qweb_view':
+        if field == 'body_html' and self.body_engine == 'qweb_view':
             self = self.with_context(
                 body_engine_data={
                     # Must pass engine val via context, because `engine`
                     # param in this method is useless. Value is always
                     # changed inside method..
                     'engine': 'qweb_view',
-                    'template_src': self.view_qweb_id.xml_id
+                    'template_src': self.view_body_qweb_id.xml_id
                 }
             )
         return super(MailTemplate, self)._render_field(
@@ -65,7 +65,7 @@ class MailTemplate(models.Model):
             template_src = body_engine_data['template_src']
             engine = body_engine_data['engine']
             # Unset it, to not be reused for unrelated calls.
-            self = self.with_context(body_engine_data=None)
+            body_engine_data.clear()
         return super(MailTemplate, self)._render_template(
             template_src,
             model,

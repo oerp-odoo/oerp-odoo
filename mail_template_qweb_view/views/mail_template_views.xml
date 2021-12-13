@@ -8,7 +8,7 @@
             <field name="model" position="after">
                 <field name="body_engine" required="1"/>
                 <field
-                    name="view_qweb_id"
+                    name="view_body_qweb_id"
                     options="{'no_create': True}"
                     attrs="{'invisible': [('body_engine', '!=', 'qweb_view')], 'required': [('body_engine', '=', 'qweb_view')]}"
                 />

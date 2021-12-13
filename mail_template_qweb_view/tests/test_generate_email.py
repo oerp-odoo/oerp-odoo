@@ -27,6 +27,8 @@ class TestGenerateEmail(TransactionCase):
             "</p>\n        "
         )
         self.assertEqual(str(body_html), expected_body_html)
+        subject = res[self.partner_azure_brandon_id]['subject']
+        self.assertEqual(str(subject), 'Welcome Dear Customer')
 
     def test_02_generate_email(self):
         """Generate email using html_body `qweb_view` engine."""
@@ -40,3 +42,5 @@ class TestGenerateEmail(TransactionCase):
             "<p>Dear Brandon Freeman</p>\n        <p>Welcome joining us!</p>"
         )
         self.assertEqual(str(body_html), expected_body_html)
+        subject = res[self.partner_azure_brandon_id]['subject']
+        self.assertEqual(str(subject), 'Welcome Dear Customer')

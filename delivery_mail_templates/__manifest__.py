@@ -3,22 +3,20 @@
 {
     'name': "Delivery Custom QWeb Email Templates",
     'version': '15.0.1.1.0',
-    'summary': 'Delivery jinja2 templates rewritten to QWeb templates',
+    'summary': 'Delivery templates using QWeb inheritance',
     'license': 'AGPL-3',
     'author': "Focusate",
     'website': "http://www.focusate.eu",
-    'category': 'Stock',
+    'category': 'Inventory/Delivery',
     'depends': [
         # odoo
-        'delivery',
-        # oca-social
-        'email_template_qweb',
+        'stock',
         # oerp-odoo
-        'base_templates',
+        'mail_template_qweb_view',
     ],
     'data': [
         'templates/delivery_mail_templates.xml',
-        'data/mail_data.xml',
+        'data/mail_template.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

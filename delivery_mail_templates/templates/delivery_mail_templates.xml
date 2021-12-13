@@ -1,59 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-<!-- Adapt delivery.mail_template_data_delivery_confirmation template -->
-<template id="_stock_picking_tracking_ref">
-    <t t-call="base_templates.wrap_without_whitespace">
-        <t t-set="left_el">
-            <span name="span_ref_label">Your tracking reference is</span>
-            <strong name="strong_ref_value">
-                <t t-if="record.carrier_tracking_url">
-                    <t
-                        t-set="multiple_carrier_tracking"
-                        t-value="record.get_multiple_carrier_tracking()"
-                    />
-                    <t t-if="multiple_carrier_tracking">
-                        <t t-foreach="multiple_carrier_tracking" t-as="line">
-                            <br/>
-                            <a t-att-href="line[1]" target="_blank">
-                                <span t-esc="line[0]"/>
-                            </a>
-                        </t>
-                    </t>
-                    <t t-else="">
-                        <a t-att-href="record.carrier_tracking_url" target="_blank">
-                            <span t-field="record.carrier_tracking_ref"/>
-                        </a>
-                    </t>
-                </t>
-                <t t-else="">
-                    <span t-field="record.carrier_tracking_ref"/>
-                </t>
-            </strong>
-        </t>
-        <t t-set="right_el"><span name="span_ref_end">.</span></t>
-    </t>
-</template>
-
 <template
     id="mail_body_delivery_confirmation"
     name="Delivery: Send by Email"
 >
-    <t t-call="base_templates.mail_body_layout_basic">
-        <t t-call="base_templates.msg_partner_refer">
-            <t t-set="partner" t-value="record.partner_id"/>
-        </t>
-        <p name="p_inform">
-            <span name="span_inform">
-                We are glad to inform you that your order has been shipped.
-            </span>
-            <t t-if="record.carrier_tracking_ref">
-                <t t-call="delivery_mail_templates._stock_picking_tracking_ref"/>
+    <!-- Template is copy pasted from
+        mail_template_data_delivery_confirmation record to look the same.
+    -->
+    <div style="margin: 0px; padding: 0px;">
+        <p style="margin: 0px; padding: 0px; font-size: 13px;">
+            Hello <t t-out="object.partner_id.name or ''">Brandon Freeman</t>,<br/><br/>
+            We are glad to inform you that your order has been shipped.
+            <t t-if="hasattr(object, 'carrier_tracking_ref') and object.carrier_tracking_ref">
+                Your tracking reference is
+                <strong>
+                <t t-if="object.carrier_tracking_url">
+                    <t t-set="multiple_carrier_tracking" t-value="object.get_multiple_carrier_tracking()"/>
+                    <t t-if="multiple_carrier_tracking">
+                        <t t-foreach="multiple_carrier_tracking" t-as="line">
+                            <br/><a t-att-href="line[1]" target="_blank" t-out="line[0] or ''"></a>
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <a t-attf-href="{{ object.carrier_tracking_url }}" target="_blank" t-out="object.carrier_tracking_ref or ''"></a>.
+                    </t>
+                </t>
+                <t t-else="">
+                    <t t-out="object.carrier_tracking_ref or ''"></t>.
+                </t>
+                </strong>
+            </t>
+            <br/><br/>
+            Please find your delivery order attached for more details.<br/><br/>
+            Thank you,
+            <t t-if="user.signature">
+                <br />
+                <t t-out="user.signature or ''">--<br/>Mitchell Admin</t>
             </t>
         </p>
-        <t t-call="base_templates.msg_end_text">
-            <t t-set="company_name" t-value="record.company_id.name"/>
-        </t>
-    </t>
+    </div>
 </template>
 </odoo>
