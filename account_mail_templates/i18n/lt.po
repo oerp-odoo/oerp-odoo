@@ -1,19 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_mail_templates
+# 	* account_mail_templates
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2021-09-06 13:12+0000\n"
-"PO-Revision-Date: 2021-09-06 13:12+0000\n"
-=======
-"POT-Creation-Date: 2021-08-26 12:36+0000\n"
-"PO-Revision-Date: 2021-08-26 12:36+0000\n"
->>>>>>> [ADD] templates rewrite: Jinja2 -> QWeb
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2021-12-21 08:31+0000\n"
+"PO-Revision-Date: 2021-12-21 08:31+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,15 +17,97 @@ msgstr ""
 
 #. module: account_mail_templates
 #: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
-msgid "<span name=\"span_doc_text\">Here is your invoice</span>"
-msgstr "<span name=\"span_doc_text\">Tai yra Jūsų sąskaita-faktūra</span>"
+msgid "$ 143,750.00"
+msgstr ""
+
+#. module: account_mail_templates
+#: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
+msgid "(with reference:"
+msgstr "(nuoroda:"
+
+#. module: account_mail_templates
+#: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
+msgid "--<br/>Mitchell Admin"
+msgstr ""
+
+#. module: account_mail_templates
+#: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
+msgid ""
+"<br/><br/>\n"
+"                    Please use the following communication for your payment:"
+msgstr ""
+"<br/><br/>\n"
+"                    Norėdami sumokėti, naudokite šią nuorodą:"
+
+#. module: account_mail_templates
+#: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
+msgid ""
+"<br/><br/>\n"
+"            Do not hesitate to contact us if you have any questions."
+msgstr ""
+"<br/><br/>\n"
+"            Jei kyla klausimų, nedvejodami susisiekite su mumis."
+
+#. module: account_mail_templates
+#: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
+msgid ""
+"<br/><br/>\n"
+"            Here is your"
+msgstr ""
+"<br/><br/>\n"
+"            Štai jūsų"
+
+#. module: account_mail_templates
+#: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
+msgid "Azure Interior"
+msgstr ""
+
+#. module: account_mail_templates
+#: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
+msgid "Brandon Freeman"
+msgstr ""
+
+#. module: account_mail_templates
+#: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
+msgid "Dear"
+msgstr "Gerb."
+
+#. module: account_mail_templates
+#: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
+msgid "INV/2021/05/0005"
+msgstr ""
 
 #. module: account_mail_templates
 #: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
 msgid "Please remit payment at your earliest convenience."
-msgstr "Prašome sumokėti artimiausiu galimu metu."
+msgstr "Prašome sumokėti artimiausiu jums patogiu laiku."
+
+#. module: account_mail_templates
+#: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
+msgid "SUB003"
+msgstr ""
 
 #. module: account_mail_templates
 #: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
 msgid "This invoice is already paid."
-msgstr "Ši sąskaita-faktūra jau apmokėta."
+msgstr "Ši sąskaita-faktūra jau yra apmokėta."
+
+#. module: account_mail_templates
+#: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
+msgid "YourCompany"
+msgstr ""
+
+#. module: account_mail_templates
+#: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
+msgid "amounting in"
+msgstr "<span/>"
+
+#. module: account_mail_templates
+#: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
+msgid "from"
+msgstr "(suma), nuo"
+
+#. module: account_mail_templates
+#: model_terms:ir.ui.view,arch_db:account_mail_templates.mail_body_invoice_send
+msgid "invoice"
+msgstr "sąskaita-faktūra"

@@ -1,12 +1,12 @@
 Sale Custom QWeb Email Templates
 ################################
 
-Rewrites existing Sale email templates using :code:`QWeb`.
+Sales templates are created as :code:`QWeb` :code:`ir.ui.view` to allow using inheritance.
 
 Configuration
 =============
 
-To activate new templates (instead of old ones written with :code:`Jinja2`), go to :code:`Settings / Technical / Email / Templates`, open :code:`Sale Order` standard template and change :code:`Body templating engine` to :code:`QWeb`.
+To activate new templates (instead of old ones), go to :code:`Settings / Technical / Email / Templates`, open :code:`Sales Order` standard template and change :code:`Body Engine` to :code:`QWeb View`.
 
 Contributors
 ============

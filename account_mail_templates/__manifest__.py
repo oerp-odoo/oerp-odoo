@@ -3,22 +3,20 @@
 {
     'name': "Invoices Custom QWeb Email Templates",
     'version': '15.0.1.1.0',
-    'summary': 'Invoices jinja2 templates rewritten to QWeb templates',
-    'license': 'AGPL-3',
+    'summary': 'Invoicing templates using QWeb inheritance',
+    'license': 'LGPL-3',
     'author': "Focusate",
     'website': "http://www.focusate.eu",
-    'category': 'Accounting',
+    'category': 'Accounting/Invoicing',
     'depends': [
         # odoo
         'account',
-        # oca-social
-        'email_template_qweb',
         # oerp-odoo
-        'base_templates',
+        'mail_template_qweb_view',
     ],
     'data': [
-        'templates/account_mail_templates.xml',
-        'data/mail_data.xml',
+        'templates/account_mail.xml',
+        'data/mail_template.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

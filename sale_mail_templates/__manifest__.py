@@ -3,22 +3,20 @@
 {
     'name': "Sale Custom QWeb Email Templates",
     'version': '15.0.1.1.0',
-    'summary': 'Sales jinja2 templates rewritten to QWeb templates',
-    'license': 'AGPL-3',
+    'summary': 'Sales templates using QWeb inheritance',
+    'license': 'LGPL-3',
     'author': "Focusate",
     'website': "http://www.focusate.eu",
-    'category': 'Sales',
+    'category': 'Sales/Sales',
     'depends': [
         # odoo
         'sale',
-        # oca-social
-        'email_template_qweb',
         # oerp-odoo
-        'base_templates',
+        'mail_template_qweb_view',
     ],
     'data': [
-        'templates/sale_mail_templates.xml',
-        'data/mail_data.xml',
+        'templates/sale_mail.xml',
+        'data/mail_template.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

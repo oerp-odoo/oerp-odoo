@@ -3,7 +3,7 @@
     <!-- Relating with Qweb templates, but not enabling by default. -->
     <record id="account.email_template_edi_invoice" model="mail.template">
         <field
-            name="body_view_id"
+            name="view_body_qweb_id"
             ref="account_mail_templates.mail_body_invoice_send"
         />
     </record>
