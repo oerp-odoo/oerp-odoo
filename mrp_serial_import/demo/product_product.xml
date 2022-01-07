@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="product_product_lodge" model="product.product">
+        <field name="name">Lodge</field>
+        <field name="detailed_type">product</field>
+        <field name="tracking">serial</field>
+    </record>
+
+    <record id="product_product_energy" model="product.product">
+        <field name="name">Energy</field>
+        <field name="detailed_type">consu</field>
+    </record>
+</odoo>

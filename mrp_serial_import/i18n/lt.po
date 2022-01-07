@@ -1,0 +1,61 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mrp_serial_import
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-08 11:47+0000\n"
+"PO-Revision-Date: 2022-01-08 11:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mrp_serial_import
+#: model:ir.model.fields,field_description:mrp_serial_import.field_stock_assign_serial___serial_numbers_file_data
+msgid " Serial Numbers File Data"
+msgstr "Serijinių numerių failo duomenys"
+
+#. module: mrp_serial_import
+#: model:product.product,name:mrp_serial_import.product_product_energy
+#: model:product.template,name:mrp_serial_import.product_product_energy_product_template
+msgid "Energy"
+msgstr ""
+
+#. module: mrp_serial_import
+#: model:product.product,name:mrp_serial_import.product_product_lodge
+#: model:product.template,name:mrp_serial_import.product_product_lodge_product_template
+msgid "Lodge"
+msgstr ""
+
+#. module: mrp_serial_import
+#: model:ir.model,name:mrp_serial_import.model_stock_production_lot
+msgid "Lot/Serial"
+msgstr "Partijos / serijinis numeris"
+
+#. module: mrp_serial_import
+#: model:ir.model.fields,field_description:mrp_serial_import.field_stock_assign_serial__serial_numbers_file
+msgid "Serial Numbers File"
+msgstr "Serijinių numerių failas"
+
+#. module: mrp_serial_import
+#: model:ir.model.fields,field_description:mrp_serial_import.field_stock_assign_serial__serial_numbers_filename
+msgid "Serial Numbers Filename"
+msgstr "Serijinių numerių failo pavadinimas"
+
+#. module: mrp_serial_import
+#: model:ir.model,name:mrp_serial_import.model_stock_assign_serial
+msgid "Stock Assign Serial Numbers"
+msgstr "Atsargų serijinių numerių priskyrimas"
+
+#. module: mrp_serial_import
+#: model:product.product,uom_name:mrp_serial_import.product_product_energy
+#: model:product.product,uom_name:mrp_serial_import.product_product_lodge
+#: model:product.template,uom_name:mrp_serial_import.product_product_energy_product_template
+#: model:product.template,uom_name:mrp_serial_import.product_product_lodge_product_template
+msgid "Units"
+msgstr "Vienetai"
