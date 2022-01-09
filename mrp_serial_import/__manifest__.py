@@ -4,7 +4,7 @@
     'name': "MRP Serial Numbers Import",
     'version': '15.0.1.0.0',
     'summary': 'mrp, serial number, import, file',
-    'license': 'OEEL-1',
+    'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
     'website': "https://timefordev.com",
     'category': 'Manufacturing/Manufacturing',
