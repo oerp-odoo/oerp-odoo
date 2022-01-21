@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="mailing_group_show_state" model="res.groups">
+        <field name="name">Show Mailing Contact State</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+    <record id="mailing_group_show_city" model="res.groups">
+        <field name="name">Show Mailing Contact City</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+    <record id="mailing_group_show_postcode" model="res.groups">
+        <field name="name">Show Mailing Contact ZIP</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+    <record id="mailing_group_show_phone" model="res.groups">
+        <field name="name">Show Mailing Contact Phone</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+</odoo>
