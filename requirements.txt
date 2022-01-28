@@ -1,3 +1,4 @@
-footil >= 0.34.0
+footil >= 0.35.0
 validators==0.18.2
-pyOpenSSL==21.0.0
+pyopenssl==21.0.0
+cryptography==35.0.0
