@@ -15,4 +15,5 @@
     'data': [
         'data/ir_cron_data.xml',
     ],
+    'installable': False,
 }

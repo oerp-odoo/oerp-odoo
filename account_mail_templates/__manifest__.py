@@ -20,5 +20,5 @@
         'templates/account_mail_templates.xml',
         'data/mail_data.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

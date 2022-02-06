@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="base.group_user" model="res.groups">
+        <field
+            name="implied_ids"
+            eval="[
+                (4, ref('mass_mailing_contact_fields.mailing_group_show_state')),
+                (4, ref('mass_mailing_contact_fields.mailing_group_show_city')),
+                (4, ref('mass_mailing_contact_fields.mailing_group_show_postcode')),
+                (4, ref('mass_mailing_contact_fields.mailing_group_show_phone')),
+            ]"
+        />
+    </record>
+</odoo>

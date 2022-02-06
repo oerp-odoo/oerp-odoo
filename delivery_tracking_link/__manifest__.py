@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Custom Delivery Tracking Links",
-    'version': '14.0.2.0.0-rc.1',
+    'version': '14.0.2.0.0',
     'summary': 'delivery, stock, tracking',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",

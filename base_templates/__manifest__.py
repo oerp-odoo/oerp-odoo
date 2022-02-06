@@ -17,5 +17,5 @@
         'templates/layouts.xml',
         'templates/base_templates.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

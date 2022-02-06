@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="mailing_contact_view_form_inherit" model="ir.ui.view">
+        <field name="name">mailing.contact.form.extra.fields</field>
+        <field name="model">mailing.contact</field>
+        <field name="inherit_id" ref="mass_mailing.mailing_contact_view_form"/>
+        <field name="arch" type="xml">
+            <field name="country_id" position="after">
+                <field
+                    name="state_id"
+                    domain="[('country_id', '=?', country_id)]"
+                    groups="mass_mailing_contact_fields.mailing_group_show_state"
+                />
+                <field
+                    name="city"
+                    groups="mass_mailing_contact_fields.mailing_group_show_city"
+                />
+                <field
+                    name="postcode"
+                    groups="mass_mailing_contact_fields.mailing_group_show_postcode"
+                />
+                <field
+                    name="phone"
+                    groups="mass_mailing_contact_fields.mailing_group_show_phone"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
