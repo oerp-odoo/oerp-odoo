@@ -1,0 +1,62 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* base_vies_autofill
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-06 11:41+0000\n"
+"PO-Revision-Date: 2022-03-06 11:41+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_vies_autofill
+#: model_terms:ir.ui.view,arch_db:base_vies_autofill.res_config_settings_view_form_inherit
+msgid ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
+"specific.\" aria-label=\"Values set here are company-specific.\" "
+"groups=\"base.group_multi_company\" role=\"img\"/>"
+msgstr ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Čia nurodytos reikšmės yra rodomos"
+" pagal įmonę.\" aria-label=\"Čia nurodytos reikšmės yra rodomos pagal įmonę.\" "
+"groups=\"base.group_multi_company\" role=\"img\"/>"
+
+#. module: base_vies_autofill
+#: model:ir.model,name:base_vies_autofill.model_res_company
+msgid "Companies"
+msgstr "Įmonės"
+
+#. module: base_vies_autofill
+#: model:ir.model,name:base_vies_autofill.model_res_config_settings
+msgid "Config Settings"
+msgstr "Konfigūracijos nustatymai"
+
+#. module: base_vies_autofill
+#: model:ir.model,name:base_vies_autofill.model_res_partner
+msgid "Contact"
+msgstr "Kontaktas"
+
+#. module: base_vies_autofill
+#: model_terms:ir.ui.view,arch_db:base_vies_autofill.res_config_settings_view_form_inherit
+msgid ""
+"If this checkbox is ticked, VIES service will also be used to automatically "
+"fill some partner data."
+msgstr "Jeigu bus pažymėta, VIES paslauga bus taip pat panaudota, kad automatiškai "
+"užpildyti tam tikrus partnerio duomenis"
+
+#. module: base_vies_autofill
+#: model_terms:ir.ui.view,arch_db:base_vies_autofill.res_config_settings_view_form_inherit
+msgid ""
+"Use VIES service to automatically fill company name, country and address."
+msgstr "Naudoti VIES paslaugą, kad automašitkai užpildyti įmonės pavadinimą, šalį ir adresą."
+
+#. module: base_vies_autofill
+#: model:ir.model.fields,field_description:base_vies_autofill.field_res_company__vies_autofill
+#: model:ir.model.fields,field_description:base_vies_autofill.field_res_config_settings__vies_autofill
+msgid "VIES Autofill"
+msgstr "VIES automatinis užpildymas"

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.form.vies.autofill</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_vat.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div id="vies_service_setting" position="after">
+                <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    id="vies_service_autofill"
+                    title="If this checkbox is ticked, VIES service will also be used to automatically fill some partner data."
+                    attrs="{'invisible': [('vat_check_vies', '=', False)]}"
+                >
+                    <div class="o_setting_left_pane">
+                        <field name="vies_autofill"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="vies_autofill"/>
+                        <span
+                            class="fa fa-lg fa-building-o"
+                            title="Values set here are company-specific."
+                            aria-label="Values set here are company-specific."
+                            groups="base.group_multi_company"
+                            role="img"
+                        />
+                        <div class="text-muted">
+                           Use VIES service to automatically fill company name, country and address.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>
