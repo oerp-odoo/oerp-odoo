@@ -4,9 +4,14 @@
         id="stock_report_delivery_has_serial_move_line_inherit_delivery"
         inherit_id="delivery.stock_report_delivery_has_serial_move_line_inherit_delivery"
     >
-        <xpath expr="//span[@t-field='move_line.product_id.hs_code']" position="attributes">
+        <xpath
+            expr="//span[@t-field='move_line.product_id.hs_code']"
+            position="attributes"
+        >
             <attribute name="t-field"/>
-            <attribute name="t-esc">move_line.product_id(move_line.picking_id.partner_id.country_id.code)</attribute>
+            <attribute
+                name="t-esc"
+            >move_line.product_id.retrieve_hs_code(move_line.picking_id.partner_id.country_id.code)</attribute>
         </xpath>
     </template>
 </odoo>
