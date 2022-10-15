@@ -1,3 +1,3 @@
-from . import product_template
+from . import product_template, res_config_settings
 
-__all__ = [product_template]
+__all__ = [product_template, res_config_settings]
