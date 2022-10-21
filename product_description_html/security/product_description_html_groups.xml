@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<odoo>
-    <record id="product_rich_description_group_use_advanced" model="res.groups">
-        <field name="name">Use Advanced Product Rich Description</field>
-        <field name="category_id" ref="base.module_category_hidden"/>
-    </record>
-</odoo>

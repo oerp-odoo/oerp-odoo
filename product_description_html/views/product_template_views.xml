@@ -10,25 +10,12 @@
                     <field
                         name="description_rich"
                         nolabel="1"
-                        placeholder="Enter Rich Product Description."
+                        widget="html"
+                        class="oe-bordered-editor"
+                        options="{'style-inline': true, 'codeview': true }"
                     />
                 </group>
             </group>
-        </field>
-    </record>
-
-    <record id="product_template_form_view_inherit_2" model="ir.ui.view">
-        <field name="name">product.template.form.description.ace</field>
-        <field name="model">product.template</field>
-        <field name="inherit_id" ref="product_template_form_view_inherit"/>
-        <field
-            name="groups_id"
-            eval="[(4, ref('product_description_html.product_rich_description_group_use_advanced'))]"
-        />
-        <field name="arch" type="xml">
-            <field name="description_rich" position="attributes">
-                <attribute name="widget">ace</attribute>
-            </field>
         </field>
     </record>
 </odoo>

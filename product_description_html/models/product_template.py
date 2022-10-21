@@ -6,4 +6,6 @@ class ProductTemplate(models.Model):
 
     _inherit = 'product.template'
 
-    description_rich = fields.Html('Rich Description', translate=True)
+    description_rich = fields.Html(
+        'Rich Description', translate=True, sanitize=False
+    )
