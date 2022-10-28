@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 
 class ProductMainRule(models.Model):
@@ -17,14 +18,6 @@ class ProductMainRule(models.Model):
     )
     active = fields.Boolean(default=True)
 
-    _sql_constraints = [
-        (
-            'is_fallback_uniq',
-            'unique (is_fallback)',
-            'Only one Fallback Rule is allowed !',
-        )
-    ]
-
     @property
     def _rules(self):
         return self.search([('is_fallback', '=', False)])
@@ -32,6 +25,11 @@ class ProductMainRule(models.Model):
     @property
     def _fallback_rule(self):
         return self.search([('is_fallback', '=', True)])
+
+    @api.constrains('is_fallback')
+    def _check_is_fallback(self):
+        if len(self._fallback_rule) > 1:
+            raise ValidationError(_("There can be only one Fallback Rule!"))
 
     @api.model
     def get_main_rule(self, products):

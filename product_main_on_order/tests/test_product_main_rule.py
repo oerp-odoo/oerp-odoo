@@ -1,7 +1,5 @@
-from psycopg2 import IntegrityError
-
 from odoo.tests import common
-from odoo.tools import mute_logger
+from odoo.exceptions import ValidationError
 
 
 class TestProductMainRule(common.TransactionCase):
@@ -57,8 +55,7 @@ class TestProductMainRule(common.TransactionCase):
         # Fallback rule.
         self.assertEqual(res, self.ProductMainRule)
 
-    @mute_logger('odoo.sql_db')
     def test_04_check_fallback_rule_unique(self):
         """Check if only single fallback rule is allowed."""
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(ValidationError):
             self.product_main_rule_1.is_fallback = True
