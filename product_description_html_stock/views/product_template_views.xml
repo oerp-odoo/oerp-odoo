@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="product_template_form_view_inherit" model="ir.ui.view">
+    <record id="view_template_property_form_inherit" model="ir.ui.view">
         <field name="name">product.template.form.description</field>
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="inherit_id" ref="stock.view_template_property_form"/>
         <field name="arch" type="xml">
-            <group name="description" position="after">
+            <xpath
+                expr="//field[@name='description_picking']/.."
+                position="after"
+            >
                 <group
-                    string="Sales Rich Description"
-                    name="description_rich_sale"
+                    string="Delivery Rich Description"
+                    name="description_rich_delivery"
                 >
                     <field
-                        name="description_rich_sale"
+                        name="description_rich_delivery"
                         nolabel="1"
                         widget="html"
                         class="oe-bordered-editor"
                         options="{'style-inline': true, 'codeview': true }"
                     />
                 </group>
-            </group>
+            </xpath>
         </field>
     </record>
 </odoo>
