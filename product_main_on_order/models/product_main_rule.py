@@ -34,8 +34,8 @@ class ProductMainRule(models.Model):
         return self.search([('is_fallback', '=', True)])
 
     @api.model
-    def get_main_rule(self, lines_obj, product_fname='product_id'):
-        """Find main rule from given lines_obj.
+    def get_main_rule(self, products):
+        """Find main rule from given products.
 
         Rule is searched by iterating over all existing rules and
         returning first one that matches product between rule and line
@@ -43,15 +43,14 @@ class ProductMainRule(models.Model):
         set.
 
         Args:
-            lines_obj (any): can be any object that is iterated having
-                product attribute defined.
-            product_fname (str): field name to use on lines_obj to
-                retrieve related product.
+            products (product.product): products to compare with main
+                product rules and look for a match.
+
+        Returns:
+            product.main.rule
 
         """
         for rule in self._rules:
-            for line in lines_obj:
-                line_product = getattr(line, product_fname)
-                if rule.product_id == line_product:
-                    return rule
+            if rule.product_id in products:
+                return rule
         return self._fallback_rule

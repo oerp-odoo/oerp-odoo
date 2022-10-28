@@ -4,14 +4,6 @@ from odoo.tests import common
 from odoo.tools import mute_logger
 
 
-class LineObj:
-    """Dummy line object for testing."""
-
-    def __init__(self, product):
-        """Init dummy line object."""
-        self.product_id = product
-
-
 class TestProductMainRule(common.TransactionCase):
     """Test class for product main rule functionality."""
 
@@ -44,22 +36,14 @@ class TestProductMainRule(common.TransactionCase):
     def test_01_get_main_rule(self):
         """Find main rule when when product is matched."""
         res = self.ProductMainRule.get_main_rule(
-            [
-                LineObj(self.product_8),
-                LineObj(self.product_6),  # match
-                LineObj(self.product_10),
-            ]
+            self.product_8 | self.product_6 | self.product_10
         )
         self.assertEqual(res, self.product_main_rule_4)
 
     def test_02_get_main_rule(self):
         """Find main rule when fallback is used."""
         res = self.ProductMainRule.get_main_rule(
-            [
-                LineObj(self.product_8),
-                LineObj(self.product_9),
-                LineObj(self.product_10),
-            ]
+            self.product_8 | self.product_9 | self.product_10
         )
         # Fallback rule.
         self.assertEqual(res, self.product_main_rule_2)
@@ -68,11 +52,7 @@ class TestProductMainRule(common.TransactionCase):
         """Try finding rule without any match and fallback rule."""
         self.product_main_rule_2.is_fallback = False
         res = self.ProductMainRule.get_main_rule(
-            [
-                LineObj(self.product_8),
-                LineObj(self.product_9),
-                LineObj(self.product_10),
-            ]
+            self.product_8 | self.product_9 | self.product_10
         )
         # Fallback rule.
         self.assertEqual(res, self.ProductMainRule)
