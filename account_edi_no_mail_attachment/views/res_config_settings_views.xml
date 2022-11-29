@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.form.no.edi.attachment</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="mail.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div id="restrict_template_rendering_setting" position="after">
+                <div
+                    class="col-md-6 o_setting_box col-xs-12"
+                    name="no_edi_attachment"
+                >
+                    <div class="o_setting_left_pane">
+                        <field name="no_edi_in_mail"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="no_edi_in_mail"/>
+                        <div class="text-muted">
+                            EDI XML file won't be attached when sending invoice and payment information emails.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>
