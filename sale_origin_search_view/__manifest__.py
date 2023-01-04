@@ -1,19 +1,19 @@
 # Author: Andrius Laukavičius. Copyright: Andrius Laukavičius.
 # See LICENSE file for full copyright and licensing details.
 {
-    'name': "Purchase Effective Date in List View",
+    'name': "Source Document in Sale Orders Search Bar",
     'version': '15.0.1.0.0',
-    'summary': 'Adds Effective Date in List View',
+    'summary': 'Source document in Sale Order search view',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
     'website': "https://timefordev.com",
-    'category': 'Inventory/Purchase',
+    'category': 'Sale/Sale',
     'depends': [
         # odoo
-        'purchase_stock',
+        'sale',
     ],
     'data': [
-        'views/purchase_order_views.xml',
+        'views/sale_order_views.xml',
     ],
     'installable': True,
 }
