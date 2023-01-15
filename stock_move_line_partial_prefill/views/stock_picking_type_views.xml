@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_picking_type_form_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.type.form.partial.prefill</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+            <field name="show_operations" position="after">
+                <field
+                    name="partial_prefill_move_lines"
+                    attrs="{'invisible': ['|', '|', ('show_operations', '=', False), ('reservation_method', '!=', 'manual'), ('code', '!=', 'outgoing')]}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
