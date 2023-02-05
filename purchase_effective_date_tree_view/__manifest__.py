@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Purchase Effective Date in List View",
-    'version': '15.0.1.0.0',
+    'version': '15.0.1.1.0',
     'summary': 'Adds Effective Date in List View',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
