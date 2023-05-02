@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_picking_withcarrier_out_form_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.form.custom.url</field>
+        <field name="model">stock.picking</field>
+        <field
+            name="inherit_id"
+            ref="delivery.view_picking_withcarrier_out_form"
+        />
+        <field name="arch" type="xml">
+            <div name="tracking" position="after">
+                <field
+                    name="carrier_tracking_url_custom"
+                    attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"
+                />
+            </div>
+        </field>
+    </record>
+</odoo>

@@ -7,6 +7,13 @@ URLs can use :code:`picking` object placeholder. E.g. :code:`https://some-domain
 
 NOTE. These links are only used for carriers with :code:`Provider` selected as :code:`Fixed Price` or :code:`Based on Rules`. If carrier has specific provider, its own tracking link implementation will be used instead (or if some other module implements tracking link for mentioned providers, those then will also take priority).
 
+Can also use ``Custom Tracking URL`` on picking, to directly specify link
+without any extra rules.
+
+NOTE. If you are using ``Custom Tracking URL``, ``cancel_shipment`` won't unset
+custom URL, because that method relies on specific carrier integration and this
+URL does not rely on any of that.
+
 Configuration
 -------------
 

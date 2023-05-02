@@ -58,3 +58,10 @@ class TestTrackingLink(TransactionCase):
         )
         with self.assertRaises(ValidationError):
             self.carrier_normal.get_tracking_link(self.picking_1)
+
+    def test_04_carrier_tracking_url_custom(self):
+        """Set custom URL to be used."""
+        self.picking_1.carrier_tracking_url_custom = 'https://some-url.com/123'
+        self.assertEqual(
+            self.picking_1.carrier_tracking_url, 'https://some-url.com/123'
+        )
