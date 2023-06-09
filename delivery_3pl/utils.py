@@ -1,5 +1,4 @@
 def invoice_3pl_order(sale_order, tpl_service, logger=None):
-
     env = sale_order.env
     invoices = sale_order._create_invoices()
     pre_state = invoices.mapped(lambda r: (r.name, (r.state, r.payment_state)))
@@ -57,3 +56,14 @@ def send_invoice_email(inv):
 def send_invoices(invoices):
     for inv in invoices:
         send_invoice_email(inv)
+
+
+def force_picking_done(picking, check_availability=False):
+    if check_availability:
+        picking.action_assign()
+    for move in picking.move_lines.filtered(
+        lambda m: m.state not in ['done', 'cancel']
+    ):
+        for move_line in move.move_line_ids:
+            move_line.qty_done = move_line.product_uom_qty
+    picking._action_done()
