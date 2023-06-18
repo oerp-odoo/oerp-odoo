@@ -2,7 +2,7 @@ import requests
 import logging
 from footil.formatting import get_formatted_exception
 
-from odoo import fields, models
+from odoo import fields, models, api
 from odoo.exceptions import ValidationError
 
 from ..utils import safe_urljoin
@@ -44,6 +44,7 @@ class TplService(models.AbstractModel):
         domain=[('type', '=', 'bank')],
         help="Bank Journal to use for payment",
     )
+    warehouse_id = fields.Many2one('stock.warehouse')
 
     def log(self, msg, log_args=None, logger=None):
         """Log message if debug is enabled."""
@@ -79,3 +80,10 @@ class TplService(models.AbstractModel):
         """Prepare endpoint using path and extra args."""
         self.ensure_one()
         return safe_urljoin(self.auth_id.url, path, args=args)
+
+    @api.model
+    def get_warehouse(self, company_id):
+        return self.search(
+            [('company_id', '=', company_id)],
+            limit=1,
+        ).warehouse_id

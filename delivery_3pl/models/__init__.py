@@ -1,1 +1,1 @@
-from . import tpl_auth, tpl_service
+from . import tpl_auth, tpl_service, sale_order
