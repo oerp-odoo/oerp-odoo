@@ -1,10 +1,11 @@
 import requests
 import logging
-from urllib.parse import urljoin
 from footil.formatting import get_formatted_exception
 
 from odoo import fields, models
 from odoo.exceptions import ValidationError
+
+from ..utils import safe_urljoin
 
 
 _logger = logging.getLogger(__name__)
@@ -77,12 +78,4 @@ class TplService(models.AbstractModel):
     def prepare_endpoint(self, path, args=None):
         """Prepare endpoint using path and extra args."""
         self.ensure_one()
-        # Make sure base url ends with `/` to correctly append remaining
-        # path!
-        base_url = self.auth_id.url
-        if not base_url.endswith('/'):
-            base_url = f'{base_url}/'
-        endpoint = urljoin(base_url, path)
-        if args:
-            return endpoint % args
-        return endpoint
+        return safe_urljoin(self.auth_id.url, path, args=args)

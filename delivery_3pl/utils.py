@@ -1,3 +1,6 @@
+from urllib.parse import urljoin
+
+
 def invoice_3pl_order(sale_order, tpl_service, logger=None):
     env = sale_order.env
     invoices = sale_order._create_invoices()
@@ -58,12 +61,24 @@ def send_invoices(invoices):
         send_invoice_email(inv)
 
 
-def force_picking_done(picking, check_availability=False):
-    if check_availability:
+def force_picking_done(picking, assign=True):
+    if assign:
         picking.action_assign()
     for move in picking.move_lines.filtered(
         lambda m: m.state not in ['done', 'cancel']
     ):
         for move_line in move.move_line_ids:
-            move_line.qty_done = move_line.product_uom_qty
+            # Try to use reserve quantity only if quantity is not fully
+            # done.
+            if move_line.qty_done < move_line.product_uom_qty:
+                move_line.qty_done = move_line.product_uom_qty
     picking._action_done()
+
+
+def safe_urljoin(base_url, path, args=None):
+    if not base_url.endswith('/'):
+        base_url = f'{base_url}/'
+    url = urljoin(base_url, path)
+    if args:
+        return url % args
+    return url
