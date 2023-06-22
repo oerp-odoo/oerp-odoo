@@ -1,25 +1,65 @@
-from odoo import models, api
+from odoo import models, api, _
+from odoo.exceptions import ValidationError
 
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    @api.model
-    def get_3pl_warehouse(self, vals):
-        """Extend to find warehouse for specific 3PL service."""
-        # TODO: need mechanism for multiple 3PL services to know which
-        # one's default to use.
-        return self.env['stock.warehouse']
+    def get_3pl_service(self, name=None, raise_not_found=True):
+        """Extend to implement way to find specific 3PL service.
 
-    def get_3pl_service(self, name, raise_not_found=True):
-        """Extend to implement way to find specific 3PL service."""
+        When service name is provided, only that service should be
+        searched!
+        """
         self.ensure_one()
+        matchers_map = self.get_3pl_service_matchers()
+        if name is not None:
+            try:
+                # If we got single name, we check only that single service!
+                matchers_map = {name: matchers_map[name]}
+            except KeyError:
+                raise ValidationError(
+                    _("No 3PL service found with name %s", name)
+                )
+        for service_matcher in matchers_map.values():
+            service = service_matcher()
+            if service:
+                return service
+        if raise_not_found:
+            raise ValidationError(
+                _(
+                    "No 3PL service found for sale order %s. Make sure"
+                    + " it is created and active.",
+                    self.name,
+                )
+            )
         return self.env['tpl.service']
+
+    def get_3pl_service_matchers(self):
+        """Extend to register 3PL service matcher.
+
+        Key is unique string and value is sale.order record bound method
+        that will find service.
+        """
+        self.ensure_one()
+        return {}
+
+    def get_3pl_warehouse_data(self):
+        """Find 3PL warehouse from specific 3PL service."""
+        self.ensure_one()
+        service = self.get_3pl_service(raise_not_found=False)
+        if not service:
+            return (self.env['stock.warehouse'], False)
+        return service.get_warehouse_data()
 
     @api.model
     def create(self, vals):
-        if 'warehouse_id' not in vals:
-            warehouse = self.get_3pl_warehouse(vals)
-            if warehouse:
-                vals['warehouse_id'] = warehouse.id
-        return super().create(vals)
+        wh_id_in_vals = 'warehouse_id' in vals
+        sale = super().create(vals)
+        # Because there can be some important data set during creation,
+        # we wait till record is created and then we do update. Its not
+        # very efficient, but more consistent.
+        warehouse, forced = sale.get_3pl_warehouse_data()
+        if warehouse and (not wh_id_in_vals or forced):
+            sale.warehouse_id = warehouse.id
+        return sale
