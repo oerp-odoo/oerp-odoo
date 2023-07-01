@@ -61,9 +61,7 @@ def send_invoices(invoices):
         send_invoice_email(inv)
 
 
-def force_picking_done(picking, assign=True):
-    if assign:
-        picking.action_assign()
+def force_picking_done(picking):
     for move in picking.move_lines.filtered(
         lambda m: m.state not in ['done', 'cancel']
     ):
@@ -72,7 +70,10 @@ def force_picking_done(picking, assign=True):
             # done.
             if move_line.qty_done < move_line.product_uom_qty:
                 move_line.qty_done = move_line.product_uom_qty
-    picking._action_done()
+    _auto_assign_missing(picking)
+    # Passing context to make sure email is sent only if picking is in
+    # done state!
+    picking.with_context(stock_move_email_on_done=True)._action_done()
 
 
 def safe_urljoin(base_url, path, args=None):
@@ -82,3 +83,35 @@ def safe_urljoin(base_url, path, args=None):
     if args:
         return url % args
     return url
+
+
+# TODO: implement option to either force assign or rely on available
+# reservation only.
+def _auto_assign_missing(picking):
+    # NOTE. Currently we force assign all missing, except serial/lots.
+    moves = picking.move_lines
+    moves_todo_map = {m.id: m.product_uom_qty for m in moves}
+    # Deduct already done quantities.
+    for move in moves:
+        # TODO: implement handling of serial/lot.
+        for ml in move.move_line_ids:
+            moves_todo_map[move.id] -= ml.qty_done
+    data = []
+    for move_id, qty_done in moves_todo_map.items():
+        move = moves.browse(move_id)
+        data.append(
+            (
+                0,
+                0,
+                {
+                    'product_id': move.product_id.id,
+                    'product_uom_id': move.product_uom.id,
+                    'move_id': move.id,
+                    'location_id': move.location_id.id,
+                    'location_dest_id': move.location_dest_id.id,
+                    'qty_done': qty_done,
+                },
+            )
+        )
+    if data:
+        picking.move_line_ids = data
