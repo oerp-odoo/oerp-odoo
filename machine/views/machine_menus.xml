@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <!-- Top menus -->
-    <menuitem id="machine_root_menu"
+    <menuitem
+        id="machine_root_menu"
         name="Machines"
         sequence="7"
         web_icon="machine,static/description/icon.png"
         groups="machine.machine_group_user"
     />
-    <menuitem id="machine_action_menu"
+    <menuitem
+        id="machine_action_menu"
         name="Actions"
         parent="machine_root_menu"
         sequence="20"
     />
-    <menuitem id="machine_config_menu"
+    <menuitem
+        id="machine_config_menu"
         name="Configuration"
         parent="machine_root_menu"
         sequence="100"

@@ -1,11 +1,10 @@
-import csv
 import base64
+import csv
 import io
 from ast import literal_eval
 
-from odoo import models, fields, api, _
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
-
 
 DELIMITER = ','
 
@@ -21,7 +20,7 @@ class StockAssignSerial(models.TransientModel):
 
     _inherit = 'stock.assign.serial'
 
-    serial_numbers_file = fields.Binary("Serial Numbers File")
+    serial_numbers_file = fields.Binary()
     serial_numbers_filename = fields.Char()
     _serial_numbers_file_data = fields.Char()
 
@@ -43,8 +42,7 @@ class StockAssignSerial(models.TransientModel):
     def _read_serial_numbers_file_row(self):
         bdata = base64.b64decode(self.serial_numbers_file)
         sdata = bdata.decode()
-        for row in csv.DictReader(io.StringIO(sdata), delimiter=DELIMITER):
-            yield row
+        yield from csv.DictReader(io.StringIO(sdata), delimiter=DELIMITER)
 
     def _parse_serial_numbers_file(self):
         data = {}
@@ -56,9 +54,7 @@ class StockAssignSerial(models.TransientModel):
                 _update_vals(row, '', False)
                 data[key] = row
             except KeyError:
-                raise UserError(_(
-                    "Serial Numbers Import file expects 'name' column!"
-                ))
+                raise UserError(_("Serial Numbers Import file expects 'name' column!"))
         return data
 
     @api.onchange('serial_numbers_file')
@@ -66,23 +62,25 @@ class StockAssignSerial(models.TransientModel):
         if self.serial_numbers_file:
             data = self._parse_serial_numbers_file()
             serial_numbers = list(data.keys())
-            self.update({
-                'next_serial_number': serial_numbers[0],
-                'serial_numbers': '\n'.join(serial_numbers),
-                '_serial_numbers_file_data': str(data),  # serialize data
-            })
+            self.update(
+                {
+                    'next_serial_number': serial_numbers[0],
+                    'serial_numbers': '\n'.join(serial_numbers),
+                    '_serial_numbers_file_data': str(data),  # serialize data
+                }
+            )
 
     def apply(self):
         """Extend to pass serial numbers extra data via ctx."""
         self = self._self_with_serial_numbers_file_data_ctx
-        return super(StockAssignSerial, self).apply()
+        return super().apply()
 
     def create_backorder(self):
         """Extend to pass serial numbers extra data via ctx."""
         self = self._self_with_serial_numbers_file_data_ctx
-        return super(StockAssignSerial, self).create_backorder()
+        return super().create_backorder()
 
     def no_backorder(self):
         """Extend to pass serial numbers extra data via ctx."""
         self = self._self_with_serial_numbers_file_data_ctx
-        return super(StockAssignSerial, self).no_backorder()
+        return super().no_backorder()

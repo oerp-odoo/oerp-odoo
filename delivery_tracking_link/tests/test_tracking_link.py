@@ -53,9 +53,7 @@ class TestTrackingLink(TransactionCase):
         Case: incorrect placeholder.
         """
         self.picking_1.carrier_id = self.carrier_normal.id
-        self.tracking_link_demo.url_format = (
-            'https://some-url.com/{picking2.name}'
-        )
+        self.tracking_link_demo.url_format = 'https://some-url.com/{picking2.name}'
         with self.assertRaises(ValidationError):
             self.carrier_normal.get_tracking_link(self.picking_1)
 

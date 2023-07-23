@@ -37,5 +37,10 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="machine_tag_menu" parent="machine_config_menu" action="machine_tag_action" sequence="100"/>
+    <menuitem
+        id="machine_tag_menu"
+        parent="machine_config_menu"
+        action="machine_tag_action"
+        sequence="100"
+    />
 </odoo>

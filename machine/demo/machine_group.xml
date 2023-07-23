@@ -9,7 +9,9 @@
     </record>
     <record id="machine_group_2" model="machine.group">
         <field name="name">Test</field>
-        <field name="machine_instance_ids"
-            eval="[(6, 0, [ref('machine_instance_readymat')])]"/>
+        <field
+            name="machine_instance_ids"
+            eval="[(6, 0, [ref('machine_instance_readymat')])]"
+        />
     </record>
 </odoo>

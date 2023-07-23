@@ -41,5 +41,5 @@
         'demo/machine_group.xml',
     ],
     'application': True,
-    'installable': True,
+    'installable': False,
 }

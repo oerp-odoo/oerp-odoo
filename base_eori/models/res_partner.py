@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class ResPartner(models.Model):
@@ -7,8 +7,7 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     eori = fields.Char(
-        string="EORI",
-        help="Economic Operators Registration and Identification number"
+        string="EORI", help="Economic Operators Registration and Identification number"
     )
 
     @api.model

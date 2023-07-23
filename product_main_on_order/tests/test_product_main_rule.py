@@ -1,5 +1,5 @@
-from odoo.tests import common
 from odoo.exceptions import ValidationError
+from odoo.tests import common
 
 
 class TestProductMainRule(common.TransactionCase):

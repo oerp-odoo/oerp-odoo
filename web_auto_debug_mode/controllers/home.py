@@ -4,7 +4,7 @@ from odoo.http import request
 
 from odoo.addons.web.controllers.main import Home as HomeOrig
 
-from .. models.res_users import DEBUG_PREFIX
+from ..models.res_users import DEBUG_PREFIX
 
 PARAM_SEP = '#'
 
@@ -40,7 +40,8 @@ class Home(HomeOrig):
         redirect = super()._login_redirect(uid, redirect=redirect)
         redirect = bytes_to_str(redirect)
         if self._check_redirect(redirect):
-            debug_mode = request.env['res.users'].sudo().browse(
-                uid).get_debug_parameter()
+            debug_mode = (
+                request.env['res.users'].sudo().browse(uid).get_debug_parameter()
+            )
             redirect = self.combine_redirect_with_debug(redirect, debug_mode)
         return redirect

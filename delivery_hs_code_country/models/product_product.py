@@ -26,6 +26,4 @@ class ProductProduct(models.Model):
         if not self:
             return False
         self.ensure_one()
-        return self.product_tmpl_id._retrieve_hs_code(
-            country_code=country_code
-        )
+        return self.product_tmpl_id._retrieve_hs_code(country_code=country_code)

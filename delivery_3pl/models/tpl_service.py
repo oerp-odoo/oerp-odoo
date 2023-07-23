@@ -1,12 +1,12 @@
-import requests
 import logging
+
+import requests
 from footil.formatting import get_formatted_exception
 
 from odoo import fields, models
 from odoo.exceptions import ValidationError
 
 from ..utils import safe_urljoin
-
 
 _logger = logging.getLogger(__name__)
 
@@ -46,8 +46,7 @@ class TplService(models.AbstractModel):
     )
     warehouse_id = fields.Many2one('stock.warehouse')
     force_warehouse = fields.Boolean(
-        help="Use this warehouse even if warehouse was set during initial "
-        + "creation"
+        help="Use this warehouse even if warehouse was set during initial " + "creation"
     )
 
     def log(self, msg, log_args=None, logger=None):
@@ -61,9 +60,7 @@ class TplService(models.AbstractModel):
             logger = _logger
         logger.info(msg, *log_args)
 
-    def call_requests_method(
-        self, method_name, endpoint, log_details='', **kwargs
-    ):
+    def call_requests_method(self, method_name, endpoint, log_details='', **kwargs):
         """Call specific request method and handle response."""
         self.ensure_one()
         method = getattr(requests, method_name)

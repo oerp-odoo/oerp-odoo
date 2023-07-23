@@ -15,5 +15,5 @@
     'data': [
         'views/res_company_views.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

@@ -7,11 +7,11 @@
         <field name="arch" type="xml">
             <field name="hs_code" position="after">
                     <field
-                        colspan="2"
-                        nolabel="1"
-                        name="hs_code_ids"
-                        attrs="{'invisible': [('hs_code', '=', False)]}"
-                    >
+                    colspan="2"
+                    nolabel="1"
+                    name="hs_code_ids"
+                    attrs="{'invisible': [('hs_code', '=', False)]}"
+                >
                         <tree editable="bottom">
                             <field name="product_tmpl_id" invisible="1"/>
                             <field name="name"/>
@@ -21,12 +21,14 @@
                         </tree>
                     </field>
                     <field
-                        name="country_origin_id"
-                        attrs="{'invisible': [('country_origin_id', '=', False)]}"
-                    />
+                    name="country_origin_id"
+                    attrs="{'invisible': [('country_origin_id', '=', False)]}"
+                />
             </field>
             <field name="hs_code" position="attributes">
-                <attribute name="attrs">{'required': [('hs_code_ids', '!=', [])]}</attribute>
+                <attribute
+                    name="attrs"
+                >{'required': [('hs_code_ids', '!=', [])]}</attribute>
             </field>
         </field>
     </record>

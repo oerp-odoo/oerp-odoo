@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import fields, models
 
 CFG_PARAM_NO_EDI_IN_MAIL = 'account_no_mail_attachment.no_edi_in_mail'
 

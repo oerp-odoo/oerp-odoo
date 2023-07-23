@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 DEBUG_PREFIX = '?debug'
 
@@ -8,13 +8,14 @@ class ResUsers(models.Model):
 
     _inherit = 'res.users'
 
-    debug_mode = fields.Selection([
+    debug_mode = fields.Selection(
+        [
             ('debug', 'Developer Mode'),
             ('debug_assets', 'Developer Mode (With Assets)'),
-            ('debug_assets_tests', 'Developer Mode (With Tests Assets)')
+            ('debug_assets_tests', 'Developer Mode (With Tests Assets)'),
         ],
         string="Auto Developer Mode",
-        help="Will enable developer mode on login for user"
+        help="Will enable developer mode on login for user",
     )
 
     @api.model

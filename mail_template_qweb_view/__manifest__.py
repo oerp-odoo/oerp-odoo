@@ -18,5 +18,5 @@
     'demo': [
         'demo/mail_template.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

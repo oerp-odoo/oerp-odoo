@@ -27,23 +27,25 @@ class TestHsCodeCountry(TransactionCase):
         cls.country_us = cls.env.ref('base.us')
         cls.country_fr = cls.env.ref('base.fr')
         # HS Codes.
-        hs_codes = cls.ProductTemplateHsCode.create([
-            {
-                'country_id': cls.country_lt.id,
-                'product_tmpl_id': cls.product_template_desk.id,
-            },
-            {
-                'code': '777',
-                'country_id': cls.country_us.id,
-                'is_origin_country': True,
-                'product_tmpl_id': cls.product_template_desk.id,
-            },
-            {
-                'code': '888',
-                'country_id': cls.country_fr.id,
-                'product_tmpl_id': cls.product_template_desk.id,
-            },
-        ])
+        hs_codes = cls.ProductTemplateHsCode.create(
+            [
+                {
+                    'country_id': cls.country_lt.id,
+                    'product_tmpl_id': cls.product_template_desk.id,
+                },
+                {
+                    'code': '777',
+                    'country_id': cls.country_us.id,
+                    'is_origin_country': True,
+                    'product_tmpl_id': cls.product_template_desk.id,
+                },
+                {
+                    'code': '888',
+                    'country_id': cls.country_fr.id,
+                    'product_tmpl_id': cls.product_template_desk.id,
+                },
+            ]
+        )
         cls.hs_code_lt = hs_codes[0]
         cls.hs_code_us = hs_codes[1]
         cls.hs_code_fr = hs_codes[2]
@@ -152,9 +154,5 @@ class TestHsCodeCountry(TransactionCase):
             self.hs_code_lt.is_origin_country = True
         with self.assertRaises(ValidationError):
             self.product_template_desk.hs_code_ids = [
-                (
-                    1,
-                    self.hs_code_fr.id,
-                    {'is_origin_country': True}
-                )
+                (1, self.hs_code_fr.id, {'is_origin_country': True})
             ]

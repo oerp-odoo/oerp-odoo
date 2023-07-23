@@ -19,8 +19,8 @@
     ],
     'assets': {
         'web.assets_frontend': [
-            'website_sale_vies_autofill/static/src/js/website_sale.js',
+            'website_sale_vies_autofill/static/src/js/website_sale.esm.js',
         ]
     },
-    'installable': True,
+    'installable': False,
 }

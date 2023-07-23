@@ -21,7 +21,11 @@
                             <field name="name"/>
                         </group>
                         <group name="right">
-                            <field name="machine_instance_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                            <field
+                                name="machine_instance_ids"
+                                widget="many2many_tags"
+                                options="{'no_create_edit': True}"
+                            />
                         </group>
                     </group>
                 </sheet>

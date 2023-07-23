@@ -44,9 +44,7 @@ class TestMachineConstraints(common.TestMachineCommon):
         """Try to set same name globally."""
         with self.assertRaises(IntegrityError):
             with self.cr.savepoint():
-                self.machine_instance_deco.name = (
-                    self.machine_instance_wood.name
-                )
+                self.machine_instance_deco.name = self.machine_instance_wood.name
 
     @mute_logger('odoo.sql_db')
     def test_04_machine_name_unique(self):
@@ -56,20 +54,14 @@ class TestMachineConstraints(common.TestMachineCommon):
         ).write({'company_id': self.company_main.id})
         with self.assertRaises(IntegrityError):
             with self.cr.savepoint():
-                self.machine_instance_deco.name = (
-                    self.machine_instance_wood.name
-                )
+                self.machine_instance_deco.name = self.machine_instance_wood.name
 
     def test_05_machine_name_unique(self):
         """Set same name when companies are different."""
         self.machine_instance_deco.partner_id.company_id = self.company_main.id
         try:
-            self.machine_instance_deco.name = (
-                self.machine_instance_wood.name
-            )
+            self.machine_instance_deco.name = self.machine_instance_wood.name
             with self.cr.savepoint():
-                self.machine_instance_deco.name = (
-                    self.machine_instance_wood.name
-                )
+                self.machine_instance_deco.name = self.machine_instance_wood.name
         except IntegrityError:
             self.fail("Companies are different, so same name must be allowed.")
