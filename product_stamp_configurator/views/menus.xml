@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem
+        id="stamp_root_menu"
+        name="Stamp"
+        web_icon="product_stamp_configurator,static/description/icon.png"
+        sequence="50"
+        groups="product_stamp_configurator.stamp_group_user"
+    >
+
+        <menuitem
+            id="stamp_pricelist_menu"
+            action="stamp_pricelist_action"
+            sequence="60"
+            groups="product_stamp_configurator.stamp_group_manager"
+        />
+
+        <menuitem
+            id="stamp_config_menu"
+            name="Configuration"
+            sequence="100"
+            groups="product_stamp_configurator.stamp_group_manager"
+        >
+
+            <menuitem
+                id="stamp_config_settings_menu"
+                name="Settings"
+                action="stamp_config_settings_action"
+                groups="base.group_system"
+                sequence="1"
+            />
+
+            <menuitem
+                id="stamp_finishing_menu"
+                action="stamp_finishing_action"
+                sequence="10"
+            />
+            <menuitem
+                id="stamp_difficulty_menu"
+                action="stamp_difficulty_action"
+                sequence="20"
+            />
+            <menuitem id="stamp_die_menu" action="stamp_die_action" sequence="30"/>
+            <menuitem
+                id="stamp_design_menu"
+                action="stamp_design_action"
+                sequence="40"
+            />
+            <menuitem
+                id="stamp_material_menu"
+                action="stamp_material_action"
+                sequence="50"
+            />
+        </menuitem>
+
+    </menuitem>
+
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stamp_finishing_view_tree" model="ir.ui.view">
+        <field name="name">stamp.finishing.tree</field>
+        <field name="model">stamp.finishing</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="currency_id" invisible="1"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field
+                    name="price"
+                    widget="monetary"
+                    options="{'currency_field': 'currency_id'}"
+                />
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="stamp_finishing_view_form" model="ir.ui.view">
+        <field name="name">stamp.finishing.form</field>
+        <field name="model">stamp.finishing</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                        <group name="right">
+                            <field
+                                name="price"
+                                widget="monetary"
+                                options="{'currency_field': 'currency_id'}"
+                            />
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="stamp_finishing_action" model="ir.actions.act_window">
+        <field name="name">Special Finishing</field>
+        <field name="res_model">stamp.finishing</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

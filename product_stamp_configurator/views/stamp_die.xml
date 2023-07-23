@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stamp_die_view_tree" model="ir.ui.view">
+        <field name="name">stamp.die.tree</field>
+        <field name="model">stamp.die</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="stamp_die_view_form" model="ir.ui.view">
+        <field name="name">stamp.die.form</field>
+        <field name="model">stamp.die</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                        <group name="right">
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="stamp_die_action" model="ir.actions.act_window">
+        <field name="name">Dies</field>
+        <field name="res_model">stamp.die</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

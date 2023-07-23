@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stamp_pricelist_view_tree" model="ir.ui.view">
+        <field name="name">stamp.pricelist.tree</field>
+        <field name="model">stamp.pricelist</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="currency_id" invisible="1"/>
+                <field name="name"/>
+                <field
+                    name="price_counter_die"
+                    widget="monetary"
+                    options="{'currency_field': 'currency_id'}"
+                />
+                <field name="mold_of_die_perc"/>
+                <field name="quantity_die_mold_free"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="stamp_pricelist_view_form" model="ir.ui.view">
+        <field name="name">stamp.pricelist.form</field>
+        <field name="model">stamp.pricelist</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="name"/>
+                            <field
+                                name="price_counter_die"
+                                widget="monetary"
+                                options="{'currency_field': 'currency_id'}"
+                            />
+                        </group>
+                        <group name="right">
+                            <field name="mold_of_die_perc"/>
+                            <field name="quantity_die_mold_free"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <separator string="Design Prices"/>
+                    <field name="item_ids">
+                        <tree editable="bottom">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="design_id"/>
+                            <field
+                                name="price"
+                                widget="monetary"
+                                options="{'currency_field': 'currency_id'}"
+                            />
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="stamp_pricelist_action" model="ir.actions.act_window">
+        <field name="name">Pricelists</field>
+        <field name="res_model">stamp.pricelist</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

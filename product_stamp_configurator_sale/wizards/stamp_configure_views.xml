@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stamp_configure_form" model="ir.ui.view">
+        <field name="name">stamp.configure.form.stamp.sale</field>
+        <field name="model">stamp.configure</field>
+        <field name="inherit_id" ref="product_stamp_configurator.stamp_configure_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="before">
+                <field name="sale_id" invisible="1"/>
+            </field>
+            <!-- Some fields should not be changed if we are configuring for
+            sale order. -->
+            <field name="partner_id" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'readonly': [('sale_id', '!=', False)]}</attribute>
+            </field>
+            <field name="origin" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'readonly': [('sale_id', '!=', False)]}</attribute>
+            </field>
+            <field name="sequence" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'readonly': [('sale_id', '!=', False)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </field>
+            <field name="sequence_counter_die" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'readonly': [('sale_id', '!=', False)]}</attribute>
+            </field>
+            <field name="category_counter_die_id" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': [('quantity_counter_dies', '=', 0)], 'required': [('quantity_counter_dies', '>', 0)], 'readonly': [('sale_id', '!=', False)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </field>
+            <field name="category_mold_id" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': [('quantity_mold', '=', 0)], 'required': [('quantity_mold', '>', 0)], 'readonly': [('sale_id', '!=', False)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
