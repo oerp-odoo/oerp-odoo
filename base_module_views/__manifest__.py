@@ -15,6 +15,6 @@
     'data': [
         'views/ir_module_views.xml',
     ],
-    'auto_install': True,
+    'auto_install': False,
     'installable': False,
 }
