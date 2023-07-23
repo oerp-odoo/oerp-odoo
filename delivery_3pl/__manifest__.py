@@ -13,5 +13,5 @@
         'delivery',
     ],
     'external_dependencies': {'python': ['footil', 'validators']},
-    'installable': True,
+    'installable': False,
 }

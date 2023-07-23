@@ -6,10 +6,7 @@
         <field name="inherit_id" ref="mail.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <div id="restrict_template_rendering_setting" position="after">
-                <div
-                    class="col-md-6 o_setting_box col-xs-12"
-                    name="no_edi_attachment"
-                >
+                <div class="col-md-6 o_setting_box col-xs-12" name="no_edi_attachment">
                     <div class="o_setting_left_pane">
                         <field name="no_edi_in_mail"/>
                     </div>

@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class StockPicking(models.Model):
@@ -13,13 +13,9 @@ class StockPicking(models.Model):
         + "generated one",
     )
 
-    @api.depends(
-        'carrier_id', 'carrier_tracking_ref', 'carrier_tracking_url_custom'
-    )
+    @api.depends('carrier_id', 'carrier_tracking_ref', 'carrier_tracking_url_custom')
     def _compute_carrier_tracking_url(self):
         super()._compute_carrier_tracking_url()
         for picking in self:
             if picking.carrier_tracking_url_custom:
-                picking.carrier_tracking_url = (
-                    picking.carrier_tracking_url_custom
-                )
+                picking.carrier_tracking_url = picking.carrier_tracking_url_custom

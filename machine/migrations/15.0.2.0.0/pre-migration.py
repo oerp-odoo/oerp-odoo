@@ -1,4 +1,4 @@
-from odoo import api, SUPERUSER_ID
+from odoo import SUPERUSER_ID, api
 
 MODULE = 'machine'
 
@@ -44,7 +44,7 @@ def _remove_machine_templates(cr):
             res_id IN %s
 
         """,
-        (tuple(ids),)
+        (tuple(ids),),
     )
     cr.execute("""DELETE FROM machine_instance WHERE is_template = true""")
 
@@ -59,7 +59,7 @@ def _remove_models_data(cr, model_names, module):
             module = %s AND
             name IN %s
         """,
-        (module, tuple(ext_names))
+        (module, tuple(ext_names)),
     )
     cr.execute("DELETE FROM ir_model WHERE model in %s", (model_names,))
 

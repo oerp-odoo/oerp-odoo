@@ -19,14 +19,12 @@ class TestInterpolateCommonNote(TransactionCase):
         """Interpolate note with plain text."""
         self.company_main.common_note = 'ABC123'
         # `p`, because field uses `html` widget.
-        self.assertEqual(
-            self.company_main.interpolate_common_note(), '<p>ABC123</p>'
-        )
+        self.assertEqual(self.company_main.interpolate_common_note(), '<p>ABC123</p>')
 
     def test_03_interpolate_common_note(self):
         """Interpolate note with company data placeholders."""
         self.company_main.common_note = '{company.name}-ABC'
         self.assertEqual(
             self.company_main.interpolate_common_note(),
-            '<p>%s-ABC</p>' % self.company_main.name
+            '<p>%s-ABC</p>' % self.company_main.name,
         )

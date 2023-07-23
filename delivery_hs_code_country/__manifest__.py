@@ -17,5 +17,5 @@
         'views/product_template_views.xml',
         'reports/report_delivery_slip.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

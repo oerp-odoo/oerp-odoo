@@ -21,10 +21,7 @@
                             <field name="name"/>
                         </group>
                         <group name="right">
-                            <field
-                                name="company_id"
-                                groups="base.group_multi_company"
-                            />
+                            <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>
                 </sheet>

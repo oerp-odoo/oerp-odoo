@@ -19,5 +19,5 @@
         'views/stock_picking_views.xml',
     ],
     'demo': ['demo/delivery_tracking_link.xml'],
-    'installable': True,
+    'installable': False,
 }

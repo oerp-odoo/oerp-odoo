@@ -3,10 +3,7 @@
     <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
         <field name="name">res.config.settings.form.show.hide.fields</field>
         <field name="model">res.config.settings</field>
-        <field
-            name="inherit_id"
-            ref="mass_mailing.res_config_settings_view_form"
-        />
+        <field name="inherit_id" ref="mass_mailing.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <div name="allow_blacklist_setting_container" position="after">
                 <div
@@ -21,7 +18,10 @@
                             for="group_mailing_show_state"
                         />
                         <group>
-                            <field string="Country State" name="group_mailing_show_state"/>
+                            <field
+                                string="Country State"
+                                name="group_mailing_show_state"
+                            />
                             <field string="City" name="group_mailing_show_city"/>
                             <field string="ZIP" name="group_mailing_show_postcode"/>
                             <field string="Phone" name="group_mailing_show_phone"/>

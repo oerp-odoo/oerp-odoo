@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <menuitem id="machine_dbs_top_menu"
+    <menuitem
+        id="machine_dbs_top_menu"
         name="Database Management Systems"
         parent="machine_config_menu"
-        sequence="12"/>
+        sequence="12"
+    />
 
     <!-- DBS -->
     <record id="machine_dbs_view_tree" model="ir.ui.view">
@@ -42,10 +44,12 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="machine_dbs_menu"
+    <menuitem
+        id="machine_dbs_menu"
         parent="machine_dbs_top_menu"
         action="machine_dbs_action"
-        sequence="1"/>
+        sequence="1"
+    />
 
     <!-- DBS name -->
     <record id="machine_dbs_name_view_tree" model="ir.ui.view">
@@ -82,7 +86,8 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="machine_dbs_name_menu"
+    <menuitem
+        id="machine_dbs_name_menu"
         parent="machine_dbs_top_menu"
         action="machine_dbs_name_action"
         sequence="2"

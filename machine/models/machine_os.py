@@ -1,6 +1,6 @@
 from footil.formatting import generate_names
 
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class MachineOs(models.Model):
@@ -10,7 +10,11 @@ class MachineOs(models.Model):
     _description = 'Machine OS'
 
     name = fields.Char("Version", required=True, index=True)
-    os_name_id = fields.Many2one('machine.os.name', "OS Name", required=True,)
+    os_name_id = fields.Many2one(
+        'machine.os.name',
+        "OS Name",
+        required=True,
+    )
 
     _sql_constraints = [
         (
@@ -23,10 +27,12 @@ class MachineOs(models.Model):
     @api.depends('name', 'os_name_id.name')
     def name_get(self):
         """Override to show custom display_name."""
-        return generate_names({
-            'pattern': '{os_name_id.name} {name}',
-            'objects': self,
-        })
+        return generate_names(
+            {
+                'pattern': '{os_name_id.name} {name}',
+                'objects': self,
+            }
+        )
 
 
 class MachineOsName(models.Model):
@@ -52,10 +58,12 @@ class MachineOsName(models.Model):
     @api.depends('name', 'os_type_id.name')
     def name_get(self):
         """Override to show custom display_name."""
-        return generate_names({
-            'pattern': '{os_type_id.name} {name}',
-            'objects': self,
-        })
+        return generate_names(
+            {
+                'pattern': '{os_type_id.name} {name}',
+                'objects': self,
+            }
+        )
 
 
 class MachineOsType(models.Model):
@@ -67,7 +75,9 @@ class MachineOsType(models.Model):
     _name = 'machine.os.type'
     _description = 'Machine OS Type'
 
-    name = fields.Char(required=True,)
+    name = fields.Char(
+        required=True,
+    )
 
     _sql_constraints = [
         ('name_uniq', 'unique (name)', "The name must be unique !"),

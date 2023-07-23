@@ -64,7 +64,8 @@
         <field name="context">{'module' : 'machine', 'bin_size': False}</field>
     </record>
 
-    <menuitem id="machine_settings_menu"
+    <menuitem
+        id="machine_settings_menu"
         name="Settings"
         parent="machine_config_menu"
         action="machine_config_settings_action"

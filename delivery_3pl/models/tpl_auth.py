@@ -1,4 +1,5 @@
 import base64
+
 import validators
 
 from odoo import _, api, fields, models

@@ -12,5 +12,5 @@
         # odoo
         'website_sale',
     ],
-    'installable': True,
+    'installable': False,
 }

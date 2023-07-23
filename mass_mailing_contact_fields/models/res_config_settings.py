@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import fields, models
 
 _M = 'mass_mailing_contact_fields'
 

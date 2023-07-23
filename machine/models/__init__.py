@@ -8,6 +8,7 @@ from . import (
     res_partner,
     res_config_settings,
 )
+
 __all__ = [
     machine_cpu,
     machine_os,

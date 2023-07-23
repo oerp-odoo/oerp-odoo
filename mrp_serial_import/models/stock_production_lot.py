@@ -1,4 +1,4 @@
-from odoo import models, api
+from odoo import api, models
 
 
 class StockProductionLot(models.Model):
@@ -15,4 +15,4 @@ class StockProductionLot(models.Model):
                 name = vals.get('name')
                 if name:
                     vals.update(data[name])
-        return super(StockProductionLot, self).create(vals_list)
+        return super().create(vals_list)

@@ -1,4 +1,4 @@
-from odoo import models, fields, api, _
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -20,12 +20,12 @@ class MachineTag(models.Model):
     def _check_parent_id(self):
         for rec in self:
             if not rec._check_recursion():
-                raise ValidationError(
-                    _("Error! You cannot create recursive tags."))
+                raise ValidationError(_("Error! You cannot create recursive tags."))
 
     @api.depends('name', 'parent_id.name')
     def name_get(self):
         """Override to show custom display_name."""
+
         def get_parent_name(parent):
             while parent.parent_id:
                 parent = parent.parent_id

@@ -18,5 +18,5 @@
         'templates/sale_mail.xml',
         'data/mail_template.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

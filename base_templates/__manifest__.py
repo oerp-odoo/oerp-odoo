@@ -21,5 +21,5 @@
             '/base_templates/static/src/scss/assets.scss',
         ],
     },
-    'installable': True,
+    'installable': False,
 }

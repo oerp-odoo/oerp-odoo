@@ -19,5 +19,5 @@
         'demo/product_product.xml',
         'demo/mrp_bom.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

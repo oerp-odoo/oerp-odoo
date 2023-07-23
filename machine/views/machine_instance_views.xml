@@ -24,11 +24,13 @@
                     groups="machine.machine_group_show_resources"
                     optional="show"
                 />
-                <field name="dbs_id"
+                <field
+                    name="dbs_id"
                     groups="machine.machine_group_show_env_details"
                     optional="show"
                 />
-                <field name="os_id"
+                <field
+                    name="os_id"
                     groups="machine.machine_group_show_env_details"
                     optional="show"
                 />
@@ -62,7 +64,7 @@
                     />
                     <group name="main">
                         <group name="options" string="Options">
-                            <field name="name" />
+                            <field name="name"/>
                             <field
                                 name="partner_id"
                                 domain="[('parent_id', '=', False)]"
@@ -87,7 +89,8 @@
                                 widget="url"
                                 attrs="{'invisible': ['|', ('domain', '=', False), ('http_protocol', '=', False)]}"
                             />
-                            <field name="http_protocol"
+                            <field
+                                name="http_protocol"
                                 attrs="{'invisible': [('domain', '=', False)]}"
                             />
                             <field name="ip"/>
@@ -167,8 +170,16 @@
                     name="all"
                     domain="['|', ('active', '=', False), ('active', '=', True)]"
                 />
-                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
-                <filter string="My" name="my_machines" domain="[('user_id', '=', uid)]"/>
+                <filter
+                    string="Archived"
+                    name="inactive"
+                    domain="[('active', '=', False)]"
+                />
+                <filter
+                    string="My"
+                    name="my_machines"
+                    domain="[('user_id', '=', uid)]"
+                />
             </search>
         </field>
     </record>
@@ -179,7 +190,8 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="machine_instance_menu"
+    <menuitem
+        id="machine_instance_menu"
         action="machine_instance_action"
         parent="machine_root_menu"
         sequence="1"

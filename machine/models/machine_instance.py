@@ -1,9 +1,9 @@
 import ipaddress
+
 import validators
 
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
-
-from odoo import models, fields, api, _
 
 PRIORITY = [('1', 'Low'), ('2', 'Normal'), ('3', 'High')]
 
@@ -26,13 +26,18 @@ class MachineInstance(models.Model):
     cpu_id = fields.Many2one('machine.cpu', "CPU", tracking=10)
     dbs_id = fields.Many2one('machine.dbs', "Database System", tracking=10)
     os_id = fields.Many2one(
-        'machine.os', "Operating System", tracking=10,
+        'machine.os',
+        "Operating System",
+        tracking=10,
     )
     change_log_ids = fields.One2many(
-        'machine.instance.change_log', 'machine_instance_id', "Change Log",
+        'machine.instance.change_log',
+        'machine_instance_id',
+        "Change Log",
     )
     amount_storage_capacity = fields.Float(
-        "Storage Capacity (GB)", tracking=10,
+        "Storage Capacity (GB)",
+        tracking=10,
     )
     amount_ram = fields.Float("RAM (GB)", tracking=10)
     active = fields.Boolean(default=True)
@@ -44,14 +49,14 @@ class MachineInstance(models.Model):
         copy=False,
     )
     company_identifier = fields.Integer(
-        compute='_compute_company_identifier', store=True,
+        compute='_compute_company_identifier',
+        store=True,
     )
 
     partner_contact_id = fields.Many2one(
         'res.partner',
         "Contact",
-        help="Contact which email will be used when communicating about "
-        "machine.",
+        help="Contact which email will be used when communicating about " "machine.",
         tracking=10,
         copy=False,
     )
@@ -100,9 +105,7 @@ class MachineInstance(models.Model):
             # Calling directly on childs, because company partner can
             # be of contact type and then childs would ignored.
             addr = self.partner_id.child_ids.address_get(adr_pref=['contact'])
-            self.partner_contact_id = (
-                addr.get('contact') or self.partner_id.id
-            )
+            self.partner_contact_id = addr.get('contact') or self.partner_id.id
         else:
             self.partner_contact_id = False
 
@@ -125,13 +128,11 @@ class MachineInstance(models.Model):
     # mail.thread specific.
     def message_get_suggested_recipients(self):
         """Add suggested recipients for machine.instance model."""
-        recipients = super(
-            MachineInstance, self).message_get_suggested_recipients()
+        recipients = super().message_get_suggested_recipients()
         for rec in self.filtered(lambda r: r.partner_contact_id):
             rec._message_add_suggested_recipient(
-                recipients,
-                partner=rec.partner_contact_id,
-                reason=_("Partner Contact"))
+                recipients, partner=rec.partner_contact_id, reason=_("Partner Contact")
+            )
         return recipients
 
     def message_get_default_recipients(self):
@@ -140,10 +141,9 @@ class MachineInstance(models.Model):
         for rec in self:
             partner_contact_id = rec.partner_contact_id.id
             res[rec.id] = {
-                'partner_ids': [
-                    partner_contact_id] if partner_contact_id else [],
+                'partner_ids': [partner_contact_id] if partner_contact_id else [],
                 'email_to': False,
-                'email_cc': rec.user_id.partner_id.email
+                'email_cc': rec.user_id.partner_id.email,
             }
         return res
 
@@ -182,10 +182,12 @@ class MachineInstanceChangeLog(models.Model):
     _description = 'Machine Change Log'
     _order = 'date'
 
-    name = fields.Char(
-        "Description", required=True, help="Change description")
+    name = fields.Char("Description", required=True, help="Change description")
     machine_instance_id = fields.Many2one(
-        'machine.instance', "Machine", required=True, ondelete='restrict',
+        'machine.instance',
+        "Machine",
+        required=True,
+        ondelete='restrict',
     )
     machine_name = fields.Char(
         string="Machine Display Name",

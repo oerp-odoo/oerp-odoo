@@ -27,9 +27,7 @@ def invoice_3pl_order(sale_order, tpl_service, logger=None):
                 payment_register.action_create_payments()
             if state_email == 'paid':
                 send_invoices(invoices)
-    post_state = invoices.mapped(
-        lambda r: (r.name, (r.state, r.payment_state))
-    )
+    post_state = invoices.mapped(lambda r: (r.name, (r.state, r.payment_state)))
     tpl_service.log(
         '%s Invoices. Pre: %s. Post: %s',
         (tpl_service._description, pre_state, post_state),

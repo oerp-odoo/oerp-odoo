@@ -6,10 +6,7 @@
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
             <group name="description" position="after">
-                <group
-                    string="Sales Rich Description"
-                    name="description_rich_sale"
-                >
+                <group string="Sales Rich Description" name="description_rich_sale">
                     <field
                         name="description_rich_sale"
                         nolabel="1"

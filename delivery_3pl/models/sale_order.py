@@ -1,4 +1,4 @@
-from odoo import models, api, _
+from odoo import _, api, models
 from odoo.exceptions import ValidationError
 
 
@@ -18,9 +18,7 @@ class SaleOrder(models.Model):
                 # If we got single name, we check only that single service!
                 matchers_map = {name: matchers_map[name]}
             except KeyError:
-                raise ValidationError(
-                    _("No 3PL service found with name %s", name)
-                )
+                raise ValidationError(_("No 3PL service found with name %s", name))
         for service_matcher in matchers_map.values():
             service = service_matcher()
             if service:

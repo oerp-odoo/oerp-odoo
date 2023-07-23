@@ -1,7 +1,7 @@
 from footil.formatting import get_formatted_exception
 
+from odoo import _, fields, models
 from odoo.exceptions import ValidationError
-from odoo import models, fields, _
 
 
 class DeliveryTrackingLink(models.Model):
@@ -16,7 +16,7 @@ class DeliveryTrackingLink(models.Model):
         string="URL Format",
         help="At minimum should use `picking.carrier_tracking_ref` to combine"
         " URL with tracking number. E.g. "
-        "`https://some-domain.com/tracking/{picking.carrier_tracking_ref}`"
+        "`https://some-domain.com/tracking/{picking.carrier_tracking_ref}`",
     )
 
     def generate_link(self, picking):
@@ -26,6 +26,6 @@ class DeliveryTrackingLink(models.Model):
             return self.url_format.format(picking=picking)
         except Exception:
             raise ValidationError(
-                _("Tracking Links has incorrect format. Error:\n%s") %
-                get_formatted_exception()
+                _("Tracking Links has incorrect format. Error:\n%s")
+                % get_formatted_exception()
             )

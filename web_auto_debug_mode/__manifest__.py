@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Developer Mode on Login",
-    'version': '15.0.2.0.0-rc.1',
+    'version': '15.0.2.0.0',
     'summary': 'Automatically enable developer mode when logging in',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
@@ -18,5 +18,5 @@
         'views/res_users_views.xml',
     ],
     'auto_install': True,
-    'installable': True,
+    'installable': False,
 }

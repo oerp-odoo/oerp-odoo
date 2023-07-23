@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <menuitem id="machine_cpu_top_menu"
+    <menuitem
+        id="machine_cpu_top_menu"
         name="Central Processing Units"
         parent="machine_config_menu"
-        sequence="10"/>
+        sequence="10"
+    />
 
     <!-- CPU -->
     <record id="machine_cpu_view_tree" model="ir.ui.view">
@@ -46,10 +48,12 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="machine_cpu_menu"
+    <menuitem
+        id="machine_cpu_menu"
         parent="machine_cpu_top_menu"
         action="machine_cpu_action"
-        sequence="1"/>
+        sequence="1"
+    />
 
     <!-- CPU Brand -->
     <record id="machine_cpu_brand_view_tree" model="ir.ui.view">
@@ -88,10 +92,12 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="machine_cpu_brand_menu"
+    <menuitem
+        id="machine_cpu_brand_menu"
         parent="machine_cpu_top_menu"
         action="machine_cpu_brand_action"
-        sequence="2"/>
+        sequence="2"
+    />
 
     <!-- CPU Vendor -->
     <record id="machine_cpu_vendor_view_tree" model="ir.ui.view">
@@ -128,7 +134,8 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="machine_cpu_vendor_menu"
+    <menuitem
+        id="machine_cpu_vendor_menu"
         parent="machine_cpu_top_menu"
         action="machine_cpu_vendor_action"
         sequence="3"
