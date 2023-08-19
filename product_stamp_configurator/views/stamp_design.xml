@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stamp_design_view_tree" model="ir.ui.view">
+        <field name="name">stamp.design.tree</field>
+        <field name="model">stamp.design</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="category_id"/>
+                <field name="is_embossed"/>
+                <field name="engraving_speed"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="stamp_design_view_form" model="ir.ui.view">
+        <field name="name">stamp.design.form</field>
+        <field name="model">stamp.design</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="category_id"/>
+                        </group>
+                        <group name="right">
+                            <field name="is_embossed"/>
+                            <field
+                                name="design_base_embossed_id"
+                                attrs="{'invisible': [('is_embossed', '=', False)], 'required': [('is_embossed', '=', True)]}"
+                            />
+                            <field name="engraving_speed"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="stamp_design_action" model="ir.actions.act_window">
+        <field name="name">Designs</field>
+        <field name="res_model">stamp.design</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.stamp</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div
+                    class="app_settings_block"
+                    data-string="Stamp"
+                    string="Stamp"
+                    data-key="product_stamp_configurator"
+                    groups="product_stamp_configurator.stamp_group_manager"
+                >
+                    <h2>Defaults</h2>
+                    <div
+                        class="row mt16 o_settings_container"
+                        name="stamp_settings_container_defaults"
+                    >
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            name="stamp_default_counter_die_category"
+                        >
+                            <div class="o_setting_right_pane">
+                                <label for="category_default_counter_die_id"/>
+                                <div class="text-muted">
+                                    Select default Counter-Die category for stamp configurator.
+                                </div>
+                                 <div class="content-group">
+                                    <div class="mt16">
+                                        <field
+                                            name="category_default_counter_die_id"
+                                            class="oe_inline"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            name="stamp_default_mold_category"
+                        >
+                            <div class="o_setting_right_pane">
+                                <label for="category_default_mold_id"/>
+                                <div class="text-muted">
+                                    Select default Mold category for stamp configurator.
+                                </div>
+                                 <div class="content-group">
+                                    <div class="mt16">
+                                        <field
+                                            name="category_default_mold_id"
+                                            class="oe_inline"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stamp_config_settings_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field
+            name="context"
+        >{'module' : 'product_stamp_configurator', 'bin_size': False}</field>
+    </record>
+</odoo>

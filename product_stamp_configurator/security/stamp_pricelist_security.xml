@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stamp_pricelist_rule_company" model="ir.rule">
+        <field name="name">stamp.pricelist: Multi-Company</field>
+        <field name="model_id" ref="product_stamp_configurator.model_stamp_pricelist"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="stamp_pricelist_item_rule_company" model="ir.rule">
+        <field name="name">stamp.pricelist.item: Multi-Company</field>
+        <field
+            name="model_id"
+            ref="product_stamp_configurator.model_stamp_pricelist_item"
+        />
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>

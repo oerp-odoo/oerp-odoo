@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stamp_configure_form" model="ir.ui.view">
+        <field name="name">stamp.configure.form</field>
+        <field name="model">stamp.configure</field>
+        <field name="arch" type="xml">
+            <form>
+                <group name="main">
+                    <group name="general" string="General">
+                        <field name="partner_id"/>
+                        <field name="origin"/>
+                        <field name="ref"/>
+                        <field name="sequence"/>
+                        <field name="sequence_counter_die"/>
+                    </group>
+                    <group name="dimensions" string="Dimensions">
+                        <field name="size_length"/>
+                        <field name="size_width"/>
+                        <field name="area"/>
+                    </group>
+                    <group name="die" string="Die">
+                        <field name="die_id"/>
+                        <field name="design_id"/>
+                        <field name="is_embossed" invisible="1"/>
+                        <field
+                            name="embossed_design_perc"
+                            attrs="{'invisible': [('is_embossed', '=', False)], 'required': [('is_embossed', '=', True)]}"
+                        />
+                        <field name="material_id"/>
+                        <field name="finishing_id"/>
+                        <field name="difficulty_id"/>
+                        <field name="quantity_dies"/>
+                        <field name="quantity_spare_dies"/>
+                        <field name="quantity_dies_total"/>
+                    </group>
+                    <group name="counter_die" string="Counter Die">
+                        <field name="quantity_counter_dies"/>
+                        <field
+                            name="quantity_counter_spare_dies"
+                            attrs="{'invisible': [('quantity_counter_dies', '=', 0)]}"
+                        />
+                        <field
+                            name="quantity_counter_dies_total"
+                            attrs="{'invisible': [('quantity_counter_dies', '=', 0)]}"
+                        />
+                        <field
+                            name="material_counter_id"
+                            attrs="{'invisible': [('quantity_counter_dies', '=', 0)], 'required': [('quantity_counter_dies', '>', 0)]}"
+                        />
+                        <field
+                            name="category_counter_die_id"
+                            attrs="{'invisible': [('quantity_counter_dies', '=', 0)], 'required': [('quantity_counter_dies', '>', 0)]}"
+                        />
+                    </group>
+                    <group name="mold" string="Mold">
+                        <field name="quantity_mold"/>
+                        <field
+                            name="category_mold_id"
+                            attrs="{'invisible': [('quantity_mold', '=', 0)], 'required': [('quantity_mold', '>', 0)]}"
+                        />
+                    </group>
+                </group>
+                <footer>
+                    <button
+                        name="action_configure"
+                        string="Configure"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="stamp_configure_action" model="ir.actions.act_window">
+        <field name="name">Configure</field>
+        <field name="res_model">stamp.configure</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stamp_design_user,stamp_design user,model_stamp_design,stamp_group_user,1,0,0,0
+access_stamp_design_manager,stamp_design manager,model_stamp_design,stamp_group_manager,1,1,1,1
+access_stamp_die_user,stamp_die user,model_stamp_die,stamp_group_user,1,0,0,0
+access_stamp_die_manager,stamp_die manager,model_stamp_die,stamp_group_manager,1,1,1,1
+access_stamp_difficulty_user,stamp_difficulty user,model_stamp_difficulty,stamp_group_user,1,0,0,0
+access_stamp_difficulty_manager,stamp_difficulty manager,model_stamp_difficulty,stamp_group_manager,1,1,1,1
+access_stamp_finishing_user,stamp_finishing user,model_stamp_finishing,stamp_group_user,1,0,0,0
+access_stamp_finishing_manager,stamp_finishing manager,model_stamp_finishing,stamp_group_manager,1,1,1,1
+access_stamp_material_user,stamp_material user,model_stamp_material,stamp_group_user,1,0,0,0
+access_stamp_material_manager,stamp_material manager,model_stamp_material,stamp_group_manager,1,1,1,1
+access_stamp_pricelist_user,stamp_pricelist user,model_stamp_pricelist,stamp_group_user,1,0,0,0
+access_stamp_pricelist_manager,stamp_pricelist manager,model_stamp_pricelist,stamp_group_manager,1,1,1,1
+access_stamp_pricelist_item_user,stamp_pricelist_item user,model_stamp_pricelist_item,stamp_group_user,1,0,0,0
+access_stamp_pricelist_item_manager,stamp_pricelist_item manager,model_stamp_pricelist_item,stamp_group_manager,1,1,1,1
+access_stamp_configure_user,stamp_configure user,model_stamp_configure,stamp_group_user,1,1,1,0
+access_stamp_configure_manager,stamp_configure manager,model_stamp_configure,stamp_group_manager,1,1,1,1
