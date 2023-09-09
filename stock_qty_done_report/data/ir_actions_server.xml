@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="ir_actions_server_export_qty_done" model="ir.actions.server">
+        <field name="name">Export Done Quantity</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = record.action_export_qty_done()</field>
+    </record>
+</odoo>
