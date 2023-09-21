@@ -29,6 +29,21 @@ class StampConfigure(models.TransientModel):
         if self.design_id:
             self.sequence = self._get_sequence()
 
+    def prepare_product_insert_die_ref_domain(self):
+        domain = super().prepare_product_insert_die_ref_domain()
+        products = self.find_rel_document_products()
+        # We include all products, but we expect base domain to filter
+        # out that do not match products that can be insert die
+        # reference.
+        if products:
+            domain.append(('id', 'in', products.ids))
+        return domain
+
+    def find_rel_document_products(self):
+        """Find products on related document(s)."""
+        self.ensure_one()
+        return self.sale_id.order_line.mapped('product_id')
+
     def action_configure(self):
         res = super().action_configure()
         if self.sale_id:

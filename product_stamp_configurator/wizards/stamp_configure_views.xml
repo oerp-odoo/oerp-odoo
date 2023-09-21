@@ -20,8 +20,17 @@
                     </group>
                     <group name="die" string="Die">
                         <field name="die_id"/>
+                        <field
+                            name="product_insert_die_ref_id"
+                            attrs="{'invisible': [('is_insert_die', '=', False)], 'required': [('is_insert_die', '=', True)]}"
+                        />
+                        <field
+                            name="insert_die_ref"
+                            attrs="{'invisible': [('product_insert_die_ref_id', '=', False)], 'required': [('product_insert_die_ref_id', '!=', False)]}"
+                        />
                         <field name="design_id"/>
                         <field name="is_embossed" invisible="1"/>
+                        <field name="is_insert_die" invisible="1"/>
                         <field
                             name="embossed_design_perc"
                             attrs="{'invisible': [('is_embossed', '=', False)], 'required': [('is_embossed', '=', True)]}"
@@ -49,6 +58,7 @@
                         />
                         <field
                             name="category_counter_die_id"
+                            options="{'no_create': True}"
                             attrs="{'invisible': [('quantity_counter_dies', '=', 0)], 'required': [('quantity_counter_dies', '>', 0)]}"
                         />
                     </group>
@@ -56,6 +66,7 @@
                         <field name="quantity_mold"/>
                         <field
                             name="category_mold_id"
+                            options="{'no_create': True}"
                             attrs="{'invisible': [('quantity_mold', '=', 0)], 'required': [('quantity_mold', '>', 0)]}"
                         />
                     </group>

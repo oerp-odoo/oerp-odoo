@@ -29,7 +29,7 @@ class TestStampConfiguratorEngraving(TestProductStampConfiguratorCommon):
         # THEN
         self.assertAlmostEqual(eng_time, 0.47, places=3)
 
-    def test_03_calc_engraving_time_die_f_b7_w_emb_design(self):
+    def test_02_calc_engraving_time_die_f_b7_w_emb_design(self):
         # GIVEN
         cfg = self.StampConfigure.create(
             {

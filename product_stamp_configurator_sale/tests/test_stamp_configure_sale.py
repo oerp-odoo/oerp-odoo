@@ -27,7 +27,7 @@ class TestStampConfigureSale(TestProductStampConfiguratorCommon):
         self.assertEqual(line.product_uom_qty, data['quantity'])
         self.assertEqual(line.price_unit, data['price_unit'])
 
-    def test_01_multi_stamp_configure_on_sale(self):
+    def test_01_multi_stamp_configure_on_sale_die(self):
         # GIVEN
         ctx = self.sale_1.action_open_stamp_configurator()['context']
         # WHEN
@@ -102,10 +102,66 @@ class TestStampConfigureSale(TestProductStampConfiguratorCommon):
             description=res_2['counter_die']['product'].display_name,
         )
 
-    def test_02_stamp_configure_sale_contact(self):
+    def test_02_multi_stamp_configure_on_sale_insert_die_ref(self):
+        # GIVEN
+        product_ref = self.ProductProduct.create(
+            {
+                'name': 'Die Ref 1',
+                'default_code': '1111F1B7 / 2222',
+                'stamp_type': 'die',
+            }
+        )
+        ctx = self.sale_1.action_open_stamp_configurator()['context']
+        cfg_1 = self.StampConfigure.with_context(**ctx).create(
+            {
+                'die_id': self.stamp_die_insert.id,
+                'product_insert_die_ref_id': product_ref.id,
+                'design_id': self.stamp_design_f.id,
+                'material_id': self.stamp_material_brass_7.id,
+                'material_counter_id': self.stamp_material_plastic_05.id,
+                'difficulty_id': self.stamp_difficulty_a.id,
+                'size_length': 15,
+                'size_width': 10,
+                'quantity_dies': 10,
+                'quantity_spare_dies': 3,
+                'quantity_counter_dies': 10,
+                'quantity_counter_spare_dies': 10,
+                'quantity_mold': 1,
+            }
+        )
+        cfg_1._onchange_design_id()
+        # WHEN
+        res = cfg_1._onchange_die_id()
+        # THEN
+        # Reference product is not set on related sale order line.
+        self.assertEqual(
+            res['domain']['product_insert_die_ref_id'],
+            [('stamp_type', '=', 'die'), ('is_insert_die', '=', False)],
+        )
+        # WHEN
+        self.sale_1.order_line = [
+            (
+                0,
+                0,
+                {'product_id': product_ref.id, 'price_unit': 10, 'product_uom_qty': 5},
+            )
+        ]
+        res = cfg_1._onchange_die_id()
+        # THEN
+        self.assertEqual(
+            res['domain']['product_insert_die_ref_id'],
+            [
+                ('stamp_type', '=', 'die'),
+                ('is_insert_die', '=', False),
+                ('id', 'in', [product_ref.id]),
+            ],
+        )
+
+    def test_03_stamp_configure_sale_contact(self):
         # GIVEN
         ctx = self.sale_1.action_open_stamp_configurator()['context']
         self.sale_1.partner_id = self.partner_deco_fletcher.id
+        # WHEN
         cfg = self.StampConfigure.with_context(**ctx).create(
             {
                 'die_id': self.stamp_die_default.id,
@@ -122,4 +178,5 @@ class TestStampConfigureSale(TestProductStampConfiguratorCommon):
                 'quantity_mold': 1,
             }
         )
+        # THEN
         self.assertEqual(cfg.partner_id, self.partner_deco)

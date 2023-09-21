@@ -32,6 +32,7 @@
                                     <div class="mt16">
                                         <field
                                             name="category_default_counter_die_id"
+                                            options="{'no_create': True}"
                                             class="oe_inline"
                                         />
                                     </div>
@@ -51,6 +52,7 @@
                                     <div class="mt16">
                                         <field
                                             name="category_default_mold_id"
+                                            options="{'no_create': True}"
                                             class="oe_inline"
                                         />
                                     </div>

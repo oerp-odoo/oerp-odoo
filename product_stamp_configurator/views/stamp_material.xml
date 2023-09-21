@@ -16,6 +16,7 @@
                     widget="monetary"
                     options="{'currency_field': 'currency_id'}"
                 />
+                <field name="weight_coefficient"/>
                 <field name="company_id" groups="base.group_multi_company"/>
             </tree>
         </field>
@@ -42,6 +43,7 @@
                             />
                             <field name="thickness"/>
                             <field name="product_id"/>
+                            <field name="weight_coefficient"/>
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>

@@ -19,6 +19,9 @@ class TestProductStampConfiguratorCommon(TransactionCase):
         cls.product_categ_consu = cls.env.ref('product.product_category_consumable')
         cls.product_categ_furniture = cls.env.ref('product.product_category_5')
         cls.product_categ_service = cls.env.ref('product.product_category_3')
+        cls.product_categ_consu.stamp_type = 'die'
+        cls.product_categ_furniture.stamp_type = 'counter_die'
+        cls.product_categ_service.stamp_type = 'mold'
         cls.product_bin = cls.env.ref('product.product_product_9')
         cls.product_drawer = cls.env.ref('product.product_product_27')
         cls.company_main.write(
@@ -33,6 +36,7 @@ class TestProductStampConfiguratorCommon(TransactionCase):
                 'code': 'F',
                 'category_id': cls.product_categ_consu.id,
                 'engraving_speed': 25,
+                'weight_coefficient': 1.4,
                 'company_id': cls.company_main.id,
             }
         )
@@ -44,13 +48,14 @@ class TestProductStampConfiguratorCommon(TransactionCase):
                 'design_base_embossed_id': cls.stamp_design_f.id,
                 'category_id': cls.product_categ_consu.id,
                 'engraving_speed': 70,
+                'weight_coefficient': 1.2,
                 'company_id': cls.company_main.id,
             }
         )
         cls.stamp_die_default = cls.StampDie.create(
             {'name': 'Die', 'company_id': cls.company_main.id}
         )
-        cls.stamp_die_inset = cls.StampDie.create(
+        cls.stamp_die_insert = cls.StampDie.create(
             {'name': 'Insert Die', 'code': 'i', 'company_id': cls.company_main.id}
         )
         cls.stamp_difficulty_a = cls.StampDifficulty.create(
@@ -76,6 +81,7 @@ class TestProductStampConfiguratorCommon(TransactionCase):
                 'thickness': 7,
                 'product_id': cls.product_bin.id,
                 'price': 0.09,
+                'weight_coefficient': 1.4,
                 'company_id': cls.company_main.id,
             }
         )
@@ -87,6 +93,7 @@ class TestProductStampConfiguratorCommon(TransactionCase):
                 'thickness': 0.5,
                 'product_id': cls.product_drawer.id,
                 'price': 0.02,
+                'weight_coefficient': 0.6,
                 'company_id': cls.company_main.id,
             }
         )

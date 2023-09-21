@@ -10,6 +10,7 @@
                 <field name="category_id"/>
                 <field name="is_embossed"/>
                 <field name="engraving_speed"/>
+                <field name="weight_coefficient"/>
                 <field name="company_id" groups="base.group_multi_company"/>
             </tree>
         </field>
@@ -25,7 +26,7 @@
                         <group name="left">
                             <field name="name"/>
                             <field name="code"/>
-                            <field name="category_id"/>
+                            <field name="category_id" options="{'no_create': True}"/>
                         </group>
                         <group name="right">
                             <field name="is_embossed"/>
@@ -34,6 +35,7 @@
                                 attrs="{'invisible': [('is_embossed', '=', False)], 'required': [('is_embossed', '=', True)]}"
                             />
                             <field name="engraving_speed"/>
+                            <field name="weight_coefficient"/>
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>

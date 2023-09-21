@@ -12,6 +12,7 @@ class StampMaterial(models.Model):
     thickness = fields.Float("Thickness, mm")
     product_id = fields.Many2one('product.product', "Raw Material")
     price = fields.Float("Price per Square Meter")
+    weight_coefficient = fields.Float()
     company_id = fields.Many2one(
         'res.company', required=True, default=lambda s: s.env.company
     )
