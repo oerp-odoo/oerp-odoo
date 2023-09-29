@@ -23,6 +23,8 @@
         'security/stamp_pricelist_security.xml',
         'views/res_config_settings.xml',
         'views/res_partner.xml',
+        'views/product_category.xml',
+        'views/product_template.xml',
         'views/stamp_pricelist.xml',
         'views/stamp_design.xml',
         'views/stamp_die.xml',

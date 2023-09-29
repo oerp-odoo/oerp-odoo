@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_category_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.category.form.stamp</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <group name="first" position="after">
+                <group
+                    name="stamp"
+                    col="2"
+                    groups="product_stamp_configurator.stamp_group_user"
+                >
+                    <field name="stamp_type" class="oe_inline"/>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>

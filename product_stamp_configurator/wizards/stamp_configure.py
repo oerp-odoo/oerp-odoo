@@ -1,7 +1,10 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-from ..stamp import code, description, name, price
+from ..stamp import code, description, name, parsing, price
+
+# To filter nothing.
+ALL_DOMAIN = [(1, '=', 1)]
 
 
 class StampConfigure(models.TransientModel):
@@ -24,6 +27,16 @@ class StampConfigure(models.TransientModel):
     sequence_counter_die = fields.Integer(default=1)
     partner_id = fields.Many2one('res.partner', required=True, string="Customer")
     die_id = fields.Many2one('stamp.die', string="Die Type", required=True)
+    product_insert_die_ref_id = fields.Many2one(
+        'product.product', string="Reference to Master Die (Product)"
+    )
+    insert_die_ref = fields.Char(
+        string="Reference to Master Die",
+        compute='_compute_insert_die_ref',
+        readonly=False,
+        store=True,
+    )
+    is_insert_die = fields.Boolean(compute='_compute_is_insert_die')
     design_id = fields.Many2one('stamp.design', string="Design Type", required=True)
     is_embossed = fields.Boolean(related='design_id.is_embossed')
     embossed_design_perc = fields.Float("% of embossed design")
@@ -50,9 +63,34 @@ class StampConfigure(models.TransientModel):
     )
     quantity_mold = fields.Integer("Mold Quantity")
     category_counter_die_id = fields.Many2one(
-        'product.category', 'Counter-Die Category'
+        'product.category',
+        'Counter-Die Category',
+        domain=[('stamp_type', '=', 'counter_die')],
     )
-    category_mold_id = fields.Many2one('product.category', 'Mold Category')
+    category_mold_id = fields.Many2one(
+        'product.category', 'Mold Category', domain=[('stamp_type', '=', 'mold')]
+    )
+
+    @api.depends('product_insert_die_ref_id.default_code')
+    @api.depends_context('company')
+    def _compute_insert_die_ref(self):
+        for rec in self:
+            ref = False
+            code = rec.product_insert_die_ref_id.default_code
+            if code:
+                design_codes = self.env['stamp.design'].get_design_codes(
+                    company_id=self.env.company.id
+                )
+                ref = (
+                    parsing.parse_design_seq_code(code, design_codes=design_codes)
+                    or False
+                )
+            rec.insert_die_ref = ref
+
+    @api.depends('die_id.code')
+    def _compute_is_insert_die(self):
+        for rec in self:
+            rec.is_insert_die = parsing.is_insert_die_code(rec.die_id.code or '')
 
     @api.depends('size_length', 'size_width')
     def _compute_area(self):
@@ -118,15 +156,47 @@ class StampConfigure(models.TransientModel):
             if rec.quantity_mold < 0:
                 raise ValidationError(_("Mold Quantity must not be negative"))
 
+    @api.onchange('die_id')
+    def _onchange_die_id(self):
+        domain = ALL_DOMAIN
+        if self.is_insert_die:
+            domain = self.prepare_product_insert_die_ref_domain()
+        else:
+            self.product_insert_die_ref_id = False
+        return {'domain': {'product_insert_die_ref_id': domain}}
+
+    def prepare_product_insert_die_ref_domain(self):
+        self.ensure_one()
+        return [('stamp_type', '=', 'die'), ('is_insert_die', '=', False)]
+
     def action_configure(self):
         """Create products with details using stamp configurator."""
         self.ensure_one()
+        self._validate_categories()
         res = {'die': self._create_die()}
         if self.quantity_counter_dies_total > 0:
             res['counter_die'] = self._create_counter_die()
         if self.quantity_mold > 0:
             res['mold'] = self._create_mold()
         return res
+
+    def _validate_categories(self):
+        self.ensure_one()
+        self.design_id.category_id.validate_stamp_type('die')
+        self.category_counter_die_id.validate_stamp_type('counter_die')
+        self.category_mold_id.validate_stamp_type('mold')
+
+    def _prepare_common_product_vals(self):
+        self.ensure_one()
+        return {
+            'company_id': self.env.company.id,
+        }
+
+    def _calc_weight(self, material):
+        self.ensure_one()
+        return (
+            self.area * self.design_id.weight_coefficient * material.weight_coefficient
+        )
 
     def _create_die(self):
         self.ensure_one()
@@ -159,6 +229,9 @@ class StampConfigure(models.TransientModel):
         self.ensure_one()
         return self.env['product.product'].create(
             {
+                **self._prepare_common_product_vals(),
+                'is_insert_die': self.is_insert_die,
+                'weight': self._calc_weight(self.design_id),
                 'categ_id': self.design_id.category_id.id,
                 # TODO: for now we have fixed type, but might be good to
                 # be able to specify one via design?
@@ -176,6 +249,8 @@ class StampConfigure(models.TransientModel):
         self.ensure_one()
         return self.env['product.product'].create(
             {
+                **self._prepare_common_product_vals(),
+                'weight': self._calc_weight(self.material_counter_id),
                 'categ_id': self.category_counter_die_id.id,
                 'detailed_type': 'consu',
                 'default_code': code.generate_counter_die_code(self),
@@ -188,6 +263,8 @@ class StampConfigure(models.TransientModel):
         self.ensure_one()
         return self.env['product.product'].create(
             {
+                **self._prepare_common_product_vals(),
+                'weight': self._calc_weight(self.design_id),
                 'categ_id': self.category_mold_id.id,
                 'detailed_type': 'service',
                 'default_code': code.generate_mold_code(self),

@@ -32,7 +32,8 @@ def _generate_code(stamp_cfg, extra_code):
 
 def _get_base_code(stamp_cfg):
     seq = stamp_cfg.sequence
-    return f'{stamp_cfg.origin}{get_design_code_with_pfx(stamp_cfg)}{seq}'
+    ref = stamp_cfg.insert_die_ref or ''
+    return f'{stamp_cfg.origin}{ref}{get_design_code_with_pfx(stamp_cfg)}{seq}'
 
 
 def _get_code_with_ref(code, ref):

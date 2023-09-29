@@ -94,7 +94,8 @@ class TestStampConfiguratorNames(TestProductStampConfiguratorCommon):
                 'sequence': 3,
                 'sequence_counter_die': 3,
                 'partner_id': self.partner_azure.id,
-                'die_id': self.stamp_die_inset.id,
+                'die_id': self.stamp_die_insert.id,
+                'insert_die_ref': 'FE2',
                 'design_id': self.stamp_design_fe.id,
                 'embossed_design_perc': 40.0,
                 'material_id': self.stamp_material_brass_7.id,
@@ -121,9 +122,9 @@ class TestStampConfiguratorNames(TestProductStampConfiguratorCommon):
         die_description = generate_die_description(cfg, 72.375)
         # THEN
         # origin+die.code+design.code+seq_code+material.code+ref
-        self.assertEqual(die_code, '1111iFE3B7N / 2222')
-        self.assertEqual(mold_code, '1111iFE3P3 / 2222')
-        self.assertEqual(counter_die_code, '1111iFE3P3P0.5 / 2222')
+        self.assertEqual(die_code, '1111FE2iFE3B7N / 2222')
+        self.assertEqual(mold_code, '1111FE2iFE3P3 / 2222')
+        self.assertEqual(counter_die_code, '1111FE2iFE3P3P0.5 / 2222')
         self.assertEqual(
             die_name, 'Brass Insert Die, Foil + Emboss, FE3, 7 mm+ Spare 3 pcs'
         )
