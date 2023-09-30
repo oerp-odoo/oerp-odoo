@@ -1,17 +1,17 @@
 # Author: Andrius Laukavičius. Copyright: Andrius Laukavičius.
 # See LICENSE file for full copyright and licensing details.
 {
-    'name': "Purchase - No quick create on form",
+    'name': "Product - No quick create",
     'version': '15.0.1.0.0',
-    'summary': 'Will not show quick create option on some fields',
+    'summary': 'Will not show quick create option on some product fields',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
     'website': "https://timefordev.com",
-    'category': 'Inventory/Purchase',
+    'category': 'Sales/Sales',
     'depends': [
         # odoo
-        'purchase',
+        'product',
     ],
-    'data': ['views/purchase_order_views.xml'],
+    'data': ['views/product_supplierinfo_views.xml'],
     'installable': True,
 }
