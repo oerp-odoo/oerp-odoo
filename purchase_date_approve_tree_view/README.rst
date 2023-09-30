@@ -1,5 +1,5 @@
-Purchase Purchase Confirmation in List View
-###########################################
+Purchase Confirmation in List View
+##################################
 
 Adds **Purchase Confirmation** field in RFQ list view.
 

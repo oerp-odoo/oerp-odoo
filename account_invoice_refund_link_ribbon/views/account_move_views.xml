@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_move_form_inherit" model="ir.ui.view">
+        <field name="name">account.move.form.refund.ribbon</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="id" position="before">
+                <field name="has_refunds" invisible="1"/>
+                <widget
+                    name="web_ribbon"
+                    title="Paid and Reversed"
+                    bg_color="bg-danger"
+                    attrs="{'invisible': ['|', '|', ('payment_state', '!=', 'paid'), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')), ('has_refunds', '=', False)]}"
+                />
+                <widget
+                    name="web_ribbon"
+                    title="In Payment and Reversed"
+                    bg_color="bg-danger"
+                    attrs="{'invisible': ['|', '|', ('payment_state', '!=', 'in_payment'), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')), ('has_refunds', '=', False)]}"
+                />
+            </field>
+            <xpath expr="//widget[@name='web_ribbon'][1]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', '|', ('payment_state', '!=', 'paid'), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')), ('has_refunds', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//widget[@name='web_ribbon'][2]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', '|', ('payment_state', '!=', 'in_payment'), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')), ('has_refunds', '=', True)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
