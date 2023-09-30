@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, tools
 
 
 class StampDesign(models.Model):
@@ -23,7 +23,23 @@ class StampDesign(models.Model):
         'res.company', required=True, default=lambda s: s.env.company
     )
 
-    # TODO: cache it.
     @api.model
+    @tools.ormcache('company_id')
     def get_design_codes(self, company_id):
         return tuple(self.search([('company_id', '=', company_id)]).mapped('code'))
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        result = super().create(vals_list)
+        self.get_design_codes.clear_cache(self)
+        return result
+
+    def write(self, vals):
+        result = super().write(vals)
+        self.get_design_codes.clear_cache(self)
+        return result
+
+    def unlink(self):
+        result = super().unlink()
+        self.get_design_codes.clear_cache(self)
+        return result
