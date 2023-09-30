@@ -4,7 +4,7 @@
     'name': "Invoice Reversed Word on Ribbon",
     'version': '15.0.1.1.0',
     'summary': 'Shows reversed word on ribbon on paid and refunded invoice',
-    'license': 'LGPL-3',
+    'license': 'AGPL-3',
     'author': "Andrius Laukavičius",
     'website': "https://timefordev.com",
     'category': 'Accounting/Accounting',
