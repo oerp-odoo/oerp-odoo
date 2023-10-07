@@ -2,3 +2,7 @@
 	path = external/oca-account-invoicing
 	url = git@github.com:OCA/account-invoicing.git
 	branch = 15.0
+[submodule "external/oca-manufacture"]
+	path = external/oca-manufacture
+	url = git@github.com:OCA/manufacture.git
+	branch = 15.0
