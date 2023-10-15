@@ -12,3 +12,7 @@ class ResConfigSettings(models.TransientModel):
         related='company_id.category_default_mold_id',
         readonly=False,
     )
+    quantity_mold_default = fields.Integer(
+        related='company_id.quantity_mold_default',
+        readonly=False,
+    )

@@ -28,6 +28,7 @@ class TestProductStampConfiguratorCommon(TransactionCase):
             {
                 'category_default_counter_die_id': cls.product_categ_furniture.id,
                 'category_default_mold_id': cls.product_categ_service.id,
+                'quantity_mold_default': 1,
             }
         )
         cls.stamp_design_f = cls.StampDesign.create(

@@ -59,6 +59,26 @@
                                 </div>
                             </div>
                         </div>
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            name="stamp_quantity_mold_default"
+                        >
+                            <div class="o_setting_right_pane">
+                                <label for="quantity_mold_default"/>
+                                <div class="text-muted">
+                                    Select default Mold Quantity for stamp configurator.
+                                </div>
+                                 <div class="content-group">
+                                    <div class="mt16">
+                                        <field
+                                            name="quantity_mold_default"
+                                            options="{'no_create': True}"
+                                            class="oe_inline"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </xpath>

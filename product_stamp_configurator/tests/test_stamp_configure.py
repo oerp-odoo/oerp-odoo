@@ -21,9 +21,10 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
                 'quantity_spare_dies': 3,
                 'quantity_counter_dies': 10,
                 'quantity_counter_spare_dies': 10,
-                'quantity_mold': 1,
                 'origin': '1111',
                 'ref': '2222',
+                # quantity_mold not set, expecting to use default from
+                # settings -> 1.
             }
         )
         # WHEN

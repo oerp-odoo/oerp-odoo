@@ -14,3 +14,4 @@ class ResCompany(models.Model):
         string="Default Mold Category",
         domain=[('stamp_type', '=', 'mold')],
     )
+    quantity_mold_default = fields.Integer(default=1)

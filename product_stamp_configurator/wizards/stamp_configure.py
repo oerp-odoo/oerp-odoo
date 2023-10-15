@@ -21,6 +21,8 @@ class StampConfigure(models.TransientModel):
             res['category_counter_die_id'] = company.category_default_counter_die_id.id
         if 'category_mold_id' in default_fields:
             res['category_mold_id'] = company.category_default_mold_id.id
+        if 'quantity_mold' in default_fields:
+            res['quantity_mold'] = company.quantity_mold_default
         return res
 
     sequence = fields.Integer(required=True, default=1)
