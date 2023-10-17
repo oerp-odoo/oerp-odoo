@@ -1,4 +1,4 @@
 footil >= 0.35.0
 validators==0.18.2
 pyopenssl==21.0.0
-cryptography==35.0.0
+cryptography==39.0.1
