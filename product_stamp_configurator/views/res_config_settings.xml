@@ -21,6 +21,26 @@
                     >
                         <div
                             class="col-12 col-lg-6 o_setting_box"
+                            name="stamp_default_die_type"
+                        >
+                            <div class="o_setting_right_pane">
+                                <label for="die_default_id"/>
+                                <div class="text-muted">
+                                    Select default Die Type for stamp configurator.
+                                </div>
+                                 <div class="content-group">
+                                    <div class="mt16">
+                                        <field
+                                            name="die_default_id"
+                                            options="{'no_create': True}"
+                                            class="oe_inline"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
                             name="stamp_default_counter_die_category"
                         >
                             <div class="o_setting_right_pane">

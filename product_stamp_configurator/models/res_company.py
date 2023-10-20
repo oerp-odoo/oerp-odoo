@@ -4,6 +4,7 @@ from odoo import fields, models
 class ResCompany(models.Model):
     _inherit = 'res.company'
 
+    die_default_id = fields.Many2one('stamp.die', string="Default Die Type")
     category_default_counter_die_id = fields.Many2one(
         'product.category',
         string="Default Counter-Die Category",

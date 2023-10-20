@@ -17,6 +17,8 @@ class StampConfigure(models.TransientModel):
     def default_get(self, default_fields):
         res = super().default_get(default_fields)
         company = self.env.company
+        if 'die_id' in default_fields:
+            res['die_id'] = company.die_default_id.id
         if 'category_counter_die_id' in default_fields:
             res['category_counter_die_id'] = company.category_default_counter_die_id.id
         if 'category_mold_id' in default_fields:

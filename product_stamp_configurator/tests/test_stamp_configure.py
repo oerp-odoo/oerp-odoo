@@ -10,7 +10,7 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
             {
                 'sequence': 1,
                 'partner_id': self.partner_azure.id,
-                'die_id': self.stamp_die_default.id,
+                # die_id omitted, expecting to use default from settings.
                 'design_id': self.stamp_design_f.id,
                 'material_id': self.stamp_material_brass_7.id,
                 'material_counter_id': self.stamp_material_plastic_05.id,
