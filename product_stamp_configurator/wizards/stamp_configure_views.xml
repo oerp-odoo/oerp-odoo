@@ -59,7 +59,7 @@
                         <field
                             name="category_counter_die_id"
                             options="{'no_create': True}"
-                            attrs="{'invisible': [('quantity_counter_dies', '=', 0)], 'required': [('quantity_counter_dies', '>', 0)]}"
+                            attrs="{'invisible': ['|', ('quantity_counter_dies', '=', 0), ('category_counter_die_id', '!=', False)], 'required': [('quantity_counter_dies', '>', 0)]}"
                         />
                     </group>
                     <group name="mold" string="Mold">
@@ -67,7 +67,7 @@
                         <field
                             name="category_mold_id"
                             options="{'no_create': True}"
-                            attrs="{'invisible': [('quantity_mold', '=', 0)], 'required': [('quantity_mold', '>', 0)]}"
+                            attrs="{'invisible': ['|', ('quantity_mold', '=', 0), ('category_mold_id', '!=', False)], 'required': [('quantity_mold', '>', 0)]}"
                         />
                     </group>
                 </group>
