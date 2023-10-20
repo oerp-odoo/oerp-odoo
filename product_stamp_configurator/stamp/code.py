@@ -27,7 +27,10 @@ def get_design_code_with_pfx(stamp_cfg):
 def _generate_code(stamp_cfg, extra_code):
     code = _get_base_code(stamp_cfg)
     code = f'{code}{extra_code}'
-    return _get_code_with_ref(code, stamp_cfg.ref)
+    ref = stamp_cfg.ref
+    if ref:
+        return _get_code_with_ref(code, stamp_cfg.ref)
+    return code
 
 
 def _get_base_code(stamp_cfg):
