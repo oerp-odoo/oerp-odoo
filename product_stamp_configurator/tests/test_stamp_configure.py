@@ -83,6 +83,19 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
         self.assertEqual(
             on_res, {'domain': {'product_insert_die_ref_id': [(1, '=', 1)]}}
         )
+        for product in product_die | product_counter_die | product_mold:
+            # Expect new message to be added with configurator parameters.
+            msg = product.message_ids[0]
+            self.assertIn(
+                'size_length', msg.body, f'Product: {product.name}. Message: {msg.body}'
+            )
+            tmpl = product.product_tmpl_id
+            msg = tmpl.message_ids[0]
+            self.assertIn(
+                'size_length',
+                msg.body,
+                f'Product Template: {tmpl.name}. Message: {msg.body}',
+            )
 
     def test_02_stamp_configure_insert_die_without_counter_die_and_mold(self):
         # GIVEN

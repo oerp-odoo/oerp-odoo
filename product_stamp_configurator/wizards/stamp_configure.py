@@ -1,3 +1,5 @@
+import json
+
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
@@ -178,10 +180,16 @@ class StampConfigure(models.TransientModel):
         self.ensure_one()
         self._validate_categories()
         res = {'die': self._create_die()}
+        msg_data = self._prepare_message()
+        self._post_product_configurator_message(res['die']['product'], msg_data)
         if self.quantity_counter_dies_total > 0:
             res['counter_die'] = self._create_counter_die()
+            self._post_product_configurator_message(
+                res['counter_die']['product'], msg_data
+            )
         if self.quantity_mold > 0:
             res['mold'] = self._create_mold()
+            self._post_product_configurator_message(res['mold']['product'], msg_data)
         return res
 
     def _validate_categories(self):
@@ -276,3 +284,48 @@ class StampConfigure(models.TransientModel):
                 'list_price': price_unit,
             }
         )
+
+    def _prepare_message(self):
+        self.ensure_one()
+        data = {
+            'sequence': self.sequence,
+            'sequence_counter_die': self.sequence_counter_die,
+            'partner_name': self.partner_id.name,
+            'die_code': self.die_id.code,
+            'is_insert_die': self.is_insert_die,
+            'design_code': self.design_id.code,
+            'material_code': self.material_id.code,
+            'material_counter_code': self.material_counter_id.code,
+            'finishing_code': self.finishing_id.code,
+            'difficulty': self.difficulty_id.name,
+            'size_length': self.size_length,
+            'size_width': self.size_width,
+            'origin': self.origin,
+            'ref': self.ref,
+            'quantity_dies': self.quantity_dies,
+            'quantity_spare_dies': self.quantity_spare_dies,
+            'quantity_counter_dies': self.quantity_counter_dies,
+            'quantity_counter_spare_dies': self.quantity_counter_spare_dies,
+            'quantity_mold': self.quantity_mold,
+            'category_counter_die_name': self.category_counter_die_id.name,
+            'category_mold_name': self.category_mold_id.name,
+        }
+        if self.product_insert_die_ref_id:
+            data[
+                'product_insert_die_ref_code'
+            ] = self.product_insert_die_ref_id.default_code
+        if self.is_embossed:
+            data['embossed_design_perc'] = self.embossed_design_perc
+        return data
+
+    def _post_product_configurator_message(self, product, data):
+        self.ensure_one()
+        data_str = json.dumps(data, indent=2)
+        body = (
+            '<strong>Stamp Configurator Parameters Used:</strong>'
+            f'<pre>\n\n{data_str}</pre>'
+        )
+        # Post on both product.product and product.template for convenience..
+        product.message_post(body=body)
+        product.product_tmpl_id.message_post(body=body)
+        return True
