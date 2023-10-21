@@ -29,6 +29,18 @@ class StampConfigure(models.TransientModel):
         if self.design_id:
             self.sequence = self._get_sequence()
 
+    @api.onchange('product_insert_die_ref_id')
+    def _onchange_product_insert_die_ref_id(self):
+        if self.product_insert_die_ref_id:
+            # Find related SOL. Using only first found to simplify
+            # logic..
+            sol = self.env['sale.order.line'].search(
+                [('product_id', '=', self.product_insert_die_ref_id.id)],
+                limit=1,
+            )
+            if sol:
+                self.quantity_dies = sol.product_uom_qty
+
     def prepare_product_insert_die_ref_domain(self):
         domain = super().prepare_product_insert_die_ref_domain()
         products = self.find_rel_document_products()

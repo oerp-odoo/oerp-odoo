@@ -132,12 +132,15 @@ class TestStampConfigureSale(TestProductStampConfiguratorCommon):
         cfg_1._onchange_design_id()
         # WHEN
         res = cfg_1._onchange_die_id()
+        cfg_1._onchange_product_insert_die_ref_id()
         # THEN
         # Reference product is not set on related sale order line.
         self.assertEqual(
             res['domain']['product_insert_die_ref_id'],
             [('stamp_type', '=', 'die'), ('is_insert_die', '=', False)],
         )
+        # Not found on related SOL, so quantity not changed.
+        self.assertEqual(cfg_1.quantity_dies, 10)
         # WHEN
         self.sale_1.order_line = [
             (
@@ -147,6 +150,7 @@ class TestStampConfigureSale(TestProductStampConfiguratorCommon):
             )
         ]
         res = cfg_1._onchange_die_id()
+        cfg_1._onchange_product_insert_die_ref_id()
         # THEN
         self.assertEqual(
             res['domain']['product_insert_die_ref_id'],
@@ -156,6 +160,8 @@ class TestStampConfigureSale(TestProductStampConfiguratorCommon):
                 ('id', 'in', [product_ref.id]),
             ],
         )
+        # Found on related SOL, so quantity changed.
+        self.assertEqual(cfg_1.quantity_dies, 5)
 
     def test_03_stamp_configure_sale_contact(self):
         # GIVEN
