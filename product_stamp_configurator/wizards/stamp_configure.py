@@ -54,7 +54,9 @@ class StampConfigure(models.TransientModel):
     )
     size_length = fields.Float("Size (length), cm", required=True)
     size_width = fields.Float("Size (width), cm", required=True)
-    area = fields.Float(compute="_compute_area")
+    area = fields.Float(compute='_compute_area')
+    area_priced = fields.Float(compute='_compute_area')
+    is_area_priced_greater = fields.Boolean(compute='_compute_area')
     origin = fields.Char("Quote No.")
     ref = fields.Char("Customer Reference")
     quantity_dies = fields.Integer("Quantity of Dies")
@@ -98,10 +100,17 @@ class StampConfigure(models.TransientModel):
         for rec in self:
             rec.is_insert_die = parsing.is_insert_die_code(rec.die_id.code or '')
 
-    @api.depends('size_length', 'size_width')
+    @api.depends('size_length', 'size_width', 'partner_id.property_stamp_pricelist_id')
     def _compute_area(self):
         for rec in self:
-            rec.area = rec.size_length * rec.size_width
+            area = rec.size_length * rec.size_width
+            rec.area = area
+            min_area = rec.partner_id.property_stamp_pricelist_id.min_area
+            # We should use priced area 0 if area is zero (not entered)
+            # to not use minimum area when we don't know entered area.
+            area_priced = area and max(area, min_area) or 0.0
+            rec.area_priced = area_priced
+            rec.is_area_priced_greater = area_priced > area
 
     @api.depends('quantity_dies', 'quantity_spare_dies')
     def _compute_quantity_dies_total(self):

@@ -12,7 +12,7 @@ def calc_die_price(stamp_cfg):
 
 def calc_counter_die_price(stamp_cfg):
     pricelist = stamp_cfg.partner_id.property_stamp_pricelist_id
-    return stamp_cfg.area * pricelist.price_counter_die
+    return stamp_cfg.area_priced * pricelist.price_counter_die
 
 
 def calc_mold_price(stamp_cfg):
@@ -24,6 +24,8 @@ def calc_mold_price(stamp_cfg):
 
 
 def calc_price_per_sqm(stamp_cfg, price, digits=DIGITS):
+    # NOTE. Here using entered area as we are using already calculated
+    # price to calculate price per sqm.
     price_per_sqm = price / stamp_cfg.area
     return float_round(price_per_sqm, precision_digits=digits)
 
@@ -46,7 +48,7 @@ def _calc_adjusted_price(stamp_cfg):
 
 
 def _calc_finishing_price(stamp_cfg):
-    return stamp_cfg.area * stamp_cfg.finishing_id.price
+    return stamp_cfg.area_priced * stamp_cfg.finishing_id.price
 
 
 def _calc_primary_design_price(stamp_cfg):
@@ -61,7 +63,7 @@ def _calc_embossed_base_design_price(stamp_cfg):
 
 
 def _calc_material_price(stamp_cfg):
-    return stamp_cfg.area * stamp_cfg.material_id.price
+    return stamp_cfg.area_priced * stamp_cfg.material_id.price
 
 
 def _calc_pricelist_die_price(stamp_cfg, design=None):
@@ -71,7 +73,7 @@ def _calc_pricelist_die_price(stamp_cfg, design=None):
     design = design or stamp_cfg.design_id
     for item in pricelist.item_ids:
         if item.design_id == design:
-            return stamp_cfg.area * item.price
+            return stamp_cfg.area_priced * item.price
     raise UserError(
         _(
             "No Stamp Pricelist Price found for Design %(design)s. "

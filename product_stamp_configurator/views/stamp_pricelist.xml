@@ -7,6 +7,7 @@
             <tree>
                 <field name="currency_id" invisible="1"/>
                 <field name="name"/>
+                <field name="min_area"/>
                 <field
                     name="price_counter_die"
                     widget="monetary"
@@ -29,6 +30,7 @@
                         <group name="left">
                             <field name="currency_id" invisible="1"/>
                             <field name="name"/>
+                            <field name="min_area"/>
                             <field
                                 name="price_counter_die"
                                 widget="monetary"
