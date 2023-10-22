@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Product Category - HS Code",
-    'version': '15.0.1.0.0',
+    'version': '16.0.1.0.0',
     'summary': 'HS Code on product category',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",

@@ -21,6 +21,7 @@
         'security/stamp_finishing_security.xml',
         'security/stamp_material_security.xml',
         'security/stamp_pricelist_security.xml',
+        'data/decimal_precision.xml',
         'views/res_config_settings.xml',
         'views/res_partner.xml',
         'views/product_category.xml',
@@ -32,7 +33,6 @@
         'views/stamp_finishing.xml',
         'views/stamp_material.xml',
         'views/menus.xml',
-        # TODO: remove this once it can be used from sales
         'wizards/stamp_configure_views.xml',
     ],
     'application': True,

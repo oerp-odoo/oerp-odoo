@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record
+        id="decimal_precision_stamp_weight"
+        forcecreate="True"
+        model="decimal.precision"
+    >
+        <field name="name">Stamp Weight</field>
+        <field name="digits">6</field>
+    </record>
+</odoo>

@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Product Stamp Configurator - Sale CRM",
-    'version': '15.0.1.0.0',
+    'version': '16.0.1.0.0',
     'summary': 'Stamp product configurator integration with sales and CRM',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
