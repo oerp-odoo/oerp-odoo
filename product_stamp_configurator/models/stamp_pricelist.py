@@ -23,7 +23,9 @@ class StampPricelist(models.Model):
     # not for whole pricelist?..
     price_counter_die = fields.Float("Counter Die Price per sqcm")
     mold_of_die_perc = fields.Float("Mold price (% of Die)")
-    quantity_die_mold_free = fields.Integer("Mold for Free if More than or Equal")
+    quantity_die_mold_free = fields.Integer(
+        "Mold for Free if More than or Equal", help="To disable set to zero."
+    )
     company_id = fields.Many2one(
         'res.company', required=True, default=lambda s: s.env.company
     )

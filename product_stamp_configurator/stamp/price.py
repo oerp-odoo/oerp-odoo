@@ -95,4 +95,5 @@ def _calc_pricelist_price_with_difficulty(stamp_cfg, design=None):
 def _calc_is_mold_free(stamp_cfg):
     qty = stamp_cfg.quantity_dies_total
     pricelist = stamp_cfg.partner_id.property_stamp_pricelist_id
-    return qty >= pricelist.quantity_die_mold_free
+    qty_free = pricelist.quantity_die_mold_free
+    return qty_free and qty >= qty_free
