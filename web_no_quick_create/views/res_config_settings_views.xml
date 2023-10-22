@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.form.no.quick.create</field>
+        <field name="model">res.config.settings</field>
+        <field
+            name="inherit_id"
+            ref="base_setup.res_config_settings_view_form"
+        />
+        <field name="arch" type="xml">
+            <div id="emails" position="inside">
+                <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    name="web_no_quick_create"
+                >
+                    <div class="o_setting_left_pane">
+                        <field name="rel_field_quick_create_disabled"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="rel_field_quick_create_disabled"/>
+                        <div class="text-muted">
+                            Disables quick create on form views for relation fields.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>
