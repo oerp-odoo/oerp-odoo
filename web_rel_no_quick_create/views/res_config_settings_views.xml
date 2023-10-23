@@ -11,7 +11,7 @@
             <div id="emails" position="inside">
                 <div
                     class="col-12 col-lg-6 o_setting_box"
-                    name="web_no_quick_create"
+                    name="web_rel_no_quick_create"
                 >
                     <div class="o_setting_left_pane">
                         <field name="rel_field_quick_create_disabled"/>

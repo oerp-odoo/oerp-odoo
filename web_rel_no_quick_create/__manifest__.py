@@ -18,7 +18,7 @@
     ],
     'assets': {
         'web.assets_backend': [
-            'web_no_quick_create/static/src/js/relational_fields.js',
+            'web_rel_no_quick_create/static/src/js/relational_fields.js',
         ],
     },
     'installable': True,

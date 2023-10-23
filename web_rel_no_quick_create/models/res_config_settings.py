@@ -1,6 +1,6 @@
 from odoo import fields, models
 
-CFG_PARAM_NO_CREATE = 'web_no_quick_create.no_create'
+CFG_PARAM_NO_CREATE = 'web_rel_no_quick_create.no_create'
 
 
 class ResConfigSettings(models.TransientModel):
