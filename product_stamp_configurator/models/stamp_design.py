@@ -1,5 +1,7 @@
 from odoo import api, fields, models, tools
 
+from ..const import DP_WEIGHT
+
 
 class StampDesign(models.Model):
 
@@ -18,7 +20,7 @@ class StampDesign(models.Model):
         'stamp.design', "Base for Embossed Design"
     )
     engraving_speed = fields.Integer(help="Engraving speed (min/100 sqcm)")
-    weight_coefficient = fields.Float()
+    weight_coefficient = fields.Float(digits=DP_WEIGHT)
     company_id = fields.Many2one(
         'res.company', required=True, default=lambda s: s.env.company
     )

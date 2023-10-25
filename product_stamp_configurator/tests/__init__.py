@@ -4,4 +4,5 @@ from . import (
     test_stamp_configurator_names,
     test_stamp_configurator_parsing,
     test_stamp_configure,
+    test_stamp_type,
 )

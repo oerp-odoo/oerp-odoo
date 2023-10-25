@@ -1,3 +1,5 @@
+import json
+
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
@@ -17,10 +19,14 @@ class StampConfigure(models.TransientModel):
     def default_get(self, default_fields):
         res = super().default_get(default_fields)
         company = self.env.company
+        if 'die_id' in default_fields:
+            res['die_id'] = company.die_default_id.id
         if 'category_counter_die_id' in default_fields:
             res['category_counter_die_id'] = company.category_default_counter_die_id.id
         if 'category_mold_id' in default_fields:
             res['category_mold_id'] = company.category_default_mold_id.id
+        if 'quantity_mold' in default_fields:
+            res['quantity_mold'] = company.quantity_mold_default
         return res
 
     sequence = fields.Integer(required=True, default=1)
@@ -48,7 +54,9 @@ class StampConfigure(models.TransientModel):
     )
     size_length = fields.Float("Size (length), cm", required=True)
     size_width = fields.Float("Size (width), cm", required=True)
-    area = fields.Float(compute="_compute_area")
+    area = fields.Float(compute='_compute_area')
+    area_priced = fields.Float(compute='_compute_area')
+    is_area_priced_greater = fields.Boolean(compute='_compute_area')
     origin = fields.Char("Quote No.")
     ref = fields.Char("Customer Reference")
     quantity_dies = fields.Integer("Quantity of Dies")
@@ -92,10 +100,17 @@ class StampConfigure(models.TransientModel):
         for rec in self:
             rec.is_insert_die = parsing.is_insert_die_code(rec.die_id.code or '')
 
-    @api.depends('size_length', 'size_width')
+    @api.depends('size_length', 'size_width', 'partner_id.property_stamp_pricelist_id')
     def _compute_area(self):
         for rec in self:
-            rec.area = rec.size_length * rec.size_width
+            area = rec.size_length * rec.size_width
+            rec.area = area
+            min_area = rec.partner_id.property_stamp_pricelist_id.min_area
+            # We should use priced area 0 if area is zero (not entered)
+            # to not use minimum area when we don't know entered area.
+            area_priced = area and max(area, min_area) or 0.0
+            rec.area_priced = area_priced
+            rec.is_area_priced_greater = area_priced > area
 
     @api.depends('quantity_dies', 'quantity_spare_dies')
     def _compute_quantity_dies_total(self):
@@ -174,10 +189,16 @@ class StampConfigure(models.TransientModel):
         self.ensure_one()
         self._validate_categories()
         res = {'die': self._create_die()}
+        msg_data = self._prepare_message()
+        self._post_product_configurator_message(res['die']['product'], msg_data)
         if self.quantity_counter_dies_total > 0:
             res['counter_die'] = self._create_counter_die()
+            self._post_product_configurator_message(
+                res['counter_die']['product'], msg_data
+            )
         if self.quantity_mold > 0:
             res['mold'] = self._create_mold()
+            self._post_product_configurator_message(res['mold']['product'], msg_data)
         return res
 
     def _validate_categories(self):
@@ -272,3 +293,48 @@ class StampConfigure(models.TransientModel):
                 'list_price': price_unit,
             }
         )
+
+    def _prepare_message(self):
+        self.ensure_one()
+        data = {
+            'sequence': self.sequence,
+            'sequence_counter_die': self.sequence_counter_die,
+            'partner_name': self.partner_id.name,
+            'die_code': self.die_id.code,
+            'is_insert_die': self.is_insert_die,
+            'design_code': self.design_id.code,
+            'material_code': self.material_id.code,
+            'material_counter_code': self.material_counter_id.code,
+            'finishing_code': self.finishing_id.code,
+            'difficulty': self.difficulty_id.name,
+            'size_length': self.size_length,
+            'size_width': self.size_width,
+            'origin': self.origin,
+            'ref': self.ref,
+            'quantity_dies': self.quantity_dies,
+            'quantity_spare_dies': self.quantity_spare_dies,
+            'quantity_counter_dies': self.quantity_counter_dies,
+            'quantity_counter_spare_dies': self.quantity_counter_spare_dies,
+            'quantity_mold': self.quantity_mold,
+            'category_counter_die_name': self.category_counter_die_id.name,
+            'category_mold_name': self.category_mold_id.name,
+        }
+        if self.product_insert_die_ref_id:
+            data[
+                'product_insert_die_ref_code'
+            ] = self.product_insert_die_ref_id.default_code
+        if self.is_embossed:
+            data['embossed_design_perc'] = self.embossed_design_perc
+        return data
+
+    def _post_product_configurator_message(self, product, data):
+        self.ensure_one()
+        data_str = json.dumps(data, indent=2)
+        body = (
+            '<strong>Stamp Configurator Parameters Used:</strong>'
+            f'<pre>\n\n{data_str}</pre>'
+        )
+        # Post on both product.product and product.template for convenience..
+        product.message_post(body=body)
+        product.product_tmpl_id.message_post(body=body)
+        return True

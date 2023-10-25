@@ -184,3 +184,81 @@ class TestStampConfiguratorPrice(TestProductStampConfiguratorCommon):
         # THEN
         self.assertEqual(price, 0.0)
         self.assertEqual(calc_discount_percent(13.5, 0.0), 100.0)
+
+    def test_08_calc_mold_price_free_disabled(self):
+        # GIVEN
+        self.stamp_pricelist_deco.quantity_die_mold_free = 0
+        cfg = self.StampConfigure.create(
+            {
+                'sequence': 1,
+                'partner_id': self.partner_deco.id,
+                'die_id': self.stamp_die_default.id,
+                'design_id': self.stamp_design_f.id,
+                'material_id': self.stamp_material_brass_7.id,
+                'difficulty_id': self.stamp_difficulty_a.id,
+                'size_length': 15,
+                'size_width': 10,
+                'quantity_dies': 4,
+                'quantity_spare_dies': 1,
+                'quantity_counter_dies': 10,
+                'quantity_counter_spare_dies': 10,
+            }
+        )
+        # WHEN
+        price = calc_mold_price(cfg)
+        # THEN
+        self.assertEqual(price, 13.5)  # match die price
+        self.assertEqual(calc_discount_percent(13.5, 13.5), 0)
+
+    def test_09_calc_die_price_under_minimum_area(self):
+        # GIVEN
+        # Minimum area is 200 and configurator uses 150.
+        self.stamp_pricelist_azure.min_area = 200
+        cfg = self.StampConfigure.create(
+            {
+                'sequence': 1,
+                'partner_id': self.partner_azure.id,
+                'die_id': self.stamp_die_default.id,
+                'design_id': self.stamp_design_f.id,
+                'material_id': self.stamp_material_brass_7.id,
+                'finishing_id': self.stamp_finishing_nickel.id,
+                'difficulty_id': self.stamp_difficulty_a.id,
+                'size_length': 15,
+                'size_width': 10,
+                'quantity_dies': 10,
+                'quantity_spare_dies': 3,
+                'quantity_counter_dies': 10,
+                'quantity_counter_spare_dies': 10,
+            }
+        )
+        # WHEN
+        price = calc_die_price(cfg)
+        # THEN
+        # 18.0 (material price)
+        # 32.0 (special finishing price)
+        self.assertEqual(price, 50.0)
+
+    def test_10_calc_counter_die_price_under_minimum_area(self):
+        # GIVEN
+        self.stamp_pricelist_azure.min_area = 200
+        cfg = self.StampConfigure.create(
+            {
+                'sequence': 1,
+                'partner_id': self.partner_azure.id,
+                'die_id': self.stamp_die_default.id,
+                'design_id': self.stamp_design_f.id,
+                'material_id': self.stamp_material_brass_7.id,
+                'difficulty_id': self.stamp_difficulty_a.id,
+                'size_length': 15,
+                'size_width': 10,
+                'quantity_dies': 4,
+                'quantity_spare_dies': 1,
+                'quantity_counter_dies': 10,
+                'quantity_counter_spare_dies': 10,
+            }
+        )
+        # WHEN
+        price = calc_counter_die_price(cfg)
+        # THEN
+        # 200 * 0.08
+        self.assertEqual(price, 16.0)

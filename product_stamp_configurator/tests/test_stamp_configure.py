@@ -10,7 +10,7 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
             {
                 'sequence': 1,
                 'partner_id': self.partner_azure.id,
-                'die_id': self.stamp_die_default.id,
+                # die_id omitted, expecting to use default from settings.
                 'design_id': self.stamp_design_f.id,
                 'material_id': self.stamp_material_brass_7.id,
                 'material_counter_id': self.stamp_material_plastic_05.id,
@@ -21,9 +21,10 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
                 'quantity_spare_dies': 3,
                 'quantity_counter_dies': 10,
                 'quantity_counter_spare_dies': 10,
-                'quantity_mold': 1,
                 'origin': '1111',
                 'ref': '2222',
+                # quantity_mold not set, expecting to use default from
+                # settings -> 1.
             }
         )
         # WHEN
@@ -82,6 +83,19 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
         self.assertEqual(
             on_res, {'domain': {'product_insert_die_ref_id': [(1, '=', 1)]}}
         )
+        for product in product_die | product_counter_die | product_mold:
+            # Expect new message to be added with configurator parameters.
+            msg = product.message_ids[0]
+            self.assertIn(
+                'size_length', msg.body, f'Product: {product.name}. Message: {msg.body}'
+            )
+            tmpl = product.product_tmpl_id
+            msg = tmpl.message_ids[0]
+            self.assertIn(
+                'size_length',
+                msg.body,
+                f'Product Template: {tmpl.name}. Message: {msg.body}',
+            )
 
     def test_02_stamp_configure_insert_die_without_counter_die_and_mold(self):
         # GIVEN

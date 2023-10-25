@@ -24,12 +24,6 @@ class TestProductStampConfiguratorCommon(TransactionCase):
         cls.product_categ_service.stamp_type = 'mold'
         cls.product_bin = cls.env.ref('product.product_product_9')
         cls.product_drawer = cls.env.ref('product.product_product_27')
-        cls.company_main.write(
-            {
-                'category_default_counter_die_id': cls.product_categ_furniture.id,
-                'category_default_mold_id': cls.product_categ_service.id,
-            }
-        )
         cls.stamp_design_f = cls.StampDesign.create(
             {
                 'name': 'HFS',
@@ -126,3 +120,11 @@ class TestProductStampConfiguratorCommon(TransactionCase):
         )
         cls.partner_deco.property_stamp_pricelist_id = cls.stamp_pricelist_deco.id
         cls.partner_azure.property_stamp_pricelist_id = cls.stamp_pricelist_azure.id
+        cls.company_main.write(
+            {
+                'die_default_id': cls.stamp_die_default.id,
+                'category_default_counter_die_id': cls.product_categ_furniture.id,
+                'category_default_mold_id': cls.product_categ_service.id,
+                'quantity_mold_default': 1,
+            }
+        )

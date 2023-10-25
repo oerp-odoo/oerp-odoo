@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Product Stamp Configurator",
-    'version': '16.0.1.0.0',
+    'version': '16.0.1.1.0',
     'summary': 'Base stamp product configurator module',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
@@ -21,6 +21,7 @@
         'security/stamp_finishing_security.xml',
         'security/stamp_material_security.xml',
         'security/stamp_pricelist_security.xml',
+        'data/decimal_precision.xml',
         'views/res_config_settings.xml',
         'views/res_partner.xml',
         'views/product_category.xml',
@@ -32,7 +33,6 @@
         'views/stamp_finishing.xml',
         'views/stamp_material.xml',
         'views/menus.xml',
-        # TODO: remove this once it can be used from sales
         'wizards/stamp_configure_views.xml',
     ],
     'application': True,

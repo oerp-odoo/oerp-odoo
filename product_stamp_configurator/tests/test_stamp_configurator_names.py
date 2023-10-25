@@ -31,7 +31,8 @@ class TestStampConfiguratorNames(TestProductStampConfiguratorCommon):
                 'quantity_counter_dies': 10,
                 'quantity_counter_spare_dies': 10,
                 'origin': '1111',
-                'ref': '2222',
+                # Explicitly not specifying reference.
+                'ref': False,
             }
         )
         # WHEN
@@ -43,10 +44,10 @@ class TestStampConfiguratorNames(TestProductStampConfiguratorCommon):
         counter_die_name = generate_counter_die_name(cfg)
         die_description = generate_die_description(cfg, 13.75)
         # THEN
-        # origin+design.code+seq_code+material.code+ref
-        self.assertEqual(die_code, '1111F1B7 / 2222')
-        self.assertEqual(mold_code, '1111F1P1 / 2222')
-        self.assertEqual(counter_die_code, '1111F1P1P0.5 / 2222')
+        # origin+design.code+seq_code+material.code (ref is False, so omitted)
+        self.assertEqual(die_code, '1111F1B7')
+        self.assertEqual(mold_code, '1111F1P1')
+        self.assertEqual(counter_die_code, '1111F1P1P0.5')
         self.assertEqual(die_name, 'Brass Die, HFS, F1, 7 mm+ Spare 3 pcs')
         self.assertEqual(mold_name, 'Molding service F1')
         self.assertEqual(

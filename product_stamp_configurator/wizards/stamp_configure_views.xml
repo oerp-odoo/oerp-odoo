@@ -17,6 +17,19 @@
                         <field name="size_length"/>
                         <field name="size_width"/>
                         <field name="area"/>
+                        <field name="is_area_priced_greater" invisible="1"/>
+                        <p
+                            class="oe_grey oe_edit_only"
+                            colspan="2"
+                            attrs="{'invisible': [('is_area_priced_greater', '=', False)]}"
+                        >
+                            <strong
+                            >Note</strong>: price will be calculated using minimum area (<field
+                                name="area_priced"
+                                nolabel="1"
+                                class="oe_inline"
+                            />) from pricelist.
+                        </p>
                     </group>
                     <group name="die" string="Die">
                         <field name="die_id"/>
@@ -59,7 +72,7 @@
                         <field
                             name="category_counter_die_id"
                             options="{'no_create': True}"
-                            attrs="{'invisible': [('quantity_counter_dies', '=', 0)], 'required': [('quantity_counter_dies', '>', 0)]}"
+                            attrs="{'invisible': ['|', ('quantity_counter_dies', '=', 0), ('category_counter_die_id', '!=', False)], 'required': [('quantity_counter_dies', '>', 0)]}"
                         />
                     </group>
                     <group name="mold" string="Mold">
@@ -67,7 +80,7 @@
                         <field
                             name="category_mold_id"
                             options="{'no_create': True}"
-                            attrs="{'invisible': [('quantity_mold', '=', 0)], 'required': [('quantity_mold', '>', 0)]}"
+                            attrs="{'invisible': ['|', ('quantity_mold', '=', 0), ('category_mold_id', '!=', False)], 'required': [('quantity_mold', '>', 0)]}"
                         />
                     </group>
                 </group>
