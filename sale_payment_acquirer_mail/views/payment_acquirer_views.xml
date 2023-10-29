@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="acquirer_form_inherit_sale_inherit" model="ir.ui.view">
+        <field name="name">payment.acquirer.form.sale.mail.confirm</field>
+        <field name="model">payment.acquirer</field>
+        <field name="inherit_id" ref="sale.acquirer_form_inherit_sale"/>
+        <field name="arch" type="xml">
+            <field name="so_reference_type" position="after">
+                <field name="mail_template_sale_confirm_id"/>
+                <field
+                    name="mail_template_sale_confirm_ctx"
+                    attrs="{'invisible': [('mail_template_sale_confirm_id', '=', False)]}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
