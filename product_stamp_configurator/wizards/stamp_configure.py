@@ -177,8 +177,30 @@ class StampConfigure(models.TransientModel):
         if self.is_insert_die:
             domain = self.prepare_product_insert_die_ref_domain()
         else:
-            self.product_insert_die_ref_id = False
+            self.update(
+                {
+                    'product_insert_die_ref_id': False,
+                    'insert_die_ref': False,
+                }
+            )
+        # TODO: redesign this as returning domain from onchange is deprecated.
         return {'domain': {'product_insert_die_ref_id': domain}}
+
+    @api.onchange('quantity_counter_dies')
+    def _onchange_quantity_counter_dies(self):
+        if not self.quantity_counter_dies:
+            self.update(
+                {
+                    'quantity_counter_spare_dies': 0,
+                    'material_counter_id': False,
+                }
+            )
+
+    # TODO: what the hell, why naming method `_onchange_design_id` makes
+    # onchange to never trigger?..
+    @api.onchange('design_id')
+    def _onchange_design(self):
+        self.embossed_design_perc = 0
 
     def prepare_product_insert_die_ref_domain(self):
         self.ensure_one()
