@@ -23,8 +23,7 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
                 'quantity_counter_spare_dies': 10,
                 'origin': '1111',
                 'ref': '2222',
-                # quantity_mold not set, expecting to use default from
-                # settings -> 1.
+                'quantity_mold': 1,
             }
         )
         # WHEN
@@ -212,3 +211,31 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
             ValidationError, r"Mold must have Category \(.+\) with Mold type!"
         ):
             cfg.action_configure()
+
+    def test_04_stamp_configure_default_mold_quantity(self):
+        # GIVEN
+        # To use quantity_mold default on design onchange.
+        self.stamp_design_f.is_embossed = True
+        cfg = self.StampConfigure.create(
+            {
+                'sequence': 1,
+                'partner_id': self.partner_azure.id,
+                # die_id omitted, expecting to use default from settings.
+                'design_id': self.stamp_design_f.id,
+                'material_id': self.stamp_material_brass_7.id,
+                'material_counter_id': self.stamp_material_plastic_05.id,
+                'difficulty_id': self.stamp_difficulty_a.id,
+                'size_length': 15,
+                'size_width': 10,
+                'quantity_dies': 10,
+                'quantity_spare_dies': 3,
+                'quantity_counter_dies': 10,
+                'quantity_counter_spare_dies': 10,
+                'origin': '1111',
+                'ref': '2222',
+            }
+        )
+        # WHEN
+        cfg._onchange_design()
+        # THEN
+        self.assertEqual(cfg.quantity_mold, 1)

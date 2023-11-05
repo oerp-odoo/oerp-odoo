@@ -39,7 +39,7 @@ def calc_discount_percent(orig_price, discounted_price):
 # Die helpers
 def _calc_adjusted_price(stamp_cfg):
     price = _calc_material_price(stamp_cfg)
-    if stamp_cfg.design_id.is_embossed:
+    if stamp_cfg.design_id.flat_embossed_foiling:
         primary_design_price_adj = (
             _calc_primary_design_price(stamp_cfg) * stamp_cfg.embossed_design_perc / 100
         )
