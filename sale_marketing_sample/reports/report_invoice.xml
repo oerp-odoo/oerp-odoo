@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template
+        id="report_invoice_document"
+        name="Invoice Marketing Sample"
+        inherit_id="account.report_invoice_document"
+    >
+        <xpath expr="//p[@name='note']" position="after">
+            <p t-if="o.is_marketing" name="marketing_sample">
+                Samples for testing. NO COMMERCIAL VALUE
+            </p>
+        </xpath>
+    </template>
+</odoo>

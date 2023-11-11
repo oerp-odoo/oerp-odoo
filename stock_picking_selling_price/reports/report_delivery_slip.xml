@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<template
+        id="report_delivery_document_inherit"
+        inherit_id="stock.report_delivery_document"
+    >
+    <!-- Adding into moves -->
+    <xpath expr="//table[1]/thead/tr/th[2]" position="after">
+        <th t-if="o.use_selling_price"><strong>Unit Selling Price</strong></th>
+    </xpath>
+    <xpath expr="//table[1]/tbody/tr/td[2]" position="after">
+        <td t-if="o.use_selling_price">
+            <span
+                    t-field="move.price_selling_unit"
+                    t-options='{"widget": "monetary", "display_currency": move.company_id.currency_id}'
+                />
+        </td>
+    </xpath>
+    <!-- Adding into move lines -->
+    <xpath expr="//table[2]/thead/tr/th[3]" position="after">
+        <th t-if="o.use_selling_price"><strong>Unit Selling Price</strong></th>
+    </xpath>
+    <xpath expr="//table[2]" position="after">
+        <div t-if="o.use_selling_price" class="clearfix">
+            <div id="total" class="row" name="total">
+                <div
+                        t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto"
+                    >
+                    <table class="table table-sm">
+                        <tr class="border-black o_total">
+                            <td><strong>Total</strong></td>
+                            <td class="text-right">
+                                <span
+                                        t-field="o.amount_total_selling_price"
+                                        t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'
+                                    />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </xpath>
+</template>
+
+<template
+        id="stock_report_delivery_has_serial_move_line"
+        inherit_id="stock.stock_report_delivery_has_serial_move_line"
+    >
+    <xpath expr="//td[2]" position="after">
+        <td t-if="o.use_selling_price">
+            <span
+                    t-field="move_line.move_id.price_selling_unit"
+                    t-options='{"widget": "monetary", "display_currency": move_line.move_id.company_id.currency_id}'
+                />
+        </td>
+    </xpath>
+</template>
+
+<template
+        id="stock_report_delivery_aggregated_move_lines_inherit_selling_price"
+        inherit_id="stock.stock_report_delivery_aggregated_move_lines"
+    >
+    <xpath expr="//td[@name='move_line_aggregated_qty_done']" position="after">
+        <td t-if="aggregated_lines[line]['use_selling_price']">
+            <span t-esc="aggregated_lines[line]['price_selling_unit']"/>
+        </td>
+    </xpath>
+</template>
+</odoo>

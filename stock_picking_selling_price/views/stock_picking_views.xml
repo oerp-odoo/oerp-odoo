@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_picking_form_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.form.selling.price</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <field name="date_done" position="after">
+                <field
+                    name="use_selling_price"
+                    attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
+                />
+            </field>
+            <xpath
+                expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity_done']"
+                position="after"
+            >
+                <!-- Readonly condition follow the same one as ability to edit done quantity. -->
+                <field
+                    name="price_selling_unit"
+                    attrs="{'column_invisible': [('parent.use_selling_price', '=', False)], 'readonly': [('parent.state', 'in', ('done', 'cancel')), ('parent.is_locked', '=', True)]}"
+                />
+            </xpath>
+            <field name="move_ids_without_package" position="after">
+                <group
+                    class="oe_subtotal_footer oe_right"
+                    colspan="2"
+                    name="total_selling_price"
+                    attrs="{'invisible': [('use_selling_price', '=', False)]}"
+                >
+                    <field
+                        name="amount_total_selling_price"
+                        widget="monetary"
+                        options="{'currency_field': 'company_currency'}"
+                    />
+                </group>
+            </field>
+        </field>
+    </record>
+</odoo>
