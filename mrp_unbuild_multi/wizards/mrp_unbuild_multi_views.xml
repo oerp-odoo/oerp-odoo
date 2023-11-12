@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="mrp_unbuild_multi_view_form" model="ir.ui.view">
+        <field name="name">mrp.unbuild.multi.form</field>
+        <field name="model">mrp.unbuild.multi</field>
+        <field name="arch" type="xml">
+            <form>
+                <group name="main">
+                    <group name="left">
+                        <field name="unbuild_type"/>
+                    </group>
+                    <group name="right">
+                    </group>
+                </group>
+                <footer>
+                    <button
+                        name="action_unbuild_multi"
+                        string="Unbuild"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button
+                        string="Cancel"
+                        class="btn-default"
+                        special="cancel"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="mrp_unbuild_multi_action" model="ir.actions.act_window">
+        <field name="name">Multi Unbuild</field>
+        <field name="res_model">mrp.unbuild.multi</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_view_types">list</field>
+        <field name="binding_model_id" ref="mrp.model_mrp_production"/>
+    </record>
+</odoo>
