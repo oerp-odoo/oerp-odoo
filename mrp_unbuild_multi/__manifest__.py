@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "MRP - Multi Unbuild",
-    'version': '15.0.1.0.0',
+    'version': '15.0.1.1.0',
     'summary': 'Unbuild multiple manufacturing orders at once',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",

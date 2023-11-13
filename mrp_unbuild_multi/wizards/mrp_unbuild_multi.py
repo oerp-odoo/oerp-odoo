@@ -18,6 +18,9 @@ class MrpUnbuildMulti(models.TransientModel):
         default='all',
         required=True,
     )
+    include_from_procurement_group = fields.Boolean(
+        "Include on Same Procurement Group"
+    )
     mrp_production_ids = fields.Many2many(
         'mrp.production',
         'unbuild_multi_production_rel',
@@ -102,6 +105,9 @@ class MrpUnbuildMulti(models.TransientModel):
     def _find_mos(self):
         self.ensure_one()
         mos = self.mrp_production_ids
+        if self.include_from_procurement_group:
+            for mo in self.mrp_production_ids:
+                mos |= mo.procurement_group_id.mrp_production_ids
         mos_skipped = (
             self.env['mrp.unbuild']
             .search([('mo_id', 'in', mos.ids)])

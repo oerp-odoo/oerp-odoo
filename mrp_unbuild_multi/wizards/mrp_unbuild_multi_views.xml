@@ -10,6 +10,7 @@
                         <field name="unbuild_type"/>
                     </group>
                     <group name="right">
+                        <field name="include_from_procurement_group"/>
                     </group>
                 </group>
                 <footer>
@@ -34,7 +35,7 @@
         <field name="res_model">mrp.unbuild.multi</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
-        <field name="binding_view_types">list</field>
+        <field name="binding_view_types">list,form</field>
         <field name="binding_model_id" ref="mrp.model_mrp_production"/>
     </record>
 </odoo>

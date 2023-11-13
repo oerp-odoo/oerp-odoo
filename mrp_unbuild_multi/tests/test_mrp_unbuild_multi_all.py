@@ -58,7 +58,52 @@ class TestMrpUnbuildMultiAll(TestMrpUnbuildMultiCommon):
             3,
         )
 
-    def test_02_mrp_unbuild_multi_all_partial(self):
+    def test_02_mrp_unbuild_multi_all_from_procurement(self):
+        # GIVEN
+        wiz = self.MrpUnbuildMulti.with_context(
+            active_ids=self.mo_tracked_sn.ids,
+            active_model='mrp.production',
+        ).create(
+            {
+                'unbuild_type': 'all',
+                'include_from_procurement_group': True,
+            }
+        )
+        # WHEN
+        wiz.action_unbuild_multi()
+        # THEN
+        unbuilds = self.MrpUnbuild.search(
+            [('mo_id', 'in', self.mos.ids)],
+        )
+        # 3 for each SN + 1
+        self.assertEqual(len(unbuilds), 3)
+        for unbuild in unbuilds:
+            self.assertEqual(
+                unbuild.state, 'done', unbuild.mo_id.product_id.name
+            )
+        self.assertUnbuild(
+            unbuilds.filtered(lambda r: r.lot_id.name == 'S001'),
+            self.mos_tracked_sn.filtered(
+                lambda r: r.lot_producing_id.name == 'S001'
+            ),
+            1,
+        )
+        self.assertUnbuild(
+            unbuilds.filtered(lambda r: r.lot_id.name == 'S002'),
+            self.mos_tracked_sn.filtered(
+                lambda r: r.lot_producing_id.name == 'S002'
+            ),
+            1,
+        )
+        self.assertUnbuild(
+            unbuilds.filtered(lambda r: r.lot_id.name == 'S003'),
+            self.mos_tracked_sn.filtered(
+                lambda r: r.lot_producing_id.name == 'S003'
+            ),
+            1,
+        )
+
+    def test_03_mrp_unbuild_multi_all_partial(self):
         # GIVEN
         # Unbuild one MO
         wiz_1 = self.MrpUnbuildMulti.with_context(
@@ -134,7 +179,7 @@ class TestMrpUnbuildMultiAll(TestMrpUnbuildMultiCommon):
             3,
         )
 
-    def test_03_mrp_unbuild_multi_all_not_done(self):
+    def test_04_mrp_unbuild_multi_all_not_done(self):
         # GIVEN
         mo_draft = self.env.ref('mrp.mrp_production_1')
         wiz = self.MrpUnbuildMulti.with_context(
@@ -154,7 +199,7 @@ class TestMrpUnbuildMultiAll(TestMrpUnbuildMultiCommon):
             wiz.action_unbuild_multi()
 
     # TODO: Move this to separate test class!
-    def test_04_unbuild_summary_defaults(self):
+    def test_05_unbuild_summary_defaults(self):
         # GIVEN
         mos_unbuilt = self.mo_tracked_sn | self.mo_tracked_lot
         mos_skipped = self.mo_untracked

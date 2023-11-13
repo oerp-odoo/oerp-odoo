@@ -12,6 +12,10 @@ Usage
 Go to manufacturing orders list view and select done manufacturing
 orders that you want to unbuild.
 
+If you want to unbuild all other manufacturing orders that share same
+procurement group, in Multi Unbuild wizard, check
+``Include on Same Procurement Group``.
+
 Contributors
 ============
 
