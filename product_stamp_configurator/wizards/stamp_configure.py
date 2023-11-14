@@ -25,8 +25,6 @@ class StampConfigure(models.TransientModel):
             res['category_counter_die_id'] = company.category_default_counter_die_id.id
         if 'category_mold_id' in default_fields:
             res['category_mold_id'] = company.category_default_mold_id.id
-        if 'quantity_mold' in default_fields:
-            res['quantity_mold'] = company.quantity_mold_default
         return res
 
     sequence = fields.Integer(required=True, default=1)
@@ -44,6 +42,7 @@ class StampConfigure(models.TransientModel):
     )
     is_insert_die = fields.Boolean(compute='_compute_is_insert_die')
     design_id = fields.Many2one('stamp.design', string="Design Type", required=True)
+    flat_embossed_foiling = fields.Boolean(related='design_id.flat_embossed_foiling')
     is_embossed = fields.Boolean(related='design_id.is_embossed')
     embossed_design_perc = fields.Float("% of embossed design")
     material_id = fields.Many2one('stamp.material', required=True)
@@ -177,8 +176,39 @@ class StampConfigure(models.TransientModel):
         if self.is_insert_die:
             domain = self.prepare_product_insert_die_ref_domain()
         else:
-            self.product_insert_die_ref_id = False
+            self.update(
+                {
+                    'product_insert_die_ref_id': False,
+                    'insert_die_ref': False,
+                }
+            )
+        # TODO: redesign this as returning domain from onchange is deprecated.
         return {'domain': {'product_insert_die_ref_id': domain}}
+
+    @api.onchange('quantity_counter_dies')
+    def _onchange_quantity_counter_dies(self):
+        if not self.quantity_counter_dies:
+            self.update(
+                {
+                    'quantity_counter_spare_dies': 0,
+                    'material_counter_id': False,
+                }
+            )
+
+    # TODO: what the hell, why naming method `_onchange_design_id` makes
+    # onchange to never trigger?..
+    @api.onchange('design_id')
+    def _onchange_design(self):
+        quantity_mold = 0
+        if self.design_id.is_embossed:
+            quantity_mold = self.env.company.quantity_mold_default
+        self.update(
+            {
+                'embossed_design_perc': 0,
+                'quantity_counter_dies': 0,
+                'quantity_mold': quantity_mold,
+            }
+        )
 
     def prepare_product_insert_die_ref_domain(self):
         self.ensure_one()
@@ -323,7 +353,7 @@ class StampConfigure(models.TransientModel):
             data[
                 'product_insert_die_ref_code'
             ] = self.product_insert_die_ref_id.default_code
-        if self.is_embossed:
+        if self.flat_embossed_foiling:
             data['embossed_design_perc'] = self.embossed_design_perc
         return data
 

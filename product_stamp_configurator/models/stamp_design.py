@@ -15,10 +15,11 @@ class StampDesign(models.Model):
         required=True,
         domain=[('stamp_type', '=', 'die')],
     )
-    is_embossed = fields.Boolean(help="Actual for embossed design pricing")
+    flat_embossed_foiling = fields.Boolean(help="Actual for embossed design pricing")
     design_base_embossed_id = fields.Many2one(
         'stamp.design', "Base for Embossed Design"
     )
+    is_embossed = fields.Boolean()
     engraving_speed = fields.Integer(help="Engraving speed (min/100 sqcm)")
     weight_coefficient = fields.Float(digits=DP_WEIGHT)
     company_id = fields.Many2one(

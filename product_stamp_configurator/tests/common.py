@@ -38,7 +38,7 @@ class TestProductStampConfiguratorCommon(TransactionCase):
             {
                 'name': 'Foil + Emboss',
                 'code': 'FE',
-                'is_embossed': True,
+                'flat_embossed_foiling': True,
                 'design_base_embossed_id': cls.stamp_design_f.id,
                 'category_id': cls.product_categ_consu.id,
                 'engraving_speed': 70,

@@ -5,7 +5,7 @@ DIGITS = 2
 
 def calc_engraving_time(stamp_cfg, digits=DIGITS):
     time_ = _calc_engraving_time(stamp_cfg)
-    if stamp_cfg.design_id.is_embossed:
+    if stamp_cfg.design_id.flat_embossed_foiling:
         time_ = _calc_engraving_time_with_embossed_design(stamp_cfg, time_)
     return float_round(time_, precision_digits=digits)
 

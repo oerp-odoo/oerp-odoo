@@ -86,7 +86,7 @@
                             <div class="o_setting_right_pane">
                                 <label for="quantity_mold_default"/>
                                 <div class="text-muted">
-                                    Select default Mold Quantity for stamp configurator.
+                                    Select default Mold Quantity for stamp configurator. Will only be used for Embossed Designs.
                                 </div>
                                  <div class="content-group">
                                     <div class="mt16">

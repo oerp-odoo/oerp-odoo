@@ -8,6 +8,7 @@
                 <field name="name"/>
                 <field name="code"/>
                 <field name="category_id"/>
+                <field name="flat_embossed_foiling"/>
                 <field name="is_embossed"/>
                 <field name="engraving_speed"/>
                 <field name="weight_coefficient"/>
@@ -29,11 +30,12 @@
                             <field name="category_id" options="{'no_create': True}"/>
                         </group>
                         <group name="right">
-                            <field name="is_embossed"/>
+                            <field name="flat_embossed_foiling"/>
                             <field
                                 name="design_base_embossed_id"
-                                attrs="{'invisible': [('is_embossed', '=', False)], 'required': [('is_embossed', '=', True)]}"
+                                attrs="{'invisible': [('flat_embossed_foiling', '=', False)], 'required': [('flat_embossed_foiling', '=', True)]}"
                             />
+                            <field name="is_embossed"/>
                             <field name="engraving_speed"/>
                             <field name="weight_coefficient"/>
                             <field name="company_id" groups="base.group_multi_company"/>

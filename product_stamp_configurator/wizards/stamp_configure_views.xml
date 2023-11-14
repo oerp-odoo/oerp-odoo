@@ -42,11 +42,12 @@
                             attrs="{'invisible': [('product_insert_die_ref_id', '=', False)], 'required': [('product_insert_die_ref_id', '!=', False)]}"
                         />
                         <field name="design_id"/>
+                        <field name="flat_embossed_foiling" invisible="1"/>
                         <field name="is_embossed" invisible="1"/>
                         <field name="is_insert_die" invisible="1"/>
                         <field
                             name="embossed_design_perc"
-                            attrs="{'invisible': [('is_embossed', '=', False)], 'required': [('is_embossed', '=', True)]}"
+                            attrs="{'invisible': [('flat_embossed_foiling', '=', False)], 'required': [('flat_embossed_foiling', '=', True)]}"
                         />
                         <field name="material_id"/>
                         <field name="finishing_id"/>
@@ -55,7 +56,11 @@
                         <field name="quantity_spare_dies"/>
                         <field name="quantity_dies_total"/>
                     </group>
-                    <group name="counter_die" string="Counter Die">
+                    <group
+                        name="counter_die"
+                        string="Counter Die"
+                        attrs="{'invisible': [('is_embossed', '=', False)]}"
+                    >
                         <field name="quantity_counter_dies"/>
                         <field
                             name="quantity_counter_spare_dies"
@@ -75,7 +80,11 @@
                             attrs="{'invisible': ['|', ('quantity_counter_dies', '=', 0), ('category_counter_die_id', '!=', False)], 'required': [('quantity_counter_dies', '>', 0)]}"
                         />
                     </group>
-                    <group name="mold" string="Mold">
+                    <group
+                        name="mold"
+                        string="Mold"
+                        attrs="{'invisible': [('is_embossed', '=', False)]}"
+                    >
                         <field name="quantity_mold"/>
                         <field
                             name="category_mold_id"
