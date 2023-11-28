@@ -14,6 +14,7 @@
     ],
     'data': [
         'views/mrp_production_views.xml',
+        'views/mrp_unbuild_views.xml',
     ],
     'installable': True,
 }
