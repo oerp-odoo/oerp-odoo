@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sale_autovacuum_rule_view_tree" model="ir.ui.view">
+        <field name="name">sale.autovacuum.rule.tree</field>
+        <field name="model">sale.autovacuum.rule</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="action"/>
+                <field name="days"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sale_autovacuum_rule_view_form" model="ir.ui.view">
+        <field name="name">sale.autovacuum.rule.form</field>
+        <field name="model">sale.autovacuum.rule</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_confirm"
+                        type="object"
+                        class="btn-primary"
+                        attrs="{'invisible': [('state', '!=', 'draft')]}"
+                        string="Confirm"
+                    />
+                    <button
+                        name="action_draft"
+                        type="object"
+                        attrs="{'invisible': [('state', '!=', 'in_progress')]}"
+                        string="To Draft"
+                    />
+                    <button
+                        name="action_autovacuum"
+                        type="object"
+                        class="btn-primary"
+                        attrs="{'invisible': [('state', '!=', 'in_progress')]}"
+                        string="Autovacuum"
+                    />
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group name="main">
+                        <group name="general" string="General">
+                            <field name="name"/>
+                            <field name="active" widget="boolean_toggle"/>
+                            <field name="action"/>
+                            <field name="field_date_updated_id"/>
+                        </group>
+                        <group name="filtering" string="Filtering">
+                            <field name="days"/>
+                            <field
+                                name="domain"
+                                widget="domain"
+                                options="{'model': 'sale.order'}"
+                            />
+                        </group>
+                        <group name="result" string="Result">
+                            <field
+                                name="final_domain"
+                                widget="domain"
+                                options="{'model': 'sale.order'}"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_autovacuum_rule_action" model="ir.actions.act_window">
+        <field name="name">Sale Autovacuum Rules</field>
+        <field name="res_model">sale.autovacuum.rule</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="sale_autovacuum_rule_menu"
+        parent="sale.menu_sale_config"
+        action="sale_autovacuum_rule_action"
+        sequence="40"
+    />
+</odoo>

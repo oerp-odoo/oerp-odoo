@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record
+        id="ir_cron_process_sale_autovacuum"
+        forcecreate="True"
+        model="ir.cron"
+    >
+        <field name="name">Autovacuum Sale Quotations</field>
+        <field
+            name="model_id"
+            ref="sale_autovacuum.model_sale_autovacuum_rule"
+        />
+        <field name="state">code</field>
+        <field name="code">model.process(auto_commit=True, limit=2000)</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall"/>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>
