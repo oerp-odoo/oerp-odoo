@@ -13,7 +13,7 @@ class StampMaterial(models.Model):
     code = fields.Char("Symbol", required=True)
     thickness = fields.Float("Thickness, mm")
     product_id = fields.Many2one('product.product', "Raw Material")
-    price = fields.Float("Price per Square Meter")
+    price = fields.Float("Price per Square Centimeter")
     weight_coefficient = fields.Float(digits=DP_WEIGHT)
     company_id = fields.Many2one(
         'res.company', required=True, default=lambda s: s.env.company

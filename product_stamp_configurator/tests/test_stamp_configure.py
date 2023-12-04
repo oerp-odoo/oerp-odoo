@@ -239,3 +239,62 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
         cfg._onchange_design()
         # THEN
         self.assertEqual(cfg.quantity_mold, 1)
+
+    def test_05_stamp_configure_without_counter_die_category(self):
+        # GIVEN
+        self.company_main.category_default_counter_die_id = False
+        cfg = self.StampConfigure.create(
+            {
+                'sequence': 1,
+                'partner_id': self.partner_azure.id,
+                # die_id omitted, expecting to use default from settings.
+                'design_id': self.stamp_design_f.id,
+                'material_id': self.stamp_material_brass_7.id,
+                'material_counter_id': self.stamp_material_plastic_05.id,
+                'difficulty_id': self.stamp_difficulty_a.id,
+                'size_length': 15,
+                'size_width': 10,
+                'quantity_dies': 10,
+                'quantity_spare_dies': 3,
+                'quantity_counter_dies': 10,
+                'quantity_counter_spare_dies': 10,
+                'origin': '1111',
+                'ref': '2222',
+                'quantity_mold': 1,
+            }
+        )
+        # WHEN, THEN
+        with self.assertRaisesRegex(
+            ValidationError,
+            r"Counter Die Category is missing for your stamp type \(counter_die\)",
+        ):
+            cfg.action_configure()
+
+    def test_06_stamp_configure_without_mold_category(self):
+        # GIVEN
+        self.company_main.category_default_mold_id = False
+        cfg = self.StampConfigure.create(
+            {
+                'sequence': 1,
+                'partner_id': self.partner_azure.id,
+                # die_id omitted, expecting to use default from settings.
+                'design_id': self.stamp_design_f.id,
+                'material_id': self.stamp_material_brass_7.id,
+                'material_counter_id': self.stamp_material_plastic_05.id,
+                'difficulty_id': self.stamp_difficulty_a.id,
+                'size_length': 15,
+                'size_width': 10,
+                'quantity_dies': 10,
+                'quantity_spare_dies': 3,
+                'quantity_counter_dies': 10,
+                'quantity_counter_spare_dies': 10,
+                'origin': '1111',
+                'ref': '2222',
+                'quantity_mold': 1,
+            }
+        )
+        # WHEN, THEN
+        with self.assertRaisesRegex(
+            ValidationError, r"Mold Category is missing for your stamp type \(mold\)"
+        ):
+            cfg.action_configure()

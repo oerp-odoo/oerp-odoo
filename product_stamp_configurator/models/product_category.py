@@ -39,6 +39,16 @@ class ProductCategory(models.Model):
 
     def validate_stamp_type(self, stamp_type, raise_err=True):
         """Validate if given stamp_type matches nearest category type."""
+        if not self:
+            categ_label = stamp_type.replace("_", " ").title()
+            raise ValidationError(
+                _(
+                    "%(categ_label)s Category is missing for your stamp "
+                    + "type (%(stamp_type)s)",
+                    categ_label=categ_label,
+                    stamp_type=stamp_type,
+                ),
+            )
         self.ensure_one()
         if self.nearest_stamp_type != stamp_type:
             if raise_err:
