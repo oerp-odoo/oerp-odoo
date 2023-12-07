@@ -2,28 +2,36 @@ from odoo import _
 from odoo.exceptions import UserError
 from odoo.tools import float_round
 
-DIGITS = 2
+from ..const import DEFAULT_PRICE_DIGITS
 
 
-def calc_die_price(stamp_cfg):
-    adjusted_price = _calc_adjusted_price(stamp_cfg)
-    return adjusted_price + _calc_finishing_price(stamp_cfg)
+def calc_die_price(stamp_cfg, digits=DEFAULT_PRICE_DIGITS):
+    material_price = _calc_material_price(stamp_cfg)
+    pricelist_price = _calc_pricelist_die_price(stamp_cfg)
+    coefficient = stamp_cfg.difficulty_id.coefficient
+    if stamp_cfg.design_id.flat_embossed_foiling:
+        pricelist_price = _calc_flat_embossed_foiling_price(stamp_cfg, pricelist_price)
+    finishing_price = _calc_finishing_price(stamp_cfg)
+    price = material_price + pricelist_price * coefficient + finishing_price
+    return float_round(price, precision_digits=digits)
 
 
-def calc_counter_die_price(stamp_cfg):
+def calc_counter_die_price(stamp_cfg, digits=DEFAULT_PRICE_DIGITS):
     pricelist = stamp_cfg.partner_id.property_stamp_pricelist_id
-    return stamp_cfg.area_priced * pricelist.price_counter_die
+    price = stamp_cfg.area_priced * pricelist.price_counter_die
+    return float_round(price, precision_digits=digits)
 
 
-def calc_mold_price(stamp_cfg):
+def calc_mold_price(stamp_cfg, digits=DEFAULT_PRICE_DIGITS):
     if _calc_is_mold_free(stamp_cfg):
         return 0.0
     die_price = calc_die_price(stamp_cfg)
     pricelist = stamp_cfg.partner_id.property_stamp_pricelist_id
-    return die_price * pricelist.mold_of_die_perc / 100
+    price = die_price * pricelist.mold_of_die_perc / 100
+    return float_round(price, precision_digits=digits)
 
 
-def calc_price_per_sqm(stamp_cfg, price, digits=DIGITS):
+def calc_price_per_sqm(stamp_cfg, price, digits=DEFAULT_PRICE_DIGITS):
     # NOTE. Here using entered area as we are using already calculated
     # price to calculate price per sqm.
     price_per_sqm = price / stamp_cfg.area
@@ -37,29 +45,16 @@ def calc_discount_percent(orig_price, discounted_price):
 
 
 # Die helpers
-def _calc_adjusted_price(stamp_cfg):
-    price = _calc_material_price(stamp_cfg)
-    if stamp_cfg.design_id.flat_embossed_foiling:
-        primary_design_price_adj = (
-            _calc_primary_design_price(stamp_cfg) * stamp_cfg.embossed_design_perc / 100
-        )
-        price += primary_design_price_adj + _calc_embossed_base_design_price(stamp_cfg)
-    return price
+def _calc_flat_embossed_foiling_price(stamp_cfg, pricelist_price):
+    primary_design_price = pricelist_price * stamp_cfg.embossed_design_perc / 100
+    base_design_price = _calc_pricelist_die_price(
+        stamp_cfg, design=stamp_cfg.design_id.design_base_embossed_id
+    )
+    return primary_design_price + base_design_price
 
 
 def _calc_finishing_price(stamp_cfg):
     return stamp_cfg.area_priced * stamp_cfg.finishing_id.price
-
-
-def _calc_primary_design_price(stamp_cfg):
-    price = _calc_pricelist_price_with_difficulty(stamp_cfg)
-    return price + _calc_material_price(stamp_cfg)
-
-
-def _calc_embossed_base_design_price(stamp_cfg):
-    return _calc_pricelist_price_with_difficulty(
-        stamp_cfg, design=stamp_cfg.design_id.design_base_embossed_id
-    )
 
 
 def _calc_material_price(stamp_cfg):
@@ -82,11 +77,6 @@ def _calc_pricelist_die_price(stamp_cfg, design=None):
             partner=partner.name,
         )
     )
-
-
-def _calc_pricelist_price_with_difficulty(stamp_cfg, design=None):
-    price = _calc_pricelist_die_price(stamp_cfg, design=design)
-    return price * stamp_cfg.difficulty_id.coefficient
 
 
 # Mold helpers

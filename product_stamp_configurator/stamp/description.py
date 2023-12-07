@@ -1,7 +1,8 @@
 from odoo.tools import float_repr
 
+from ..const import DEFAULT_PRICE_DIGITS
 from .engraving import calc_engraving_time
-from .price import DIGITS as PRICE_DIGITS, calc_price_per_sqm
+from .price import calc_price_per_sqm
 
 AREA_UOM = 'cm'
 PRICE_CM_LABEL = 'eur/cm'
@@ -14,7 +15,7 @@ ENGRAVING_DESCRIPTION_DIGITS = 1
 def generate_die_description(
     stamp_cfg,
     price,
-    price_digits=PRICE_DIGITS,
+    price_digits=DEFAULT_PRICE_DIGITS,
     engraving_digits=ENGRAVING_DESCRIPTION_DIGITS,
 ):
     difficulty_name = stamp_cfg.difficulty_id.name

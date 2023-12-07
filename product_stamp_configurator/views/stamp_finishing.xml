@@ -11,7 +11,7 @@
                 <field
                     name="price"
                     widget="monetary"
-                    options="{'currency_field': 'currency_id'}"
+                    options="{'currency_field': 'currency_id', 'field_digits': True}"
                 />
                 <field name="company_id" groups="base.group_multi_company"/>
             </tree>
@@ -34,7 +34,7 @@
                             <field
                                 name="price"
                                 widget="monetary"
-                                options="{'currency_field': 'currency_id'}"
+                                options="{'currency_field': 'currency_id', 'field_digits': True}"
                             />
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
