@@ -1,6 +1,6 @@
 from odoo import fields, models
 
-from ..const import DP_WEIGHT
+from ..const import DP_PRICE, DP_WEIGHT
 
 
 class StampMaterial(models.Model):
@@ -13,8 +13,8 @@ class StampMaterial(models.Model):
     code = fields.Char("Symbol", required=True)
     thickness = fields.Float("Thickness, mm")
     product_id = fields.Many2one('product.product', "Raw Material")
-    price = fields.Float("Price per Square Centimeter")
-    weight_coefficient = fields.Float(digits=DP_WEIGHT)
+    price = fields.Float("Price per Square Centimeter", digits=DP_PRICE)
+    weight_coefficient = fields.Float(string="Weight kg/cm²", digits=DP_WEIGHT)
     company_id = fields.Many2one(
         'res.company', required=True, default=lambda s: s.env.company
     )

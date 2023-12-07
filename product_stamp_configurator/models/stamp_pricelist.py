@@ -1,6 +1,8 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
+from ..const import DP_PRICE
+
 
 class StampPricelist(models.Model):
     _name = 'stamp.pricelist'
@@ -21,8 +23,8 @@ class StampPricelist(models.Model):
     )
     # TODO: it might make more sense to have these options per pricelist item,
     # not for whole pricelist?..
-    price_counter_die = fields.Float("Counter Die Price per sqcm")
-    mold_of_die_perc = fields.Float("Mold price (% of Die)")
+    price_counter_die = fields.Float("Counter Die Price per sqcm", digits=DP_PRICE)
+    mold_of_die_perc = fields.Float("Mold price (% of Die)", digits=DP_PRICE)
     quantity_die_mold_free = fields.Integer(
         "Mold for Free if More than or Equal", help="To disable set to zero."
     )
@@ -44,6 +46,6 @@ class StampPricelistItem(models.Model):
 
     stamp_pricelist_id = fields.Many2one('stamp.pricelist', required=True)
     design_id = fields.Many2one('stamp.design', required=True)
-    price = fields.Float(required=True)
+    price = fields.Float(required=True, digits=DP_PRICE)
     company_id = fields.Many2one(related='stamp_pricelist_id.company_id', store=True)
     currency_id = fields.Many2one(related='stamp_pricelist_id.company_id.currency_id')

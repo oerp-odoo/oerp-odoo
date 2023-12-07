@@ -33,7 +33,7 @@
     </record>
 
     <record id="stamp_die_action" model="ir.actions.act_window">
-        <field name="name">Dies</field>
+        <field name="name">Die Types</field>
         <field name="res_model">stamp.die</field>
         <field name="view_mode">tree,form</field>
     </record>

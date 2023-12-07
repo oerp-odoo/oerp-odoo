@@ -9,7 +9,7 @@ class StampDesign(models.Model):
     _description = "Stamp Design Type"
 
     name = fields.Char(required=True)
-    code = fields.Char("Design Type", required=True)
+    code = fields.Char("Code Fragment of Design Type", required=True)
     category_id = fields.Many2one(
         'product.category',
         required=True,
@@ -21,7 +21,7 @@ class StampDesign(models.Model):
     )
     is_embossed = fields.Boolean()
     engraving_speed = fields.Integer(help="Engraving speed (min/100 sqcm)")
-    weight_coefficient = fields.Float(digits=DP_WEIGHT)
+    weight_coefficient = fields.Float(string="Weight kg/cm²", digits=DP_WEIGHT)
     company_id = fields.Many2one(
         'res.company', required=True, default=lambda s: s.env.company
     )

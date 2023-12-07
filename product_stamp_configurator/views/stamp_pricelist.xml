@@ -11,7 +11,7 @@
                 <field
                     name="price_counter_die"
                     widget="monetary"
-                    options="{'currency_field': 'currency_id'}"
+                    options="{'currency_field': 'currency_id', 'field_digits': True}"
                 />
                 <field name="mold_of_die_perc"/>
                 <field name="quantity_die_mold_free"/>
@@ -34,7 +34,7 @@
                             <field
                                 name="price_counter_die"
                                 widget="monetary"
-                                options="{'currency_field': 'currency_id'}"
+                                options="{'currency_field': 'currency_id', 'field_digits': True}"
                             />
                         </group>
                         <group name="right">
@@ -51,7 +51,7 @@
                             <field
                                 name="price"
                                 widget="monetary"
-                                options="{'currency_field': 'currency_id'}"
+                                options="{'currency_field': 'currency_id', 'field_digits': True}"
                             />
                         </tree>
                     </field>

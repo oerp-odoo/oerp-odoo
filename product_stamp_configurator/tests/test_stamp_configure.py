@@ -34,7 +34,7 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
         self.assertEqual(len(res), 3)
         # Die
         self.assertEqual(res['die']['quantity'], 13)
-        self.assertEqual(res['die']['price_unit'], 13.5)
+        self.assertEqual(res['die']['price_unit'], 32.63)
         product_die = res['die']['product']
         self.assertEqual(product_die.company_id, self.company_main)
         self.assertEqual(product_die.stamp_type, 'die')
@@ -44,7 +44,7 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
         self.assertEqual(product_die.default_code, '1111F1B7 / 2222')
         self.assertEqual(product_die.name, 'Brass Die, HFS, F1, 7 mm+ Spare 3 pcs')
         self.assertEqual(
-            product_die.description_sale, '15x10 cm ; A ; 0.09 eur/cm ; 0.5 val'
+            product_die.description_sale, '15x10 cm ; A ; 0.22 eur/cm ; 0.5 val'
         )
         self.assertEqual(product_die.categ_id, self.product_categ_consu)
         # Counter Die
@@ -135,7 +135,7 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
         self.assertEqual(len(res), 1)
         # Die
         self.assertEqual(res['die']['quantity'], 13)
-        self.assertEqual(res['die']['price_unit'], 13.5)
+        self.assertEqual(res['die']['price_unit'], 32.63)
         product_die = res['die']['product']
         self.assertEqual(product_die.stamp_type, 'die')
         self.assertTrue(product_die.is_insert_die)
@@ -146,7 +146,7 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
             product_die.name, 'Brass Insert Die, HFS, F2, 7 mm+ Spare 3 pcs'
         )
         self.assertEqual(
-            product_die.description_sale, '15x10 cm ; A ; 0.09 eur/cm ; 0.5 val'
+            product_die.description_sale, '15x10 cm ; A ; 0.22 eur/cm ; 0.5 val'
         )
         self.assertTrue(cfg.is_insert_die)
         # WHEN
@@ -298,3 +298,53 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
             ValidationError, r"Mold Category is missing for your stamp type \(mold\)"
         ):
             cfg.action_configure()
+
+    def test_07_stamp_configure_onchange_die_quantity_is_not_embossed(self):
+        # GIVEN
+        self.stamp_design_f.is_embossed = False
+        cfg = self.StampConfigure.create(
+            {
+                'sequence': 1,
+                'partner_id': self.partner_azure.id,
+                'die_id': self.stamp_die_default.id,
+                'design_id': self.stamp_design_f.id,
+                'material_id': self.stamp_material_brass_7.id,
+                'material_counter_id': self.stamp_material_plastic_05.id,
+                'difficulty_id': self.stamp_difficulty_a.id,
+                'size_length': 15,
+                'size_width': 10,
+                'quantity_dies': 10,
+                'quantity_spare_dies': 3,
+                'origin': '1111',
+                'ref': '2222',
+            }
+        )
+        # WHEN
+        cfg._onchange_quantity_dies()
+        # THEN
+        self.assertEqual(cfg.quantity_counter_dies, 0)
+
+    def test_08_stamp_configure_onchange_die_quantity_is_embossed(self):
+        # GIVEN
+        self.stamp_design_f.is_embossed = True
+        cfg = self.StampConfigure.create(
+            {
+                'sequence': 1,
+                'partner_id': self.partner_azure.id,
+                'die_id': self.stamp_die_default.id,
+                'design_id': self.stamp_design_f.id,
+                'material_id': self.stamp_material_brass_7.id,
+                'material_counter_id': self.stamp_material_plastic_05.id,
+                'difficulty_id': self.stamp_difficulty_a.id,
+                'size_length': 15,
+                'size_width': 10,
+                'quantity_dies': 10,
+                'quantity_spare_dies': 3,
+                'origin': '1111',
+                'ref': '2222',
+            }
+        )
+        # WHEN
+        cfg._onchange_quantity_dies()
+        # THEN
+        self.assertEqual(cfg.quantity_counter_dies, 10)

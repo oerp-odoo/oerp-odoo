@@ -3,6 +3,7 @@ import json
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
+from ..const import DP_PRICE
 from ..stamp import code, description, name, parsing, price
 
 # To filter nothing.
@@ -185,6 +186,13 @@ class StampConfigure(models.TransientModel):
         # TODO: redesign this as returning domain from onchange is deprecated.
         return {'domain': {'product_insert_die_ref_id': domain}}
 
+    @api.onchange('quantity_dies')
+    def _onchange_quantity_dies(self):
+        if self.is_embossed:
+            # TODO: should we update quantity_counter_dies even if it is
+            # already non zero quantity?..
+            self.quantity_counter_dies = self.quantity_dies
+
     @api.onchange('quantity_counter_dies')
     def _onchange_quantity_counter_dies(self):
         if not self.quantity_counter_dies:
@@ -218,16 +226,17 @@ class StampConfigure(models.TransientModel):
         """Create products with details using stamp configurator."""
         self.ensure_one()
         self._validate_categories()
-        res = {'die': self._create_die()}
+        price_digits = self.env['decimal.precision'].precision_get(DP_PRICE)
+        res = {'die': self._create_die(price_digits=price_digits)}
         msg_data = self._prepare_message()
         self._post_product_configurator_message(res['die']['product'], msg_data)
         if self.quantity_counter_dies_total > 0:
-            res['counter_die'] = self._create_counter_die()
+            res['counter_die'] = self._create_counter_die(price_digits=price_digits)
             self._post_product_configurator_message(
                 res['counter_die']['product'], msg_data
             )
         if self.quantity_mold > 0:
-            res['mold'] = self._create_mold()
+            res['mold'] = self._create_mold(price_digits=price_digits)
             self._post_product_configurator_message(res['mold']['product'], msg_data)
         return res
 
@@ -249,27 +258,27 @@ class StampConfigure(models.TransientModel):
             self.area * self.design_id.weight_coefficient * material.weight_coefficient
         )
 
-    def _create_die(self):
+    def _create_die(self, price_digits):
         self.ensure_one()
-        price_unit = price.calc_die_price(self)
+        price_unit = price.calc_die_price(self, digits=price_digits)
         return {
             'product': self._create_die_product(price_unit),
             'price_unit': price_unit,
             'quantity': self.quantity_dies_total,
         }
 
-    def _create_counter_die(self):
+    def _create_counter_die(self, price_digits):
         self.ensure_one()
-        price_unit = price.calc_counter_die_price(self)
+        price_unit = price.calc_counter_die_price(self, digits=price_digits)
         return {
             'product': self._create_counter_die_product(price_unit),
             'price_unit': price_unit,
             'quantity': self.quantity_counter_dies_total,
         }
 
-    def _create_mold(self):
+    def _create_mold(self, price_digits):
         self.ensure_one()
-        price_unit = price.calc_mold_price(self)
+        price_unit = price.calc_mold_price(self, digits=price_digits)
         return {
             'product': self._create_mold_product(price_unit),
             'price_unit': price_unit,
@@ -289,6 +298,9 @@ class StampConfigure(models.TransientModel):
                 'detailed_type': 'consu',
                 'default_code': code.generate_die_code(self),
                 'name': name.generate_die_name(self),
+                # TODO: should we propagate price_digits/engraving_digits
+                # from here? Currently we use default ones when generating
+                # description.
                 'description_sale': description.generate_die_description(
                     self, price_unit
                 ),
