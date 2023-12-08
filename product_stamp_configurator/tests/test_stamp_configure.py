@@ -39,7 +39,7 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
         self.assertEqual(product_die.company_id, self.company_main)
         self.assertEqual(product_die.stamp_type, 'die')
         self.assertFalse(product_die.is_insert_die)
-        self.assertEqual(product_die.weight, 294.0)
+        self.assertEqual(product_die.weight, 315.0)
         self.assertEqual(product_die.type, 'consu')
         self.assertEqual(product_die.default_code, '1111F1B7 / 2222')
         self.assertEqual(product_die.name, 'Brass Die, HFS, F1, 7 mm+ Spare 3 pcs')
@@ -54,7 +54,7 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
         self.assertEqual(product_counter_die.company_id, self.company_main)
         self.assertEqual(product_counter_die.stamp_type, 'counter_die')
         self.assertFalse(product_counter_die.is_insert_die)
-        self.assertEqual(product_counter_die.weight, 126.0)
+        self.assertEqual(product_counter_die.weight, 135.0)
         self.assertEqual(product_counter_die.type, 'consu')
         self.assertEqual(product_counter_die.default_code, '1111F1P1P0.5 / 2222')
         self.assertEqual(
@@ -69,7 +69,7 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
         self.assertEqual(product_mold.company_id, self.company_main)
         self.assertEqual(product_mold.stamp_type, 'mold')
         self.assertFalse(product_mold.is_insert_die)
-        self.assertEqual(product_die.weight, 294)
+        self.assertEqual(product_die.weight, 315.0)
         self.assertEqual(product_mold.type, 'service')
         self.assertEqual(product_mold.default_code, '1111F1P1 / 2222')
         self.assertEqual(product_mold.name, 'Molding service F1')
@@ -139,7 +139,7 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
         product_die = res['die']['product']
         self.assertEqual(product_die.stamp_type, 'die')
         self.assertTrue(product_die.is_insert_die)
-        self.assertEqual(product_die.weight, 294.0)
+        self.assertEqual(product_die.weight, 315.0)
         self.assertEqual(product_die.type, 'consu')
         self.assertEqual(product_die.default_code, '1111F1iF2B7 / 2222')
         self.assertEqual(
