@@ -24,6 +24,7 @@ class ProductCategory(models.Model):
         STAMP_TYPES,
         compute='_compute_nearest_stamp_type',
         store=True,
+        recursive=True,
     )
 
     @api.depends(

@@ -254,9 +254,7 @@ class StampConfigure(models.TransientModel):
 
     def _calc_weight(self, material):
         self.ensure_one()
-        return (
-            self.area * self.design_id.weight_coefficient * material.weight_coefficient
-        )
+        return self.area * self.design_id.weight_coefficient * material.weight
 
     def _create_die(self, price_digits):
         self.ensure_one()
@@ -291,7 +289,7 @@ class StampConfigure(models.TransientModel):
             {
                 **self._prepare_common_product_vals(),
                 'is_insert_die': self.is_insert_die,
-                'weight': self._calc_weight(self.design_id),
+                'weight': self._calc_weight(self.material_id),
                 'categ_id': self.design_id.category_id.id,
                 # TODO: for now we have fixed type, but might be good to
                 # be able to specify one via design?
@@ -327,7 +325,7 @@ class StampConfigure(models.TransientModel):
         return self.env['product.product'].create(
             {
                 **self._prepare_common_product_vals(),
-                'weight': self._calc_weight(self.design_id),
+                'weight': self._calc_weight(self.material_id),
                 'categ_id': self.category_mold_id.id,
                 'detailed_type': 'service',
                 'default_code': code.generate_mold_code(self),

@@ -30,7 +30,7 @@ class TestProductStampConfiguratorCommon(TransactionCase):
                 'code': 'F',
                 'category_id': cls.product_categ_consu.id,
                 'engraving_speed': 25,
-                'weight_coefficient': 1.4,
+                'weight_coefficient': 1.5,
                 'company_id': cls.company_main.id,
             }
         )
@@ -75,7 +75,7 @@ class TestProductStampConfiguratorCommon(TransactionCase):
                 'thickness': 7,
                 'product_id': cls.product_bin.id,
                 'price': 0.09,
-                'weight_coefficient': 1.4,
+                'weight': 1.4,
                 'company_id': cls.company_main.id,
             }
         )
@@ -87,7 +87,7 @@ class TestProductStampConfiguratorCommon(TransactionCase):
                 'thickness': 0.5,
                 'product_id': cls.product_drawer.id,
                 'price': 0.02,
-                'weight_coefficient': 0.6,
+                'weight': 0.6,
                 'company_id': cls.company_main.id,
             }
         )
