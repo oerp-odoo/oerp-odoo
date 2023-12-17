@@ -8,7 +8,7 @@ class MrpProduction(models.Model):
         self.ensure_one()
         if self.picking_type_id.mass_serial_ignore_components:
             self = self.with_context(mass_serial_ignore_components=True)
-        super(MrpProduction, self).action_serial_mass_produce_wizard()
+        return super(MrpProduction, self).action_serial_mass_produce_wizard()
 
     def _check_serial_mass_produce_components(self):
         (
