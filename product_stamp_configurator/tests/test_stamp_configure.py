@@ -348,3 +348,32 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
         cfg._onchange_quantity_dies()
         # THEN
         self.assertEqual(cfg.quantity_counter_dies, 10)
+
+    def test_09_stamp_configure_shared_products(self):
+        # GIVEN
+        self.company_main.stamp_products_shared = True
+        cfg = self.StampConfigure.create(
+            {
+                'sequence': 1,
+                'partner_id': self.partner_azure.id,
+                'die_id': self.stamp_die_default.id,
+                'design_id': self.stamp_design_f.id,
+                'material_id': self.stamp_material_brass_7.id,
+                'material_counter_id': self.stamp_material_plastic_05.id,
+                'difficulty_id': self.stamp_difficulty_a.id,
+                'size_length': 15,
+                'size_width': 10,
+                'quantity_dies': 10,
+                'quantity_spare_dies': 3,
+                'quantity_counter_dies': 5,
+                'quantity_mold': 1,
+                'origin': '1111',
+                'ref': '2222',
+            }
+        )
+        # WHEN
+        res = cfg.action_configure()
+        # THEN
+        self.assertFalse(res['die']['product'].company_id)
+        self.assertFalse(res['counter_die']['product'].company_id)
+        self.assertFalse(res['mold']['product'].company_id)

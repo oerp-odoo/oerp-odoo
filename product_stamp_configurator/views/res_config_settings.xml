@@ -100,6 +100,26 @@
                             </div>
                         </div>
                     </div>
+                    <h2>Multi-Company</h2>
+                    <div
+                        class="row mt16 o_settings_container"
+                        name="stamp_settings_container_multi_company"
+                    >
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="stamp_products_shared"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field name="stamp_products_shared"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="stamp_products_shared"/>
+                                <div class="text-muted">
+                                    Share products between multiple companies. If checked, when stamp product is created, it will not have current user company set on those products, making accessible to all products.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </xpath>
         </field>

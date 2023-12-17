@@ -16,3 +16,6 @@ class ResCompany(models.Model):
         domain=[('stamp_type', '=', 'mold')],
     )
     quantity_mold_default = fields.Integer(default=1)
+    stamp_products_shared = fields.Boolean(
+        "Share Stamp Products", help="Share Stamp Products between multiple companies"
+    )
