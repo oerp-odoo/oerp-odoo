@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stamp_configure_form" model="ir.ui.view">
+        <field name="name">stamp.configure.form.intrastat</field>
+        <field name="model">stamp.configure</field>
+        <field name="inherit_id" ref="product_stamp_configurator.stamp_configure_form"/>
+        <field name="arch" type="xml">
+            <field name="sequence_counter_die" position="after">
+                <field name="intrastat_code_id" options="{'no_create': True}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

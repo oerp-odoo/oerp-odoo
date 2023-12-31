@@ -19,3 +19,7 @@ class ResConfigSettings(models.TransientModel):
         related='company_id.quantity_mold_default',
         readonly=False,
     )
+    stamp_products_shared = fields.Boolean(
+        related='company_id.stamp_products_shared',
+        readonly=False,
+    )

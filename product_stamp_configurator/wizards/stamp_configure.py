@@ -248,9 +248,8 @@ class StampConfigure(models.TransientModel):
 
     def _prepare_common_product_vals(self):
         self.ensure_one()
-        return {
-            'company_id': self.env.company.id,
-        }
+        company = self.env.company
+        return {'company_id': False if company.stamp_products_shared else company.id}
 
     def _calc_weight(self, material):
         self.ensure_one()
