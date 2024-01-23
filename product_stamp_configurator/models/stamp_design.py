@@ -15,7 +15,9 @@ class StampDesign(models.Model):
         required=True,
         domain=[('stamp_type', '=', 'die')],
     )
-    flat_embossed_foiling = fields.Boolean(help="Actual for embossed design pricing")
+    flat_embossed_foiling = fields.Boolean(
+        string="Embossed Foil", help="Actual for embossed design pricing"
+    )
     design_base_embossed_id = fields.Many2one(
         'stamp.design', "Base for Embossed Design"
     )

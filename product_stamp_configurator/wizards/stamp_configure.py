@@ -58,7 +58,7 @@ class StampConfigure(models.TransientModel):
     area_priced = fields.Float(compute='_compute_area')
     is_area_priced_greater = fields.Boolean(compute='_compute_area')
     origin = fields.Char("Quote No.")
-    ref = fields.Char("Customer Reference")
+    ref = fields.Char("Tool Reference")
     quantity_dies = fields.Integer("Quantity of Dies")
     quantity_spare_dies = fields.Integer("Spare Quantity of Dies")
     quantity_dies_total = fields.Integer(
