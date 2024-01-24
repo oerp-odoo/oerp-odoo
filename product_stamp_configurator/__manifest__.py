@@ -27,6 +27,7 @@
         'views/product_category.xml',
         'views/product_template.xml',
         'views/stamp_pricelist.xml',
+        'views/stamp_pricelist_item.xml',
         'views/stamp_design.xml',
         'views/stamp_die.xml',
         'views/stamp_difficulty.xml',

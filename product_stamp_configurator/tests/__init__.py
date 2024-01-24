@@ -5,4 +5,5 @@ from . import (
     test_stamp_configurator_parsing,
     test_stamp_configure,
     test_stamp_type,
+    test_stamp_pricelist_tracking,
 )
