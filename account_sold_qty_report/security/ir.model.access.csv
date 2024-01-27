@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_sold_qty_report_print_manager,account_sold_qty_report_print manager,model_account_sold_qty_report_print,account.group_account_invoice,1,1,1,1
