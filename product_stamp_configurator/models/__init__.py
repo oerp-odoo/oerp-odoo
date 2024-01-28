@@ -6,6 +6,7 @@ from . import (
     stamp_finishing,
     stamp_difficulty,
     stamp_die,
+    stamp_material_label,
     stamp_material,
     stamp_design,
     stamp_pricelist,

@@ -5,6 +5,7 @@ from odoo.exceptions import ValidationError
 
 from ..const import DP_PRICE
 from ..stamp import code, description, name, parsing, price
+from ..utils import FieldTranslation, translate_field
 
 # To filter nothing.
 ALL_DOMAIN = [(1, '=', 1)]
@@ -411,6 +412,7 @@ class StampConfigure(models.TransientModel):
         if self.quantity_mold > 0:
             res['mold'] = self._create_mold()
             self._post_product_configurator_message(res['mold']['product'], msg_data)
+        self._translate_products(res)
         return res
 
     def _validate_categories(self):
@@ -550,3 +552,26 @@ class StampConfigure(models.TransientModel):
         product.message_post(body=body)
         product.product_tmpl_id.message_post(body=body)
         return True
+
+    def _translate_products(self, data):
+        def translate_product_name(product, func):
+            field_translation = FieldTranslation(
+                fname='name',
+                record=product,
+                langs=lang_codes,
+                func=func,
+                first_func_arg=self,
+            )
+            translate_field(field_translation)
+
+        # die will always be created, so we always expect it.
+        langs = self.env['res.lang'].search([('active', '=', True)])
+        lang_codes = tuple(langs.mapped('code'))
+        die_product = data['die']['product']
+        translate_product_name(die_product, name.generate_die_name)
+        if data.get('counter_die'):
+            translate_product_name(
+                data['counter_die']['product'], name.generate_counter_die_name
+            )
+        if data.get('mold'):
+            translate_product_name(data['mold']['product'], name.generate_mold_name)

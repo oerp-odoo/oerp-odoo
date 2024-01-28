@@ -8,7 +8,7 @@ class StampDesign(models.Model):
     _name = 'stamp.design'
     _description = "Stamp Design Type"
 
-    name = fields.Char(required=True)
+    name = fields.Char(required=True, translate=True)
     code = fields.Char("Code Fragment of Design Type", required=True)
     category_id = fields.Many2one(
         'product.category',

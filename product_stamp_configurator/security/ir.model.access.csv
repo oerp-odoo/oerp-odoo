@@ -7,6 +7,8 @@ access_stamp_difficulty_user,stamp_difficulty user,model_stamp_difficulty,stamp_
 access_stamp_difficulty_manager,stamp_difficulty manager,model_stamp_difficulty,stamp_group_manager,1,1,1,1
 access_stamp_finishing_user,stamp_finishing user,model_stamp_finishing,stamp_group_user,1,0,0,0
 access_stamp_finishing_manager,stamp_finishing manager,model_stamp_finishing,stamp_group_manager,1,1,1,1
+access_stamp_material_label_user,stamp_material_label user,model_stamp_material_label,stamp_group_user,1,0,0,0
+access_stamp_material_label_manager,stamp_material_label manager,model_stamp_material_label,stamp_group_manager,1,1,1,1
 access_stamp_material_user,stamp_material user,model_stamp_material,stamp_group_user,1,0,0,0
 access_stamp_material_manager,stamp_material manager,model_stamp_material,stamp_group_manager,1,1,1,1
 access_stamp_pricelist_user,stamp_pricelist user,model_stamp_pricelist,stamp_group_user,1,0,0,0

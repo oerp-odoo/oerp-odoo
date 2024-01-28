@@ -9,7 +9,12 @@ class StampMaterial(models.Model):
     _description = "Stamp Material"
 
     name = fields.Char(required=True)
-    label = fields.Char(help="Generic Name", required=True)
+    # TODO: deprecated. Remove this field.
+    label = fields.Char(
+        string="Label (Deprecated)", help="Generic Name", required=False
+    )
+    # TODO: make this required in db.
+    label_id = fields.Many2one('stamp.material.label')
     code = fields.Char("Symbol", required=True)
     thickness = fields.Float("Thickness, mm")
     product_id = fields.Many2one('product.product', "Raw Material")

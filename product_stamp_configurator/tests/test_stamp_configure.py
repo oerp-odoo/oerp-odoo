@@ -36,9 +36,6 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
         self.assertEqual(cfg.price_sqcm_die_custom, 0.0)
         self.assertEqual(cfg.price_sqcm_counter_die_custom, 0.0)
         self.assertEqual(cfg.price_sqcm_mold_custom, 0.0)
-        # self.assertEqual(cfg.price_sqcm_die, 0.22)
-        # self.assertEqual(cfg.price_sqcm_counter_die, 0.08)
-        # self.assertEqual(cfg.price_sqcm_mold, 0.0)
         self.assertEqual(cfg.price_unit_die, 33.0)
         self.assertEqual(cfg.price_unit_counter_die, 12.0)
         self.assertEqual(cfg.price_unit_mold, 0.0)
@@ -478,3 +475,64 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
         self.assertFalse(product_mold.description_sale)
         self.assertEqual(product_mold.categ_id, self.product_categ_service)
         self.assertFalse(cfg.is_insert_die)
+
+    def test_11_stamp_configure_die_translated_products(self):
+        # GIVEN
+        self.stamp_die_default.update_field_translations('name', {'lt_LT': 'Klišė'})
+        self.stamp_design_f.update_field_translations('name', {'lt_LT': 'HFS_LT'})
+        self.material_label_brass.update_field_translations(
+            'name', {'lt_LT': 'Žalvario'}
+        )
+        self.material_label_plastic.update_field_translations(
+            'name', {'lt_LT': 'Plastiko'}
+        )
+        cfg = self.StampConfigure.create(
+            {
+                'sequence': 1,
+                'partner_id': self.partner_azure.id,
+                # die_id omitted, expecting to use default from settings.
+                'design_id': self.stamp_design_f.id,
+                'material_id': self.stamp_material_brass_7.id,
+                'material_counter_id': self.stamp_material_plastic_05.id,
+                'difficulty_id': self.stamp_difficulty_a.id,
+                'size_length': 15,
+                'size_width': 10,
+                'quantity_dies': 10,
+                'quantity_spare_dies': 3,
+                'quantity_counter_dies': 10,
+                'quantity_counter_spare_dies': 10,
+                'origin': '1111',
+                'ref': '2222',
+                'quantity_mold': 1,
+            }
+        )
+        # WHEN
+        res = cfg.action_configure()
+        # THEN
+        # Prices on configurator itself.
+        # Other asserts.
+        self.assertEqual(cfg.category_counter_die_id, self.product_categ_furniture)
+        self.assertEqual(cfg.category_mold_id, self.product_categ_service)
+        self.assertEqual(len(res), 3)
+        # Die
+        product_die = res['die']['product']
+        self.assertEqual(product_die.name, 'Brass Die, HFS, F1, 7 mm+ Spare 3 pcs')
+        self.assertEqual(
+            product_die.with_context(lang='lt_LT').name,
+            'Žalvario Klišė, HFS_LT, F1, 7 mm+ Atsarginė(-s) 3 dalis(-ys)',
+        )
+        # Counter Die
+        product_counter_die = res['counter_die']['product']
+        self.assertEqual(
+            product_counter_die.name, 'Plastic Counter-Die, F1, 0.5 mm+ Spare 10 pcs'
+        )
+        self.assertEqual(
+            product_counter_die.with_context(lang='lt_LT').name,
+            'Plastiko Patrica, F1, 0.5 mm+ Atsarginė(-s) 10 dalis(-ys)',
+        )
+        # Mold
+        product_mold = res['mold']['product']
+        self.assertEqual(product_mold.name, 'Molding service F1')
+        self.assertEqual(
+            product_mold.with_context(lang='lt_LT').name, 'Liejimo paslauga F1'
+        )
