@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stamp_pricelist_item_view_tree" model="ir.ui.view">
+        <field name="name">stamp.pricelist.item.tree</field>
+        <field name="model">stamp.pricelist.item</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <button
+                    name="action_open_item"
+                    type="object"
+                    icon="fa-arrow-right"
+                    title="Details"
+                />
+                <field name="currency_id" invisible="1"/>
+                <field name="design_id"/>
+                <field
+                    name="price"
+                    widget="monetary"
+                    options="{'currency_field': 'currency_id', 'field_digits': True}"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record id="stamp_pricelist_item_view_form" model="ir.ui.view">
+        <field name="name">stamp.pricelist.item.form</field>
+        <field name="model">stamp.pricelist.item</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="stamp_pricelist_id" invisible="1"/>
+                            <field name="design_id"/>
+                        </group>
+                        <group name="right">
+                            <field
+                                name="price"
+                                widget="monetary"
+                                options="{'currency_field': 'currency_id', 'field_digits': True}"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="stamp_pricelist_item_action" model="ir.actions.act_window">
+        <field name="name">Pricelist Items</field>
+        <field name="res_model">stamp.pricelist.item</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

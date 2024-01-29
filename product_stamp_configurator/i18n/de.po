@@ -1,0 +1,1065 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_stamp_configurator
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-28 09:09+0000\n"
+"PO-Revision-Date: 2024-01-28 09:09+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__embossed_design_perc
+msgid "% of embossed design"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/models/product_category.py:0
+#, python-format
+msgid ""
+"%(categ_label)s Category is missing for your stamp type (%(stamp_type)s)"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/models/product_category.py:0
+#, python-format
+msgid "%(label)s must have Category (%(categ)s) with %(label)s type!"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/wizards/stamp_configure.py:0
+#, python-format
+msgid "%s/pcs"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/wizards/stamp_configure.py:0
+#, python-format
+msgid "%s/㎠ Pricelist"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/wizards/stamp_configure.py:0
+#, python-format
+msgid "%s/㎠ Revised"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/wizards/stamp_configure.py:0
+#, python-format
+msgid "'Size (length), cm' and 'Size (width), cm', must be greater than 0"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.stamp_configure_form
+msgid ") from pricelist."
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.stamp_configure_form
+msgid "<strong>Note</strong>: price will be calculated using minimum area ("
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__message_needaction
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,help:product_stamp_configurator.field_stamp_configure__flat_embossed_foiling
+#: model:ir.model.fields,help:product_stamp_configurator.field_stamp_design__flat_embossed_foiling
+msgid "Actual for embossed design pricing"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__area
+msgid "Area"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__area_priced
+msgid "Area Priced"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_finishing__code
+msgid "Art No symbol"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__message_attachment_count
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_design__design_base_embossed_id
+msgid "Base for Embossed Design"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.stamp_configure_form
+msgid "Cancel"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_design__category_id
+msgid "Category"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_die__code
+msgid "Code"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_design__code
+msgid "Code Fragment of Design Type"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_difficulty__coefficient
+msgid "Coefficient"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model,name:product_stamp_configurator.model_res_company
+msgid "Companies"
+msgstr "Unternehmen"
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__company_id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_design__company_id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_die__company_id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_difficulty__company_id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_finishing__company_id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material__company_id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__company_id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__company_id
+msgid "Company"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model,name:product_stamp_configurator.model_res_config_settings
+msgid "Config Settings"
+msgstr "Konfigurationseinstellungen "
+
+#. module: product_stamp_configurator
+#: model:ir.ui.menu,name:product_stamp_configurator.stamp_config_menu
+msgid "Configuration"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.actions.act_window,name:product_stamp_configurator.stamp_configure_action
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.stamp_configure_form
+msgid "Configure"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model,name:product_stamp_configurator.model_stamp_configure
+msgid "Configure Stamp Product"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model,name:product_stamp_configurator.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields.selection,name:product_stamp_configurator.selection__product_category__nearest_stamp_type__counter_die
+#: model:ir.model.fields.selection,name:product_stamp_configurator.selection__product_category__stamp_type__counter_die
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.stamp_configure_form
+msgid "Counter Die"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__price_counter_die
+msgid "Counter Die Price per sqcm"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/stamp/name.py:0
+#, python-format
+msgid "Counter-Die"
+msgstr "Plastik Patrize"
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__category_counter_die_id
+msgid "Counter-Die Category"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__material_counter_id
+msgid "Counter-Die Material"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.stamp_configure_form
+msgid "Counter-Die Price"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__price_unit_counter_die
+msgid "Counter-Die Unit Price"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__create_uid
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_design__create_uid
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_die__create_uid
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_difficulty__create_uid
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_finishing__create_uid
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material__create_uid
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material_label__create_uid
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__create_uid
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__create_date
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_design__create_date
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_die__create_date
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_difficulty__create_date
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_finishing__create_date
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material__create_date
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material_label__create_date
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__create_date
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_finishing__currency_id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material__currency_id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__currency_id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__price_sqcm_counter_die_custom
+msgid "Custom Counter-Die ㎠ Price"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__price_sqcm_die_custom
+msgid "Custom Die ㎠ Price"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__price_sqcm_mold_custom
+msgid "Custom Mold ㎠ Price"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/wizards/stamp_configure.py:0
+#, python-format
+msgid "Custom ㎠ Price must be 0 or greater!"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__partner_id
+msgid "Customer"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_res_company__category_default_counter_die_id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_res_config_settings__category_default_counter_die_id
+msgid "Default Counter-Die Category"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_res_company__die_default_id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_res_config_settings__die_default_id
+msgid "Default Die Type"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_res_company__category_default_mold_id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_res_config_settings__category_default_mold_id
+msgid "Default Mold Category"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.res_config_settings_view_form
+msgid "Defaults"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__design_id
+msgid "Design"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.stamp_pricelist_view_form
+msgid "Design Prices"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__design_id
+msgid "Design Type"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.actions.act_window,name:product_stamp_configurator.stamp_design_action
+#: model:ir.ui.menu,name:product_stamp_configurator.stamp_design_menu
+msgid "Designs"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.stamp_pricelist_item_view_tree
+msgid "Details"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields.selection,name:product_stamp_configurator.selection__product_category__nearest_stamp_type__die
+#: model:ir.model.fields.selection,name:product_stamp_configurator.selection__product_category__stamp_type__die
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.stamp_configure_form
+msgid "Die"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.stamp_configure_form
+msgid "Die Price"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__die_id
+msgid "Die Type"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.actions.act_window,name:product_stamp_configurator.stamp_die_action
+#: model:ir.ui.menu,name:product_stamp_configurator.stamp_die_menu
+msgid "Die Types"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__price_unit_die
+msgid "Die Unit Price"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__difficulty_id
+msgid "Difficulty Level"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.actions.act_window,name:product_stamp_configurator.stamp_difficulty_action
+#: model:ir.ui.menu,name:product_stamp_configurator.stamp_difficulty_menu
+msgid "Difficulty Levels"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.stamp_configure_form
+msgid "Dimensions"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__display_name
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_design__display_name
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_die__display_name
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_difficulty__display_name
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_finishing__display_name
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material__display_name
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material_label__display_name
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__display_name
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__flat_embossed_foiling
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_design__flat_embossed_foiling
+msgid "Embossed Foil"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_design__engraving_speed
+msgid "Engraving Speed"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,help:product_stamp_configurator.field_stamp_design__engraving_speed
+msgid "Engraving speed (min/100 sqcm)"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__message_follower_ids
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__message_partner_ids
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.stamp_configure_form
+msgid "General"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,help:product_stamp_configurator.field_stamp_material__label
+msgid "Generic Name"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__has_message
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.module.category,description:product_stamp_configurator.module_category_stamp_management
+msgid "Helps you manage stamp products configurator."
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_design__id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_die__id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_difficulty__id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_finishing__id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material__id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material_label__id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__id
+msgid "ID"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,help:product_stamp_configurator.field_stamp_pricelist__message_needaction
+#: model:ir.model.fields,help:product_stamp_configurator.field_stamp_pricelist_item__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,help:product_stamp_configurator.field_stamp_pricelist__message_has_error
+#: model:ir.model.fields,help:product_stamp_configurator.field_stamp_pricelist_item__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__is_area_priced_greater
+msgid "Is Area Priced Greater"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__is_embossed
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_design__is_embossed
+msgid "Is Embossed"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__message_is_follower
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_product_product__is_insert_die
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_product_template__is_insert_die
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__is_insert_die
+msgid "Is Insert Die"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__item_ids
+msgid "Items"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material__label_id
+msgid "Label"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material__label
+msgid "Label (Deprecated)"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__label_price_sqcm_custom
+msgid "Label Price Sqcm Custom"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__label_price_sqcm_suggested
+msgid "Label Price Sqcm Suggested"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__label_price_unit
+msgid "Label Price Unit"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure____last_update
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_design____last_update
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_die____last_update
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_difficulty____last_update
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_finishing____last_update
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material____last_update
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material_label____last_update
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist____last_update
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__write_uid
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_design__write_uid
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_die__write_uid
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_difficulty__write_uid
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_finishing__write_uid
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material__write_uid
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material_label__write_uid
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__write_uid
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__write_date
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_design__write_date
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_die__write_date
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_difficulty__write_date
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_finishing__write_date
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material__write_date
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material_label__write_date
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__write_date
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__message_main_attachment_id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:res.groups,name:product_stamp_configurator.stamp_group_manager
+msgid "Manager"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__material_id
+msgid "Material"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.actions.act_window,name:product_stamp_configurator.stamp_material_label_action
+#: model:ir.ui.menu,name:product_stamp_configurator.stamp_material_label_menu
+msgid "Material Labels"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.actions.act_window,name:product_stamp_configurator.stamp_material_action
+#: model:ir.ui.menu,name:product_stamp_configurator.stamp_material_menu
+msgid "Materials"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__message_has_error
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__message_ids
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/models/stamp_pricelist.py:0
+#, python-format
+msgid "Minimum Size must be zero or greater!"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__min_area
+msgid "Minimum Size, cm2"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields.selection,name:product_stamp_configurator.selection__product_category__nearest_stamp_type__mold
+#: model:ir.model.fields.selection,name:product_stamp_configurator.selection__product_category__stamp_type__mold
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.stamp_configure_form
+msgid "Mold"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__category_mold_id
+msgid "Mold Category"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.stamp_configure_form
+msgid "Mold Price"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__quantity_mold
+msgid "Mold Quantity"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/wizards/stamp_configure.py:0
+#, python-format
+msgid "Mold Quantity must not be negative"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__price_unit_mold
+msgid "Mold Unit Price"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__quantity_die_mold_free
+msgid "Mold for Free if More than or Equal"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__mold_of_die_perc
+msgid "Mold price (% of Die)"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/stamp/name.py:0
+#, python-format
+msgid "Molding service"
+msgstr "Patrizenform Service"
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.res_config_settings_view_form
+msgid "Multi-Company"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_design__name
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_die__name
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_difficulty__name
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_finishing__name
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material__name
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material_label__name
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__name
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__name
+msgid "Name"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_product_category__nearest_stamp_type
+msgid "Nearest Stamp Type"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/stamp/price.py:0
+#, python-format
+msgid ""
+"No Stamp Pricelist Price found for Design %(design)s. Partner: %(partner)s"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__message_needaction_counter
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__message_has_error_counter
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,help:product_stamp_configurator.field_stamp_pricelist__message_needaction_counter
+#: model:ir.model.fields,help:product_stamp_configurator.field_stamp_pricelist_item__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,help:product_stamp_configurator.field_stamp_pricelist__message_has_error_counter
+#: model:ir.model.fields,help:product_stamp_configurator.field_stamp_pricelist_item__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__price
+msgid "Price"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_finishing__price
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material__price
+msgid "Price per Square Centimeter"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.actions.act_window,name:product_stamp_configurator.stamp_pricelist_item_action
+msgid "Pricelist Items"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.actions.act_window,name:product_stamp_configurator.stamp_pricelist_action
+#: model:ir.ui.menu,name:product_stamp_configurator.stamp_pricelist_menu
+msgid "Pricelists"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.stamp_configure_form
+msgid "Prices"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model,name:product_stamp_configurator.model_product_template
+msgid "Product"
+msgstr "Produkt"
+
+#. module: product_stamp_configurator
+#: model:ir.model,name:product_stamp_configurator.model_product_category
+msgid "Product Category"
+msgstr "Produktkategorie"
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_res_company__quantity_mold_default
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_res_config_settings__quantity_mold_default
+msgid "Quantity Mold Default"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__quantity_counter_dies
+msgid "Quantity of Counter-Dies"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/wizards/stamp_configure.py:0
+#, python-format
+msgid "Quantity of Counter-Dies must not be negative"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__quantity_dies
+msgid "Quantity of Dies"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/wizards/stamp_configure.py:0
+#, python-format
+msgid "Quantity of Dies must not be negative"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__origin
+msgid "Quote No."
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material__product_id
+msgid "Raw Material"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__insert_die_ref
+msgid "Reference to Master Die"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__product_insert_die_ref_id
+msgid "Reference to Master Die (Product)"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.res_config_settings_view_form
+msgid "Select default Counter-Die category for stamp configurator."
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.res_config_settings_view_form
+msgid "Select default Die Type for stamp configurator."
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.res_config_settings_view_form
+msgid ""
+"Select default Mold Quantity for stamp configurator. Will only be used for "
+"Embossed Designs."
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.res_config_settings_view_form
+msgid "Select default Mold category for stamp configurator."
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__sequence_counter_die
+msgid "Sequence Counter Die"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/wizards/stamp_configure.py:0
+#, python-format
+msgid "Sequence must be greater than 0"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.actions.act_window,name:product_stamp_configurator.stamp_config_settings_action
+#: model:ir.ui.menu,name:product_stamp_configurator.stamp_config_settings_menu
+msgid "Settings"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_res_company__stamp_products_shared
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_res_config_settings__stamp_products_shared
+msgid "Share Stamp Products"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,help:product_stamp_configurator.field_res_company__stamp_products_shared
+#: model:ir.model.fields,help:product_stamp_configurator.field_res_config_settings__stamp_products_shared
+msgid "Share Stamp Products between multiple companies"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.res_config_settings_view_form
+msgid ""
+"Share products between multiple companies. If checked, when stamp product is"
+" created, it will not have current user company set on those products, "
+"making accessible to all products."
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__size_length
+msgid "Size (length), cm"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__size_width
+msgid "Size (width), cm"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/stamp/name.py:0
+#, python-format
+msgid "Spare"
+msgstr "Ersatz"
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__quantity_counter_spare_dies
+msgid "Spare Quantity of Counter-Dies"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/wizards/stamp_configure.py:0
+#, python-format
+msgid "Spare Quantity of Counter-Dies must not be negative"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__quantity_spare_dies
+msgid "Spare Quantity of Dies"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/wizards/stamp_configure.py:0
+#, python-format
+msgid "Spare Quantity of Dies must not be negative"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.actions.act_window,name:product_stamp_configurator.stamp_finishing_action
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__finishing_id
+#: model:ir.ui.menu,name:product_stamp_configurator.stamp_finishing_menu
+msgid "Special Finishing"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.module.category,name:product_stamp_configurator.module_category_stamp_management
+#: model:ir.ui.menu,name:product_stamp_configurator.stamp_root_menu
+#: model_terms:ir.ui.view,arch_db:product_stamp_configurator.res_config_settings_view_form
+msgid "Stamp"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model,name:product_stamp_configurator.model_stamp_design
+msgid "Stamp Design Type"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model,name:product_stamp_configurator.model_stamp_die
+msgid "Stamp Die Type"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model,name:product_stamp_configurator.model_stamp_difficulty
+msgid "Stamp Difficulty Level"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model,name:product_stamp_configurator.model_stamp_material
+msgid "Stamp Material"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model,name:product_stamp_configurator.model_stamp_material_label
+msgid "Stamp Material Label"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model,name:product_stamp_configurator.model_stamp_pricelist
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_res_partner__property_stamp_pricelist_id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_res_users__property_stamp_pricelist_id
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__stamp_pricelist_id
+msgid "Stamp Pricelist"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model,name:product_stamp_configurator.model_stamp_pricelist_item
+msgid "Stamp Pricelist Item"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model,name:product_stamp_configurator.model_stamp_finishing
+msgid "Stamp Special Finishing"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_product_category__stamp_type
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_product_product__stamp_type
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_product_template__stamp_type
+msgid "Stamp Type"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__price_sqcm_counter_die_suggested
+msgid "Suggested Counter-Die ㎠ Price"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__price_sqcm_die_suggested
+msgid "Suggested Die ㎠ Price"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__price_sqcm_mold_suggested
+msgid "Suggested Mold ㎠ Price"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material__code
+msgid "Symbol"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.constraint,message:product_stamp_configurator.constraint_stamp_material_label_name_uniq
+msgid "The name must be unique !"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material__thickness
+msgid "Thickness, mm"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,help:product_stamp_configurator.field_stamp_pricelist__quantity_die_mold_free
+msgid "To disable set to zero."
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__ref
+msgid "Tool Reference"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__quantity_counter_dies_total
+msgid "Total Quantity of Counter Dies"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__quantity_dies_total
+msgid "Total Quantity of Dies"
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/wizards/stamp_configure.py:0
+#, python-format
+msgid "Total Quantity of Dies must be greater than 0"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:res.groups,name:product_stamp_configurator.stamp_group_user
+msgid "User"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist__website_message_ids
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_pricelist_item__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,help:product_stamp_configurator.field_stamp_pricelist__website_message_ids
+#: model:ir.model.fields,help:product_stamp_configurator.field_stamp_pricelist_item__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_design__weight_coefficient
+msgid "Weight Coefficient"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_material__weight
+msgid "Weight kg/cm²"
+msgstr ""
+
+#. module: product_stamp_configurator
+#: model:ir.model.fields,help:product_stamp_configurator.field_stamp_pricelist__min_area
+msgid ""
+"Will use this size to calculate price if entered size in configurator is "
+"lower than this. Keep 0 to not use it."
+msgstr ""
+
+#. module: product_stamp_configurator
+#. odoo-python
+#: code:addons/product_stamp_configurator/stamp/name.py:0
+#, python-format
+msgid "pcs"
+msgstr "Stück"

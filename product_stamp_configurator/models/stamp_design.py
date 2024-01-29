@@ -8,14 +8,16 @@ class StampDesign(models.Model):
     _name = 'stamp.design'
     _description = "Stamp Design Type"
 
-    name = fields.Char(required=True)
+    name = fields.Char(required=True, translate=True)
     code = fields.Char("Code Fragment of Design Type", required=True)
     category_id = fields.Many2one(
         'product.category',
         required=True,
         domain=[('stamp_type', '=', 'die')],
     )
-    flat_embossed_foiling = fields.Boolean(help="Actual for embossed design pricing")
+    flat_embossed_foiling = fields.Boolean(
+        string="Embossed Foil", help="Actual for embossed design pricing"
+    )
     design_base_embossed_id = fields.Many2one(
         'stamp.design', "Base for Embossed Design"
     )

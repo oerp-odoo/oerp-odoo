@@ -13,9 +13,11 @@ class TestProductStampConfiguratorCommon(TransactionCase):
         cls.StampDifficulty = cls.env['stamp.difficulty']
         cls.StampFinishing = cls.env['stamp.finishing']
         cls.StampMaterial = cls.env['stamp.material']
+        cls.StampMaterialLabel = cls.env['stamp.material.label']
         cls.partner_deco = cls.env.ref('base.res_partner_2')
         cls.partner_azure = cls.env.ref('base.res_partner_12')
         cls.company_main = cls.env.ref('base.main_company')
+        cls.lang_lt = cls.env.ref('base.lang_lt')
         cls.product_categ_consu = cls.env.ref('product.product_category_consumable')
         cls.product_categ_furniture = cls.env.ref('product.product_category_5')
         cls.product_categ_service = cls.env.ref('product.product_category_3')
@@ -67,29 +69,36 @@ class TestProductStampConfiguratorCommon(TransactionCase):
                 'company_id': cls.company_main.id,
             }
         )
-        cls.stamp_material_brass_7 = cls.StampMaterial.create(
-            {
-                'name': 'Brass 7',
-                'code': 'B7',
-                'label': 'Brass',
-                'thickness': 7,
-                'product_id': cls.product_bin.id,
-                'price': 0.09,
-                'weight': 1.4,
-                'company_id': cls.company_main.id,
-            }
-        )
-        cls.stamp_material_plastic_05 = cls.StampMaterial.create(
-            {
-                'name': 'Plastic 0.5',
-                'code': 'P0.5',
-                'label': 'Plastic',
-                'thickness': 0.5,
-                'product_id': cls.product_drawer.id,
-                'price': 0.02,
-                'weight': 0.6,
-                'company_id': cls.company_main.id,
-            }
+        (
+            cls.material_label_brass,
+            cls.material_label_plastic,
+        ) = cls.StampMaterialLabel.create([{'name': 'Brass'}, {'name': 'Plastic'}])
+        (
+            cls.stamp_material_brass_7,
+            cls.stamp_material_plastic_05,
+        ) = cls.StampMaterial.create(
+            [
+                {
+                    'name': 'Brass 7',
+                    'code': 'B7',
+                    'label_id': cls.material_label_brass.id,
+                    'thickness': 7,
+                    'product_id': cls.product_bin.id,
+                    'price': 0.09,
+                    'weight': 1.4,
+                    'company_id': cls.company_main.id,
+                },
+                {
+                    'name': 'Plastic 0.5',
+                    'code': 'P0.5',
+                    'label_id': cls.material_label_plastic.id,
+                    'thickness': 0.5,
+                    'product_id': cls.product_drawer.id,
+                    'price': 0.02,
+                    'weight': 0.6,
+                    'company_id': cls.company_main.id,
+                },
+            ]
         )
         # Stamp pricelists
         cls.stamp_pricelist_deco, cls.stamp_pricelist_azure = cls.StampPricelist.create(
@@ -128,3 +137,4 @@ class TestProductStampConfiguratorCommon(TransactionCase):
                 'quantity_mold_default': 1,
             }
         )
+        cls.lang_lt.active = True

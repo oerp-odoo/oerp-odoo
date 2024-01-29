@@ -31,11 +31,42 @@ def calc_mold_price(stamp_cfg, digits=DEFAULT_PRICE_DIGITS):
     return float_round(price, precision_digits=digits)
 
 
-def calc_price_per_sqm(stamp_cfg, price, digits=DEFAULT_PRICE_DIGITS):
+def calc_price_sqcm_suggested_and_price_unit(
+    stamp_cfg, price_unit_suggested, price_sqcm_custom=0, digits=DEFAULT_PRICE_DIGITS
+):
+    price_sqcm_suggested = convert_price_unit_to_sqcm(
+        stamp_cfg, price_unit_suggested, digits=digits
+    )
+    price_sqcm = price_sqcm_custom or price_sqcm_suggested
+    price_unit = convert_price_sqcm_to_unit(stamp_cfg, price_sqcm, digits=digits)
+    return (price_sqcm_suggested, price_unit)
+
+
+def convert_price_unit_to_sqcm(stamp_cfg, price, digits=DEFAULT_PRICE_DIGITS):
     # NOTE. Here using entered area as we are using already calculated
     # price to calculate price per sqm.
-    price_per_sqm = price / stamp_cfg.area
-    return float_round(price_per_sqm, precision_digits=digits)
+    price_per_sqcm = price / stamp_cfg.area
+    return float_round(price_per_sqcm, precision_digits=digits)
+
+
+def convert_price_sqcm_to_unit(stamp_cfg, price_sqcm, digits=DEFAULT_PRICE_DIGITS):
+    price_unit = price_sqcm * stamp_cfg.area
+    return float_round(price_unit, precision_digits=digits)
+
+
+def calc_price_sqcm_and_price_unit(
+    stamp_cfg, price_sqcm_custom, price_unit_suggested, digits=DEFAULT_PRICE_DIGITS
+):
+    """Get prices either using custom square cm price or suggested unit price."""
+    if price_sqcm_custom:
+        price_unit = convert_price_sqcm_to_unit(
+            stamp_cfg, price_sqcm_custom, digits=digits
+        )
+        return (price_sqcm_custom, price_unit)
+    price_sqcm = convert_price_unit_to_sqcm(
+        stamp_cfg, price_unit_suggested, digits=digits
+    )
+    return (price_sqcm, price_unit_suggested)
 
 
 def calc_discount_percent(orig_price, discounted_price):

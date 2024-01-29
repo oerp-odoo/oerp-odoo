@@ -44,18 +44,12 @@
                         </group>
                     </group>
                     <separator string="Design Prices"/>
-                    <field name="item_ids">
-                        <tree editable="bottom">
-                            <field name="currency_id" invisible="1"/>
-                            <field name="design_id"/>
-                            <field
-                                name="price"
-                                widget="monetary"
-                                options="{'currency_field': 'currency_id', 'field_digits': True}"
-                            />
-                        </tree>
-                    </field>
+                    <field name="item_ids"/>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>

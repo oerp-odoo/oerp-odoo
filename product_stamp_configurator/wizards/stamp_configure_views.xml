@@ -92,6 +92,65 @@
                             attrs="{'invisible': ['|', ('quantity_mold', '=', 0), ('category_mold_id', '!=', False)], 'required': [('quantity_mold', '>', 0)]}"
                         />
                     </group>
+                    <group
+                        name="prices"
+                        string="Prices"
+                        attrs="{'invisible': [('price_sqcm_die_suggested', '=', 0)]}"
+                    >
+                        <field name="company_id" invisible="1"/>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th/>
+                                    <th><field name="label_price_sqcm_suggested"/></th>
+                                    <th><field name="label_price_sqcm_custom"/></th>
+                                    <th><field name="label_price_unit"/></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Die Price</td>
+                                    <td>
+                                        <field name="price_sqcm_die_suggested"/>
+                                    </td>
+                                    <td>
+                                        <field name="price_sqcm_die_custom"/>
+                                    </td>
+                                    <td>
+                                        <field name="price_unit_die"/>
+                                    </td>
+                                </tr>
+                                <tr
+                                    attrs="{'invisible': [('price_sqcm_counter_die_suggested', '=', 0)]}"
+                                >
+                                    <td>Counter-Die Price</td>
+                                    <td>
+                                        <field name="price_sqcm_counter_die_suggested"/>
+                                    </td>
+                                    <td>
+                                        <field name="price_sqcm_counter_die_custom"/>
+                                    </td>
+                                    <td>
+                                        <field name="price_unit_counter_die"/>
+                                    </td>
+                                </tr>
+                                <tr
+                                    attrs="{'invisible': [('price_sqcm_mold_suggested', '=', 0)]}"
+                                >
+                                    <td>Mold Price</td>
+                                    <td>
+                                        <field name="price_sqcm_mold_suggested"/>
+                                    </td>
+                                    <td>
+                                        <field name="price_sqcm_mold_custom"/>
+                                    </td>
+                                    <td>
+                                        <field name="price_unit_mold"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </group>
                 </group>
                 <footer>
                     <button

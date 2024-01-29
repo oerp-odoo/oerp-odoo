@@ -51,6 +51,11 @@
                 action="stamp_material_action"
                 sequence="50"
             />
+            <menuitem
+                id="stamp_material_label_menu"
+                action="stamp_material_label_action"
+                sequence="60"
+            />
         </menuitem>
 
     </menuitem>

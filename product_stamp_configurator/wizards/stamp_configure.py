@@ -5,9 +5,47 @@ from odoo.exceptions import ValidationError
 
 from ..const import DP_PRICE
 from ..stamp import code, description, name, parsing, price
+from ..utils import FieldTranslation, translate_field
 
 # To filter nothing.
 ALL_DOMAIN = [(1, '=', 1)]
+# Common deps also include die deps, because nothing else can be computed
+# before that.
+PRICE_DEPS_COMMON = [
+    'partner_id',
+    'area_priced',
+    'design_id',
+    'material_id',
+    'difficulty_id',
+    'quantity_dies',
+]
+PRICE_DEPS_COUNTER_DIE = ['quantity_counter_dies']
+PRICE_DEPS_MOLD = ['quantity_mold']
+PRICE_SQCM_CUSTOM_FIELDS = [
+    'price_sqcm_die_custom',
+    'price_sqcm_counter_die_custom',
+    'price_sqcm_mold_custom',
+]
+# Separated, because this is not mandatory to calculate it.
+PRICE_EXTRA_DEPS = ['embossed_design_perc']
+PRICE_COMPUTE_DEPS = (
+    PRICE_DEPS_COMMON
+    + PRICE_DEPS_COUNTER_DIE
+    + PRICE_DEPS_MOLD
+    + PRICE_EXTRA_DEPS
+    + PRICE_SQCM_CUSTOM_FIELDS
+)
+
+
+def _get_default_prices_dict():
+    return {
+        'price_sqcm_die_suggested': 0.0,
+        'price_sqcm_counter_die_suggested': 0.0,
+        'price_sqcm_mold_suggested': 0.0,
+        'price_unit_die': 0.0,
+        'price_unit_counter_die': 0.0,
+        'price_unit_mold': 0.0,
+    }
 
 
 class StampConfigure(models.TransientModel):
@@ -19,7 +57,10 @@ class StampConfigure(models.TransientModel):
     @api.model
     def default_get(self, default_fields):
         res = super().default_get(default_fields)
-        company = self.env.company
+        if res.get('company_id'):
+            company = self.env['res.company'].browse(res['company_id'])
+        else:
+            company = self.env.company
         if 'die_id' in default_fields:
             res['die_id'] = company.die_default_id.id
         if 'category_counter_die_id' in default_fields:
@@ -28,6 +69,9 @@ class StampConfigure(models.TransientModel):
             res['category_mold_id'] = company.category_default_mold_id.id
         return res
 
+    company_id = fields.Many2one(
+        'res.company', required=True, default=lambda s: s.env.company
+    )
     sequence = fields.Integer(required=True, default=1)
     sequence_counter_die = fields.Integer(default=1)
     partner_id = fields.Many2one('res.partner', required=True, string="Customer")
@@ -58,7 +102,7 @@ class StampConfigure(models.TransientModel):
     area_priced = fields.Float(compute='_compute_area')
     is_area_priced_greater = fields.Boolean(compute='_compute_area')
     origin = fields.Char("Quote No.")
-    ref = fields.Char("Customer Reference")
+    ref = fields.Char("Tool Reference")
     quantity_dies = fields.Integer("Quantity of Dies")
     quantity_spare_dies = fields.Integer("Spare Quantity of Dies")
     quantity_dies_total = fields.Integer(
@@ -77,6 +121,48 @@ class StampConfigure(models.TransientModel):
     )
     category_mold_id = fields.Many2one(
         'product.category', 'Mold Category', domain=[('stamp_type', '=', 'mold')]
+    )
+    label_price_sqcm_suggested = fields.Char(compute='_compute_price_labels')
+    label_price_sqcm_custom = fields.Char(compute='_compute_price_labels')
+    label_price_unit = fields.Char(compute='_compute_price_labels')
+    # Prices
+    price_sqcm_die_suggested = fields.Float(
+        "Suggested Die ㎠ Price",
+        digits=DP_PRICE,
+        compute='_compute_prices',
+    )
+    price_sqcm_counter_die_suggested = fields.Float(
+        "Suggested Counter-Die ㎠ Price",
+        digits=DP_PRICE,
+        compute='_compute_prices',
+    )
+    price_sqcm_mold_suggested = fields.Float(
+        "Suggested Mold ㎠ Price",
+        digits=DP_PRICE,
+        compute='_compute_prices',
+    )
+    price_sqcm_die_custom = fields.Float(
+        "Custom Die ㎠ Price",
+        digits=DP_PRICE,
+    )
+    price_sqcm_counter_die_custom = fields.Float(
+        "Custom Counter-Die ㎠ Price", digits=DP_PRICE
+    )
+    price_sqcm_mold_custom = fields.Float("Custom Mold ㎠ Price", digits=DP_PRICE)
+    price_unit_die = fields.Float(
+        "Die Unit Price",
+        digits=DP_PRICE,
+        compute='_compute_prices',
+    )
+    price_unit_counter_die = fields.Float(
+        "Counter-Die Unit Price",
+        digits=DP_PRICE,
+        compute='_compute_prices',
+    )
+    price_unit_mold = fields.Float(
+        "Mold Unit Price",
+        digits=DP_PRICE,
+        compute='_compute_prices',
     )
 
     @api.depends('product_insert_die_ref_id.default_code')
@@ -124,6 +210,85 @@ class StampConfigure(models.TransientModel):
                 rec.quantity_counter_dies + rec.quantity_counter_spare_dies
             )
 
+    @api.depends('company_id.currency_id.name')
+    def _compute_price_labels(self):
+        for cfg in self:
+            currency_name = cfg.company_id.currency_id.name
+            cfg.update(
+                {
+                    'label_price_sqcm_suggested': _("%s/㎠ Pricelist", currency_name),
+                    'label_price_sqcm_custom': _("%s/㎠ Revised", currency_name),
+                    'label_price_unit': _("%s/pcs", currency_name),
+                }
+            )
+
+    @api.depends(*PRICE_COMPUTE_DEPS)
+    def _compute_prices(self):
+        price_digits = self.env['decimal.precision'].precision_get(DP_PRICE)
+        for cfg in self:
+            prices = _get_default_prices_dict()
+            # All common deps must be set, to compute price for anything.
+            if all(cfg[fname] for fname in PRICE_DEPS_COMMON):
+                price_unit_die_suggested = price.calc_die_price(
+                    self, digits=price_digits
+                )
+                (
+                    price_sqcm_die_suggested,
+                    price_unit_die,
+                ) = price.calc_price_sqcm_suggested_and_price_unit(
+                    self,
+                    price_unit_die_suggested,
+                    price_sqcm_custom=self.price_sqcm_die_custom,
+                    digits=price_digits,
+                )
+                prices.update(
+                    {
+                        'price_sqcm_die_suggested': price_sqcm_die_suggested,
+                        'price_unit_die': price_unit_die,
+                    }
+                )
+                if all(cfg[fname] for fname in PRICE_DEPS_COUNTER_DIE):
+                    price_unit_counter_die_suggested = price.calc_counter_die_price(
+                        self, digits=price_digits
+                    )
+                    (
+                        price_sqcm_counter_die_suggested,
+                        price_unit_counter_die,
+                    ) = price.calc_price_sqcm_suggested_and_price_unit(
+                        self,
+                        price_unit_counter_die_suggested,
+                        price_sqcm_custom=self.price_sqcm_counter_die_custom,
+                        digits=price_digits,
+                    )
+                    prices.update(
+                        {
+                            'price_sqcm_counter_die_suggested': (
+                                price_sqcm_counter_die_suggested
+                            ),
+                            'price_unit_counter_die': price_unit_counter_die,
+                        }
+                    )
+                if all(cfg[fname] for fname in PRICE_DEPS_MOLD):
+                    price_unit_mold_suggested = price.calc_mold_price(
+                        self, digits=price_digits
+                    )
+                    (
+                        price_sqcm_mold_suggested,
+                        price_unit_mold,
+                    ) = price.calc_price_sqcm_suggested_and_price_unit(
+                        self,
+                        price_unit_mold_suggested,
+                        price_sqcm_custom=self.price_sqcm_mold_custom,
+                        digits=price_digits,
+                    )
+                    prices.update(
+                        {
+                            'price_sqcm_mold_suggested': price_sqcm_mold_suggested,
+                            'price_unit_mold': price_unit_mold,
+                        }
+                    )
+            self.update(prices)
+
     @api.constrains('sequence')
     def _check_sequence(self):
         for rec in self:
@@ -170,6 +335,16 @@ class StampConfigure(models.TransientModel):
         for rec in self:
             if rec.quantity_mold < 0:
                 raise ValidationError(_("Mold Quantity must not be negative"))
+
+    @api.constrains(
+        'price_sqcm_counter_die_custom',
+        'price_sqcm_counter_die_custom',
+        'price_sqcm_mold_custom',
+    )
+    def _check_custom_prices(self):
+        for rec in self:
+            if any(rec[fname] < 0 for fname in PRICE_SQCM_CUSTOM_FIELDS):
+                raise ValidationError(_("Custom ㎠ Price must be 0 or greater!"))
 
     @api.onchange('die_id')
     def _onchange_die_id(self):
@@ -226,18 +401,18 @@ class StampConfigure(models.TransientModel):
         """Create products with details using stamp configurator."""
         self.ensure_one()
         self._validate_categories()
-        price_digits = self.env['decimal.precision'].precision_get(DP_PRICE)
-        res = {'die': self._create_die(price_digits=price_digits)}
+        res = {'die': self._create_die()}
         msg_data = self._prepare_message()
         self._post_product_configurator_message(res['die']['product'], msg_data)
         if self.quantity_counter_dies_total > 0:
-            res['counter_die'] = self._create_counter_die(price_digits=price_digits)
+            res['counter_die'] = self._create_counter_die()
             self._post_product_configurator_message(
                 res['counter_die']['product'], msg_data
             )
         if self.quantity_mold > 0:
-            res['mold'] = self._create_mold(price_digits=price_digits)
+            res['mold'] = self._create_mold()
             self._post_product_configurator_message(res['mold']['product'], msg_data)
+        self._translate_products(res)
         return res
 
     def _validate_categories(self):
@@ -255,27 +430,27 @@ class StampConfigure(models.TransientModel):
         self.ensure_one()
         return self.area * self.design_id.weight_coefficient * material.weight
 
-    def _create_die(self, price_digits):
+    def _create_die(self):
         self.ensure_one()
-        price_unit = price.calc_die_price(self, digits=price_digits)
+        price_unit = self.price_unit_die
         return {
             'product': self._create_die_product(price_unit),
             'price_unit': price_unit,
             'quantity': self.quantity_dies_total,
         }
 
-    def _create_counter_die(self, price_digits):
+    def _create_counter_die(self):
         self.ensure_one()
-        price_unit = price.calc_counter_die_price(self, digits=price_digits)
+        price_unit = self.price_unit_counter_die
         return {
             'product': self._create_counter_die_product(price_unit),
             'price_unit': price_unit,
             'quantity': self.quantity_counter_dies_total,
         }
 
-    def _create_mold(self, price_digits):
+    def _create_mold(self):
         self.ensure_one()
-        price_unit = price.calc_mold_price(self, digits=price_digits)
+        price_unit = self.price_unit_mold
         return {
             'product': self._create_mold_product(price_unit),
             'price_unit': price_unit,
@@ -377,3 +552,26 @@ class StampConfigure(models.TransientModel):
         product.message_post(body=body)
         product.product_tmpl_id.message_post(body=body)
         return True
+
+    def _translate_products(self, data):
+        def translate_product_name(product, func):
+            field_translation = FieldTranslation(
+                fname='name',
+                record=product,
+                langs=lang_codes,
+                func=func,
+                first_func_arg=self,
+            )
+            translate_field(field_translation)
+
+        # die will always be created, so we always expect it.
+        langs = self.env['res.lang'].search([('active', '=', True)])
+        lang_codes = tuple(langs.mapped('code'))
+        die_product = data['die']['product']
+        translate_product_name(die_product, name.generate_die_name)
+        if data.get('counter_die'):
+            translate_product_name(
+                data['counter_die']['product'], name.generate_counter_die_name
+            )
+        if data.get('mold'):
+            translate_product_name(data['mold']['product'], name.generate_mold_name)
