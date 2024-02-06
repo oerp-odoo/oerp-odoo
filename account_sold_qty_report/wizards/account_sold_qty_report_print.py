@@ -6,8 +6,9 @@ from io import StringIO
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
-FILENAME = 'report.csv'
+FILENAME_PATTERN = 'sold_qty_report_{}_{}.csv'
 FIELDNAME = 'datas'
+DT_FMT = '%Y%m%d'
 
 
 class AccountSoldQtyReportPrint(models.TransientModel):
@@ -66,11 +67,15 @@ class AccountSoldQtyReportPrint(models.TransientModel):
     def action_print(self):
         self.ensure_one()
         self.datas = self._generate_report_csv_base64_data()
+        filename = FILENAME_PATTERN.format(
+            self.date_start.strftime(DT_FMT),
+            self.date_end.strftime(DT_FMT),
+        )
         return {
             'type': 'ir.actions.act_url',
             'url': (
                 f'/web/content/{self._name}/{self.id}/'
-                + f'{FIELDNAME}/{FILENAME}?download=true'
+                + f'{FIELDNAME}/{filename}?download=true'
             ),
         }
 

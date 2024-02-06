@@ -35,7 +35,8 @@ class TestAccountSoldQtyReport(TestAccountSoldQtyReportCommon):
                 'type': 'ir.actions.act_url',
                 'url': (
                     f'/web/content/{wiz._name}/{wiz.id}/'
-                    + 'datas/report.csv?download=true'
+                    + 'datas/sold_qty_report_20210201_20210228.'
+                    + 'csv?download=true'
                 ),
             },
         )
@@ -75,7 +76,8 @@ class TestAccountSoldQtyReport(TestAccountSoldQtyReportCommon):
                 'type': 'ir.actions.act_url',
                 'url': (
                     f'/web/content/{wiz._name}/{wiz.id}/'
-                    + 'datas/report.csv?download=true'
+                    + 'datas/sold_qty_report_20210201_20210202.'
+                    + 'csv?download=true'
                 ),
             },
         )
