@@ -196,7 +196,7 @@ msgstr ""
 #: code:addons/product_stamp_configurator/stamp/name.py:0
 #, python-format
 msgid "Counter-Die"
-msgstr "Plastik Patrize"
+msgstr "Patrize"
 
 #. module: product_stamp_configurator
 #: model:ir.model.fields,field_description:product_stamp_configurator.field_stamp_configure__category_counter_die_id
