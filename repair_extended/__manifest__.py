@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Repair - Extended",
-    'version': '15.0.1.0.0',
+    'version': '15.0.1.1.0',
     'summary': 'Extra features for repair module',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
@@ -14,6 +14,7 @@
     ],
     'data': [
         'views/repair_order_views.xml',
+        'views/res_config_settings_views.xml',
     ],
     'installable': True,
 }

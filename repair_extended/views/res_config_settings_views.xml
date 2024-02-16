@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.repair</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div
+                    class="app_settings_block"
+                    data-string="Repairs"
+                    string="Repairs"
+                    data-key="repair"
+                    groups="stock.group_stock_manager"
+                >
+                    <h2>Defaults</h2>
+                    <div
+                        class="row mt16 o_settings_container"
+                        name="repair_settings_container_defaults"
+                    >
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            name="repair_default_src_location"
+                        >
+                            <div class="o_setting_right_pane">
+                                <label for="location_src_default_repair_id"/>
+                                <div class="text-muted">
+                                    Select default Source Location for products to be repaired from.
+                                </div>
+                                 <div class="content-group">
+                                    <div class="mt16">
+                                        <field
+                                            name="location_src_default_repair_id"
+                                            options="{'no_create': True}"
+                                            class="oe_inline"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            name="repair_default_dest_add_location"
+                        >
+                            <div class="o_setting_right_pane">
+                                <label
+                                    for="location_dest_add_operation_repair_id"
+                                />
+                                <div class="text-muted">
+                                    Select default Destination Add operation location.
+                                </div>
+                                 <div class="content-group">
+                                    <div class="mt16">
+                                        <field
+                                            name="location_dest_add_operation_repair_id"
+                                            options="{'no_create': True}"
+                                            class="oe_inline"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="repair_config_settings_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'repair'}</field>
+    </record>
+
+    <menuitem
+        id="repair_config_settings_menu"
+        name="Settings"
+        action="repair_config_settings_action"
+        groups="base.group_system"
+        parent="repair.repair_menu_config"
+        sequence="1"
+    />
+</odoo>
