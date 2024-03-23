@@ -468,52 +468,60 @@ class StampConfigure(models.TransientModel):
 
     def _create_die_product(self, price_unit):
         self.ensure_one()
-        return self.env['product.product'].create(
-            {
-                **self._prepare_common_product_vals(),
-                'is_insert_die': self.is_insert_die,
-                'weight': self._calc_weight(self.material_id),
-                'categ_id': self.design_id.category_id.id,
-                'default_code': code.generate_die_code(self),
-                'name': name.generate_die_name(self),
-                # TODO: should we propagate price_digits/engraving_digits
-                # from here? Currently we use default ones when generating
-                # description.
-                'description_sale': description.generate_die_description(
-                    self, price_unit
-                ),
-                'list_price': price_unit,
-                **self._prepare_common_product_die_vals(),
-            }
-        )
+        return self.env['product.product'].create(self._prepare_die_product(price_unit))
 
     def _create_counter_die_product(self, price_unit):
         self.ensure_one()
         return self.env['product.product'].create(
-            {
-                **self._prepare_common_product_vals(),
-                'weight': self._calc_weight(self.material_counter_id),
-                'categ_id': self.category_counter_die_id.id,
-                'default_code': code.generate_counter_die_code(self),
-                'name': name.generate_counter_die_name(self),
-                'list_price': price_unit,
-                **self._prepare_common_product_die_vals(),
-            }
+            self._prepare_counter_die_product(price_unit)
         )
 
     def _create_mold_product(self, price_unit):
         self.ensure_one()
         return self.env['product.product'].create(
-            {
-                **self._prepare_common_product_vals(),
-                'weight': self._calc_weight(self.material_id),
-                'categ_id': self.category_mold_id.id,
-                'detailed_type': 'service',
-                'default_code': code.generate_mold_code(self),
-                'name': name.generate_mold_name(self),
-                'list_price': price_unit,
-            }
+            self._prepare_mold_product(price_unit)
         )
+
+    def _prepare_die_product(self, price_unit):
+        self.ensure_one()
+        return {
+            **self._prepare_common_product_vals(),
+            'is_insert_die': self.is_insert_die,
+            'weight': self._calc_weight(self.material_id),
+            'categ_id': self.design_id.category_id.id,
+            'default_code': code.generate_die_code(self),
+            'name': name.generate_die_name(self),
+            # TODO: should we propagate price_digits/engraving_digits
+            # from here? Currently we use default ones when generating
+            # description.
+            'description_sale': description.generate_die_description(self, price_unit),
+            'list_price': price_unit,
+            **self._prepare_common_product_die_vals(),
+        }
+
+    def _prepare_counter_die_product(self, price_unit):
+        self.ensure_one()
+        return {
+            **self._prepare_common_product_vals(),
+            'weight': self._calc_weight(self.material_counter_id),
+            'categ_id': self.category_counter_die_id.id,
+            'default_code': code.generate_counter_die_code(self),
+            'name': name.generate_counter_die_name(self),
+            'list_price': price_unit,
+            **self._prepare_common_product_die_vals(),
+        }
+
+    def _prepare_mold_product(self, price_unit):
+        self.ensure_one()
+        return {
+            **self._prepare_common_product_vals(),
+            'weight': self._calc_weight(self.material_id),
+            'categ_id': self.category_mold_id.id,
+            'detailed_type': 'service',
+            'default_code': code.generate_mold_code(self),
+            'name': name.generate_mold_name(self),
+            'list_price': price_unit,
+        }
 
     def _prepare_message(self):
         self.ensure_one()
