@@ -423,8 +423,17 @@ class StampConfigure(models.TransientModel):
 
     def _prepare_common_product_vals(self):
         self.ensure_one()
-        company = self.env.company
+        company = self.company_id
         return {'company_id': False if company.stamp_products_shared else company.id}
+
+    def _prepare_common_product_die_vals(self):
+        """Return common vals for die and counter die products."""
+        self.ensure_one()
+        return {
+            # TODO: for now we have fixed type, but might be good to
+            # be able to specify one via design?
+            'detailed_type': 'consu',
+        }
 
     def _calc_weight(self, material):
         self.ensure_one()
@@ -465,9 +474,6 @@ class StampConfigure(models.TransientModel):
                 'is_insert_die': self.is_insert_die,
                 'weight': self._calc_weight(self.material_id),
                 'categ_id': self.design_id.category_id.id,
-                # TODO: for now we have fixed type, but might be good to
-                # be able to specify one via design?
-                'detailed_type': 'consu',
                 'default_code': code.generate_die_code(self),
                 'name': name.generate_die_name(self),
                 # TODO: should we propagate price_digits/engraving_digits
@@ -477,6 +483,7 @@ class StampConfigure(models.TransientModel):
                     self, price_unit
                 ),
                 'list_price': price_unit,
+                **self._prepare_common_product_die_vals(),
             }
         )
 
@@ -487,10 +494,10 @@ class StampConfigure(models.TransientModel):
                 **self._prepare_common_product_vals(),
                 'weight': self._calc_weight(self.material_counter_id),
                 'categ_id': self.category_counter_die_id.id,
-                'detailed_type': 'consu',
                 'default_code': code.generate_counter_die_code(self),
                 'name': name.generate_counter_die_name(self),
                 'list_price': price_unit,
+                **self._prepare_common_product_die_vals(),
             }
         )
 
