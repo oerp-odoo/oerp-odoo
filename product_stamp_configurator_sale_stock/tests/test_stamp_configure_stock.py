@@ -48,7 +48,6 @@ class TestStampConfigureStock(TestProductStampConfiguratorCommon):
             res['counter_die']['product'].route_ids,
             self.stock_route_mto,
         )
-        self.assertFalse(res['mold']['product'].route_ids)
 
     def test_02_stamp_configure_not_use_default_stock(self):
         # GIVEN
@@ -74,4 +73,3 @@ class TestStampConfigureStock(TestProductStampConfiguratorCommon):
         # THEN
         self.assertFalse(res['die']['product'].route_ids)
         self.assertFalse(res['counter_die']['product'].route_ids)
-        self.assertFalse(res['mold']['product'].route_ids)

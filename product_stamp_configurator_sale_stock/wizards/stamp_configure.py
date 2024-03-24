@@ -10,6 +10,7 @@ class StampConfigure(models.TransientModel):
         res = super()._prepare_common_product_die_vals()
         company = self.company_id
         routes = company.stock_route_stamp_default_ids
-        if routes:
-            res['route_ids'] = [(6, 0, routes.ids)]
+        # If no routes are set, then it means we force to not set any
+        # routes (even default ones that would normally come).
+        res['route_ids'] = [(6, 0, routes.ids)]
         return res

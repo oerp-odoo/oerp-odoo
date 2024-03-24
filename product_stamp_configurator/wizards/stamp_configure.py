@@ -18,6 +18,7 @@ PRICE_DEPS_COMMON = [
     'material_id',
     'difficulty_id',
     'quantity_dies',
+    'margin_ratio',
 ]
 PRICE_DEPS_COUNTER_DIE = ['quantity_counter_dies']
 PRICE_DEPS_MOLD = ['quantity_mold']
@@ -45,6 +46,9 @@ def _get_default_prices_dict():
         'price_unit_die': 0.0,
         'price_unit_counter_die': 0.0,
         'price_unit_mold': 0.0,
+        'cost_unit_die': 0.0,
+        'cost_unit_counter_die': 0.0,
+        'cost_unit_mold': 0.0,
     }
 
 
@@ -103,6 +107,11 @@ class StampConfigure(models.TransientModel):
     is_area_priced_greater = fields.Boolean(compute='_compute_area')
     origin = fields.Char("Quote No.")
     ref = fields.Char("Tool Reference")
+    margin_ratio = fields.Float(
+        digits=DP_PRICE,
+        help="Multiplier that is used when calculating prices",
+        default=1.0,
+    )
     quantity_dies = fields.Integer("Quantity of Dies")
     quantity_spare_dies = fields.Integer("Spare Quantity of Dies")
     quantity_dies_total = fields.Integer(
@@ -161,6 +170,21 @@ class StampConfigure(models.TransientModel):
     )
     price_unit_mold = fields.Float(
         "Mold Unit Price",
+        digits=DP_PRICE,
+        compute='_compute_prices',
+    )
+    cost_unit_die = fields.Float(
+        "Die Unit Cost",
+        digits=DP_PRICE,
+        compute='_compute_prices',
+    )
+    cost_unit_counter_die = fields.Float(
+        "Counter-Die Unit Cost",
+        digits=DP_PRICE,
+        compute='_compute_prices',
+    )
+    cost_unit_mold = fields.Float(
+        "Mold Unit Cost",
         digits=DP_PRICE,
         compute='_compute_prices',
     )
@@ -224,32 +248,40 @@ class StampConfigure(models.TransientModel):
 
     @api.depends(*PRICE_COMPUTE_DEPS)
     def _compute_prices(self):
-        price_digits = self.env['decimal.precision'].precision_get(DP_PRICE)
+        digits = self.env['decimal.precision'].precision_get(DP_PRICE)
         for cfg in self:
+            mr = cfg.margin_ratio
             prices = _get_default_prices_dict()
             # All common deps must be set, to compute price for anything.
             if all(cfg[fname] for fname in PRICE_DEPS_COMMON):
-                price_unit_die_suggested = price.calc_die_price(
-                    self, digits=price_digits
-                )
+                price_unit_die_suggested = price.calc_die_price(self, digits=digits)
                 (
                     price_sqcm_die_suggested,
                     price_unit_die,
                 ) = price.calc_price_sqcm_suggested_and_price_unit(
                     self,
                     price_unit_die_suggested,
-                    price_sqcm_custom=self.price_sqcm_die_custom,
-                    digits=price_digits,
+                    # Custom price is entered as is, but final price
+                    # must take margin ratio into consideration.
+                    price_sqcm_custom=mr * self.price_sqcm_die_custom,
+                    digits=digits,
                 )
+                cost_unit_die = price.calc_price_sqcm_suggested_and_price_unit(
+                    self,
+                    price.calc_die_price(self, digits=digits, with_margin=False),
+                    price_sqcm_custom=self.price_sqcm_die_custom,
+                    digits=digits,
+                )[1]
                 prices.update(
                     {
                         'price_sqcm_die_suggested': price_sqcm_die_suggested,
                         'price_unit_die': price_unit_die,
+                        'cost_unit_die': cost_unit_die,
                     }
                 )
                 if all(cfg[fname] for fname in PRICE_DEPS_COUNTER_DIE):
                     price_unit_counter_die_suggested = price.calc_counter_die_price(
-                        self, digits=price_digits
+                        self, digits=digits
                     )
                     (
                         price_sqcm_counter_die_suggested,
@@ -257,20 +289,33 @@ class StampConfigure(models.TransientModel):
                     ) = price.calc_price_sqcm_suggested_and_price_unit(
                         self,
                         price_unit_counter_die_suggested,
-                        price_sqcm_custom=self.price_sqcm_counter_die_custom,
-                        digits=price_digits,
+                        price_sqcm_custom=mr * self.price_sqcm_counter_die_custom,
+                        digits=digits,
                     )
+                    (
+                        cost_unit_counter_die
+                    ) = price.calc_price_sqcm_suggested_and_price_unit(
+                        self,
+                        price.calc_counter_die_price(
+                            self, digits=digits, with_margin=False
+                        ),
+                        price_sqcm_custom=self.price_sqcm_counter_die_custom,
+                        digits=digits,
+                    )[
+                        1
+                    ]
                     prices.update(
                         {
                             'price_sqcm_counter_die_suggested': (
                                 price_sqcm_counter_die_suggested
                             ),
                             'price_unit_counter_die': price_unit_counter_die,
+                            'cost_unit_counter_die': cost_unit_counter_die,
                         }
                     )
                 if all(cfg[fname] for fname in PRICE_DEPS_MOLD):
                     price_unit_mold_suggested = price.calc_mold_price(
-                        self, digits=price_digits
+                        self, digits=digits
                     )
                     (
                         price_sqcm_mold_suggested,
@@ -278,13 +323,20 @@ class StampConfigure(models.TransientModel):
                     ) = price.calc_price_sqcm_suggested_and_price_unit(
                         self,
                         price_unit_mold_suggested,
-                        price_sqcm_custom=self.price_sqcm_mold_custom,
-                        digits=price_digits,
+                        price_sqcm_custom=mr * self.price_sqcm_mold_custom,
+                        digits=digits,
                     )
+                    cost_unit_mold = price.calc_price_sqcm_suggested_and_price_unit(
+                        self,
+                        price.calc_mold_price(self, digits=digits, with_margin=False),
+                        price_sqcm_custom=self.price_sqcm_mold_custom,
+                        digits=digits,
+                    )[1]
                     prices.update(
                         {
                             'price_sqcm_mold_suggested': price_sqcm_mold_suggested,
                             'price_unit_mold': price_unit_mold,
+                            'cost_unit_mold': cost_unit_mold,
                         }
                     )
             self.update(prices)
@@ -421,7 +473,7 @@ class StampConfigure(models.TransientModel):
         self.category_counter_die_id.validate_stamp_type('counter_die')
         self.category_mold_id.validate_stamp_type('mold')
 
-    def _prepare_common_product_vals(self):
+    def _prepare_common_product_vals(self, stamp_type):
         self.ensure_one()
         company = self.company_id
         return {'company_id': False if company.stamp_products_shared else company.id}
@@ -441,51 +493,45 @@ class StampConfigure(models.TransientModel):
 
     def _create_die(self):
         self.ensure_one()
-        price_unit = self.price_unit_die
         return {
-            'product': self._create_die_product(price_unit),
-            'price_unit': price_unit,
+            'product': self._create_die_product(),
+            'price_unit': self.price_unit_die,
             'quantity': self.quantity_dies_total,
         }
 
     def _create_counter_die(self):
         self.ensure_one()
-        price_unit = self.price_unit_counter_die
         return {
-            'product': self._create_counter_die_product(price_unit),
-            'price_unit': price_unit,
+            'product': self._create_counter_die_product(),
+            'price_unit': self.price_unit_counter_die,
             'quantity': self.quantity_counter_dies_total,
         }
 
     def _create_mold(self):
         self.ensure_one()
-        price_unit = self.price_unit_mold
         return {
-            'product': self._create_mold_product(price_unit),
-            'price_unit': price_unit,
+            'product': self._create_mold_product(),
+            'price_unit': self.price_unit_mold,
             'quantity': self.quantity_mold,
         }
 
-    def _create_die_product(self, price_unit):
+    def _create_die_product(self):
         self.ensure_one()
-        return self.env['product.product'].create(self._prepare_die_product(price_unit))
+        return self.env['product.product'].create(self._prepare_die_product())
 
-    def _create_counter_die_product(self, price_unit):
+    def _create_counter_die_product(self):
         self.ensure_one()
-        return self.env['product.product'].create(
-            self._prepare_counter_die_product(price_unit)
-        )
+        return self.env['product.product'].create(self._prepare_counter_die_product())
 
-    def _create_mold_product(self, price_unit):
+    def _create_mold_product(self):
         self.ensure_one()
-        return self.env['product.product'].create(
-            self._prepare_mold_product(price_unit)
-        )
+        return self.env['product.product'].create(self._prepare_mold_product())
 
-    def _prepare_die_product(self, price_unit):
+    def _prepare_die_product(self):
         self.ensure_one()
+        price_unit = self.price_unit_die
         return {
-            **self._prepare_common_product_vals(),
+            **self._prepare_common_product_vals('die'),
             'is_insert_die': self.is_insert_die,
             'weight': self._calc_weight(self.material_id),
             'categ_id': self.design_id.category_id.id,
@@ -499,28 +545,28 @@ class StampConfigure(models.TransientModel):
             **self._prepare_common_product_die_vals(),
         }
 
-    def _prepare_counter_die_product(self, price_unit):
+    def _prepare_counter_die_product(self):
         self.ensure_one()
         return {
-            **self._prepare_common_product_vals(),
+            **self._prepare_common_product_vals('counter_die'),
             'weight': self._calc_weight(self.material_counter_id),
             'categ_id': self.category_counter_die_id.id,
             'default_code': code.generate_counter_die_code(self),
             'name': name.generate_counter_die_name(self),
-            'list_price': price_unit,
+            'list_price': self.price_unit_counter_die,
             **self._prepare_common_product_die_vals(),
         }
 
-    def _prepare_mold_product(self, price_unit):
+    def _prepare_mold_product(self):
         self.ensure_one()
         return {
-            **self._prepare_common_product_vals(),
+            **self._prepare_common_product_vals('mold'),
             'weight': self._calc_weight(self.material_id),
             'categ_id': self.category_mold_id.id,
             'detailed_type': 'service',
             'default_code': code.generate_mold_code(self),
             'name': name.generate_mold_name(self),
-            'list_price': price_unit,
+            'list_price': self.price_unit_mold,
         }
 
     def _prepare_message(self):

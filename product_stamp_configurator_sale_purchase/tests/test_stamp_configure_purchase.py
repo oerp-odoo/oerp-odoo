@@ -42,17 +42,27 @@ class TestStampConfigurePurchase(TestProductStampConfiguratorCommon):
                 'quantity_counter_dies': 10,
                 'quantity_counter_spare_dies': 10,
                 'quantity_mold': 1,
+                'margin_ratio': 1.2,
             }
         )
         # WHEN
         res = cfg.action_configure()
         # THEN
+        self.assertEqual(cfg.price_unit_die, 39.0)
+        self.assertEqual(cfg.price_unit_counter_die, 15.0)
+        self.assertEqual(cfg.price_unit_mold, 0.0)
+        self.assertEqual(cfg.cost_unit_die, 33.0)
+        self.assertEqual(cfg.cost_unit_counter_die, 12.0)
+        self.assertEqual(cfg.cost_unit_mold, 0.0)
         self.assertFalse(res['die']['product'].service_to_purchase)
         self.assertFalse(res['counter_die']['product'].service_to_purchase)
         self.assertTrue(res['mold']['product'].service_to_purchase)
         self.assertEqual(len(res['die']['product'].seller_ids), 1)
         self.assertEqual(len(res['counter_die']['product'].seller_ids), 1)
         self.assertEqual(len(res['mold']['product'].seller_ids), 1)
+        self.assertEqual(res['die']['product'].seller_ids[0].price, 33.0)
+        self.assertEqual(res['counter_die']['product'].seller_ids[0].price, 12.0)
+        self.assertEqual(res['mold']['product'].seller_ids[0].price, 0.0)
 
     def test_03_stamp_configure_not_use_default_purchase(self):
         # GIVEN

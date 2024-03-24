@@ -5,7 +5,7 @@ from odoo.tools import float_round
 from ..const import DEFAULT_PRICE_DIGITS
 
 
-def calc_die_price(stamp_cfg, digits=DEFAULT_PRICE_DIGITS):
+def calc_die_price(stamp_cfg, digits=DEFAULT_PRICE_DIGITS, with_margin=True):
     material_price = _calc_material_price(stamp_cfg)
     pricelist_price = _calc_pricelist_die_price(stamp_cfg)
     coefficient = stamp_cfg.difficulty_id.coefficient
@@ -13,21 +13,29 @@ def calc_die_price(stamp_cfg, digits=DEFAULT_PRICE_DIGITS):
         pricelist_price = _calc_flat_embossed_foiling_price(stamp_cfg, pricelist_price)
     finishing_price = _calc_finishing_price(stamp_cfg)
     price = material_price + pricelist_price * coefficient + finishing_price
+    # TODO: its a bit redundant to copy paste this part in all three
+    # price calc functions.
+    if with_margin:
+        price = _calc_price_with_margin(stamp_cfg, price)
     return float_round(price, precision_digits=digits)
 
 
-def calc_counter_die_price(stamp_cfg, digits=DEFAULT_PRICE_DIGITS):
+def calc_counter_die_price(stamp_cfg, digits=DEFAULT_PRICE_DIGITS, with_margin=True):
     pricelist = stamp_cfg.partner_id.property_stamp_pricelist_id
     price = stamp_cfg.area_priced * pricelist.price_counter_die
+    if with_margin:
+        price = _calc_price_with_margin(stamp_cfg, price)
     return float_round(price, precision_digits=digits)
 
 
-def calc_mold_price(stamp_cfg, digits=DEFAULT_PRICE_DIGITS):
+def calc_mold_price(stamp_cfg, digits=DEFAULT_PRICE_DIGITS, with_margin=True):
     if _calc_is_mold_free(stamp_cfg):
         return 0.0
     die_price = calc_die_price(stamp_cfg)
     pricelist = stamp_cfg.partner_id.property_stamp_pricelist_id
     price = die_price * pricelist.mold_of_die_perc / 100
+    if with_margin:
+        price = _calc_price_with_margin(stamp_cfg, price)
     return float_round(price, precision_digits=digits)
 
 
@@ -54,21 +62,6 @@ def convert_price_sqcm_to_unit(stamp_cfg, price_sqcm, digits=DEFAULT_PRICE_DIGIT
     return float_round(price_unit, precision_digits=digits)
 
 
-def calc_price_sqcm_and_price_unit(
-    stamp_cfg, price_sqcm_custom, price_unit_suggested, digits=DEFAULT_PRICE_DIGITS
-):
-    """Get prices either using custom square cm price or suggested unit price."""
-    if price_sqcm_custom:
-        price_unit = convert_price_sqcm_to_unit(
-            stamp_cfg, price_sqcm_custom, digits=digits
-        )
-        return (price_sqcm_custom, price_unit)
-    price_sqcm = convert_price_unit_to_sqcm(
-        stamp_cfg, price_unit_suggested, digits=digits
-    )
-    return (price_sqcm, price_unit_suggested)
-
-
 def calc_discount_percent(orig_price, discounted_price):
     if not orig_price:
         return 0
@@ -90,6 +83,10 @@ def _calc_finishing_price(stamp_cfg):
 
 def _calc_material_price(stamp_cfg):
     return stamp_cfg.area_priced * stamp_cfg.material_id.price
+
+
+def _calc_price_with_margin(stamp_cfg, price):
+    return stamp_cfg.margin_ratio * price
 
 
 def _calc_pricelist_die_price(stamp_cfg, design=None):

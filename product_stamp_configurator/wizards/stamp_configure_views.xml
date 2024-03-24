@@ -98,6 +98,7 @@
                         attrs="{'invisible': [('price_sqcm_die_suggested', '=', 0)]}"
                     >
                         <field name="company_id" invisible="1"/>
+                        <field name="margin_ratio"/>
                         <table class="table">
                             <thead>
                                 <tr>
