@@ -39,6 +39,9 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
         self.assertEqual(cfg.price_unit_die, 33.0)
         self.assertEqual(cfg.price_unit_counter_die, 12.0)
         self.assertEqual(cfg.price_unit_mold, 0.0)
+        self.assertEqual(cfg.cost_unit_die, 33.0)
+        self.assertEqual(cfg.cost_unit_counter_die, 12.0)
+        self.assertEqual(cfg.cost_unit_mold, 0.0)
         # Other asserts.
         self.assertEqual(cfg.category_counter_die_id, self.product_categ_furniture)
         self.assertEqual(cfg.category_mold_id, self.product_categ_service)
@@ -427,6 +430,9 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
         self.assertEqual(cfg.price_unit_die, 15.0)
         self.assertEqual(cfg.price_unit_counter_die, 30.0)
         self.assertEqual(cfg.price_unit_mold, 45.0)
+        self.assertEqual(cfg.cost_unit_die, 15.0)
+        self.assertEqual(cfg.cost_unit_counter_die, 30.0)
+        self.assertEqual(cfg.cost_unit_mold, 45.0)
         # Other asserts.
         self.assertEqual(cfg.category_counter_die_id, self.product_categ_furniture)
         self.assertEqual(cfg.category_mold_id, self.product_categ_service)
@@ -476,7 +482,49 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
         self.assertEqual(product_mold.categ_id, self.product_categ_service)
         self.assertFalse(cfg.is_insert_die)
 
-    def test_11_stamp_configure_die_translated_products(self):
+    def test_11_stamp_price_cost_with_margin(self):
+        # GIVEN, WHEN
+        cfg = self.StampConfigure.create(
+            {
+                'sequence': 1,
+                'partner_id': self.partner_azure.id,
+                # die_id omitted, expecting to use default from settings.
+                'design_id': self.stamp_design_f.id,
+                'material_id': self.stamp_material_brass_7.id,
+                'material_counter_id': self.stamp_material_plastic_05.id,
+                'difficulty_id': self.stamp_difficulty_a.id,
+                'size_length': 15,
+                'size_width': 10,
+                'quantity_dies': 10,
+                'quantity_spare_dies': 3,
+                'quantity_counter_dies': 10,
+                'quantity_counter_spare_dies': 10,
+                'origin': '1111',
+                'ref': '2222',
+                'quantity_mold': 1,
+                'price_sqcm_die_custom': 0.1,
+                'price_sqcm_counter_die_custom': 0.2,
+                'price_sqcm_mold_custom': 0.3,
+                # To make price higher than cost.
+                'margin_ratio': 1.2,
+            }
+        )
+        # THEN
+        # Prices on configurator itself.
+        self.assertEqual(cfg.price_sqcm_die_suggested, 0.26)
+        self.assertEqual(cfg.price_sqcm_counter_die_suggested, 0.1)
+        self.assertEqual(cfg.price_sqcm_mold_suggested, 0.0)
+        self.assertEqual(cfg.price_sqcm_die_custom, 0.1)
+        self.assertEqual(cfg.price_sqcm_counter_die_custom, 0.2)
+        self.assertEqual(cfg.price_sqcm_mold_custom, 0.3)
+        self.assertEqual(cfg.price_unit_die, 18.0)
+        self.assertEqual(cfg.price_unit_counter_die, 36.0)
+        self.assertEqual(cfg.price_unit_mold, 54.0)
+        self.assertEqual(cfg.cost_unit_die, 15.0)
+        self.assertEqual(cfg.cost_unit_counter_die, 30.0)
+        self.assertEqual(cfg.cost_unit_mold, 45.0)
+
+    def test_12_stamp_configure_die_translated_products(self):
         # GIVEN
         self.stamp_die_default.update_field_translations('name', {'lt_LT': 'Klišė'})
         self.stamp_design_f.update_field_translations('name', {'lt_LT': 'HFS_LT'})

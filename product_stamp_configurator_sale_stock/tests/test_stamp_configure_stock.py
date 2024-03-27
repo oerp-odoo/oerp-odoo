@@ -3,19 +3,26 @@ from odoo.addons.product_stamp_configurator.tests.common import (
 )
 
 
-class TestStampConfigureIntrastat(TestProductStampConfiguratorCommon):
+class TestStampConfigureStock(TestProductStampConfiguratorCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.intrastat_code_office_desks = cls.env.ref(
-            'account_intrastat.commodity_code_2018_94031051'
+        cls.stock_route_mto = cls.env.ref('stock.route_warehouse0_mto')
+        cls.stock_route_mto.write(
+            {
+                'active': True,
+                'product_selectable': True,
+            }
         )
+        cls.ResConfigSettings = cls.env['res.config.settings']
 
-    def test_01_stamp_configure_use_default_intrastat(self):
+    def test_01_stamp_configure_use_default_stock(self):
         # GIVEN
-        self.company_main.intrastat_stamp_default_code_id = (
-            self.intrastat_code_office_desks.id
+        # Doing it via cfg settings to make sure option is set properly.
+        res_cfg_settings = self.ResConfigSettings.create(
+            {'stock_route_stamp_default_ids': [(6, 0, self.stock_route_mto.ids)]}
         )
+        res_cfg_settings.execute()
         cfg = self.StampConfigure.create(
             {
                 'partner_id': self.partner_azure.id,
@@ -36,19 +43,13 @@ class TestStampConfigureIntrastat(TestProductStampConfiguratorCommon):
         # WHEN
         res = cfg.action_configure()
         # THEN
-        self.assertEqual(cfg.intrastat_code_id, self.intrastat_code_office_desks)
+        self.assertEqual(res['die']['product'].route_ids, self.stock_route_mto)
         self.assertEqual(
-            res['die']['product'].intrastat_code_id, self.intrastat_code_office_desks
-        )
-        self.assertEqual(
-            res['counter_die']['product'].intrastat_code_id,
-            self.intrastat_code_office_desks,
-        )
-        self.assertEqual(
-            res['mold']['product'].intrastat_code_id, self.intrastat_code_office_desks
+            res['counter_die']['product'].route_ids,
+            self.stock_route_mto,
         )
 
-    def test_02_stamp_configure_not_use_default_intrastat(self):
+    def test_02_stamp_configure_not_use_default_stock(self):
         # GIVEN
         cfg = self.StampConfigure.create(
             {
@@ -70,7 +71,5 @@ class TestStampConfigureIntrastat(TestProductStampConfiguratorCommon):
         # WHEN
         res = cfg.action_configure()
         # THEN
-        self.assertFalse(cfg.intrastat_code_id)
-        self.assertFalse(res['die']['product'].intrastat_code_id)
-        self.assertFalse(res['counter_die']['product'].intrastat_code_id)
-        self.assertFalse(res['mold']['product'].intrastat_code_id)
+        self.assertFalse(res['die']['product'].route_ids)
+        self.assertFalse(res['counter_die']['product'].route_ids)

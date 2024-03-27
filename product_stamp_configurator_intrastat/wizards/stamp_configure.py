@@ -18,8 +18,8 @@ class StampConfigure(models.TransientModel):
             res['intrastat_code_id'] = intrastat_code_id
         return res
 
-    def _prepare_common_product_vals(self):
-        res = super()._prepare_common_product_vals()
+    def _prepare_common_product_vals(self, stamp_type):
+        res = super()._prepare_common_product_vals(stamp_type)
         intrastat_code_id = self.intrastat_code_id.id
         if intrastat_code_id:
             res['intrastat_code_id'] = intrastat_code_id
