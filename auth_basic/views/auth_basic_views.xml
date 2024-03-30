@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="auth_basic_view_tree" model="ir.ui.view">
+        <field name="name">auth.basic.tree</field>
+        <field name="model">auth.basic</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="user_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="auth_basic_view_form" model="ir.ui.view">
+        <field name="name">auth.basic.form</field>
+        <field name="model">auth.basic</field>
+        <field name="arch" type="xml">
+            <form edit="false">
+                <sheet>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name" class="oe_inline"/>
+                    </h1>
+                     <group name="config" colspan="4" col="4">
+                         <field name="user_id" colspan="4"/>
+                         <field name="username" colspan="4"/>
+                         <field name="password" password="True" colspan="4"/>
+                     </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="auth_basic_action" model="ir.actions.act_window">
+        <field name="name">Basic</field>
+        <field name="res_model">auth.basic</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="auth_basic_menu"
+        parent="auth_menus.auth_menu"
+        action="auth_basic_action"
+        sequence="1"
+    />
+</odoo>
