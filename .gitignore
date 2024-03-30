@@ -1,2 +1,14 @@
 *.pyc
+*.swp
 *~
+docker-compose.yml
+docker-compose.override.yml
+pyrightconfig.json
+.venv
+.env
+.secrets/*
+/.idea/
+# Byte-compiled
+__pycache__/
+*.py[cod]
+*$py.class

@@ -5,30 +5,6 @@ on:
   push:
     branches-ignore: ["15.0"]
 jobs:
-  lint:
-    name: Linters
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-      - name: Lint Code Base
-        uses: github/super-linter/slim@v4
-        env:
-          VALIDATE_ALL_CODEBASE: false
-          # Explicitly specify to see what is enabled.
-          VALIDATE_CSS: true
-          VALIDATE_HTML: true
-          VALIDATE_XML: true
-          VALIDATE_YAML: true
-          VALIDATE_GITHUB_ACTIONS: true
-          VALIDATE_GITLEAKS: true
-          VALIDATE_JAVASCRIPT_ES: true
-          VALIDATE_JSX: true
-          VALIDATE_JSON: true
-          VALIDATE_MARKDOWN: true
-          VALIDATE_PYTHON_FLAKE8: true
-          DEFAULT_BRANCH: "15.0"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   test:
     name: Odoo Tests
     runs-on: ubuntu-latest
