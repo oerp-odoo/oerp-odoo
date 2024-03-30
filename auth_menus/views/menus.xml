@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem
+        id="auth_menu"
+        name="Internal Authentication"
+        parent="base.menu_custom"
+        sequence="26"
+    />
+        <menuitem
+        id="auth_external_menu"
+        name="External Authentication"
+        parent="base.menu_custom"
+        sequence="27"
+    />
+</odoo>
