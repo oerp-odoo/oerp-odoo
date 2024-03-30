@@ -1,0 +1,134 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* auth_basic
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-12-07 10:09+0000\n"
+"PO-Revision-Date: 2021-12-07 10:09+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: auth_basic
+#: model:ir.actions.act_window,name:auth_basic.auth_basic_action
+#: model:ir.ui.menu,name:auth_basic.auth_basic_menu
+msgid "Basic"
+msgstr "Bazinė"
+
+#. module: auth_basic
+#: model:ir.model,name:auth_basic.model_auth_basic
+msgid "Basic Authentication"
+msgstr "Bazinė autentifikacija"
+
+#. module: auth_basic
+#: model:ir.model.constraint,message:auth_basic.constraint_auth_basic_name_uniq
+msgid "Basic Authentication name must be unique."
+msgstr "Bazinės autentifikacijos pavadinimas privalo būti unikalus."
+
+#. module: auth_basic
+#: model:ir.model.fields,field_description:auth_basic.field_auth_basic__create_uid
+msgid "Created by"
+msgstr "Sukūrė"
+
+#. module: auth_basic
+#: model:ir.model.fields,field_description:auth_basic.field_auth_basic__create_date
+msgid "Created on"
+msgstr "Sukurta"
+
+#. module: auth_basic
+#: model:ir.model.fields,field_description:auth_basic.field_auth_basic__display_name
+msgid "Display Name"
+msgstr "Rodomas pavadinimas"
+
+#. module: auth_basic
+#: model:ir.model,name:auth_basic.model_ir_http
+msgid "HTTP Routing"
+msgstr "HTTP nukreipimas"
+
+#. module: auth_basic
+#: model:ir.model.fields,field_description:auth_basic.field_auth_basic__id
+msgid "ID"
+msgstr ""
+
+#. module: auth_basic
+#: model:ir.model.fields,field_description:auth_basic.field_auth_basic____last_update
+msgid "Last Modified on"
+msgstr "Paskutinį kartą keista"
+
+#. module: auth_basic
+#: model:ir.model.fields,field_description:auth_basic.field_auth_basic__write_uid
+msgid "Last Updated by"
+msgstr "Paskutinį kartą atnaujino"
+
+#. module: auth_basic
+#: model:ir.model.fields,field_description:auth_basic.field_auth_basic__write_date
+msgid "Last Updated on"
+msgstr "Paskutinį kartą atnaujinta"
+
+#. module: auth_basic
+#: model:ir.model.fields,field_description:auth_basic.field_auth_basic__name
+msgid "Name"
+msgstr "Pavadinimas"
+
+#. module: auth_basic
+#: model:ir.model.fields,field_description:auth_basic.field_auth_basic__password
+msgid "Password"
+msgstr "Slaptažodis"
+
+#. module: auth_basic
+#: model:ir.model.fields,field_description:auth_basic.field_auth_basic__password_env_default
+msgid "Password Env Default"
+msgstr ""
+
+#. module: auth_basic
+#: model:ir.model.fields,field_description:auth_basic.field_auth_basic__password_env_is_editable
+msgid "Password Env Is Editable"
+msgstr ""
+
+#. module: auth_basic
+#: model:ir.model.fields,field_description:auth_basic.field_auth_basic__server_env_defaults
+msgid "Server Env Defaults"
+msgstr ""
+
+#. module: auth_basic
+#: code:addons/auth_basic/models/auth_basic.py:0
+#, python-format
+msgid "The credentials %s are incorrect"
+msgstr "Įgaliojimai %s yra neteisingi"
+
+#. module: auth_basic
+#: model:ir.model.fields,help:auth_basic.field_auth_basic__user_id
+msgid "The user used to process the requests authenticated by basic auth"
+msgstr "Vartotojas turintis bazinę autentifikaciją, kuris apdoros užklausas"
+
+#. module: auth_basic
+#: model:ir.model.fields,field_description:auth_basic.field_auth_basic__user_id
+msgid "User"
+msgstr "Vartotojas"
+
+#. module: auth_basic
+#: code:addons/auth_basic/models/auth_basic.py:0
+#, python-format
+msgid "User is not allowed"
+msgstr "Šis vartotojas nėra leidžiamas"
+
+#. module: auth_basic
+#: model:ir.model.fields,field_description:auth_basic.field_auth_basic__username
+msgid "Username"
+msgstr "Vartotojo vardas"
+
+#. module: auth_basic
+#: model:ir.model.fields,field_description:auth_basic.field_auth_basic__username_env_default
+msgid "Username Env Default"
+msgstr ""
+
+#. module: auth_basic
+#: model:ir.model.fields,field_description:auth_basic.field_auth_basic__username_env_is_editable
+msgid "Username Env Is Editable"
+msgstr ""
