@@ -2,15 +2,25 @@
 <odoo noupdate="1">
     <record id="mail_template_machine_maintenance" model="mail.template">
         <field name="name">Machine - Maintenance</field>
-        <field name="email_from"></field>
-        <field name="subject">Scheduled maintenance for {{object.machine_name}} ({{object.name}}).</field>
-        <field name="partner_to"></field>
+        <field name="email_from"/>
+        <field
+            name="subject"
+        >Scheduled maintenance for {{object.machine_name}} ({{object.name}}).</field>
+        <field name="partner_to"/>
         <field name="model_id" ref="machine.model_machine_instance_change_log"/>
-        <field name="lang">{{object.machine_instance_id.partner_id.lang}}</field>
+        <field
+            name="lang"
+        >{{object.machine_instance_id.partner_id.lang}}</field>
         <field name="body_html" type="html">
             <p>Dear Customer,</p>
-            <p>at <t t-out="object.date"/> we will do scheduled maintenance for environment you are using (<t t-out="object.machine_name"/>).</p>
-            <p>Maintenance estimated duration is <t t-out="object.duration"/> hour(s). If you have any questions or issues with this maintenance, please reply to this email.</p>
+            <p>at <t
+                    t-out="object.date"
+                /> we will do scheduled maintenance for environment you are using (<t
+                    t-out="object.machine_name"
+                />).</p>
+            <p>Maintenance estimated duration is <t
+                    t-out="object.duration"
+                /> hour(s). If you have any questions or issues with this maintenance, please reply to this email.</p>
         </field>
     </record>
 </odoo>

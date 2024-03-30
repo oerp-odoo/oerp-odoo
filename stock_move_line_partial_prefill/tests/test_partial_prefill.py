@@ -9,9 +9,7 @@ class TestPartialPrefill(TransactionCase):
         """Set up data."""
         super().setUpClass()
         # GIVEN
-        cls.picking_out_1 = cls.env.ref(
-            'stock.outgoing_shipment_main_warehouse2'
-        )
+        cls.picking_out_1 = cls.env.ref('stock.outgoing_shipment_main_warehouse2')
         cls.picking_type_delivery = cls.picking_out_1.picking_type_id
         cls.picking_type_delivery.write(
             {
@@ -60,9 +58,7 @@ class TestPartialPrefill(TransactionCase):
         self.assertEqual(move_line_lamp.product_uom_qty, 0)
         self.assertFalse(move_line_lamp.lot_id)
         # Product Box
-        move_lines_box = move_lines.filtered(
-            lambda r: r.product_id == self.product_box
-        )
+        move_lines_box = move_lines.filtered(lambda r: r.product_id == self.product_box)
         self.assertEqual(len(move_lines_box), 2)
         move_line_box_1 = move_lines_box[0]
         self.assertEqual(move_line_box_1.move_id, self.move_box)

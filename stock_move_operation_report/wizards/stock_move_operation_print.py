@@ -37,9 +37,7 @@ class StockPMoveOperationPrint(models.TransientModel):
     def _check_dates(self):
         for rec in self:
             if rec.date_start > rec.date_end:
-                raise ValidationError(
-                    _("Date Start must be sooner than Date End!")
-                )
+                raise ValidationError(_("Date Start must be sooner than Date End!"))
 
     def action_print(self):
         self.ensure_one()

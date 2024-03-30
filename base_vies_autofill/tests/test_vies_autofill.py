@@ -1,8 +1,7 @@
 from unittest.mock import patch
 
-from odoo.tests import common
 from odoo.exceptions import ValidationError
-
+from odoo.tests import common
 
 PATCH_PATH = 'odoo.addons.base_vat.models.res_partner.ResPartner._check_vies'
 
@@ -18,9 +17,7 @@ class TestViesAutofill(common.TransactionCase):
         super().setUpClass()
         cls.ResPartner = cls.env['res.partner']
         cls.partner_azure = cls.env.ref('base.res_partner_12')
-        cls.partner_1 = cls.ResPartner.create(
-            {'name': 'Partner 2', 'is_company': True}
-        )
+        cls.partner_1 = cls.ResPartner.create({'name': 'Partner 2', 'is_company': True})
         cls.country_lt = cls.env.ref('base.lt')
         cls.company_main = cls.env.ref('base.main_company')
         cls.company_main.write(
@@ -115,7 +112,5 @@ class TestViesAutofill(common.TransactionCase):
         self.company_main.vat_check_vies = False
         self.assertEqual(self.ResPartner.retrieve_vies_data('vat123'), {})
         # Case 2.
-        self.company_main.write(
-            {'vat_check_vies': True, 'vies_autofill': False}
-        )
+        self.company_main.write({'vat_check_vies': True, 'vies_autofill': False})
         self.assertEqual(self.ResPartner.retrieve_vies_data('vat123'), {})

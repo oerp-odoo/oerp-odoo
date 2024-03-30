@@ -23,28 +23,20 @@ class TestMrpUnbuildMultiAll(TestMrpUnbuildMultiCommon):
         # 3 for each SN + 1 LOT + 1 untracked
         self.assertEqual(len(unbuilds), 5)
         for unbuild in unbuilds:
-            self.assertEqual(
-                unbuild.state, 'done', unbuild.mo_id.product_id.name
-            )
+            self.assertEqual(unbuild.state, 'done', unbuild.mo_id.product_id.name)
         self.assertUnbuild(
             unbuilds.filtered(lambda r: r.lot_id.name == 'S001'),
-            self.mos_tracked_sn.filtered(
-                lambda r: r.lot_producing_id.name == 'S001'
-            ),
+            self.mos_tracked_sn.filtered(lambda r: r.lot_producing_id.name == 'S001'),
             1,
         )
         self.assertUnbuild(
             unbuilds.filtered(lambda r: r.lot_id.name == 'S002'),
-            self.mos_tracked_sn.filtered(
-                lambda r: r.lot_producing_id.name == 'S002'
-            ),
+            self.mos_tracked_sn.filtered(lambda r: r.lot_producing_id.name == 'S002'),
             1,
         )
         self.assertUnbuild(
             unbuilds.filtered(lambda r: r.lot_id.name == 'S003'),
-            self.mos_tracked_sn.filtered(
-                lambda r: r.lot_producing_id.name == 'S003'
-            ),
+            self.mos_tracked_sn.filtered(lambda r: r.lot_producing_id.name == 'S003'),
             1,
         )
         self.assertUnbuild(
@@ -78,28 +70,20 @@ class TestMrpUnbuildMultiAll(TestMrpUnbuildMultiCommon):
         # 3 for each SN + 1
         self.assertEqual(len(unbuilds), 3)
         for unbuild in unbuilds:
-            self.assertEqual(
-                unbuild.state, 'done', unbuild.mo_id.product_id.name
-            )
+            self.assertEqual(unbuild.state, 'done', unbuild.mo_id.product_id.name)
         self.assertUnbuild(
             unbuilds.filtered(lambda r: r.lot_id.name == 'S001'),
-            self.mos_tracked_sn.filtered(
-                lambda r: r.lot_producing_id.name == 'S001'
-            ),
+            self.mos_tracked_sn.filtered(lambda r: r.lot_producing_id.name == 'S001'),
             1,
         )
         self.assertUnbuild(
             unbuilds.filtered(lambda r: r.lot_id.name == 'S002'),
-            self.mos_tracked_sn.filtered(
-                lambda r: r.lot_producing_id.name == 'S002'
-            ),
+            self.mos_tracked_sn.filtered(lambda r: r.lot_producing_id.name == 'S002'),
             1,
         )
         self.assertUnbuild(
             unbuilds.filtered(lambda r: r.lot_id.name == 'S003'),
-            self.mos_tracked_sn.filtered(
-                lambda r: r.lot_producing_id.name == 'S003'
-            ),
+            self.mos_tracked_sn.filtered(lambda r: r.lot_producing_id.name == 'S003'),
             1,
         )
 
@@ -135,9 +119,7 @@ class TestMrpUnbuildMultiAll(TestMrpUnbuildMultiCommon):
             res['context']['mo_unbuilt_ids'],
             (self.mos - self.mo_untracked).ids,
         )
-        self.assertEqual(
-            res['context']['mo_skipped_ids'], self.mo_untracked.ids
-        )
+        self.assertEqual(res['context']['mo_skipped_ids'], self.mo_untracked.ids)
         self.assertEqual(len(unbuild_init), 1)
         self.assertUnbuild(unbuild_init, self.mo_untracked, 3)
         unbuilds = (
@@ -149,28 +131,20 @@ class TestMrpUnbuildMultiAll(TestMrpUnbuildMultiCommon):
         # 3 for each SN + 1 untracked
         self.assertEqual(len(unbuilds), 4)
         for unbuild in unbuilds:
-            self.assertEqual(
-                unbuild.state, 'done', unbuild.mo_id.product_id.name
-            )
+            self.assertEqual(unbuild.state, 'done', unbuild.mo_id.product_id.name)
         self.assertUnbuild(
             unbuilds.filtered(lambda r: r.lot_id.name == 'S001'),
-            self.mos_tracked_sn.filtered(
-                lambda r: r.lot_producing_id.name == 'S001'
-            ),
+            self.mos_tracked_sn.filtered(lambda r: r.lot_producing_id.name == 'S001'),
             1,
         )
         self.assertUnbuild(
             unbuilds.filtered(lambda r: r.lot_id.name == 'S002'),
-            self.mos_tracked_sn.filtered(
-                lambda r: r.lot_producing_id.name == 'S002'
-            ),
+            self.mos_tracked_sn.filtered(lambda r: r.lot_producing_id.name == 'S002'),
             1,
         )
         self.assertUnbuild(
             unbuilds.filtered(lambda r: r.lot_id.name == 'S003'),
-            self.mos_tracked_sn.filtered(
-                lambda r: r.lot_producing_id.name == 'S003'
-            ),
+            self.mos_tracked_sn.filtered(lambda r: r.lot_producing_id.name == 'S003'),
             1,
         )
         self.assertUnbuild(

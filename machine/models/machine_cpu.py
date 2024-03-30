@@ -1,6 +1,6 @@
 from footil.formatting import generate_names
 
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class MachineCpu(models.Model):
@@ -9,19 +9,21 @@ class MachineCpu(models.Model):
     _name = 'machine.cpu'
     _description = 'Machine CPU'
 
-    name = fields.Char(required=True,)
+    name = fields.Char(
+        required=True,
+    )
     cpu_brand_id = fields.Many2one(
-        'machine.cpu.brand', "CPU Brand", required=True,
+        'machine.cpu.brand',
+        "CPU Brand",
+        required=True,
     )
     cores = fields.Integer(required=True, default=2)
     clockspeed = fields.Float("Clockspeed in GHz", required=True)
 
-    @api.depends(
-        'name', 'cpu_brand_id.name', 'cpu_brand_id.cpu_vendor_id.name')
+    @api.depends('name', 'cpu_brand_id.name', 'cpu_brand_id.cpu_vendor_id.name')
     def name_get(self):
         """Override to show custom display_name."""
-        pattern = (
-            '{cpu_brand_id.cpu_vendor_id.name} {cpu_brand_id.name} {name}')
+        pattern = '{cpu_brand_id.cpu_vendor_id.name} {cpu_brand_id.name} {name}'
         return generate_names({'pattern': pattern, 'objects': self})
 
 
@@ -31,18 +33,20 @@ class MachineCpuBrand(models.Model):
     _name = 'machine.cpu.brand'
     _description = 'Machine CPU Brand'
 
-    name = fields.Char(required=True,)
-    cpu_vendor_id = fields.Many2one(
-        'machine.cpu.vendor', "CPU Vendor", required=True)
+    name = fields.Char(
+        required=True,
+    )
+    cpu_vendor_id = fields.Many2one('machine.cpu.vendor', "CPU Vendor", required=True)
 
-    @api.depends(
-        'name', 'cpu_vendor_id.name')
+    @api.depends('name', 'cpu_vendor_id.name')
     def name_get(self):
         """Override to show custom display_name."""
-        return generate_names({
-            'pattern': '{cpu_vendor_id.name} {name}',
-            'objects': self,
-        })
+        return generate_names(
+            {
+                'pattern': '{cpu_vendor_id.name} {name}',
+                'objects': self,
+            }
+        )
 
 
 class MachineCpuVendor(models.Model):

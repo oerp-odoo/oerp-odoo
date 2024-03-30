@@ -2,7 +2,9 @@
 <odoo>
     <record id="module_category_machines_management" model="ir.module.category">
         <field name="name">Machines</field>
-        <field name="description">Helps you manage machines' instances with their options and parameters.</field>
+        <field
+            name="description"
+        >Helps you manage machines' instances with their options and parameters.</field>
         <field name="sequence">10</field>
     </record>
     <record id="machine_group_user" model="res.groups">
@@ -14,7 +16,10 @@
         <field name="name">Manager</field>
         <field name="category_id" ref="module_category_machines_management"/>
         <field name="implied_ids" eval="[(4, ref('machine_group_user'))]"/>
-        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
     </record>
     <record id="machine_group_show_resources" model="res.groups">
         <field name="name">Show Machine Resources</field>

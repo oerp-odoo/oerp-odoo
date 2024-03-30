@@ -9,9 +9,7 @@ class TestSaleConfirmTemplate(TransactionCase):
         cls.PaymentTransaction = cls.env['payment.transaction']
         # draft state.
         cls.sale_3 = cls.env.ref('sale.sale_order_3')
-        cls.payment_acquirer_transfer = cls.env.ref(
-            'payment.payment_acquirer_transfer'
-        )
+        cls.payment_acquirer_transfer = cls.env.ref('payment.payment_acquirer_transfer')
         cls.mail_template_quote = cls.env.ref('sale.email_template_edi_sale')
 
     def test_01_sale_payment_tx_w_custom_mail_confirm_template(self):
@@ -98,18 +96,12 @@ class TestSaleConfirmTemplate(TransactionCase):
         self.assertEqual(self.sale_3.state, 'sent')
         body = self.sale_3.message_ids[0].body
         self.assertIn('order', body)
-        self.assertIn(
-            'It will be confirmed when the payment is received', body
-        )
+        self.assertIn('It will be confirmed when the payment is received', body)
 
     def test_04_payment_transaction_ctx_wrong_type(self):
         with self.assertRaises(ValidationError):
-            self.payment_acquirer_transfer.mail_template_sale_confirm_ctx = (
-                "123"
-            )
+            self.payment_acquirer_transfer.mail_template_sale_confirm_ctx = "123"
 
     def test_05_payment_transaction_ctx_cant_eval(self):
         with self.assertRaises(ValidationError):
-            self.payment_acquirer_transfer.mail_template_sale_confirm_ctx = (
-                "xxx"
-            )
+            self.payment_acquirer_transfer.mail_template_sale_confirm_ctx = "xxx"

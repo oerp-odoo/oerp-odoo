@@ -39,10 +39,14 @@
                                 name="machine_env_details_visibility"
                             >
                                 <div class="o_setting_left_pane">
-                                    <field name="group_machine_show_env_details"/>
+                                    <field
+                                        name="group_machine_show_env_details"
+                                    />
                                 </div>
                                 <div class="o_setting_right_pane">
-                                    <label for="group_machine_show_env_details"/>
+                                    <label
+                                        for="group_machine_show_env_details"
+                                    />
                                     <div class="text-muted">
                                         Show environment details like Operating System, Database System.
                                     </div>
@@ -64,7 +68,8 @@
         <field name="context">{'module' : 'machine', 'bin_size': False}</field>
     </record>
 
-    <menuitem id="machine_settings_menu"
+    <menuitem
+        id="machine_settings_menu"
         name="Settings"
         parent="machine_config_menu"
         action="machine_config_settings_action"

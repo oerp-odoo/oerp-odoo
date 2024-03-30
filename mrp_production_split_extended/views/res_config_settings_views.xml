@@ -6,7 +6,10 @@
         <field name="inherit_id" ref="mrp.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <div id="mrp_lock" position="after">
-                <div class="col-lg-6 col-12 o_setting_box" id="mrp_production_split_extended">
+                <div
+                    class="col-lg-6 col-12 o_setting_box"
+                    id="mrp_production_split_extended"
+                >
                     <div class="o_setting_left_pane"/>
                     <div class="o_setting_right_pane">
                         <div>
@@ -15,7 +18,11 @@
                         </div>
                         <div class="content-group">
                             <div class="mt16">
-                                <field name="mrp_production_default_split_mode" class="o_light_label" widget="radio"/>
+                                <field
+                                    name="mrp_production_default_split_mode"
+                                    class="o_light_label"
+                                    widget="radio"
+                                />
                             </div>
                         </div>
                     </div>

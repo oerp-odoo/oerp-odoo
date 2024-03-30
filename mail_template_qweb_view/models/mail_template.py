@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class MailTemplate(models.Model):
@@ -28,7 +28,8 @@ class MailTemplate(models.Model):
         set_lang=False,
         add_context=None,
         options=None,
-            post_process=False):
+        post_process=False,
+    ):
         if field == 'body_html' and self.body_engine == 'qweb_view':
             self = self.with_context(
                 body_engine_data={
@@ -36,7 +37,7 @@ class MailTemplate(models.Model):
                     # param in this method is useless. Value is always
                     # changed inside method..
                     'engine': 'qweb_view',
-                    'template_src': self.view_body_qweb_id.xml_id
+                    'template_src': self.view_body_qweb_id.xml_id,
                 }
             )
         return super(MailTemplate, self)._render_field(
@@ -59,7 +60,8 @@ class MailTemplate(models.Model):
         engine='inline_template',
         add_context=None,
         options=None,
-            post_process=False):
+        post_process=False,
+    ):
         body_engine_data = self._context.get('body_engine_data')
         if body_engine_data:
             template_src = body_engine_data['template_src']

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="machine_instance_rule_company" model="ir.rule" >
+    <record id="machine_instance_rule_company" model="ir.rule">
         <field name="name">machine.instance: Multi-Company</field>
         <field name="model_id" ref="machine.model_machine_instance"/>
         <!-- Multi-Company depends on selected machine partner. -->
-        <field name="domain_force">['|', '|', ('partner_id.partner_share', '=', False), ('partner_id.company_id', 'in', company_ids), ('partner_id.company_id', '=', False)]</field>
+        <field
+            name="domain_force"
+        >['|', '|', ('partner_id.partner_share', '=', False), ('partner_id.company_id', 'in', company_ids), ('partner_id.company_id', '=', False)]</field>
     </record>
 </odoo>

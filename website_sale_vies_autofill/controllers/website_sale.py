@@ -1,5 +1,5 @@
-from odoo.http import request
 from odoo import http
+from odoo.http import request
 
 from odoo.addons.website_sale.controllers import main
 

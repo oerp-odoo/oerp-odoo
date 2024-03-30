@@ -7,9 +7,7 @@ class StockMoveLine(models.Model):
     _inherit = 'stock.move.line'
 
     def _get_aggregated_product_quantities(self, **kwargs):
-        aggregated_move_lines = super()._get_aggregated_product_quantities(
-            **kwargs
-        )
+        aggregated_move_lines = super()._get_aggregated_product_quantities(**kwargs)
         moves = self.mapped('move_id')
         for aggregated_move_line in aggregated_move_lines:
             use_selling_price = False

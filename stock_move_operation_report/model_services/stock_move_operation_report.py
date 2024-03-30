@@ -1,8 +1,7 @@
-from odoo.osv import expression
-
 import datetime
 
 from odoo import models
+from odoo.osv import expression
 
 
 class StockPMoveOperationReport(models.AbstractModel):
@@ -28,7 +27,7 @@ class StockPMoveOperationReport(models.AbstractModel):
         )
         rows = []
         op_usage_map = self._get_operation_usage_map()
-        for (product_start, product_end) in zip(products_start, products_end):
+        for product_start, product_end in zip(products_start, products_end):
             rows.append(
                 self._prepare_row_data(
                     product_start,
@@ -87,14 +86,10 @@ class StockPMoveOperationReport(models.AbstractModel):
         )
         moves = self.env['stock.move'].search(domain)
         for move in moves:
-            op = op_usage_map[
-                (move.location_id.usage, move.location_dest_id.usage)
-            ]
+            op = op_usage_map[(move.location_id.usage, move.location_dest_id.usage)]
             yield (op, move.product_uom_qty)
 
-    def _get_stock_moves_domain(
-        self, product, date_start, date_end, warehouse=None
-    ):
+    def _get_stock_moves_domain(self, product, date_start, date_end, warehouse=None):
         def get_extra_domain():
             domain_src_internal = [
                 ('location_id.usage', '=', 'internal'),
@@ -106,9 +101,7 @@ class StockPMoveOperationReport(models.AbstractModel):
             ]
             if warehouse:
                 location_id = warehouse.lot_stock_id.id
-                domain_src_internal.append(
-                    ('location_id', 'child_of', location_id)
-                )
+                domain_src_internal.append(('location_id', 'child_of', location_id))
                 domain_dest_internal.append(
                     ('location_dest_id', 'child_of', location_id)
                 )
@@ -149,11 +142,7 @@ class StockPMoveOperationReport(models.AbstractModel):
         }
 
     def _prepare_product_qty_context(self, to_date, warehouse=None):
-        ctx = {
-            'to_date': datetime.datetime(
-                to_date.year, to_date.month, to_date.day
-            )
-        }
+        ctx = {'to_date': datetime.datetime(to_date.year, to_date.month, to_date.day)}
         if warehouse:
             ctx['warehouse'] = warehouse.id
         return ctx

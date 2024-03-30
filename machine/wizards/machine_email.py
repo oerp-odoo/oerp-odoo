@@ -1,7 +1,7 @@
-from odoo import models, fields, api, _
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
-from .. models.machine_instance import PRIORITY
+from ..models.machine_instance import PRIORITY
 
 
 def _retrieve_db_id(record):
@@ -16,18 +16,20 @@ class MachineEmail(models.TransientModel):
     _name = 'machine.email'
     _description = 'Send Emails to Machine Contacts'
 
-    machine_group_ids = fields.Many2many(
-        'machine.group', string="Machine Groups")
+    machine_group_ids = fields.Many2many('machine.group', string="Machine Groups")
     recipient_ids = fields.One2many(
-        'machine.email.recipient', 'machine_email_id', "Recipients")
+        'machine.email.recipient', 'machine_email_id', "Recipients"
+    )
     email_type = fields.Selection(
         [('general', "General"), ('maintenance', "Maintenance")],
         default='general',
-        required=True)
+        required=True,
+    )
     mail_template_id = fields.Many2one(
         'mail.template',
         "Mail Template",
-        domain=[('model_id.model', '=', 'machine.instance.change_log')])
+        domain=[('model_id.model', '=', 'machine.instance.change_log')],
+    )
     # Fields uses when creating change log record.
     user_id = fields.Many2one('res.users', "Responsible")
     priority = fields.Selection(PRIORITY, default='2')
@@ -35,8 +37,7 @@ class MachineEmail(models.TransientModel):
     # Used as a variable on planned email_type, where it can be used
     # to specify version or some details regarding that schedule.
     sub_subject = fields.Char()
-    body = fields.Html(
-        "Contents", default='', sanitize_style=True, strip_classes=True)
+    body = fields.Html("Contents", default='', sanitize_style=True, strip_classes=True)
     date = fields.Datetime(default=fields.Datetime.now)
     duration = fields.Float(default=1.0, help="In Hours")
 
@@ -48,17 +49,18 @@ class MachineEmail(models.TransientModel):
         for recipient in self.recipient_ids:
             if not recipient.partner_ids:
                 raise UserError(
-                    _("%s Machine recipient is missing Partners set.") %
-                    recipient.machine_instance_id.name)
+                    _("%s Machine recipient is missing Partners set.")
+                    % recipient.machine_instance_id.name
+                )
 
     def check_message(self):
         """Check fields for message."""
+
         def check(fld_key):
             if not self[fld_key]:
                 string = self._fields[fld_key].string
-                raise UserError(
-                    _("%s field required to send an email.", string)
-                )
+                raise UserError(_("%s field required to send an email.", string))
+
         self.ensure_one()
         if self.email_type == 'general':
             check('subject')
@@ -79,18 +81,22 @@ class MachineEmail(models.TransientModel):
         data = []
         for group in self.machine_group_ids:
             for machine in group.machine_instance_ids:
-                partner_ids = machine.message_get_default_recipients()[
-                    machine.id]['partner_ids']
-                data.append((
-                    0, 0,
-                    {
-                        # When we have virtual NewId, it is ignored
-                        # during onchange, so we must access real ID if
-                        # it exists.
-                        'machine_instance_id': _retrieve_db_id(machine),
-                        'partner_ids': partner_ids,
-                    }
-                ))
+                partner_ids = machine.message_get_default_recipients()[machine.id][
+                    'partner_ids'
+                ]
+                data.append(
+                    (
+                        0,
+                        0,
+                        {
+                            # When we have virtual NewId, it is ignored
+                            # during onchange, so we must access real ID if
+                            # it exists.
+                            'machine_instance_id': _retrieve_db_id(machine),
+                            'partner_ids': partner_ids,
+                        },
+                    )
+                )
         if data:
             self.update({'recipient_ids': data})
 
@@ -135,25 +141,30 @@ class MachineEmailRecipient(models.TransientModel):
         help="Partners that will receive this email",
     )
     machine_email_id = fields.Many2one(
-        'machine.email', "Machine Email", required=True, ondelete='cascade',
+        'machine.email',
+        "Machine Email",
+        required=True,
+        ondelete='cascade',
     )
     # Technical field used for mail template rendering.
     change_log_id = fields.Many2one(
-        'machine.instance.change_log', "Change Log",
+        'machine.instance.change_log',
+        "Change Log",
     )
 
     def _add_change_log(self):
         """Create change log record and relate with recipient."""
         wiz = self.machine_email_id
-        change_log = self.env['machine.instance.change_log'].create({
-            'name': wiz.sub_subject,
-            'date': wiz.date,
-            'duration': wiz.duration,
-            'user_id': wiz.user_id.id,
-            'priority': wiz.priority,
-            'machine_instance_id': self.machine_instance_id.id,
-
-        })
+        change_log = self.env['machine.instance.change_log'].create(
+            {
+                'name': wiz.sub_subject,
+                'date': wiz.date,
+                'duration': wiz.duration,
+                'user_id': wiz.user_id.id,
+                'priority': wiz.priority,
+                'machine_instance_id': self.machine_instance_id.id,
+            }
+        )
         self.change_log_id = change_log.id
 
     def _get_subject_and_body(self):
@@ -175,14 +186,13 @@ class MachineEmailRecipient(models.TransientModel):
                     'email_cc',
                     'reply_to',
                     'scheduled_date',
-                    'attachment_ids'
+                    'attachment_ids',
                 ],
             )
             return res['subject'], res['body_html']
         else:
             raise ValidationError(
-                _("Programming error: %s email_type does not exist",
-                    wiz.email_type)
+                _("Programming error: %s email_type does not exist", wiz.email_type)
             )
 
     def _prepare_mail_message(self):

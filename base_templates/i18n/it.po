@@ -34,4 +34,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base_templates.msg_end_text
 msgid "Do not hesitate to contact us if you have any questions."
 msgstr ""
-

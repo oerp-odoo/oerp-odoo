@@ -3,7 +3,7 @@ import csv
 from datetime import date, timedelta
 from io import StringIO
 
-from odoo import models, fields, api, _
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 FILENAME_PATTERN = 'sold_qty_report_{}_{}.csv'
@@ -12,7 +12,6 @@ DT_FMT = '%Y%m%d'
 
 
 class AccountSoldQtyReportPrint(models.TransientModel):
-
     _name = 'account.sold.qty.report.print'
     _description = "Account Sold Quantities Report Print"
 
@@ -28,9 +27,7 @@ class AccountSoldQtyReportPrint(models.TransientModel):
         if not res.get('company_id') and 'company_id' in fields_list:
             res['company_id'] = self.env.company.id
         if res.get('company_id'):
-            country_id = (
-                self.env['res.company'].browse(res['company_id']).country_id.id
-            )
+            country_id = self.env['res.company'].browse(res['company_id']).country_id.id
             res['country_ids'] = [(4, country_id)]
         return res
 
@@ -54,9 +51,7 @@ class AccountSoldQtyReportPrint(models.TransientModel):
     def _check_dates(self):
         for rec in self:
             if rec.date_start > rec.date_end:
-                raise ValidationError(
-                    _("Date Start must be sooner than Date End!")
-                )
+                raise ValidationError(_("Date Start must be sooner than Date End!"))
 
     @api.constrains('digits')
     def _check_digits(self):

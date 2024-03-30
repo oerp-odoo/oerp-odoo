@@ -7,9 +7,7 @@ class StockMoveLine(models.Model):
     _inherit = 'stock.move.line'
 
     def _get_aggregated_product_quantities(self, **kwargs):
-        aggregated_move_lines = super()._get_aggregated_product_quantities(
-            **kwargs
-        )
+        aggregated_move_lines = super()._get_aggregated_product_quantities(**kwargs)
         moves = self.mapped('move_id')
         for aggregated_move_line in aggregated_move_lines:
             product = aggregated_move_lines[aggregated_move_line]['product']
@@ -18,7 +16,5 @@ class StockMoveLine(models.Model):
             if move:
                 country_code = move.picking_id.partner_id.country_id.code
                 hs_code = product.retrieve_hs_code(country_code=country_code)
-                aggregated_move_lines[aggregated_move_line][
-                    'hs_code'
-                ] = hs_code
+                aggregated_move_lines[aggregated_move_line]['hs_code'] = hs_code
         return aggregated_move_lines

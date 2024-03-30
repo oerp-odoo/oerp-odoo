@@ -1,4 +1,4 @@
-from odoo.tests.common import TransactionCase, Form
+from odoo.tests.common import Form, TransactionCase
 
 
 class TestMrpUnbuildMultiCommon(TransactionCase):
@@ -70,23 +70,17 @@ class TestMrpUnbuildMultiCommon(TransactionCase):
         ) = cls.MrpBom.create(
             [
                 {
-                    'product_tmpl_id': (
-                        cls.product_tracked_sn.product_tmpl_id.id
-                    ),
+                    'product_tmpl_id': (cls.product_tracked_sn.product_tmpl_id.id),
                     'product_qty': 1,
                     'bom_line_ids': bom_line_data,
                 },
                 {
-                    'product_tmpl_id': (
-                        cls.product_tracked_lot.product_tmpl_id.id
-                    ),
+                    'product_tmpl_id': (cls.product_tracked_lot.product_tmpl_id.id),
                     'product_qty': 1,
                     'bom_line_ids': bom_line_data,
                 },
                 {
-                    'product_tmpl_id': (
-                        cls.product_untracked.product_tmpl_id.id
-                    ),
+                    'product_tmpl_id': (cls.product_untracked.product_tmpl_id.id),
                     'product_qty': 1,
                     'bom_line_ids': bom_line_data,
                 },
@@ -110,12 +104,10 @@ class TestMrpUnbuildMultiCommon(TransactionCase):
         )
         # Finish MOs.
         # Handle MO tracked by SN
-        (
-            cls.mo_tracked_sn | cls.mo_tracked_lot | cls.mo_untracked
-        ).action_confirm()
-        mass_produce_ctx = (
-            cls.mo_tracked_sn.action_serial_mass_produce_wizard()['context']
-        )
+        (cls.mo_tracked_sn | cls.mo_tracked_lot | cls.mo_untracked).action_confirm()
+        mass_produce_ctx = cls.mo_tracked_sn.action_serial_mass_produce_wizard()[
+            'context'
+        ]
         mass_produce_ctx.update(
             {
                 'default_next_serial_number': 'S001',
@@ -135,9 +127,7 @@ class TestMrpUnbuildMultiCommon(TransactionCase):
         )
         cls.mo_untracked.qty_producing = 3
         # Tracked by SN MO split into three each having single SN.
-        cls.mos_tracked_sn = (
-            cls.mo_tracked_sn.procurement_group_id.mrp_production_ids
-        )
+        cls.mos_tracked_sn = cls.mo_tracked_sn.procurement_group_id.mrp_production_ids
         cls.mos = cls.mos_tracked_sn | cls.mo_tracked_lot | cls.mo_untracked
         # Make all MOs DONE.
         cls.force_done_raw_moves(cls.mos)

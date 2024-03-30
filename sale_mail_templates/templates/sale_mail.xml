@@ -13,10 +13,7 @@ separate quotation/order where it is used.-->
     <span t-else="">order</span>
 </template>
 
-<template
-    id="mail_body_sale_send"
-    name="Sales Order: Send by email"
->
+<template id="mail_body_sale_send" name="Sales Order: Send by email">
     <t t-set="is_quote" t-value="object.state in ('draft', 'sent')"/>
     <div style="margin: 0px; padding: 0px;">
         <p style="margin: 0px; padding: 0px; font-size: 13px;">
@@ -24,18 +21,28 @@ separate quotation/order where it is used.-->
             <br/><br/>
             Your
             <t t-if="ctx.get('proforma')">
-                Pro forma invoice for <t t-call="sale_mail_templates.doc_name_proforma">quotation</t> <strong t-out="object.name or ''">S00052</strong>
+                Pro forma invoice for <t
+                        t-call="sale_mail_templates.doc_name_proforma"
+                    >quotation</t> <strong
+                        t-out="object.name or ''"
+                    >S00052</strong>
                 <t t-if="object.origin">
-                    (with reference: <t t-out="object.origin or ''"></t> )
+                    (with reference: <t t-out="object.origin or ''"/> )
                 </t>
-                amounting in <strong t-out="format_amount(object.amount_total, object.pricelist_id.currency_id) or ''">$ 10.00</strong> is available.
+                amounting in <strong
+                        t-out="format_amount(object.amount_total, object.pricelist_id.currency_id) or ''"
+                    >$ 10.00</strong> is available.
             </t>
             <t t-else="">
-                <t t-call="sale_mail_templates.doc_name">quotation</t> <strong t-out="object.name or ''"></strong>
+                <t t-call="sale_mail_templates.doc_name">quotation</t> <strong
+                        t-out="object.name or ''"
+                    />
                 <t t-if="object.origin">
                     (with reference: <t t-out="object.origin or ''">S00052</t> )
                 </t>
-                amounting in <strong t-out="format_amount(object.amount_total, object.pricelist_id.currency_id) or ''">$ 10.00</strong> is ready for review.
+                amounting in <strong
+                        t-out="format_amount(object.amount_total, object.pricelist_id.currency_id) or ''"
+                    >$ 10.00</strong> is ready for review.
             </t>
             <br/><br/>
             Do not hesitate to contact us if you have any questions.

@@ -1,8 +1,7 @@
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class AccountMove(models.Model):
-
     _inherit = 'account.move'
 
     has_refunds = fields.Boolean(compute='_compute_has_refunds')

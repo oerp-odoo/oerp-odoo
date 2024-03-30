@@ -7,9 +7,7 @@ class TestAccountSoldQtyReportCommon(TransactionCase):
         super().setUpClass()
         cls.ResPartner = cls.env['res.partner']
         cls.AccountSoldQtyReport = cls.env['account.sold.qty.report']
-        cls.AccountSoldQtyReportPrint = cls.env[
-            'account.sold.qty.report.print'
-        ]
+        cls.AccountSoldQtyReportPrint = cls.env['account.sold.qty.report.print']
         cls.AccountMove = cls.env["account.move"]
         cls.AccountMoveLine = cls.env["account.move.line"]
         cls.ProductProduct = cls.env['product.product']
@@ -173,10 +171,7 @@ class TestAccountSoldQtyReportCommon(TransactionCase):
             ]
         )
         invoices = (
-            cls.invoice_lt_1
-            | cls.invoice_lt_2
-            | cls.invoice_us_1
-            | cls.invoice_fr_1
+            cls.invoice_lt_1 | cls.invoice_lt_2 | cls.invoice_us_1 | cls.invoice_fr_1
         )
         invoices.action_post()
 

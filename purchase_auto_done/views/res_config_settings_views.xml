@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="res_config_settings_view_form_purchase_inherit" model="ir.ui.view">
+    <record
+        id="res_config_settings_view_form_purchase_inherit"
+        model="ir.ui.view"
+    >
         <field name="name">res.config.settings.form.purchase.auto.done</field>
         <field name="model">res.config.settings</field>
-        <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
+        <field
+            name="inherit_id"
+            ref="purchase.res_config_settings_view_form_purchase"
+        />
         <field name="arch" type="xml">
             <div id="automatic_lock_confirmed_orders" position="after">
-                <div class="col-12 col-lg-6 o_setting_box" id="purchase_auto_done_orders">
+                <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    id="purchase_auto_done_orders"
+                >
                     <div class="o_setting_left_pane">
                         <field name="use_purchase_auto_done"/>
                     </div>
                     <div class="o_setting_right_pane">
-                        <label for="use_purchase_auto_done" string="Auto Lock Orders"/>
+                        <label
+                            for="use_purchase_auto_done"
+                            string="Auto Lock Orders"
+                        />
                         <div class="text-muted">
                             Automatically lock orders when they are fully received and paid.
                         </div>

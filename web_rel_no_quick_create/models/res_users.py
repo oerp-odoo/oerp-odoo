@@ -12,10 +12,6 @@ class ResUsers(models.Model):
 
     def _compute_context_rel_field_quick_create_disabled(self):
         is_enabled = (
-            self.env['ir.config_parameter']
-            .sudo()
-            .get_param(CFG_PARAM_NO_CREATE)
+            self.env['ir.config_parameter'].sudo().get_param(CFG_PARAM_NO_CREATE)
         )
-        self.update(
-            {'context_rel_field_quick_create_disabled': bool(is_enabled)}
-        )
+        self.update({'context_rel_field_quick_create_disabled': bool(is_enabled)})

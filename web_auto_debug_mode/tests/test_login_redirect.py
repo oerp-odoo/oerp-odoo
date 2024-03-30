@@ -2,9 +2,9 @@ from unittest.mock import patch
 
 from odoo.tests import common
 
-from ..controllers import home
-
 from odoo.addons.web.controllers import main
+
+from ..controllers import home
 
 
 class _MockedSession:
@@ -37,7 +37,7 @@ class TestLoginRedirect(common.TransactionCase):
     def _get_patchers(cls):
         return [
             patch.object(home, 'request', _MockedRequest(cls.env)),
-            patch.object(main, 'request', _MockedRequest(cls.env))
+            patch.object(main, 'request', _MockedRequest(cls.env)),
         ]
 
     def test_01_login_redirect(self):
@@ -58,25 +58,27 @@ class TestLoginRedirect(common.TransactionCase):
     def test_03_login_redirect(self):
         """Debug redirect for admin user (website module installed)."""
         with patch.object(
-                # For some reason website returns binary string instead
-                # of normal string. And also append '?'.
-                main.Home, '_login_redirect', return_value=b'/web?'):
+            # For some reason website returns binary string instead
+            # of normal string. And also append '?'.
+            main.Home,
+            '_login_redirect',
+            return_value=b'/web?',
+        ):
             redirect = self.home._login_redirect(self.user_admin.id)
             self.assertEqual(redirect, '/web?debug=1')
 
     def test_04_login_redirect(self):
         """Ignore debug mode when exception redirect is used."""
-        redirect = self.home._login_redirect(
-            self.user_admin.id, redirect='/web/become')
+        redirect = self.home._login_redirect(self.user_admin.id, redirect='/web/become')
         self.assertEqual(redirect, '/web/become')
 
     def test_05_login_redirect(self):
         """Not second debug mode, when one is already used."""
-        redirect = self.home._login_redirect(
-            self.user_admin.id, redirect='/web?debug')
+        redirect = self.home._login_redirect(self.user_admin.id, redirect='/web?debug')
         self.assertEqual(redirect, '/web?debug')
         redirect = self.home._login_redirect(
-            self.user_admin.id, redirect='/web?debug=assets')
+            self.user_admin.id, redirect='/web?debug=assets'
+        )
         self.assertEqual(redirect, '/web?debug=assets')
 
     def test_06_login_redirect(self):
@@ -84,11 +86,12 @@ class TestLoginRedirect(common.TransactionCase):
         redirect = self.home._login_redirect(
             self.user_admin.id,
             redirect='/web#action=32&model='
-            'ir.module.module&view_type=list&menu_id=5')
+            'ir.module.module&view_type=list&menu_id=5',
+        )
         self.assertEqual(
             redirect,
-            '/web?debug=1#action=32&model='
-            'ir.module.module&view_type=list&menu_id=5')
+            '/web?debug=1#action=32&model=' 'ir.module.module&view_type=list&menu_id=5',
+        )
 
     @classmethod
     def tearDownClass(cls):

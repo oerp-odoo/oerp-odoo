@@ -1,11 +1,10 @@
-import csv
 import base64
+import csv
 import io
 from ast import literal_eval
 
-from odoo import models, fields, api, _
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
-
 
 DELIMITER = ','
 
@@ -56,9 +55,7 @@ class StockAssignSerial(models.TransientModel):
                 _update_vals(row, '', False)
                 data[key] = row
             except KeyError:
-                raise UserError(_(
-                    "Serial Numbers Import file expects 'name' column!"
-                ))
+                raise UserError(_("Serial Numbers Import file expects 'name' column!"))
         return data
 
     @api.onchange('serial_numbers_file')
@@ -66,11 +63,13 @@ class StockAssignSerial(models.TransientModel):
         if self.serial_numbers_file:
             data = self._parse_serial_numbers_file()
             serial_numbers = list(data.keys())
-            self.update({
-                'next_serial_number': serial_numbers[0],
-                'serial_numbers': '\n'.join(serial_numbers),
-                '_serial_numbers_file_data': str(data),  # serialize data
-            })
+            self.update(
+                {
+                    'next_serial_number': serial_numbers[0],
+                    'serial_numbers': '\n'.join(serial_numbers),
+                    '_serial_numbers_file_data': str(data),  # serialize data
+                }
+            )
 
     def apply(self):
         """Extend to pass serial numbers extra data via ctx."""

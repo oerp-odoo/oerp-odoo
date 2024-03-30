@@ -17,10 +17,7 @@
         <field name="inherit_id" ref="repair.view_repair_order_form"/>
         <field name="arch" type="xml">
             <field name="guarantee_limit" position="after">
-                <field
-                    name="category_id"
-                    options="{'no_quick_create': True}"
-                />
+                <field name="category_id" options="{'no_quick_create': True}"/>
             </field>
         </field>
     </record>

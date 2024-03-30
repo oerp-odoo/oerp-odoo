@@ -17,8 +17,7 @@ class TestGenerateEmail(TransactionCase):
     def test_01_generate_email(self):
         """Generate email using html_body default `qweb` engine."""
         res = self.mail_template_partner_welcome.generate_email(
-            [self.partner_azure_brandon_id],
-            ['subject', 'body_html']
+            [self.partner_azure_brandon_id], ['subject', 'body_html']
         )
         body_html = res[self.partner_azure_brandon_id]['body_html']
         expected_body_html = (
@@ -34,8 +33,7 @@ class TestGenerateEmail(TransactionCase):
         """Generate email using html_body `qweb_view` engine."""
         self.mail_template_partner_welcome.body_engine = 'qweb_view'
         res = self.mail_template_partner_welcome.generate_email(
-            [self.partner_azure_brandon_id],
-            ['subject', 'body_html']
+            [self.partner_azure_brandon_id], ['subject', 'body_html']
         )
         body_html = res[self.partner_azure_brandon_id]['body_html']
         expected_body_html = (

@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import api, fields, models
 from odoo.osv import expression
 
 
@@ -9,7 +9,7 @@ class AccountFiscalPosition(models.Model):
 
     company_type = fields.Selection(
         [('person', "Individual"), ('company', "Company")],
-        help="Apply only if partner matches company type"
+        help="Apply only if partner matches company type",
     )
 
     @api.model
@@ -17,12 +17,13 @@ class AccountFiscalPosition(models.Model):
         """Extend to pass company_type context as extra filter."""
         partner_chosen_id = delivery_id or partner_id
         if partner_chosen_id:
-            partner = self.env['res.partner'].browse(
-                partner_chosen_id
-            ).commercial_partner_id
+            partner = (
+                self.env['res.partner'].browse(partner_chosen_id).commercial_partner_id
+            )
             self = self.with_context(partner_is_company=partner.is_company)
-            fp = super(AccountFiscalPosition, self.with_context(
-                partner_company_type=partner.company_type)
+            fp = super(
+                AccountFiscalPosition,
+                self.with_context(partner_company_type=partner.company_type),
             ).get_fiscal_position(partner_id, delivery_id=delivery_id)
             if fp:
                 return fp
@@ -35,9 +36,7 @@ class AccountFiscalPosition(models.Model):
         """Extend to use partner_company_type context in domain."""
         partner_company_type = self._context.get('partner_company_type')
         if partner_company_type:
-            args = expression.AND(
-                [args, [('company_type', '=', partner_company_type)]]
-            )
+            args = expression.AND([args, [('company_type', '=', partner_company_type)]])
         return super(AccountFiscalPosition, self).search(
             args,
             offset=offset,

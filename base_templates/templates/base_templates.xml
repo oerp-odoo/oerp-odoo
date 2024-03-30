@@ -24,10 +24,16 @@ elements. -->
         <t t-call="base_templates.wrap_without_whitespace">
             <t t-set="left_el">
                 <t t-raw="title"/>
-                <t t-set="partner_parent_name" t-value="partner.parent_id.name"/>
+                <t
+                        t-set="partner_parent_name"
+                        t-value="partner.parent_id.name"
+                    />
                 <span t-esc="partner.name"/>
                 <t t-if="partner_parent_name">
-                    (<span name="span_partner_parent_name" t-esc="partner_parent_name"/>)
+                    (<span
+                            name="span_partner_parent_name"
+                            t-esc="partner_parent_name"
+                        />)
                 </t>
             </t>
             <t t-set="right_el"><span name="span_right">,</span></t>
@@ -41,10 +47,10 @@ elements. -->
             <t t-set="left_el">
                 <t t-raw="doc_text"/>
                 <span
-                    t-if="doc_number"
-                    t-esc="doc_number"
-                    class="font-weight-bold"
-                />
+                        t-if="doc_number"
+                        t-esc="doc_number"
+                        class="font-weight-bold"
+                    />
                 <t t-if="origin">
                     (with reference: <span t-esc="origin"/>)
                 </t>
@@ -65,7 +71,9 @@ elements. -->
 </template>
 
 <template id="msg_end_text">
-    <p name="p_end_note">Do not hesitate to contact us if you have any questions.</p>
+    <p
+            name="p_end_note"
+        >Do not hesitate to contact us if you have any questions.</p>
     <p t-if="company_name" name="company_info"><span t-esc="company_name"/></p>
 </template>
 </odoo>

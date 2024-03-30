@@ -64,12 +64,9 @@ class TestPurchaseAutoDone(common.TransactionCase):
         invoice = self.purchase_1.invoice_ids[0]
         invoice.action_post()
         # Create payment record and register payment.
-        payment_register = (
-            self.AccountPaymentRegister.with_context(
-                active_ids=[invoice.id], active_model='account.move'
-            )
-            .create({'journal_id': self.journal_1.id})
-        )
+        payment_register = self.AccountPaymentRegister.with_context(
+            active_ids=[invoice.id], active_model='account.move'
+        ).create({'journal_id': self.journal_1.id})
         payment_register.action_create_payments()
         # THEN
         self.assertEqual(self.purchase_1.state, 'done')
@@ -87,12 +84,9 @@ class TestPurchaseAutoDone(common.TransactionCase):
         invoice = self.purchase_1.invoice_ids[0]
         invoice.action_post()
         # Create payment record and register payment.
-        payment_register = (
-            self.AccountPaymentRegister.with_context(
-                active_ids=[invoice.id], active_model='account.move'
-            )
-            .create({'journal_id': self.journal_1.id})
-        )
+        payment_register = self.AccountPaymentRegister.with_context(
+            active_ids=[invoice.id], active_model='account.move'
+        ).create({'journal_id': self.journal_1.id})
         payment_register.action_create_payments()
         picking_1 = self.purchase_1.picking_ids[0]
         # WHEN
@@ -117,12 +111,9 @@ class TestPurchaseAutoDone(common.TransactionCase):
         invoice = self.purchase_1.invoice_ids[0]
         invoice.action_post()
         # Create payment record and register payment.
-        payment_register = (
-            self.AccountPaymentRegister.with_context(
-                active_ids=[invoice.id], active_model='account.move'
-            )
-            .create({'journal_id': self.journal_1.id})
-        )
+        payment_register = self.AccountPaymentRegister.with_context(
+            active_ids=[invoice.id], active_model='account.move'
+        ).create({'journal_id': self.journal_1.id})
         payment_register.action_create_payments()
         # THEN
         self.assertEqual(self.purchase_1.state, 'purchase')
@@ -143,12 +134,9 @@ class TestPurchaseAutoDone(common.TransactionCase):
         invoice = self.purchase_1.invoice_ids[0]
         invoice.action_post()
         # Create payment record and register payment.
-        payment_register = (
-            self.AccountPaymentRegister.with_context(
-                active_ids=[invoice.id], active_model='account.move'
-            )
-            .create({'journal_id': self.journal_1.id})
-        )
+        payment_register = self.AccountPaymentRegister.with_context(
+            active_ids=[invoice.id], active_model='account.move'
+        ).create({'journal_id': self.journal_1.id})
         payment_register.action_create_payments()
         # THEN
         self.assertEqual(self.purchase_1.state, 'purchase')
@@ -166,12 +154,9 @@ class TestPurchaseAutoDone(common.TransactionCase):
         invoice = self.purchase_1.invoice_ids[0]
         invoice.action_post()
         # Create payment record and register payment.
-        payment_register = (
-            self.AccountPaymentRegister.with_context(
-                active_ids=[invoice.id], active_model='account.move'
-            )
-            .create({'journal_id': self.journal_1.id})
-        )
+        payment_register = self.AccountPaymentRegister.with_context(
+            active_ids=[invoice.id], active_model='account.move'
+        ).create({'journal_id': self.journal_1.id})
         payment_register.action_create_payments()
         picking_1 = self.purchase_1.picking_ids[0]
         # WHEN

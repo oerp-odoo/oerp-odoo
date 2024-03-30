@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <menuitem id="machine_os_top_menu"
+    <menuitem
+        id="machine_os_top_menu"
         name="Operating Systems"
         parent="machine_config_menu"
         sequence="11"
@@ -43,10 +44,12 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="machine_os_menu"
+    <menuitem
+        id="machine_os_menu"
         parent="machine_os_top_menu"
         action="machine_os_action"
-        sequence="1"/>
+        sequence="1"
+    />
 
     <!-- os name -->
     <record id="machine_os_name_view_tree" model="ir.ui.view">
@@ -85,10 +88,12 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="machine_os_name_menu"
+    <menuitem
+        id="machine_os_name_menu"
         parent="machine_os_top_menu"
         action="machine_os_name_action"
-        sequence="2"/>
+        sequence="2"
+    />
 
     <!-- os type -->
     <record id="machine_os_type_view_tree" model="ir.ui.view">
@@ -125,8 +130,10 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="machine_os_type_menu"
+    <menuitem
+        id="machine_os_type_menu"
         parent="machine_os_top_menu"
         action="machine_os_type_action"
-        sequence="3"/>
+        sequence="3"
+    />
 </odoo>

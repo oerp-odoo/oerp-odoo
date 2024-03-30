@@ -14,7 +14,9 @@
                 />
             </field>
             <field name="body_html" position="attributes">
-                <attribute name="attrs">{'invisible': [('body_engine', '=', 'qweb_view')]}</attribute>
+                <attribute
+                    name="attrs"
+                >{'invisible': [('body_engine', '=', 'qweb_view')]}</attribute>
             </field>
             <field name="body_html" position="after">
                 <field

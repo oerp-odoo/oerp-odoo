@@ -1,9 +1,9 @@
-import re
 import base64
 import csv
+import re
 from io import StringIO
 
-from odoo import models, fields
+from odoo import fields, models
 
 FNAME_QTY_DONE_DATAS = 'qty_done_datas'
 

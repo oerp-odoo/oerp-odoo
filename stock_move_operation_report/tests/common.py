@@ -1,5 +1,4 @@
 from odoo.osv import expression
-
 from odoo.tests.common import TransactionCase
 
 
@@ -19,26 +18,16 @@ class TestStockMoveOperationReportCommon(TransactionCase):
         cls.company_main = cls.env.ref('base.main_company')
         cls.warehouse_1 = cls.env.ref('stock.warehouse0')
         cls.stock_location_stock = cls.env.ref('stock.stock_location_stock')
-        cls.stock_location_customers = cls.env.ref(
-            'stock.stock_location_customers'
-        )
-        cls.stock_location_suppliers = cls.env.ref(
-            'stock.stock_location_suppliers'
-        )
-        cls.stock_location_suppliers = cls.env.ref(
-            'stock.stock_location_suppliers'
-        )
-        cls.stock_location_production = cls.get_stock_location_by_usage(
-            'production'
-        )
+        cls.stock_location_customers = cls.env.ref('stock.stock_location_customers')
+        cls.stock_location_suppliers = cls.env.ref('stock.stock_location_suppliers')
+        cls.stock_location_suppliers = cls.env.ref('stock.stock_location_suppliers')
+        cls.stock_location_production = cls.get_stock_location_by_usage('production')
         cls.stock_location_scrap = cls.get_stock_location_by_usage(
             'inventory', extra_domain=[('scrap_location', '=', True)]
         )
         cls.pricelist_1 = cls.env.ref('product.list0')
         cls.journal_bank_1 = cls._get_journals('bank')[0]
-        cls.payment_method_in = cls.env.ref(
-            'account.account_payment_method_manual_in'
-        )
+        cls.payment_method_in = cls.env.ref('account.account_payment_method_manual_in')
         cls.uom_unit = cls.env.ref('uom.product_uom_unit')
         cls.country_us = cls.env.ref('base.us')
         cls.partner_azure = cls.env.ref("base.res_partner_12")
@@ -105,7 +94,7 @@ class TestStockMoveOperationReportCommon(TransactionCase):
         move._action_confirm()
         move._action_assign()
         lines_data = []
-        for (qty_done, lot_id) in lines:
+        for qty_done, lot_id in lines:
             ml_vals = {
                 "qty_done": qty_done,
                 "move_id": move.id,

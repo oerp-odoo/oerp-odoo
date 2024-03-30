@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="view_assign_serial_numbers_production_inherit" model="ir.ui.view">
+    <record
+        id="view_assign_serial_numbers_production_inherit"
+        model="ir.ui.view"
+    >
         <field name="name">stock.assign.serial.form.file</field>
         <field name="model">stock.assign.serial</field>
-        <field name="inherit_id" ref="mrp.view_assign_serial_numbers_production"/>
+        <field
+            name="inherit_id"
+            ref="mrp.view_assign_serial_numbers_production"
+        />
         <field name="arch" type="xml">
             <field name="production_id" position="after">
                 <field name="_serial_numbers_file_data" invisible="1"/>

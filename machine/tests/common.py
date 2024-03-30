@@ -16,19 +16,11 @@ class TestMachineCommon(common.TransactionCase):
         cls.MachineInstance = cls.env['machine.instance']
         cls.ResPartner = cls.env['res.partner']
         # Production instances.
-        cls.machine_instance_wood = cls.env.ref(
-            'machine.machine_instance_wood'
-        )
-        cls.machine_instance_deco = cls.env.ref(
-            'machine.machine_instance_deco'
-        )
-        cls.machine_instance_gemini = cls.env.ref(
-            'machine.machine_instance_gemini'
-        )
+        cls.machine_instance_wood = cls.env.ref('machine.machine_instance_wood')
+        cls.machine_instance_deco = cls.env.ref('machine.machine_instance_deco')
+        cls.machine_instance_gemini = cls.env.ref('machine.machine_instance_gemini')
         # Experimental machine instance.
-        cls.machine_instance_readymat = cls.env.ref(
-            'machine.machine_instance_readymat'
-        )
+        cls.machine_instance_readymat = cls.env.ref('machine.machine_instance_readymat')
         # Companies.
         cls.company_main = cls.env.ref('base.main_company')
         # Wood Corner
@@ -54,6 +46,4 @@ class TestMachineCommon(common.TransactionCase):
         # OS
         cls.os_ubuntu_1604 = cls.env.ref('machine.machine_os_ubuntu_1604')
         # DB
-        cls.db_postgresql_960 = cls.env.ref(
-            'machine.machine_db_postgresql_960'
-        )
+        cls.db_postgresql_960 = cls.env.ref('machine.machine_db_postgresql_960')

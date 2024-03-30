@@ -1,11 +1,12 @@
-from datetime import datetime, timedelta
 import ast
 import logging
+from datetime import datetime, timedelta
+
 from footil.formatting import get_formatted_exception
 
-from odoo import models, fields, api, _
-from odoo.osv import expression
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+from odoo.osv import expression
 
 DEFAULT_DAYS = 120
 DEFAULT_DATE_UPDATED_XMLID = 'sale.field_sale_order__write_date'
@@ -67,17 +68,13 @@ class SaleAutovacuumRule(models.Model):
     def _check_days(self):
         for rule in self:
             if rule.days < 1:
-                raise ValidationError(
-                    _("Days Last Updated must be greater than 0!")
-                )
+                raise ValidationError(_("Days Last Updated must be greater than 0!"))
 
     @api.constrains('domain')
     def _check_domain(self):
         for rule in self:
             try:
-                domain = expression.normalize_domain(
-                    ast.literal_eval(rule.domain)
-                )
+                domain = expression.normalize_domain(ast.literal_eval(rule.domain))
                 self.env['sale.order'].search_count(domain)
             except (ValueError, AssertionError) as e:
                 raise ValidationError(
@@ -173,9 +170,7 @@ class SaleAutovacuumRule(models.Model):
 
     def _post_autovacuum_message(self, sale_count, action_word):
         self.ensure_one()
-        return self.message_post(
-            body=f'{sale_count} sale quote(s) {action_word}'
-        )
+        return self.message_post(body=f'{sale_count} sale quote(s) {action_word}')
 
     def _validate_autovacuum(self):
         self.ensure_one()

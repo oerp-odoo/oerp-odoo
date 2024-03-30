@@ -1,10 +1,9 @@
-from odoo import models, fields
+from odoo import fields, models
 
 CFG_PARAM_SPLIT_MODE = "mrp_production_split_extended.default_split_mode"
 
 
 class ResConfigSettings(models.TransientModel):
-
     _inherit = 'res.config.settings'
 
     mrp_production_default_split_mode = fields.Selection(
@@ -14,5 +13,5 @@ class ResConfigSettings(models.TransientModel):
             ("custom", "Custom"),
         ],
         string="Production Default Split Mode",
-        config_parameter=CFG_PARAM_SPLIT_MODE
+        config_parameter=CFG_PARAM_SPLIT_MODE,
     )

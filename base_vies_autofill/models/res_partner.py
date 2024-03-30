@@ -1,7 +1,8 @@
 import logging
+
 from stdnum.exceptions import InvalidComponent
 
-from odoo import models, api
+from odoo import api, models
 
 _logger = logging.getLogger(__name__)
 
@@ -19,9 +20,7 @@ class ResPartner(models.Model):
 
     def _is_vies_autofill_enabled(self):
         if self._context.get('company_id'):
-            company = self.env['res.company'].browse(
-                self._context['company_id']
-            )
+            company = self.env['res.company'].browse(self._context['company_id'])
         else:
             company = self.env.company
         return company.vat_check_vies and company.vies_autofill

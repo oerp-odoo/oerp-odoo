@@ -25,9 +25,7 @@ class TestSaleAutovacuumError(TestSaleAutovacuumCommon):
         )
         # THEN
         msg = self.sale_autovac_rule_1.message_ids[0]
-        self.assertIn(
-            'Something went wrong processing sales autovacuum', msg.body
-        )
+        self.assertIn('Something went wrong processing sales autovacuum', msg.body)
 
     @classmethod
     def tearDownClass(cls):

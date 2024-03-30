@@ -18,9 +18,7 @@ class AccountSoldQtyReport(models.AbstractModel):
         )
         return self.env['account.move.line'].search(domain)
 
-    def _prepare_account_move_lines_domain(
-        self, date_start, date_end, company_id
-    ):
+    def _prepare_account_move_lines_domain(self, date_start, date_end, company_id):
         # TODO: handle reversals.
         return [
             ('move_id.state', '=', 'posted'),

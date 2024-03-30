@@ -2,7 +2,10 @@
 <odoo noupdate="1">
 
     <record id="mrp_bom_lodge" model="mrp.bom">
-        <field name="product_tmpl_id" ref="product_product_lodge_product_template"/>
+        <field
+            name="product_tmpl_id"
+            ref="product_product_lodge_product_template"
+        />
         <field name="product_qty" eval="1"/>
         <field name="type">normal</field>
         <field name="company_id" ref="base.main_company"/>

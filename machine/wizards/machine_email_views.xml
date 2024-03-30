@@ -7,7 +7,10 @@
             <form>
                 <group name="main">
                     <group name="left">
-                        <field name="machine_group_ids" widget="many2many_tags"/>
+                        <field
+                            name="machine_group_ids"
+                            widget="many2many_tags"
+                        />
                         <field
                             name="sub_subject"
                             attrs="{'invisible': [('email_type', '!=', 'maintenance')], 'required': [('email_type', '=', 'maintenance')]}"
@@ -38,21 +41,39 @@
                     </group>
                 </group>
                 <group name="general_email">
-                    <field name="subject" attrs="{'invisible': [('email_type', '!=', 'general')], 'required': [('email_type', '=', 'general')]}"/>
-                    <field name="body" attrs="{'invisible': [('email_type', '!=', 'general')], 'required': [('email_type', '=', 'general')]}"/>
+                    <field
+                        name="subject"
+                        attrs="{'invisible': [('email_type', '!=', 'general')], 'required': [('email_type', '=', 'general')]}"
+                    />
+                    <field
+                        name="body"
+                        attrs="{'invisible': [('email_type', '!=', 'general')], 'required': [('email_type', '=', 'general')]}"
+                    />
                 </group>
                 <group name="recipients">
                     <field name="recipient_ids">
                         <tree editable="bottom">
                             <field name="machine_instance_id"/>
-                            <field name="partner_ids" widget="many2many_tags" required="1"/>
+                            <field
+                                name="partner_ids"
+                                widget="many2many_tags"
+                                required="1"
+                            />
                         </tree>
                     </field>
                 </group>
                 <footer>
-                    <button name="action_create_mail_messages"
-                        string="Send Emails" type="object" class="btn-primary"/>
-                    <button string="Cancel" class="btn-default" special="cancel" />
+                    <button
+                        name="action_create_mail_messages"
+                        string="Send Emails"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button
+                        string="Cancel"
+                        class="btn-default"
+                        special="cancel"
+                    />
                 </footer>
             </form>
         </field>

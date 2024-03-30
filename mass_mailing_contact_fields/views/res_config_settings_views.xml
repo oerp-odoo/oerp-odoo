@@ -21,10 +21,22 @@
                             for="group_mailing_show_state"
                         />
                         <group>
-                            <field string="Country State" name="group_mailing_show_state"/>
-                            <field string="City" name="group_mailing_show_city"/>
-                            <field string="ZIP" name="group_mailing_show_postcode"/>
-                            <field string="Phone" name="group_mailing_show_phone"/>
+                            <field
+                                string="Country State"
+                                name="group_mailing_show_state"
+                            />
+                            <field
+                                string="City"
+                                name="group_mailing_show_city"
+                            />
+                            <field
+                                string="ZIP"
+                                name="group_mailing_show_postcode"
+                            />
+                            <field
+                                string="Phone"
+                                name="group_mailing_show_phone"
+                            />
                         </group>
                     </div>
                 </div>

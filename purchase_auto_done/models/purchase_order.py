@@ -8,9 +8,10 @@ class PurchaseOrder(models.Model):
 
     def check_and_set_purchase_done(self):
         self.ensure_one()
-        if not self.env['ir.config_parameter'].sudo().get_param(
-            CFG_PARAM_PO_AUTO_DONE
-        ) or self.state == 'done':
+        if (
+            not self.env['ir.config_parameter'].sudo().get_param(CFG_PARAM_PO_AUTO_DONE)
+            or self.state == 'done'
+        ):
             return False
         if self.is_purchase_done():
             self.button_done()
@@ -27,8 +28,7 @@ class PurchaseOrder(models.Model):
             return False
         invoices = self.invoice_ids.filtered(lambda r: r.state != 'cancel')
         return all(
-            inv.state == 'posted'
-            and inv.payment_state in ('paid', 'in_payment')
+            inv.state == 'posted' and inv.payment_state in ('paid', 'in_payment')
             for inv in invoices
         )
 
@@ -38,11 +38,7 @@ class PurchaseOrderLine(models.Model):
 
     def is_line_done(self):
         self.ensure_one()
-        return (
-            self.display_type
-            or (
-                self.qty_received >= self.product_qty
-                and self.qty_invoiced >= self.product_qty
-            )
-
+        return self.display_type or (
+            self.qty_received >= self.product_qty
+            and self.qty_invoiced >= self.product_qty
         )

@@ -1,8 +1,7 @@
 import logging
 
-from odoo import models, fields, api, _
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
-
 
 _logger = logging.getLogger(__name__)
 
@@ -18,9 +17,7 @@ class MrpUnbuildMulti(models.TransientModel):
         default='all',
         required=True,
     )
-    include_from_procurement_group = fields.Boolean(
-        "Include on Same Procurement Group"
-    )
+    include_from_procurement_group = fields.Boolean("Include on Same Procurement Group")
     mrp_production_ids = fields.Many2many(
         'mrp.production',
         'unbuild_multi_production_rel',
@@ -72,9 +69,7 @@ class MrpUnbuildMulti(models.TransientModel):
 
     def _validate_mos(self):
         self.ensure_one()
-        non_done_mos = self.mrp_production_ids.filtered(
-            lambda r: r.state != 'done'
-        )
+        non_done_mos = self.mrp_production_ids.filtered(lambda r: r.state != 'done')
         if non_done_mos:
             raise ValidationError(
                 _(
@@ -109,9 +104,7 @@ class MrpUnbuildMulti(models.TransientModel):
             for mo in self.mrp_production_ids:
                 mos |= mo.procurement_group_id.mrp_production_ids
         mos_skipped = (
-            self.env['mrp.unbuild']
-            .search([('mo_id', 'in', mos.ids)])
-            .mapped('mo_id')
+            self.env['mrp.unbuild'].search([('mo_id', 'in', mos.ids)]).mapped('mo_id')
         )
         return (mos - mos_skipped, mos_skipped)
 

@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-<template
-    id="mail_body_delivery_confirmation"
-    name="Delivery: Send by Email"
->
+<template id="mail_body_delivery_confirmation" name="Delivery: Send by Email">
     <!-- Template is copy pasted from
         mail_template_data_delivery_confirmation record to look the same.
     -->
     <div style="margin: 0px; padding: 0px;">
         <p style="margin: 0px; padding: 0px; font-size: 13px;">
-            Hello <t t-out="object.partner_id.name or ''">Brandon Freeman</t>,<br/><br/>
+            Hello <t
+                    t-out="object.partner_id.name or ''"
+                >Brandon Freeman</t>,<br/><br/>
             We are glad to inform you that your order has been shipped.
-            <t t-if="hasattr(object, 'carrier_tracking_ref') and object.carrier_tracking_ref">
+            <t
+                    t-if="hasattr(object, 'carrier_tracking_ref') and object.carrier_tracking_ref"
+                >
                 Your tracking reference is
                 <strong>
                 <t t-if="object.carrier_tracking_url">
-                    <t t-set="multiple_carrier_tracking" t-value="object.get_multiple_carrier_tracking()"/>
+                    <t
+                                t-set="multiple_carrier_tracking"
+                                t-value="object.get_multiple_carrier_tracking()"
+                            />
                     <t t-if="multiple_carrier_tracking">
                         <t t-foreach="multiple_carrier_tracking" t-as="line">
-                            <br/><a t-att-href="line[1]" target="_blank" t-out="line[0] or ''"></a>
+                            <br/><a
+                                        t-att-href="line[1]"
+                                        target="_blank"
+                                        t-out="line[0] or ''"
+                                    />
                         </t>
                     </t>
                     <t t-else="">
-                        <a t-attf-href="{{ object.carrier_tracking_url }}" target="_blank" t-out="object.carrier_tracking_ref or ''"></a>.
+                        <a
+                                    t-attf-href="{{ object.carrier_tracking_url }}"
+                                    target="_blank"
+                                    t-out="object.carrier_tracking_ref or ''"
+                                />.
                     </t>
                 </t>
                 <t t-else="">
-                    <t t-out="object.carrier_tracking_ref or ''"></t>.
+                    <t t-out="object.carrier_tracking_ref or ''"/>.
                 </t>
                 </strong>
             </t>
@@ -35,7 +47,7 @@
             Please find your delivery order attached for more details.<br/><br/>
             Thank you,
             <t t-if="user.signature">
-                <br />
+                <br/>
                 <t t-out="user.signature or ''">--<br/>Mitchell Admin</t>
             </t>
         </p>

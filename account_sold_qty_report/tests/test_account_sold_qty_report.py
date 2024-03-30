@@ -1,7 +1,7 @@
-import csv
 import base64
-from io import StringIO
+import csv
 from datetime import date, timedelta
+from io import StringIO
 
 from odoo.tests.common import tagged
 
