@@ -45,6 +45,12 @@ class StampPricelist(models.Model):
         'res.company', required=True, default=lambda s: s.env.company, tracking=True
     )
     currency_id = fields.Many2one(related='company_id.currency_id')
+    margin_default_ratio = fields.Float(
+        string="Default Margin Ratio",
+        digits=DP_PRICE,
+        help="Multiplier that is used when calculating prices",
+        default=1.0,
+    )
 
     @api.constrains('min_area')
     def _check_min_area(self):

@@ -36,6 +36,7 @@
                                 widget="monetary"
                                 options="{'currency_field': 'currency_id', 'field_digits': True}"
                             />
+                            <field name="margin_default_ratio"/>
                         </group>
                         <group name="right">
                             <field name="mold_of_die_perc"/>

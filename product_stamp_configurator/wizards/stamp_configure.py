@@ -398,6 +398,12 @@ class StampConfigure(models.TransientModel):
             if any(rec[fname] < 0 for fname in PRICE_SQCM_CUSTOM_FIELDS):
                 raise ValidationError(_("Custom ㎠ Price must be 0 or greater!"))
 
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        pricelist = self.partner_id.property_stamp_pricelist_id
+        if pricelist:
+            self.margin_ratio = pricelist.margin_default_ratio
+
     @api.onchange('die_id')
     def _onchange_die_id(self):
         domain = ALL_DOMAIN
