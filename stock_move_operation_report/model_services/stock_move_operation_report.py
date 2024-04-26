@@ -1,6 +1,7 @@
 import datetime
 
-from odoo import models
+from odoo import _, models
+from odoo.exceptions import ValidationError
 from odoo.osv import expression
 
 
@@ -86,7 +87,16 @@ class StockPMoveOperationReport(models.AbstractModel):
         )
         moves = self.env['stock.move'].search(domain)
         for move in moves:
-            op = op_usage_map[(move.location_id.usage, move.location_dest_id.usage)]
+            try:
+                op = op_usage_map[(move.location_id.usage, move.location_dest_id.usage)]
+            except KeyError:
+                raise ValidationError(
+                    _(
+                        "Programming Error: Unexpected locations usage %s "
+                        + "combination occurred for Stock Moves Operation Report",
+                        str((move.location_id.usage, move.location_dest_id.usage)),
+                    )
+                )
             yield (op, move.product_uom_qty)
 
     def _get_stock_moves_domain(self, product, date_start, date_end, warehouse=None):
@@ -127,6 +137,8 @@ class StockPMoveOperationReport(models.AbstractModel):
             ('internal', 'customer'): 'sell_out',
             ('inventory', 'internal'): 'inventory_in',
             ('internal', 'inventory'): 'inventory_out',
+            ('transit', 'internal'): 'transit_in',
+            ('internal', 'transit'): 'transit_out',
         }
 
     def _init_operation_totals(self):
@@ -139,6 +151,8 @@ class StockPMoveOperationReport(models.AbstractModel):
             'sell_out': 0,
             'inventory_in': 0,
             'inventory_out': 0,
+            'transit_in': 0,
+            'transit_out': 0,
         }
 
     def _prepare_product_qty_context(self, to_date, warehouse=None):

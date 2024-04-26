@@ -17,6 +17,9 @@ class TestStockMoveOperationReportCommon(TransactionCase):
         # Records
         cls.company_main = cls.env.ref('base.main_company')
         cls.warehouse_1 = cls.env.ref('stock.warehouse0')
+        cls.stock_location_virtual_view = cls.env.ref(
+            'stock.stock_location_locations_virtual'
+        )
         cls.stock_location_stock = cls.env.ref('stock.stock_location_stock')
         cls.stock_location_customers = cls.env.ref('stock.stock_location_customers')
         cls.stock_location_suppliers = cls.env.ref('stock.stock_location_suppliers')
@@ -24,6 +27,13 @@ class TestStockMoveOperationReportCommon(TransactionCase):
         cls.stock_location_production = cls.get_stock_location_by_usage('production')
         cls.stock_location_scrap = cls.get_stock_location_by_usage(
             'inventory', extra_domain=[('scrap_location', '=', True)]
+        )
+        cls.stock_location_transit = cls.StockLocation.create(
+            {
+                'name': 'Transit Location',
+                'usage': 'transit',
+                'location_id': cls.stock_location_virtual_view.id,
+            }
         )
         cls.pricelist_1 = cls.env.ref('product.list0')
         cls.journal_bank_1 = cls._get_journals('bank')[0]
@@ -39,13 +49,11 @@ class TestStockMoveOperationReportCommon(TransactionCase):
                     'name': 'Glass',
                     'type': 'product',
                     'default_code': 'glass',
-                    'invoice_policy': 'order',
                 },
                 {
                     'name': 'Bucket',
                     'type': 'product',
                     'default_code': 'bucket',
-                    'invoice_policy': 'order',
                 },
             ]
         )

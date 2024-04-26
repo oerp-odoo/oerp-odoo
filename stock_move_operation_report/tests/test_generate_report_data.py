@@ -119,6 +119,24 @@ class TestGenerateReportData(TestStockMoveOperationReportCommon):
             lines=[(1, None)],
             dt=datetime.date(2022, 2, 13),
         )
+        # 2 transit in, in period
+        self.make_stock_move(
+            self.product_bucket,
+            2,
+            self.stock_location_transit,
+            self.stock_location_stock,
+            lines=[(2, None)],
+            dt=datetime.date(2022, 2, 13),
+        )
+        # 2 transit out in period
+        self.make_stock_move(
+            self.product_bucket,
+            2,
+            self.stock_location_stock,
+            self.stock_location_transit,
+            lines=[(2, None)],
+            dt=datetime.date(2022, 2, 14),
+        )
         # WHEN
         res = self.StockPMoveOperationReport.generate_report_data(
             datetime.date(2022, 2, 1),
@@ -144,6 +162,8 @@ class TestGenerateReportData(TestStockMoveOperationReportCommon):
                         'sell_out': 2,
                         'inventory_in': 1,
                         'inventory_out': 2,
+                        'transit_in': 0,
+                        'transit_out': 0,
                         # 'sold': 10,
                         # 'scrapped': 10,
                         # 10 + 3 - 2 - 2 + 1 - 1 = 9 (5 sold is outside period)
@@ -160,7 +180,9 @@ class TestGenerateReportData(TestStockMoveOperationReportCommon):
                         'sell_out': 3,
                         'inventory_in': 0,
                         'inventory_out': 0,
-                        # 5 - 3 + 1 + 1 - 1 = 3
+                        'transit_in': 2,
+                        'transit_out': 2,
+                        # 5 - 3 + 1 + 1 - 1 + 2 - 2 = 3
                         'quantity_end': 3,
                     },
                 ],
@@ -304,6 +326,8 @@ class TestGenerateReportData(TestStockMoveOperationReportCommon):
                         'sell_out': 2,
                         'inventory_in': 1,
                         'inventory_out': 2,
+                        'transit_in': 0,
+                        'transit_out': 0,
                         # 'sold': 10,
                         # 'scrapped': 10,
                         # 10 + 3 - 2 - 2 + 1 - 1 = 9 (5 sold is outside period)
@@ -320,6 +344,8 @@ class TestGenerateReportData(TestStockMoveOperationReportCommon):
                         'sell_out': 3,
                         'inventory_in': 0,
                         'inventory_out': 0,
+                        'transit_in': 0,
+                        'transit_out': 0,
                         # 5 - 3 + 1 + 1 - 1 = 3
                         'quantity_end': 3,
                     },
