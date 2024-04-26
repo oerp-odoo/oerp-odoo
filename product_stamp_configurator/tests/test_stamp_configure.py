@@ -584,3 +584,36 @@ class TestStampConfigure(TestProductStampConfiguratorCommon):
         self.assertEqual(
             product_mold.with_context(lang='lt_LT').name, 'Liejimo paslauga F1'
         )
+
+    def test_13_stamp_configure_pricelist_margin_ratio(self):
+        # GIVEN
+        self.stamp_pricelist_azure.margin_default_ratio = 1.5
+        cfg = self.StampConfigure.create(
+            {
+                'sequence': 1,
+                'partner_id': self.partner_azure.id,
+                # die_id omitted, expecting to use default from settings.
+                'design_id': self.stamp_design_f.id,
+                'material_id': self.stamp_material_brass_7.id,
+                'material_counter_id': self.stamp_material_plastic_05.id,
+                'difficulty_id': self.stamp_difficulty_a.id,
+                'size_length': 15,
+                'size_width': 10,
+                'quantity_dies': 10,
+                'quantity_spare_dies': 3,
+                'quantity_counter_dies': 10,
+                'quantity_counter_spare_dies': 10,
+                'origin': '1111',
+                'ref': '2222',
+                'quantity_mold': 1,
+                'price_sqcm_die_custom': 0.1,
+                'price_sqcm_counter_die_custom': 0.2,
+                'price_sqcm_mold_custom': 0.3,
+                # To make price higher than cost.
+                'margin_ratio': 1.2,
+            }
+        )
+        # WHEN
+        cfg._onchange_partner_id()
+        # THEN
+        self.assertEqual(cfg.margin_ratio, 1.5)
