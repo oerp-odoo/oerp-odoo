@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.form.product.code.unique</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="product.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <block id="product_general_settings" position="inside">
+                <setting
+                    id="product_code_unique_setting"
+                    string="Product Unique"
+                    help="Choose how to manage product code uniqueness"
+                >
+                    <field
+                        name="product_code_unique"
+                        class="o_light_label"
+                        widget="radio"
+                    />
+                </setting>
+            </block>
+        </field>
+    </record>
+</odoo>
