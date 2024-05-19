@@ -18,6 +18,7 @@
         'views/sale_order.xml',
         'wizards/stamp_configure_views.xml',
     ],
-    'installable': True,
-    'auto_install': True,
+    'installable': False,
+    # TODO: set to True once it is installable
+    'auto_install': False,
 }

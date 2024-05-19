@@ -13,7 +13,7 @@
         # oerp-odoo
         'product_stamp_configurator_sale',
     ],
-    'installable': True,
+    'installable': False,
     'data': [
         'views/res_config_settings.xml',
     ],

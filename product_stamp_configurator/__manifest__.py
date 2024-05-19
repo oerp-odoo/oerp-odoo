@@ -38,5 +38,5 @@
         'wizards/stamp_configure_views.xml',
     ],
     'application': True,
-    'installable': True,
+    'installable': False,
 }
