@@ -14,6 +14,7 @@
         # oerp-odoo
         'product_stamp_configurator_sale',
     ],
-    'installable': True,
-    'auto_install': True,
+    'installable': False,
+    # TODO: set to True once it is installable
+    'auto_install': False,
 }

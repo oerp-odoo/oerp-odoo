@@ -14,7 +14,7 @@
         # oerp-odoo
         'product_stamp_configurator',
     ],
-    'installable': True,
+    'installable': False,
     'data': [
         'views/res_config_settings.xml',
         'wizards/stamp_configure_views.xml',
