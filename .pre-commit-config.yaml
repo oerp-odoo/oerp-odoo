@@ -133,7 +133,7 @@ repos:
       - id: mixed-line-ending
         args: ["--fix=lf"]
   - repo: https://github.com/OCA/pylint-odoo
-    rev: v8.0.17
+    rev: v9.0.5
     hooks:
       - id: pylint_odoo
         args:
