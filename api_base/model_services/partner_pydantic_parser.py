@@ -12,15 +12,23 @@ class PartnerPydanticParser(models.AbstractModel):
     _description = "Partner Pydantic Parser"
 
     @api.model
-    def get_orm_map(self) -> dict[str, FieldOrm]:
-        return {
-            'partner_type': FieldOrm(
-                fname='is_company',
-                converter=lambda env, val: True if val == 'company' else False,
-            ),
-            'address_type': FieldOrm(fname='type'),
-            'country_code': FieldOrm(
-                fname='country_id', converter=utils.get_country_id
-            ),
-            'postal': FieldOrm(fname='zip'),
-        }
+    def get_orm_map(self) -> list[tuple[str, FieldOrm]]:
+        res = super().get_orm_map()
+        res.extend(
+            [
+                (
+                    'partner_type',
+                    FieldOrm(
+                        fname='is_company',
+                        converter=lambda env, val: True if val == 'company' else False,
+                    ),
+                ),
+                ('address_type', FieldOrm(fname='type')),
+                (
+                    'country_code',
+                    FieldOrm(fname='country_id', converter=utils.get_country_id),
+                ),
+                ('postal', FieldOrm(fname='zip')),
+            ]
+        )
+        return res

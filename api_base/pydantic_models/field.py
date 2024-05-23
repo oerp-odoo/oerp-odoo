@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Callable, Optional
 
 from extendable_pydantic import ExtendableModelMeta
@@ -12,7 +14,7 @@ class FieldOrm(BaseModel, metaclass=ExtendableModelMeta):
     fname: str
     # Used for converting to o2m, m2m data. Expects src_fname to be
     # a sequence.
-    x2m_cmd: Optional[fields.Command] = None
+    x2m: Optional[X2many] = None
     # If existing value is pydantic model itself that should be
     # parsed. subparser value is model name of the subparser.
     subparser: Optional[str] = None
@@ -30,3 +32,13 @@ class FieldPydantic(BaseModel, metaclass=ExtendableModelMeta):
     # Callable that receives odoo record and value from odoo record
     # that is being converted to pydantic.
     converter: Optional[Callable[[any, any], any]] = None
+
+
+class X2many(BaseModel, metaclass=ExtendableModelMeta):
+    cmd: fields.Command
+    # If True will iterate over source value to create destination
+    # command value. For example if we got list of source values and
+    # we want to generate list of destination commands.
+    # If False, then whole source value will be used as single value
+    # for source command/commands.
+    src_iterated: bool = True

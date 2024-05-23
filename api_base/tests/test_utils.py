@@ -1,4 +1,4 @@
-from odoo.exceptions import MissingError, ValidationError
+from odoo.exceptions import ValidationError
 
 from .. import utils
 from . import common
@@ -24,7 +24,7 @@ class TestUtils(common.TestApiBaseCommon):
 
     def test_02_get_record_id_by_domain_no_match(self):
         # WHEN, THEN
-        with self.assertRaisesRegex(MissingError, r"No Contact found using domain"):
+        with self.assertRaisesRegex(ValidationError, r"No Contact found using domain"):
             utils.get_record_id_by_domain(self.ResPartner, domain=[('id', '=', 0)])
 
     def test_03_get_record_id_by_name_match(self):
@@ -53,12 +53,16 @@ class TestUtils(common.TestApiBaseCommon):
 
     def test_07_validate_record_not_exists(self):
         # WHEN, THEN
-        with self.assertRaisesRegex(MissingError, r"Contact with ID .+ does not exist"):
+        with self.assertRaisesRegex(
+            ValidationError, r"Contact with ID .+ does not exist"
+        ):
             utils.validate_record_exists(self.ResPartner)
 
     def test_08_validate_record_not_active(self):
         # GIVEN
         self.partner_1.active = False
         # WHEN, THEN
-        with self.assertRaisesRegex(MissingError, r"Contact with ID .+ does not exist"):
+        with self.assertRaisesRegex(
+            ValidationError, r"Contact with ID .+ does not exist"
+        ):
             utils.validate_record_exists(self.partner_1)

@@ -5,6 +5,16 @@ from odoo import fields, models
 from ..pydantic_models.field import FieldOrm
 
 
+def set_val(vals: dict, val: any, fname: str, to_extend=False):
+    if val is not None:
+        # With x2m commands we want to extend if multiple
+        # commands are used for same field!
+        if to_extend and fname in vals:
+            vals[fname].extend(val)
+        else:
+            vals[fname] = val
+
+
 class PydanticParser(models.AbstractModel):
     """Base class to parse pydantic model to odoo data.
 
@@ -17,17 +27,13 @@ class PydanticParser(models.AbstractModel):
 
     def parse(self, obj: pydantic.BaseModel):
         """Parse pydantic model into odoo model vals dictionary."""
-
-        def set_val(vals: dict, val: any, dest_fname: str):
-            if val is not None:
-                vals[dest_fname] = val
-
         vals = {}
-        used_keys = []
+        used_keys = set()
         # 1. Parse map.
-        for src_fname, field_orm in self.get_orm_map().items():
-            used_keys.append(src_fname)
-            set_val(vals, self._parse_value(obj, src_fname, field_orm), field_orm.fname)
+        for src_fname, field_orm in self.get_orm_map():
+            used_keys.add(src_fname)
+            val_ = self._parse_value(obj, src_fname, field_orm)
+            set_val(vals, val_, field_orm.fname, to_extend=field_orm.x2m is not None)
         # 2. Parse direct mapped fields.
         # NOTE. All left fields that were not mapped explicitly are
         # assumed that have exact mapping with odoo fields and without
@@ -36,17 +42,17 @@ class PydanticParser(models.AbstractModel):
             set_val(vals, self._get_obj_value(obj, fname), fname)
         return vals
 
-    def get_orm_map(self) -> dict[str, FieldOrm]:
+    def get_orm_map(self) -> list[tuple[str, FieldOrm]]:
         """Return mapping to convert pydantic model to odoo data.
 
-        Override to specify field mappings.
+        Extend to specify field mappings.
 
         Not specified fields are assumed either directly mapped (same
         key) or having custom getter.
         """
-        return {}
+        return []
 
-    def _get_direct_map_fields(self, obj: pydantic.BaseModel, used_keys: list):
+    def _get_direct_map_fields(self, obj: pydantic.BaseModel, used_keys: set):
         keys = []
         # NOTE. We must use pydantic.BaseModel instance here and not class itself,
         # to make sure changes from extensions are taken in consideration.
@@ -71,38 +77,39 @@ class PydanticParser(models.AbstractModel):
         if val is not None:
             subparser = field_orm.subparser
             converter = field_orm.converter
-            x2m_cmd = field_orm.x2m_cmd
-            if x2m_cmd is None:
+            x2m = field_orm.x2m
+            if x2m is None:
                 val = parse(val, subparser, converter)
             else:
                 data = []
-                # `val` is expected to be sequence to iterate over.
-                for val_ in val:
-                    data.append(
-                        self._prepare_x2m_cmd(
-                            x2m_cmd, parse(val_, subparser, converter)
-                        )
-                    )
+                vals_list = val if x2m.src_iterated else [val]
+                for val_ in vals_list:
+                    cmd_val = parse(val_, subparser, converter)
+                    if cmd_val is None:
+                        continue
+                    data.append(self._prepare_x2m_cmd(x2m.cmd, cmd_val))
+                if not data:
+                    return None
                 return data
         return val
 
     def _get_obj_value(self, obj: pydantic.BaseModel, fname: str):
         return getattr(obj, fname)
 
-    def _prepare_x2m_cmd(self, x2m_cmd: fields.Command, val: any):
-        if x2m_cmd.value == 0:
-            return x2m_cmd.create(val)
-        if x2m_cmd.value == 1:
+    def _prepare_x2m_cmd(self, cmd: fields.Command, val: any):
+        if cmd.value == 0:
+            return cmd.create(val)
+        if cmd.value == 1:
             # val must be tuple
-            return x2m_cmd.update(val[0], val[1])
-        if x2m_cmd.value == 2:
-            return x2m_cmd.delete(val)
-        if x2m_cmd.value == 3:
-            return x2m_cmd.unlink(val)
-        if x2m_cmd.value == 4:
-            return x2m_cmd.link(val)
-        if x2m_cmd.value == 5:
-            return x2m_cmd.clear()
-        if x2m_cmd.value == 6:
+            return cmd.update(val[0], val[1])
+        if cmd.value == 2:
+            return cmd.delete(val)
+        if cmd.value == 3:
+            return cmd.unlink(val)
+        if cmd.value == 4:
+            return cmd.link(val)
+        if cmd.value == 5:
+            return cmd.clear()
+        if cmd.value == 6:
             # val must be list of ids
-            return x2m_cmd.set(val)
+            return cmd.set(val)
