@@ -7,7 +7,6 @@
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
     'website': "https://timefordev.com",
-    'category': 'Hidden/Tools',
     'depends': [
         # oca:rest-framework
         'base_rest',
