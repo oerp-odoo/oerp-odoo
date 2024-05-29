@@ -152,6 +152,7 @@ class TestGenerateReportData(TestStockMoveOperationReportCommon):
             sorted(
                 [
                     {
+                        'product_name': 'Glass',
                         'product_code': 'glass',
                         'quantity_start': 10,
                         'manufacture_in': 10,
@@ -170,6 +171,7 @@ class TestGenerateReportData(TestStockMoveOperationReportCommon):
                         'quantity_end': 9,
                     },
                     {
+                        'product_name': 'Bucket',
                         'product_code': 'bucket',
                         'quantity_start': 5,
                         'manufacture_in': 0,
@@ -316,6 +318,7 @@ class TestGenerateReportData(TestStockMoveOperationReportCommon):
             sorted(
                 [
                     {
+                        'product_name': 'Glass',
                         'product_code': 'glass',
                         'quantity_start': 10,
                         'manufacture_in': 10,
@@ -334,6 +337,7 @@ class TestGenerateReportData(TestStockMoveOperationReportCommon):
                         'quantity_end': 9,
                     },
                     {
+                        'product_name': 'Bucket',
                         'product_code': 'bucket',
                         'quantity_start': 5,
                         'manufacture_in': 0,

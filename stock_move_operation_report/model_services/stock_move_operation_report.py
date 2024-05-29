@@ -73,6 +73,7 @@ class StockPMoveOperationReport(models.AbstractModel):
         ):
             operation_totals[op] += qty
         return {
+            'product_name': product_start.name,
             'product_code': product_start.default_code,
             'quantity_start': product_start.qty_available,
             **operation_totals,

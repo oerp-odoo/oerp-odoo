@@ -6,6 +6,7 @@ Generates ``CSV`` report to show products moves by source destination locations.
 Each row consists of these columns (``in`` means coming into warehouse,
 ``out`` going out of warehouse):
 
+* product_name: Product's Name
 * product_code: Product Internal Reference
 * quantity_start: starting quantity at ``Date Start``.
 * manufacture_in: quantity manufactured
