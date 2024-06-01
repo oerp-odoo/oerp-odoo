@@ -36,6 +36,17 @@ def get_record_id_by_name(Model, name, limit=None, raise_not_found=True):
     )
 
 
+def get_partner_id_by_vat(env, vat: str):
+    # Forcing limit, to make search faster. Though we must be sure
+    # VAT uniqueness is guaranteed.
+    company_id = env.user.company_id.id
+    return get_record_id_by_domain(
+        env['res.partner'],
+        domain=[('vat', '=', vat), ('company_id', 'in', (False, company_id))],
+        limit=1,
+    )
+
+
 def validate_record_exists(record, msg=None):
     if not msg:
         msg = f"{record._description} with ID {record.id} does not exist"
