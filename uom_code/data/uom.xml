@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <!-- Units -->
+    <record id="uom.product_uom_unit" model="uom.uom">
+        <field name="code">unit</field>
+    </record>
+    <record id="uom.product_uom_dozen" model="uom.uom">
+        <field name="code">dozen</field>
+    </record>
+    <!-- WORKING TIME -->
+    <record id="uom.product_uom_day" model="uom.uom">
+        <field name="code">day</field>
+    </record>
+    <record id="uom.product_uom_hour" model="uom.uom">
+        <field name="code">hour</field>
+    </record>
+    <!-- LENGTH -->
+    <record id="uom.product_uom_meter" model="uom.uom">
+        <field name="code">m</field>
+    </record>
+    <record id="uom.product_uom_millimeter" model="uom.uom">
+        <field name="code">mm</field>
+    </record>
+    <record id="uom.product_uom_km" model="uom.uom">
+        <field name="code">km</field>
+    </record>
+    <record id="uom.product_uom_cm" model="uom.uom">
+        <field name="code">cm</field>
+    </record>
+    <!-- SURFACE -->
+    <record id="uom.uom_square_meter" model="uom.uom">
+        <field name="code">m2</field>
+    </record>
+    <!-- VOLUME -->
+    <record id="uom.product_uom_litre" model="uom.uom">
+        <field name="code">L</field>
+    </record>
+    <record id="uom.product_uom_cubic_meter" model="uom.uom">
+        <field name="code">m3</field>
+    </record>
+    <!-- WEIGHT -->
+    <record id="uom.product_uom_kgm" model="uom.uom">
+        <field name="code">kg</field>
+    </record>
+    <record id="uom.product_uom_gram" model="uom.uom">
+        <field name="code">g</field>
+    </record>
+    <record id="uom.product_uom_ton" model="uom.uom">
+        <field name="code">t</field>
+    </record>
+    <!--Americanization of units of measure-->
+    <!-- WEIGHT -->
+    <record id="uom.product_uom_lb" model="uom.uom">
+        <field name="code">lb</field>
+    </record>
+    <record id="uom.product_uom_oz" model="uom.uom">
+        <field name="code">oz</field>
+    </record>
+    <!-- LENGTH -->
+    <record id="uom.product_uom_inch" model="uom.uom">
+        <field name="code">in</field>
+    </record>
+    <record id="uom.product_uom_foot" model="uom.uom">
+        <field name="code">ft</field>
+    </record>
+    <record id="uom.product_uom_mile" model="uom.uom">
+        <field name="code">mi</field>
+    </record>
+    <!-- SURFACE -->
+    <record id="uom.uom_square_foot" model="uom.uom">
+        <field name="code">ft2</field>
+    </record>
+    <!-- VOLUME -->
+    <record id="uom.product_uom_floz" model="uom.uom">
+        <field name="code">fl_oz_us</field>
+    </record>
+    <record id="uom.product_uom_qt" model="uom.uom">
+        <field name="code">qt_us</field>
+    </record>
+    <record id="uom.product_uom_gal" model="uom.uom">
+        <field name="code">gal_us</field>
+    </record>
+    <record id="uom.product_uom_cubic_inch" model="uom.uom">
+        <field name="code">in3</field>
+    </record>
+    <record id="uom.product_uom_cubic_foot" model="uom.uom">
+        <field name="code">ft3</field>
+    </record>
+</odoo>
