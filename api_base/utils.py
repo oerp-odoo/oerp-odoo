@@ -47,17 +47,21 @@ def get_partner_id_by_vat(env, vat: str):
     )
 
 
-def validate_record_exists(record, msg=None):
+def validate_record_exists(record, msg=None, raise_err=True):
     if not msg:
         msg = f"{record._description} with ID {record.id} does not exist"
     if not record.exists() or hasattr(record, 'active') and not record.active:
-        raise ValidationError(msg)
+        if raise_err:
+            raise ValidationError(msg)
+        return msg
     # From outside, if it tries to access record outside that user companies,
     # it means it can't.
     if hasattr(record, 'company_id'):
         if record.company_id and record.company_id not in record.env.companies:
-            raise ValidationError(msg)
-    return True
+            if raise_err:
+                raise ValidationError(msg)
+            return msg
+    return ''
 
 
 def get_record_by_xmlid(env, xmlid, msg):

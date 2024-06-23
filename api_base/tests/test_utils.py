@@ -46,10 +46,10 @@ class TestUtils(common.TestApiBaseCommon):
         self.assertEqual(partner_id, self.partner_1.id)
 
     def test_05_validate_record_exists_n_active(self):
-        self.assertTrue(utils.validate_record_exists(self.partner_1))
+        self.assertEqual(utils.validate_record_exists(self.partner_1), '')
 
     def test_06_validate_record_exists(self):
-        self.assertTrue(utils.validate_record_exists(self.partner_title_1))
+        self.assertEqual(utils.validate_record_exists(self.partner_title_1), '')
 
     def test_07_validate_record_not_exists(self):
         # WHEN, THEN
