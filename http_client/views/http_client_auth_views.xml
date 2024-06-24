@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="http_client_auth_view_tree" model="ir.ui.view">
+        <field name="name">http.client.auth.tree</field>
+        <field name="model">http.client.auth</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="url"/>
+                <field name="auth_method"/>
+                <field name="identifier"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="http_client_auth_view_form" model="ir.ui.view">
+        <field name="name">http.client.auth.form</field>
+        <field name="model">http.client.auth</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_confirm"
+                        string="Confirm"
+                        type="object"
+                        class="oe_highlight"
+                        states="draft"
+                    />
+                    <button
+                        name="action_login"
+                        string="Login"
+                        type="object"
+                        attrs="{'invisible': ['|', '|', '|', ('state', '!=', 'confirmed'), ('auth_method', '=', 'none'), ('path_auth', '=', False), ('access_token', '!=', False)]}"
+                    />
+                    <button
+                        name="action_login"
+                        string="Re-Login"
+                        type="object"
+                        attrs="{'invisible': ['|', '|', '|', ('state', '!=', 'confirmed'), ('auth_method', '=', 'none'), ('path_auth', '=', False), ('access_token', '=', False)]}"
+                    />
+                    <button
+                        name="action_verify"
+                        string="Verify"
+                        type="object"
+                        attrs="{'invisible': ['|', '|', '|', ('state', '!=', 'confirmed'), ('auth_method', '=', 'none'), ('path_verify', '=', False), ('access_token', '=', False)]}"
+                    />
+                    <button
+                        name="action_logout"
+                        string="Logout"
+                        type="object"
+                        attrs="{'invisible': ['|', '|', '|', ('state', '!=', 'confirmed'), ('auth_method', '=', 'none'), ('path_auth', '=', False), ('access_token', '=', False)]}"
+                    />
+                    <button
+                        name="action_to_draft"
+                        string="Reset"
+                        type="object"
+                        states="confirmed"
+                    />
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group name="main">
+                        <group name="general" string="General">
+                            <!-- This field was added after release, so we
+                            can't force require it on DB level for now. -->
+                            <field name="name" required="1"/>
+                            <field
+                                name="url"
+                                attrs="{'readonly': [('state', '!=', 'draft')]}"
+                            />
+                            <field
+                                name="auth_method"
+                                attrs="{'readonly': [('state', '!=', 'draft')]}"
+                            />
+                            <field
+                                name="grant_type"
+                                attrs="{'invisible': [('auth_method', '=', 'none')], 'readonly': [('state', '!=', 'draft')]}"
+                            />
+                        </group>
+                        <group
+                            name="credentials"
+                            string="Credentials"
+                            attrs="{'invisible': [('auth_method', '=', 'none')], 'readonly': [('state', '!=', 'draft')]}"
+                        >
+                            <field
+                                name="identifier"
+                                attrs="{'readonly': [('state', '!=', 'draft')]}"
+                            />
+                            <field
+                                name="secret"
+                                password="True"
+                                attrs="{'readonly': [('state', '!=', 'draft')]}"
+                            />
+                            <field name="access_token" invisible="1"/>
+                            <field name="refresh_token" invisible="1"/>
+                        </group>
+                        <group
+                            name="jwt_token"
+                            string="JWT Token"
+                            attrs="{'invisible': [('grant_type', '=', False)], 'readonly': [('state', '!=', 'draft')]}"
+                        >
+                            <field
+                                name="content_type"
+                                attrs="{'required': [('grant_type', '!=', False)], 'readonly': [('state', '!=', 'draft')]}"
+                            />
+                            <field
+                                name="scope"
+                                attrs="{'invisible': [('grant_type', 'not in', ('client_credentials', 'password'))], 'readonly': [('state', '!=', 'draft')]}"
+                            />
+                            <field
+                                name="auth_path_type"
+                                attrs="{'required': [('grant_type', '!=', False)], 'readonly': [('state', '!=', 'draft')]}"
+                            />
+                            <field
+                                name="path_auth"
+                                attrs="{'required': [('grant_type', '!=', False)], 'readonly': [('state', '!=', 'draft')]}"
+                            />
+                            <field
+                                name="refresh_path_type"
+                                attrs="{'readonly': [('state', '!=', 'draft')]}"
+                            />
+                            <field
+                                name="path_refresh"
+                                attrs="{'invisible': [('refresh_path_type', '=', False)], 'required': [('refresh_path_type', '!=', False)], 'readonly': [('state', '!=', 'draft')]}"
+                            />
+                            <field
+                                name="verify_path_type"
+                                attrs="{'readonly': [('state', '!=', 'draft')]}"
+                            />
+                            <field
+                                name="path_verify"
+                                attrs="{'invisible': [('verify_path_type', '=', False)], 'required': [('verify_path_type', '!=', False)], 'readonly': [('state', '!=', 'draft')]}"
+                            />
+                            <field
+                                name="token_expire_delta"
+                                attrs="{'readonly': [('state', '!=', 'draft')]}"
+                            />
+                        </group>
+                        <group name="misc" string="Misc">
+                            <field
+                                name="company_id"
+                                attrs="{'readonly': [('state', '!=', 'draft')]}"
+                                groups="base.group_multi_company"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="http_client_test_auth_rule_company" model="ir.rule">
+        <field name="name">HTTP Client Test Auth multi-company</field>
+        <field name="model_id" ref="http_client_demo.model_http_client_test_auth"/>
+        <field
+            name="domain_force"
+        >['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>
