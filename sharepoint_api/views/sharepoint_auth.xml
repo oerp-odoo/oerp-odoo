@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sharepoint_auth_view_tree" model="ir.ui.view">
+        <field name="name">sharepoint.auth.tree</field>
+        <field name="model">sharepoint.auth</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="http_client.http_client_auth_view_tree"/>
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="string">Sharepoint Authentication</attribute>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sharepoint_auth_view_form" model="ir.ui.view">
+        <field name="name">sharepoint.auth.form</field>
+        <field name="model">sharepoint.auth</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="http_client.http_client_auth_view_form"/>
+        <field name="arch" type="xml">
+            <form position="attributes">
+                <attribute name="string">Sharepoint Authentication</attribute>
+            </form>
+        </field>
+    </record>
+
+    <record id="sharepoint_auth_action" model="ir.actions.act_window">
+        <field name="name">Authentications</field>
+        <field name="res_model">sharepoint.auth</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="sharepoint_auth_menu"
+        parent="sharepoint_root_menu"
+        action="sharepoint_auth_action"
+        sequence="1"
+    />
+</odoo>

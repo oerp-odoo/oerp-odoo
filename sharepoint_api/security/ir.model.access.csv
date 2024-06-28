@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sharepoint_auth_admin,access_sharepoint_auth admin,model_sharepoint_auth,base.group_system,1,1,1,1
+access_sharepoint_site_admin,access_sharepoint_site admin,model_sharepoint_site,base.group_system,1,1,1,1

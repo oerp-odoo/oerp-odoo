@@ -95,8 +95,8 @@ class TestHttpClientCommon(TransactionCase):
         vals.setdefault('url', DUMMY_URL)
         return cls.get_auth_model().create(vals)
 
-    @property
-    def _dummy_bearer_client_credentials_auth_vals(self):
+    @classmethod
+    def _get_dummy_bearer_client_credentials_auth_vals(cls):
         return {
             'auth_method': 'bearer',
             'identifier': 'clientID',
@@ -108,8 +108,8 @@ class TestHttpClientCommon(TransactionCase):
             'content_type': 'x-www-form-urlencoded',
         }
 
-    @property
-    def _dummy_jwt_password_auth_vals(self):
+    @classmethod
+    def _get_dummy_jwt_password_auth_vals(cls):
         return {
             'auth_method': 'jwt',
             'identifier': 'clientID',
@@ -123,8 +123,8 @@ class TestHttpClientCommon(TransactionCase):
             'content_type': 'json',
         }
 
-    @property
-    def _dummy_jwt_verify_vals(self):
+    @classmethod
+    def _get_dummy_jwt_verify_vals(cls):
         return {
             'auth_method': 'jwt',
             'identifier': 'clientID',
@@ -135,7 +135,7 @@ class TestHttpClientCommon(TransactionCase):
         }
 
     def mock_jwt_access_ok(self, auth, respones_):
-        vals = self._dummy_jwt_password_auth_vals
+        vals = self._get_dummy_jwt_password_auth_vals()
         path_auth = vals['path_auth']
         auth.write(vals)
         endpoint_auth = f'{DUMMY_URL}{path_auth}'
