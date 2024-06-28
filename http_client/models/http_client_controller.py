@@ -99,6 +99,11 @@ class HttpClientController(models.AbstractModel):
                 return auth.get_data()
 
     @api.model
+    def get_expected_exceptions(self):
+        """Get exc types that should not be re-raised with general exception."""
+        return [ValidationError]
+
+    @api.model
     def is_controller_enabled(self):
         """Return True if controller is enabled, False otherwise.
 
@@ -199,6 +204,8 @@ class HttpClientController(models.AbstractModel):
             response = method(endpoint, **kwargs)
             self._check_response(response)
             return response
-        # We raise on unexpected exceptions.
-        except Exception:
-            raise ValidationError(traceback.format_exc())
+        except Exception as e:
+            # We raise general exception on unexpected exceptions.
+            if not isinstance(e, tuple(self.get_expected_exceptions())):
+                raise ValidationError(traceback.format_exc())
+            raise

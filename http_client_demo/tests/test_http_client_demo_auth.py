@@ -208,7 +208,7 @@ class TestHttpClientDemoAuth(common.TestHttpClientDemoCommon):
     @responses.activate
     def test_13_get_auth_data_bearer_w_endpoint_init_token(self):
         # GIVEN
-        self.test_auth_1.write(self._dummy_bearer_client_credentials_auth_vals)
+        self.test_auth_1.write(self._get_dummy_bearer_client_credentials_auth_vals())
         endpoint_auth = self.test_auth_1.path_auth
         responses.add(
             responses.POST,
@@ -255,7 +255,7 @@ class TestHttpClientDemoAuth(common.TestHttpClientDemoCommon):
         # GIVEN
         self.test_auth_1.write(
             dict(
-                self._dummy_bearer_client_credentials_auth_vals,
+                self._get_dummy_bearer_client_credentials_auth_vals(),
                 access_token=EXPIRED_BEARER_ACCESS_TOKEN_1,
             )
         )
@@ -307,7 +307,7 @@ class TestHttpClientDemoAuth(common.TestHttpClientDemoCommon):
         # delta!
         self.test_auth_1.write(
             dict(
-                self._dummy_bearer_client_credentials_auth_vals,
+                self._get_dummy_bearer_client_credentials_auth_vals(),
                 access_token=VALID_BEARER_ACCESS_TOKEN_1,
                 token_expire_delta=-1000000,
             )
@@ -331,7 +331,7 @@ class TestHttpClientDemoAuth(common.TestHttpClientDemoCommon):
         path_auth = '/auth/token'
         self.test_auth_1.write(
             dict(
-                self._dummy_bearer_client_credentials_auth_vals,
+                self._get_dummy_bearer_client_credentials_auth_vals(),
                 auth_path_type='path',
                 path_auth=path_auth,
             )
@@ -363,7 +363,7 @@ class TestHttpClientDemoAuth(common.TestHttpClientDemoCommon):
 
         Case: response returns 400 error code.
         """
-        self.test_auth_1.write(self._dummy_bearer_client_credentials_auth_vals)
+        self.test_auth_1.write(self._get_dummy_bearer_client_credentials_auth_vals())
         endpoint_auth = self.test_auth_1.path_auth
         responses.add(
             responses.POST,
@@ -378,7 +378,7 @@ class TestHttpClientDemoAuth(common.TestHttpClientDemoCommon):
     @responses.activate
     def test_18_jwt_n_password_init_token(self):
         """Get JWT token initially."""
-        vals = self._dummy_jwt_password_auth_vals
+        vals = self._get_dummy_jwt_password_auth_vals()
         path_auth = vals['path_auth']
         self.test_auth_1.write(vals)
         endpoint_auth = f'{DUMMY_URL}{path_auth}'
@@ -409,7 +409,7 @@ class TestHttpClientDemoAuth(common.TestHttpClientDemoCommon):
 
         Case: refresh token is reusable
         """
-        vals = self._dummy_jwt_password_auth_vals
+        vals = self._get_dummy_jwt_password_auth_vals()
         path_auth = vals['path_auth']
         path_refresh = vals['path_refresh']
         # Save with expired access token to get it refreshed.
@@ -451,7 +451,7 @@ class TestHttpClientDemoAuth(common.TestHttpClientDemoCommon):
 
         Case: refresh token can be used only once.
         """
-        vals = self._dummy_jwt_password_auth_vals
+        vals = self._get_dummy_jwt_password_auth_vals()
         path_auth = vals['path_auth']
         path_refresh = vals['path_refresh']
         # Save with expired access token to get it refreshed.
@@ -489,7 +489,7 @@ class TestHttpClientDemoAuth(common.TestHttpClientDemoCommon):
     @responses.activate
     def test_21_jwt_n_password_refresh_token_revoked_relogin(self):
         """Re-login on refresh token being invalid, but not expired."""
-        vals = self._dummy_jwt_password_auth_vals
+        vals = self._get_dummy_jwt_password_auth_vals()
         path_auth = vals['path_auth']
         path_refresh = vals['path_refresh']
         self.test_auth_1.write(
@@ -537,7 +537,7 @@ class TestHttpClientDemoAuth(common.TestHttpClientDemoCommon):
     @responses.activate
     def test_22_jwt_n_password_reinit_token(self):
         """Get new tokens when both access and refresh expired."""
-        vals = self._dummy_jwt_password_auth_vals
+        vals = self._get_dummy_jwt_password_auth_vals()
         path_auth = vals['path_auth']
         # Both tokens expired, to trigger new token request.
         self.test_auth_1.write(
@@ -608,7 +608,7 @@ class TestHttpClientDemoAuth(common.TestHttpClientDemoCommon):
         with self.assertRaises(ValidationError):
             self.test_auth_1.write(
                 dict(
-                    self._dummy_bearer_client_credentials_auth_vals,
+                    self._get_dummy_bearer_client_credentials_auth_vals(),
                     path_auth='some_incorrect_url',
                 )
             )
@@ -616,7 +616,7 @@ class TestHttpClientDemoAuth(common.TestHttpClientDemoCommon):
     @responses.activate
     def test_27_action_login_get_new_token(self):
         """Force request new tokens replacing valid ones."""
-        vals = self._dummy_jwt_password_auth_vals
+        vals = self._get_dummy_jwt_password_auth_vals()
         path_auth = vals['path_auth']
         # Saving valid ones to make sure these are forced replaced.
         self.test_auth_1.write(
@@ -644,7 +644,7 @@ class TestHttpClientDemoAuth(common.TestHttpClientDemoCommon):
 
     @responses.activate
     def test_28_action_verify_ok(self):
-        vals = self._dummy_jwt_verify_vals
+        vals = self._get_dummy_jwt_verify_vals()
         path_verify = vals['path_verify']
         # Saving valid ones to make sure these are forced replaced.
         self.test_auth_1.write(

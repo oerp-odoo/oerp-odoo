@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sharepoint_site_view_tree" model="ir.ui.view">
+        <field name="name">sharepoint.site.tree</field>
+        <field name="model">sharepoint.site</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="hostname"/>
+                <field name="auth_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sharepoint_site_view_form" model="ir.ui.view">
+        <field name="name">sharepoint.site.form</field>
+        <field name="model">sharepoint.site</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_setup_missing"
+                        states="draft"
+                        string="Set Up"
+                        type="object"
+                    />
+                    <button
+                        name="action_confirm"
+                        states="draft,cancel"
+                        string="Confirm"
+                        class="oe_highlight"
+                        type="object"
+                    />
+                    <button
+                        name="action_to_draft"
+                        states="confirm,cancel"
+                        string="Set to Draft"
+                        type="object"
+                    />
+                    <button
+                        name="action_cancel"
+                        states="draft,confirm"
+                        string="Cancel"
+                        type="object"
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,confirm"
+                    />
+                </header>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="hostname"/>
+                            <field name="site_rel_path"/>
+                            <field name="site_id"/>
+                            <field name="drive_id"/>
+                        </group>
+                        <group name="right">
+                            <field name="auth_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sharepoint_site_action" model="ir.actions.act_window">
+        <field name="name">Sites</field>
+        <field name="res_model">sharepoint.site</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="sharepoint_site_menu"
+        parent="sharepoint_root_menu"
+        action="sharepoint_site_action"
+        sequence="10"
+    />
+</odoo>

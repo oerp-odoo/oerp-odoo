@@ -109,7 +109,7 @@ class TestHttpClientDemoController(common.TestHttpClientDemoCommon):
         Case: OK
         """
         endpoint = DUMMY_URL + '/my_uri'
-        self.test_auth_1.write(self._dummy_bearer_client_credentials_auth_vals)
+        self.test_auth_1.write(self._get_dummy_bearer_client_credentials_auth_vals())
         endpoint_auth = self.test_auth_1.path_auth
         responses.add(
             responses.POST,
@@ -141,7 +141,7 @@ class TestHttpClientDemoController(common.TestHttpClientDemoCommon):
 
         Case: authentication fails.
         """
-        self.test_auth_1.write(self._dummy_bearer_client_credentials_auth_vals)
+        self.test_auth_1.write(self._get_dummy_bearer_client_credentials_auth_vals())
         endpoint_auth = self.test_auth_1.path_auth
         responses.add(
             responses.POST,
