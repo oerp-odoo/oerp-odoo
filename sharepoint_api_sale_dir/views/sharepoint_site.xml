@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sharepoint_site_view_form_inherit" model="ir.ui.view">
+        <field name="name">sharepoint.site.form.sale.dir</field>
+        <field name="model">sharepoint.site</field>
+        <field name="inherit_id" ref="sharepoint_api.sharepoint_site_view_form"/>
+        <field name="arch" type="xml">
+            <group name="main" position="after">
+                <group name="sale" string="Sales">
+                    <field name="sale_dir_root_path"/>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>

@@ -31,6 +31,8 @@ class SharepointSite(models.Model):
         help="Should be entered without https://",
         states={"confirm": [("readonly", True)]},
     )
+    # TODO: implement paths cleanup logic. We should enforce /a/b paths
+    # even if let say it specifies /a/b/ or a/b or a/b/
     site_rel_path = fields.Char(
         "Site Relative Path",
         help="Root path of drive. For example /sites/Mysite. Used to discover Site ID",
@@ -103,6 +105,21 @@ class SharepointSite(models.Model):
     def action_cancel(self):
         self.ensure_one()
         self.state = 'cancel'
+
+    def get_site(self, company, raise_not_found=False, **kw):
+        site = self.search(self.prepare_site_domain(company, **kw), limit=1)
+        if not site and raise_not_found:
+            raise ValidationError(
+                _("Sharepoint Site Not Found. Make sure it is configured properly!")
+            )
+        return site
+
+    def prepare_site_domain(self, company, **kw):
+        """Prepare domain to get sharepoint.site record."""
+        return [
+            ('state', '=', 'confirm'),
+            ('company_id', '=', company.id),
+        ]
 
     def _validate_discovery_prerequisites(self):
         self.ensure_one()
