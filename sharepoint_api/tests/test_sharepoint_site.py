@@ -21,6 +21,26 @@ class TestSharepointSite(TestApiSharepointCommon):
             }
         )
 
+    def test_01_get_site_ok(self):
+        # GIVEN
+        self.sharepoint_site_1.write(
+            {
+                'site_id': 'site-id-123',
+                'drive_id': 'drive-id-123',
+                'state': 'confirm',
+            }
+        )
+        # WHHEN
+        site = self.SharepointSite.get_site(self.company_main)
+        # THEN
+        self.assertEqual(site, self.sharepoint_site_1)
+
+    def test_02_get_site_not_confirmed(self):
+        # WHHEN
+        site = self.SharepointSite.get_site(self.company_main)
+        # THEN
+        self.assertFalse(site)
+
     @responses.activate
     def test_01_action_setup_missing_all(self):
         # GIVEN
