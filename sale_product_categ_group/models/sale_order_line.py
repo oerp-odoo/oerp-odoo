@@ -9,7 +9,7 @@ SEP = '-'
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    group_name = fields.Char()
+    group_name = fields.Char(readonly=True, copy=False)
 
     @api.model_create_multi
     def create(self, vals_list):
