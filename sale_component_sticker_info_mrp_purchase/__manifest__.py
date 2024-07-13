@@ -1,9 +1,9 @@
 # Author: Andrius Laukavičius. Copyright: Andrius Laukavičius.
 # See LICENSE file for full copyright and licensing details.
 {
-    'name': "Sale Product Category Group - MRP/Purchase",
+    'name': "Sale - Component Sticker Info - MRP/Purchase",
     'version': '17.0.1.0.0',
-    'summary': 'Integrate sale product category group names with MRP and purchase',
+    'summary': 'Integrate component sticker info with MRP and purchase',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
     'website': "https://timefordev.com",
@@ -14,7 +14,7 @@
         'sale_purchase',
         'purchase_stock',
         # oerp-odoo
-        'sale_product_categ_group',
+        'sale_component_sticker_info',
     ],
     'data': [
         'views/mrp_production.xml',

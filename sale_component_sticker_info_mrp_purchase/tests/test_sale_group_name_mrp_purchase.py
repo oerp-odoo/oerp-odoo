@@ -47,30 +47,75 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
                 'bom_line_ids': [(0, 0, {'product_id': cls.product_1_comp_1.id})],
             }
         )
-        cls.sale_1 = cls.SaleOrder.create(
-            {
-                'partner_id': cls.partner_1.id,
-                'order_line': [
-                    (
-                        0,
-                        0,
-                        {
-                            'group_name': 'A-1',
-                            'product_id': cls.product_1.id,
-                            'product_uom_qty': 1,
-                        },
-                    )
-                ],
-            }
-        )
+        cls.sale_1 = cls.SaleOrder.create({'partner_id': cls.partner_1.id})
 
-    def test_01_sale_group_name_mrp_purchase_linked(self):
+    def test_01_sale_group_name_mrp_purchase_linked_single_line_no_packaging_name(self):
+        # GIVEN
+        self.sale_1.order_line = [
+            (
+                0,
+                0,
+                {
+                    'group_name': 'A-1',
+                    'product_id': self.product_1.id,
+                    'product_uom_qty': 1,
+                },
+            )
+        ]
         # WHEN
         self.sale_1.action_confirm()
         # THEN
         mo = self.MrpProduction.search([('origin', '=', self.sale_1.name)])
+        self.assertEqual(len(mo), 1)
         purchase = self.PurchaseOrder.search([('origin', '=', mo.name)])
+        self.assertEqual(len(purchase), 1)
         self.assertEqual(mo.sale_group_name, 'A-1')
         self.assertEqual(
-            purchase.order_line[0].sale_group_name, f'A-1, {self.sale_1.name}'
+            purchase.order_line[0].component_sticker_info, f'A-1, {self.sale_1.name}'
+        )
+
+    def test_02_sale_group_name_mrp_purchase_linked_multi_line_w_packaging_name(self):
+        # GIVEN
+        pname = 'PNAME01'
+        self.product_1.packaging_name = pname
+        self.sale_1.order_line = [
+            (
+                0,
+                0,
+                {
+                    'group_name': 'A-1',
+                    'product_id': self.product_1.id,
+                    # NOTE. Quantity on line means nothing when
+                    # deciding how to generate a sticker info for now.
+                    'product_uom_qty': 2,
+                },
+            ),
+            (
+                0,
+                0,
+                {
+                    'group_name': 'A-2',
+                    'product_id': self.product_1.id,
+                    'product_uom_qty': 1,
+                },
+            ),
+        ]
+        # WHEN
+        self.sale_1.action_confirm()
+        # THEN
+        mos = self.MrpProduction.search([('origin', '=', self.sale_1.name)])
+        self.assertEqual(len(mos), 2)
+        self.assertEqual(set(mos.mapped('sale_group_name')), {'A-1', 'A-2'})
+        purchase = self.PurchaseOrder.search(
+            [
+                '|',
+                ('origin', 'like', f'%{mos[0].name}%'),
+                ('origin', 'like', f'%{mos[1].name}%'),
+            ]
+        )
+        self.assertEqual(len(purchase), 1)
+        sale_name = self.sale_1.name
+        self.assertEqual(
+            purchase.order_line[0].component_sticker_info,
+            f'A-1, {pname}, {sale_name}; A-2, {pname}, {sale_name}',
         )

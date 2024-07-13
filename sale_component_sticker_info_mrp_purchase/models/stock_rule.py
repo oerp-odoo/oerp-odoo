@@ -1,6 +1,6 @@
 from odoo import models
 
-from ..utils import gather_group_names_with_sale_orders, prepare_sale_group_name
+from ..utils import prepare_sale_group_name
 
 
 class StockRule(models.Model):
@@ -31,10 +31,7 @@ class StockRule(models.Model):
         )
         moves = values.get('move_dest_ids')
         if moves:
-            products = moves.mapped('product_id')
-            data = gather_group_names_with_sale_orders(products, moves.group_id.sale_id)
-            if data:
-                res['sale_group_name'] = prepare_sale_group_name(
-                    data, without_sale_name=True
-                )
+            sale_lines = moves.mapped('sale_line_id')
+            if sale_lines:
+                res['sale_group_name'] = prepare_sale_group_name(sale_lines)
         return res
