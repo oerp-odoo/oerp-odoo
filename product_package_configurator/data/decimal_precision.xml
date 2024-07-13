@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record
+        id="decimal_precision_package_size"
+        forcecreate="True"
+        model="decimal.precision"
+    >
+        <field name="name">Package Configurator Size</field>
+        <field name="digits">2</field>
+    </record>
+</odoo>

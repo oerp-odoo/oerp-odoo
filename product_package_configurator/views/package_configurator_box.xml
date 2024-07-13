@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="package_configurator_box_view_tree" model="ir.ui.view">
+        <field name="name">package.configurator.box.tree</field>
+        <field name="model">package.configurator.box</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="create_date"/>
+                <field name="box_type_id"/>
+                <field name="base_length"/>
+                <field name="base_width"/>
+                <field name="base_height"/>
+                <field name="lid_height"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="package_configurator_box_view_form" model="ir.ui.view">
+        <field name="name">package.configurator.box.form</field>
+        <field name="model">package.configurator.box</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <!-- TODO: add state field with statusbar widget -->
+                    <group name="main">
+                        <group name="general" string="General">
+                            <field name="box_type_id"/>
+                        </group>
+                        <group name="dimensions" string="Dimensions">
+                            <field name="base_length"/>
+                            <field name="base_width"/>
+                            <field name="base_height"/>
+                            <field name="lid_height"/>
+                            <field name="outside_wrapping_extra"/>
+                            <field name="lid_thickness"/>
+                            <field name="lid_extra"/>
+                        </group>
+                        <group name="layouts" string="Layouts">
+                            <field name="base_layout_length"/>
+                            <field name="base_layout_width"/>
+                            <field name="base_inside_wrapping_length"/>
+                            <field name="base_inside_wrapping_width"/>
+                            <field name="base_outside_wrapping_length"/>
+                            <field name="base_outside_wrapping_width"/>
+                            <field name="lid_layout_length"/>
+                            <field name="lid_layout_width"/>
+                            <field name="lid_inside_wrapping_length"/>
+                            <field name="lid_inside_wrapping_width"/>
+                            <field name="lid_outside_wrapping_length"/>
+                            <field name="lid_outside_wrapping_width"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="package_configurator_box_action" model="ir.actions.act_window">
+        <field name="name">Box Configurator</field>
+        <field name="res_model">package.configurator.box</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
