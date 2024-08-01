@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_location_route_form_view_inherit" model="ir.ui.view">
+        <field
+            name="name"
+        >stock.location.route.form.mts.else.mto.condition</field>
+        <field name="model">stock.location.route</field>
+        <field name="inherit_id" ref="stock.stock_location_route_form_view"/>
+        <field name="arch" type="xml">
+            <field name="sequence" position="after">
+                <field name="mts_else_mto_condition"/>
+                <field
+                    name="orderpoint_max_qty_perc"
+                    attrs="{'invisible': [('mts_else_mto_condition', '!=', 'orderpoint_max_qty_perc')], 'required': [('mts_else_mto_condition', '=', 'orderpoint_max_qty_perc')]}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
