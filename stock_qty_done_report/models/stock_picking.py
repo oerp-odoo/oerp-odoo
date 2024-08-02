@@ -23,7 +23,7 @@ class StockPicking(models.Model):
 
     def _compute_qty_done_datas(self):
         for picking in self:
-            picking.qty_done_datas = self._generate_qty_done_csv_base64_data()
+            picking.qty_done_datas = picking._generate_qty_done_csv_base64_data()
 
     def get_qty_done_data(self):
         self.ensure_one()
