@@ -15,6 +15,11 @@ A new configuration field ``Unique Product Codes`` in General Settings for enabl
 * ``Enabled`` - enabled case-sensitive uniqueness;
 * ``Enabled Case-Insensitive`` - enabled case-insensitive uniqueness;
 
+Notes
+=====
+
+This is an alternative ``product_code_unique`` module.
+
 Contributors
 ============
 
