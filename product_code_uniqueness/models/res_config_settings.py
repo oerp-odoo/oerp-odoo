@@ -1,6 +1,6 @@
 from odoo import fields, models
 
-CFG_PARAM_PRODUCT_CODE_UNIQUE = 'product_code_unique.code_unique'
+CFG_PARAM_PRODUCT_CODE_UNIQUE = 'product_code_uniqueness.code_unique'
 
 
 class ResConfigSettings(models.TransientModel):
