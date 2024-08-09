@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="http_client_auth_view_tree" model="ir.ui.view">
+        <field name="name">http.client.auth.tree</field>
+        <field name="model">http.client.auth</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="url"/>
+                <field name="auth_method"/>
+                <field name="identifier"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="http_client_auth_view_form" model="ir.ui.view">
+        <field name="name">http.client.auth.form</field>
+        <field name="model">http.client.auth</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_confirm"
+                        string="Confirm"
+                        type="object"
+                        class="oe_highlight"
+                        invisible="state != 'draft'"
+                    />
+                    <button
+                        name="action_login"
+                        string="Login"
+                        type="object"
+                        invisible="state != 'confirmed' or auth_method == 'none' or not path_auth or not access_token"
+                    />
+                    <button
+                        name="action_login"
+                        string="Re-Login"
+                        type="object"
+                        invisible="state != 'confirmed' or auth_method == 'none' or not path_auth or access_token"
+                    />
+                    <button
+                        name="action_verify"
+                        string="Verify"
+                        type="object"
+                        invisible="state != 'confirmed' or auth_method == 'none' or not path_verify or not access_token"
+                    />
+                    <button
+                        name="action_logout"
+                        string="Logout"
+                        type="object"
+                        invisible="state != 'confirmed' or auth_method == 'none' or not path_auth or access_token"
+                    />
+                    <button
+                        name="action_to_draft"
+                        string="Reset"
+                        type="object"
+                        invisible="state != 'confirmed'"
+                    />
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group name="main">
+                        <group name="general" string="General">
+                            <field name="name" required="1"/>
+                            <field name="url" readonly="state != 'draft'"/>
+                            <field name="auth_method" readonly="state != 'draft'"/>
+                            <field
+                                name="grant_type"
+                                invisible="auth_method == 'none'"
+                                readonly="state != 'draft'"
+                            />
+                        </group>
+                        <group
+                            name="credentials"
+                            string="Credentials"
+                            invisible="auth_method == 'none'"
+                            readonly="state != 'draft'"
+                        >
+                            <field name="identifier" readonly="state != 'draft'"/>
+                            <field
+                                name="secret"
+                                password="True"
+                                readonly="state != 'draft'"
+                            />
+                            <field name="access_token" invisible="1"/>
+                            <field name="refresh_token" invisible="1"/>
+                        </group>
+                        <group
+                            name="jwt_token"
+                            string="JWT Token"
+                            invisible="not grant_type"
+                            readonly="state != 'draft'"
+                        >
+                            <field
+                                name="content_type"
+                                required="grant_type"
+                                readonly="state != 'draft'"
+                            />
+                            <field
+                                name="scope"
+                                invisible="grant_type not in ('client_credentials', 'password')"
+                                readonly="state != 'draft'"
+                            />
+                            <field
+                                name="auth_path_type"
+                                required="grant_type"
+                                readonly="state != 'draft'"
+                            />
+                            <field
+                                name="path_auth"
+                                required="grant_type"
+                                readonly="state != 'draft'"
+                            />
+                            <field
+                                name="refresh_path_type"
+                                readonly="state != 'draft'"
+                            />
+                            <field
+                                name="path_refresh"
+                                invisible="not refresh_path_type"
+                                required="refresh_path_type"
+                                readonly="state != 'draft'"
+                            />
+                            <field name="verify_path_type" readonly="state != 'draft'"/>
+                            <field
+                                name="path_verify"
+                                invisible="not verify_path_type"
+                                required="verify_path_type"
+                                readonly="state != 'draft'"
+                            />
+                            <field
+                                name="token_expire_delta"
+                                readonly="state != 'draft'"
+                            />
+                        </group>
+                        <group name="misc" string="Misc">
+                            <field
+                                name="company_id"
+                                readonly="state != 'draft'"
+                                groups="base.group_multi_company"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
