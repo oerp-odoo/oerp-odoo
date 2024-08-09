@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="test_client_auth_view_tree" model="ir.ui.view">
+        <field name="name">http.client.test.auth.tree</field>
+        <field name="model">http.client.test.auth</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="http_client.http_client_auth_view_tree"/>
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="string">Demo Authentication</attribute>
+            </tree>
+        </field>
+    </record>
+
+    <record id="test_client_auth_view_form" model="ir.ui.view">
+        <field name="name">http.client.test.auth.form</field>
+        <field name="model">http.client.test.auth</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="http_client.http_client_auth_view_form"/>
+        <field name="arch" type="xml">
+            <form position="attributes">
+                <attribute name="string">Demo Authentication</attribute>
+            </form>
+        </field>
+    </record>
+
+    <record id="test_client_auth_action" model="ir.actions.act_window">
+        <field name="name">Demo</field>
+        <field name="res_model">http.client.test.auth</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="test_client_auth_menu"
+        parent="auth_menus.auth_external_menu"
+        action="test_client_auth_action"
+        sequence="30"
+    />
+</odoo>
