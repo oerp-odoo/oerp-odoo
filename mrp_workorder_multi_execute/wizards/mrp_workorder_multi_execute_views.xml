@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="mrp_workorder_multi_execute_view_form" model="ir.ui.view">
+        <field name="name">mrp.workorder.multi.execute.form</field>
+        <field name="model">mrp.workorder.multi.execute</field>
+        <field name="arch" type="xml">
+            <form>
+                <group name="main">
+                    <group name="left">
+                        <field name="action"/>
+                    </group>
+                    <group name="right">
+                        <field
+                            name="loss_id"
+                            attrs="{'invisible': [('action', '!=', 'block')]}"
+                        />
+                        <field
+                            name="loss_description"
+                            attrs="{'invisible': [('action', '!=', 'block')]}"
+                        />
+                    </group>
+                </group>
+                <footer>
+                    <button
+                        name="action_execute"
+                        string="Execute"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button
+                        string="Cancel"
+                        class="btn-default"
+                        special="cancel"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record
+        id="mrp_workorder_multi_execute_action"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Execute Workorders</field>
+        <field name="res_model">mrp.workorder.multi.execute</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="mrp.model_mrp_workorder"/>
+    </record>
+</odoo>
