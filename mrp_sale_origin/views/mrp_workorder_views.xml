@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="mrp_production_workorder_tree_view_inherit" model="ir.ui.view">
+        <field name="name">mrp.workorder.tree.sale.origin</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="production_id" position="after">
+                <field name="sale_origin" optional="show"/>
+            </field>
+        </field>
+    </record>
+</odoo>
