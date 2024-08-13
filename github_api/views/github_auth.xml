@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="github_auth_view_tree" model="ir.ui.view">
+        <field name="name">github.auth.tree</field>
+        <field name="model">github.auth</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="http_client.http_client_auth_view_tree"/>
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="string">Github Authentication</attribute>
+            </tree>
+        </field>
+    </record>
+
+    <record id="github_auth_view_form" model="ir.ui.view">
+        <field name="name">github.auth.form</field>
+        <field name="model">github.auth</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="http_client.http_client_auth_view_form"/>
+        <field name="arch" type="xml">
+            <form position="attributes">
+                <attribute name="string">Github Authentication</attribute>
+            </form>
+        </field>
+    </record>
+
+    <record id="github_auth_action" model="ir.actions.act_window">
+        <field name="name">Authentications</field>
+        <field name="res_model">github.auth</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="github_auth_menu"
+        parent="github_root_menu"
+        action="github_auth_action"
+        sequence="1"
+    />
+</odoo>
