@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="package_box_type_view_tree" model="ir.ui.view">
+        <field name="name">package.box.type.tree</field>
+        <field name="model">package.box.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="package_box_type_view_form" model="ir.ui.view">
+        <field name="name">package.box.type.form</field>
+        <field name="model">package.box.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="name"/>
+                        </group>
+                        <group name="right">
+                            <field name="min_length"/>
+                            <field name="min_width"/>
+                            <field name="min_height"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="package_box_type_action" model="ir.actions.act_window">
+        <field name="name">Box Types</field>
+        <field name="res_model">package.box.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
