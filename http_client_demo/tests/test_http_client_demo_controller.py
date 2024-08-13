@@ -9,6 +9,7 @@ from odoo.addons.http_client.tests.common import (
     DUMMY_ENDPOINT,
     DUMMY_URL,
 )
+from odoo.addons.http_client.value_objects import PathItem
 
 from . import common
 
@@ -19,7 +20,7 @@ class TestHttpClientDemoController(common.TestHttpClientDemoCommon):
 
     @responses.activate
     def test_01_call_http_method(self):
-        """Call REST method when uri_item is passed, but no auth obj."""
+        """Call REST method when path_item is passed, but no auth obj."""
         # Make sure no auth obj can be found.
         (self.test_auth_1 | self.test_auth_2 | self.test_auth_3).action_to_draft()
         endpoint = DUMMY_ENDPOINT
@@ -28,14 +29,14 @@ class TestHttpClientDemoController(common.TestHttpClientDemoCommon):
             self.HttpClientTestController.call_http_method(
                 'get',
                 options={
-                    'uri_item': ('my_uri/%s', ['a']),
+                    'path_item': PathItem(path_expression='my_uri/{}', args=('a',)),
                     'company_id': self.company_main.id,
                 },
             )
 
     @responses.activate
     def test_02_call_http_method(self):
-        """Call REST method when uri_item is passed and is auth obj.
+        """Call REST method when path_item is passed and is auth obj.
 
         Auth obj method is None.
         """
@@ -44,7 +45,7 @@ class TestHttpClientDemoController(common.TestHttpClientDemoCommon):
         response = self.HttpClientTestController.call_http_method(
             'get',
             options={
-                'uri_item': ('my_uri/%s', ('a',)),
+                'path_item': PathItem(path_expression='my_uri/{}', args=('a',)),
                 'company_id': self.company_main.id,
             },
         )
@@ -52,7 +53,7 @@ class TestHttpClientDemoController(common.TestHttpClientDemoCommon):
 
     @responses.activate
     def test_03_call_http_method(self):
-        """Call REST method when uri_item is passed and is auth obj.
+        """Call REST method when path_item is passed and is auth obj.
 
         Auth obj method is Basic.
         """
@@ -61,7 +62,7 @@ class TestHttpClientDemoController(common.TestHttpClientDemoCommon):
         response = self.HttpClientTestController.call_http_method(
             'get',
             options={
-                'uri_item': ('my_uri', False),
+                'path_item': PathItem(path_expression='my_uri'),
                 'company_id': self.company_2.id,
                 'kwargs': {'headers': {'my_header': '123'}},
             },
@@ -85,7 +86,7 @@ class TestHttpClientDemoController(common.TestHttpClientDemoCommon):
             self.HttpClientTestController.call_http_method(
                 'get',
                 options={
-                    'uri_item': ('my_uri', False),
+                    'path_item': PathItem(path_expression='my_uri'),
                     'auth': self.test_auth_2,
                     'kwargs': {'headers': {'my_header': '123'}},
                 },
@@ -95,7 +96,7 @@ class TestHttpClientDemoController(common.TestHttpClientDemoCommon):
         response = self.HttpClientTestController.call_http_method(
             'get',
             options={
-                'uri_item': ('my_uri', False),
+                'path_item': PathItem(path_expression='my_uri'),
                 'auth': self.test_auth_2,
                 'kwargs': {'headers': {'my_header': '123'}},
             },
@@ -128,7 +129,7 @@ class TestHttpClientDemoController(common.TestHttpClientDemoCommon):
         response = self.HttpClientTestController.call_http_method(
             'get',
             options={
-                'uri_item': ('my_uri', False),
+                'path_item': PathItem(path_expression='my_uri'),
                 'auth': self.test_auth_1,
                 'kwargs': {'headers': {'my_header': '123'}},
             },
@@ -154,7 +155,7 @@ class TestHttpClientDemoController(common.TestHttpClientDemoCommon):
             self.HttpClientTestController.call_http_method(
                 'get',
                 options={
-                    'uri_item': ('my_uri', False),
+                    'path_item': PathItem(path_expression='my_uri'),
                     'auth': self.test_auth_1,
                     'kwargs': {'headers': {'my_header': '123'}},
                 },

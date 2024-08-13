@@ -9,7 +9,9 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 from ..exceptions import AuthDataError, AuthError
-from .http_client_controller import _raise_endpoint_error, get_endpoint
+from ..utils import get_endpoint
+from ..value_objects import PathItem
+from .http_client_controller import _raise_endpoint_error
 
 TOKEN_AUTH_PREFIX_MAP = {'bearer': 'Bearer', 'jwt': 'JWT'}
 DEFAULT_EXPIRE_DELTA = -60
@@ -154,7 +156,7 @@ class HttpClientAuth(models.AbstractModel):
         path = self[path_fname]
         path_type_fname = f'{name}_path_type'
         if self[path_type_fname] == 'path':
-            return get_endpoint(self.url, path)
+            return get_endpoint(self.url, PathItem(path_expression=path))
         return path
 
     @api.model
