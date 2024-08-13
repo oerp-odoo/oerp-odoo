@@ -50,7 +50,7 @@ DUMMY_BEARER_RESPONSE = {
     'scope': 'some/scope',
 }
 DUMMY_URL = 'http://127.0.0.1'
-DUMMY_ENDPOINT = "%s/my_path" % DUMMY_URL
+DUMMY_ENDPOINT = f"{DUMMY_URL}/my_path"
 HTTP_CLIENT_MODULE_PATH = 'odoo.addons.http_client.models.http_client_controller'
 # Tokens with expiration.
 VALID_ACCESS_TOKEN_1 = encode_jwt_token(
