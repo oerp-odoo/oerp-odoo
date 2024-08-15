@@ -8,7 +8,7 @@ from odoo import _, api, models
 from odoo.exceptions import ValidationError
 
 from ..exceptions import AuthDataError
-from ..utils import get_endpoint
+from ..utils import get_endpoint, get_next_link
 
 _logger = logging.getLogger(__name__)
 
@@ -173,3 +173,21 @@ class HttpClientController(models.AbstractModel):
             if not isinstance(e, tuple(self.get_expected_exceptions())):
                 raise ValidationError(traceback.format_exc())
             raise
+
+    def call_http_method_follow_links(
+        self, link_key: str, method_name: str, options=None
+    ) -> list:
+        """Follow links from HTTP calls responses and add responses to list."""
+        if options is None:
+            options = {}
+        results = []
+        while True:
+            response = self.call_http_method(method_name, options=dict(options))
+            results.append(response)
+            next_link = get_next_link(response, link_key)
+            if next_link is None:
+                break
+            options['endpoint'] = next_link
+            # Make sure path_item does not interfere with new endpoint.
+            options.pop('path_item', None)
+        return results

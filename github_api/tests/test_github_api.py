@@ -17,7 +17,7 @@ repo_demo = value_objects.Repo(
 
 class TestGithubApi(TestGithubApiCommon):
     @responses.activate
-    def test_01_list_pulls_wo_query_ok(self):
+    def test_01_list_pulls_wo_query(self):
         # GIVEN
         url = self.github_auth_1.url
         endpoint = f'{url}/repos/my-org/my-repo/pulls'
@@ -57,7 +57,100 @@ class TestGithubApi(TestGithubApiCommon):
         self.assertEqual(res, json_res)
 
     @responses.activate
-    def test_02_list_pulls_w_query_ok(self):
+    def test_02_list_pulls_with_links(self):
+        # GIVEN
+        url = self.github_auth_1.url
+        endpoint_1 = f'{url}/repos/my-org/my-repo/pulls'
+        endpoint_2 = f'{url}/repos/my-org/my-repo/pulls?per_page=1&page=2'
+        responses.add(
+            responses.GET,
+            endpoint_1,
+            status=200,
+            json=[
+                {
+                    'url': DUMMY_URL,
+                    'id': 123456,
+                    'number': 123,
+                    'draft': False,
+                    'head': {
+                        'ref': 'some-branch-1',
+                        'sha': 'some-commit-sha-1',
+                    },
+                    'state': 'open',
+                    'auto_merge': None,
+                },
+            ],
+            headers={
+                'Link': f'<{endpoint_2}>; rel="next", <{endpoint_2}>; rel="last"',
+                **CONTENT_TYPE_APPLICATION_JSON,
+            },
+        )
+        responses.add(
+            responses.GET,
+            endpoint_1,
+            status=200,
+            json=[
+                {
+                    'url': DUMMY_URL,
+                    'id': 22222,
+                    'number': 222,
+                    'draft': False,
+                    'head': {
+                        'ref': 'some-branch-2',
+                        'sha': 'some-commit-sha-2',
+                    },
+                    'state': 'open',
+                    'auto_merge': None,
+                },
+            ],
+            headers=CONTENT_TYPE_APPLICATION_JSON,
+        )
+        # WHEN
+        res = self.GithubApi.list_pulls(
+            repo_demo,
+            options={'auth': self.github_auth_1},
+        )
+        # THEN
+        calls = responses.calls
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(calls[0].request.url, endpoint_1)
+        self.assertEqual(calls[1].request.url, endpoint_2)
+        headers = calls[0].request.headers
+        self.assertEqual(headers['Authorization'], 'Bearer abc123')
+        self.assertEqual(headers['Accept'], 'application/vnd.github+json')
+        self.assertEqual(headers['X-GitHub-Api-Version'], '2022-11-28')
+        self.assertEqual(
+            res,
+            [
+                {
+                    'url': DUMMY_URL,
+                    'id': 123456,
+                    'number': 123,
+                    'draft': False,
+                    'head': {
+                        'ref': 'some-branch-1',
+                        'sha': 'some-commit-sha-1',
+                    },
+                    'state': 'open',
+                    'auto_merge': None,
+                },
+                {
+                    'url': DUMMY_URL,
+                    'id': 22222,
+                    'number': 222,
+                    'draft': False,
+                    'head': {
+                        'ref': 'some-branch-2',
+                        'sha': 'some-commit-sha-2',
+                    },
+                    'state': 'open',
+                    'auto_merge': None,
+                },
+            ],
+        )
+
+    @responses.activate
+    def test_03_list_pulls_w_query_ok(self):
         # GIVEN
         url = self.github_auth_1.url
         endpoint = (
@@ -96,7 +189,7 @@ class TestGithubApi(TestGithubApiCommon):
         self.assertEqual(res, json_res)
 
     @responses.activate
-    def test_03_list_pulls_404_status_code(self):
+    def test_04_list_pulls_404_status_code(self):
         # GIVEN
         url = self.github_auth_1.url
         endpoint = f'{url}/repos/my-org/my-repo/pulls'
@@ -129,7 +222,7 @@ class TestGithubApi(TestGithubApiCommon):
             )
 
     @responses.activate
-    def test_04_compare_refs(self):
+    def test_05_compare_refs(self):
         # GIVEN
         url = self.github_auth_1.url
         endpoint = f'{url}/repos/my-org/my-repo/compare/master...my-branch-1'
@@ -157,7 +250,7 @@ class TestGithubApi(TestGithubApiCommon):
         self.assertEqual(res, json_res)
 
     @responses.activate
-    def test_05_is_ref_up_to_date_yes(self):
+    def test_06_is_ref_up_to_date_yes(self):
         # GIVEN
         url = self.github_auth_1.url
         endpoint = f'{url}/repos/my-org/my-repo/compare/master...my-branch-1'
@@ -186,7 +279,7 @@ class TestGithubApi(TestGithubApiCommon):
         self.assertEqual(res, True)
 
     @responses.activate
-    def test_06_is_ref_up_to_date_no(self):
+    def test_07_is_ref_up_to_date_no(self):
         # GIVEN
         url = self.github_auth_1.url
         endpoint = f'{url}/repos/my-org/my-repo/compare/master...my-branch-1'
@@ -215,7 +308,7 @@ class TestGithubApi(TestGithubApiCommon):
         self.assertEqual(res, False)
 
     @responses.activate
-    def test_07_update_pull_head_sha(self):
+    def test_08_update_pull_head_sha(self):
         # GIVEN
         url = self.github_auth_1.url
         endpoint = f'{url}/repos/my-org/my-repo/pulls/123/update-branch'
@@ -242,7 +335,7 @@ class TestGithubApi(TestGithubApiCommon):
         self.assertEqual(res, json_res)
 
     @responses.activate
-    def test_08_update_pull_custom_sha(self):
+    def test_09_update_pull_custom_sha(self):
         # GIVEN
         url = self.github_auth_1.url
         endpoint = f'{url}/repos/my-org/my-repo/pulls/123/update-branch'
