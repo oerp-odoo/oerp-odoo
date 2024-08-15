@@ -39,3 +39,10 @@ def get_endpoint(base_url: str, path_item: PathItem):
         req.prepare_url(endpoint, path_item.params)
         endpoint = req.url
     return endpoint
+
+
+def get_next_link(response, key: str) -> str | None:
+    try:
+        return response.links[key]['url']
+    except KeyError:
+        return None

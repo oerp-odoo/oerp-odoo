@@ -43,7 +43,14 @@ class GithubApi(models.AbstractModel):
         options['path_item'] = PathItem(
             path_expression=path, params=dataclasses.asdict(params) if params else None
         )
-        return self._call_github_http_method('get', path, options=options).json()
+        options = self._prepare_request_options(path, options=options)
+        # Listing pull requests can return paginated response, so we might
+        # need to call multiple links to get all the data.
+        responses_ = self.call_http_method_follow_links('next', 'get', options=options)
+        result = []
+        for response in responses_:
+            result.extend(response.json())
+        return result
 
     def compare_refs(self, repo: Repo, ref1: str, ref2: str, options=None) -> dict:
         """Compare two git references."""
