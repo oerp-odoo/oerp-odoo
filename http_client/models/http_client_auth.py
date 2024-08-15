@@ -52,6 +52,8 @@ class HttpClientAuth(models.AbstractModel):
 
     _name = 'http.client.auth'
     _description = "HTTP Client Authentication"
+    # Whether multiple auth records can be created per single company.
+    _multi_auths_per_company = False
 
     name = fields.Char(copy=False)
     url = fields.Char("URL", required=True, help="Base URL for endpoints")
@@ -193,6 +195,8 @@ class HttpClientAuth(models.AbstractModel):
 
     @api.constrains('state', 'company_id')
     def _check_auth_unique(self):
+        if self._multi_auths_per_company:
+            return
         for rec in self:
             if rec.state == 'confirmed':
                 domain = self._get_domain(company_id=rec.company_id.id)
