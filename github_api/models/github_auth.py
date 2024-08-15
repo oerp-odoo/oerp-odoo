@@ -7,3 +7,4 @@ class GithubAuth(models.Model):
     _name = 'github.auth'
     _inherit = 'http.client.auth'
     _description = "Github Client Authentication"
+    _multi_auths_per_company = True
