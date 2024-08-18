@@ -44,6 +44,7 @@ class Partner(BaseModel, metaclass=ExtendableModelMeta):
         + "is company",
     )
     address_type: Optional[AddressType] = AddressType.CONTACT
+    vat: Optional[str] = Field(default=None)
     street: str
     street2: Optional[str] = Field(None, description="Extra street information")
     city: Optional[str] = Field(None)
