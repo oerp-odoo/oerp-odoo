@@ -23,6 +23,4 @@ wheels/
 MANIFEST
 # Ops
 ansible.cfg
-!ops/deployments/samples/ansible.cfg
-ops/deployments/roles/external/*
-!ops/deployments/roles/external/README.rst
+pinit.cfg
