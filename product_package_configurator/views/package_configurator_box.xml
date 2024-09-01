@@ -28,6 +28,8 @@
                         <group name="general" string="General">
                             <field name="box_type_id"/>
                             <field name="carton_id"/>
+                            <field name="lamination_outside_id"/>
+                            <field name="lamination_inside_id"/>
                         </group>
                         <group name="dimensions" string="Dimensions">
                             <field name="base_length"/>
@@ -50,6 +52,28 @@
                             <field name="lid_inside_wrapping_width"/>
                             <field name="lid_outside_wrapping_length"/>
                             <field name="lid_outside_wrapping_width"/>
+                        </group>
+                        <group
+                            name="lamination"
+                            string="Lamination"
+                            invisible="not lamination_inside_id and not lamination_outside_id"
+                        >
+                            <field
+                                name="lamination_inside_area"
+                                invisible="not lamination_inside_id"
+                            />
+                            <field
+                                name="lamination_inside_price"
+                                invisible="not lamination_inside_id"
+                            />
+                            <field
+                                name="lamination_outside_area"
+                                invisible="not lamination_outside_id"
+                            />
+                            <field
+                                name="lamination_outside_price"
+                                invisible="not lamination_outside_id"
+                            />
                         </group>
                     </group>
                 </sheet>

@@ -1,4 +1,4 @@
-from ..model_services.package_box_layout import BaseDimensions, Layout, LidDimensions
+from ..value_objects.layout import BaseDimensions, Layout2D, LidDimensions
 from . import common
 
 
@@ -25,14 +25,14 @@ class TestPackageBoxLayout(common.TestProductPackageConfiguratorCommon):
             res,
             {
                 'base': {
-                    'box': Layout(length=194, width=71),
-                    'inside_wrapping': Layout(length=194, width=71),
-                    'outside_wrapping': Layout(length=234, width=111),
+                    'box': Layout2D(length=194, width=71),
+                    'inside_wrapping': Layout2D(length=194, width=71),
+                    'outside_wrapping': Layout2D(length=234, width=111),
                 },
                 'lid': {
-                    'box': Layout(length=202, width=79),
-                    'inside_wrapping': Layout(length=202, width=79),
-                    'outside_wrapping': Layout(length=242, width=119),
+                    'box': Layout2D(length=202, width=79),
+                    'inside_wrapping': Layout2D(length=202, width=79),
+                    'outside_wrapping': Layout2D(length=242, width=119),
                 },
             },
         )

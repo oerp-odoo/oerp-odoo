@@ -5,3 +5,5 @@ access_package_box_type_user,package_box_type user,model_package_box_type,packag
 access_package_box_type_manager,package_box_type manager,model_package_box_type,package_group_manager,1,1,1,1
 access_package_carton_user,package_carton user,model_package_carton,package_group_user,1,0,0,0
 access_package_carton_manager,package_carton manager,model_package_carton,package_group_manager,1,1,1,1
+access_package_lamination_user,package_lamination user,model_package_lamination,package_group_user,1,0,0,0
+access_package_lamination_manager,package_lamination manager,model_package_lamination,package_group_manager,1,1,1,1

@@ -1,8 +1,8 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-from .. import const
-from ..model_services.package_box_layout import BaseDimensions, LidDimensions
+from .. import const, utils
+from ..value_objects.layout import BaseDimensions, Layout2D, LidDimensions
 
 MANDATORY_LAYOUT_INP_FIELDS = [
     'base_length',
@@ -23,18 +23,31 @@ class PackageConfiguratorBox(models.Model):
     box_type_id = fields.Many2one('package.box.type', required=True)
     # Should we call it grayboard?
     carton_id = fields.Many2one('package.carton', required=True)
+    lamination_outside_id = fields.Many2one(
+        'package.lamination', string="Outside Lamination"
+    )
+    lamination_inside_id = fields.Many2one(
+        'package.lamination', string="Inside Lamination"
+    )
+    # Base
     base_layout_length = fields.Float(compute='_compute_layouts_data')
     base_layout_width = fields.Float(compute='_compute_layouts_data')
     base_inside_wrapping_length = fields.Float(compute='_compute_layouts_data')
     base_inside_wrapping_width = fields.Float(compute='_compute_layouts_data')
     base_outside_wrapping_width = fields.Float(compute='_compute_layouts_data')
     base_outside_wrapping_length = fields.Float(compute='_compute_layouts_data')
+    # Lid
     lid_layout_length = fields.Float(compute='_compute_layouts_data')
     lid_layout_width = fields.Float(compute='_compute_layouts_data')
     lid_inside_wrapping_length = fields.Float(compute='_compute_layouts_data')
     lid_inside_wrapping_width = fields.Float(compute='_compute_layouts_data')
     lid_outside_wrapping_length = fields.Float(compute='_compute_layouts_data')
     lid_outside_wrapping_width = fields.Float(compute='_compute_layouts_data')
+    # Lamination
+    lamination_inside_area = fields.Float(compute='_compute_lamination_fields')
+    lamination_inside_price = fields.Float(compute='_compute_lamination_fields')
+    lamination_outside_area = fields.Float(compute='_compute_lamination_fields')
+    lamination_outside_price = fields.Float(compute='_compute_lamination_fields')
 
     @api.depends(
         'carton_id',
@@ -51,6 +64,60 @@ class PackageConfiguratorBox(models.Model):
                 rec.update(rec._get_layouts_data())
             else:
                 rec.update(rec._get_init_layouts_data())
+
+    @api.depends(
+        'lamination_outside_id',
+        'lamination_inside_id',
+        'base_inside_wrapping_length',
+        'base_inside_wrapping_width',
+        'base_outside_wrapping_length',
+        'base_outside_wrapping_width',
+        'lid_inside_wrapping_length',
+        'lid_inside_wrapping_width',
+        'lid_outside_wrapping_length',
+        'lid_outside_wrapping_width',
+    )
+    def _compute_lamination_fields(self):
+        calc_area_and_price = utils.lamination.calc_area_and_price
+        for box in self:
+            data = box._get_init_laminations_data()
+            if box.lamination_inside_id:
+                res = calc_area_and_price(
+                    Layout2D(
+                        length=box.base_inside_wrapping_length,
+                        width=box.base_inside_wrapping_width,
+                    ).area,
+                    Layout2D(
+                        length=box.lid_inside_wrapping_length,
+                        width=box.lid_inside_wrapping_width,
+                    ).area,
+                    box.lamination_inside_id.price_unit,
+                )
+                data.update(
+                    {
+                        'lamination_inside_area': res['area'],
+                        'lamination_inside_price': res['price'],
+                    }
+                )
+            if box.lamination_outside_id:
+                res = calc_area_and_price(
+                    Layout2D(
+                        length=box.base_outside_wrapping_length,
+                        width=box.base_outside_wrapping_width,
+                    ).area,
+                    Layout2D(
+                        length=box.lid_outside_wrapping_length,
+                        width=box.lid_outside_wrapping_width,
+                    ).area,
+                    box.lamination_outside_id.price_unit,
+                )
+                data.update(
+                    {
+                        'lamination_outside_area': res['area'],
+                        'lamination_outside_price': res['price'],
+                    }
+                )
+            box.update(data)
 
     @api.constrains(
         'box_type_id',
@@ -125,4 +192,12 @@ class PackageConfiguratorBox(models.Model):
             'lid_inside_wrapping_width': 0.0,
             'lid_outside_wrapping_length': 0.0,
             'lid_outside_wrapping_width': 0.0,
+        }
+
+    def _get_init_laminations_data(self):
+        return {
+            'lamination_inside_area': 0,
+            'lamination_inside_price': 0,
+            'lamination_outside_area': 0,
+            'lamination_outside_price': 0,
         }

@@ -39,6 +39,11 @@
                 action="package_carton_action"
                 sequence="15"
             />
+            <menuitem
+                id="package_lamination_menu"
+                action="package_lamination_action"
+                sequence="20"
+            />
         </menuitem>
 
     </menuitem>
