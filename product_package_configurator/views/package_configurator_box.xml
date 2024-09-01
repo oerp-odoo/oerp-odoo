@@ -7,6 +7,7 @@
             <tree>
                 <field name="create_date"/>
                 <field name="box_type_id"/>
+                <field name="carton_id"/>
                 <field name="base_length"/>
                 <field name="base_width"/>
                 <field name="base_height"/>
@@ -26,6 +27,7 @@
                     <group name="main">
                         <group name="general" string="General">
                             <field name="box_type_id"/>
+                            <field name="carton_id"/>
                         </group>
                         <group name="dimensions" string="Dimensions">
                             <field name="base_length"/>
@@ -33,7 +35,6 @@
                             <field name="base_height"/>
                             <field name="lid_height"/>
                             <field name="outside_wrapping_extra"/>
-                            <field name="lid_thickness"/>
                             <field name="lid_extra"/>
                         </group>
                         <group name="layouts" string="Layouts">

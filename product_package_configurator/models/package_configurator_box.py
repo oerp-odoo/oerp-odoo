@@ -18,10 +18,11 @@ class PackageConfiguratorBox(models.Model):
     _description = "Box Configurator"
 
     lid_height = fields.Float(required=True)
-    lid_thickness = fields.Float(default=const.DEFAULT_LID_THICKNESS)
     lid_extra = fields.Float(default=const.DEFAULT_LID_EXTRA)
     outside_wrapping_extra = fields.Float(default=const.DEFAULT_OUTSIDE_WRAPPING_EXTRA)
     box_type_id = fields.Many2one('package.box.type', required=True)
+    # Should we call it grayboard?
+    carton_id = fields.Many2one('package.carton', required=True)
     base_layout_length = fields.Float(compute='_compute_layouts_data')
     base_layout_width = fields.Float(compute='_compute_layouts_data')
     base_inside_wrapping_length = fields.Float(compute='_compute_layouts_data')
@@ -36,11 +37,11 @@ class PackageConfiguratorBox(models.Model):
     lid_outside_wrapping_width = fields.Float(compute='_compute_layouts_data')
 
     @api.depends(
+        'carton_id',
         'base_length',
         'base_width',
         'base_height',
         'lid_height',
-        'lid_thickness',
         'lid_extra',
         'outside_wrapping_extra',
     )
@@ -90,7 +91,7 @@ class PackageConfiguratorBox(models.Model):
             ),
             LidDimensions(
                 height=self.lid_height,
-                thickness=self.lid_thickness,
+                thickness=self.carton_id.thickness,
                 extra=self.lid_extra,
             ),
         )

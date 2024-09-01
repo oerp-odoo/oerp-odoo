@@ -9,6 +9,8 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         cls.package_configurator_box_1 = cls.PackageConfiguratorBox.create(
             {
                 'box_type_id': cls.package_box_type_1.id,
+                # thickness: 1.5mm
+                'carton_id': cls.package_carton_1.id,
                 'base_length': 0,
                 'base_width': 0,
                 'base_height': 0,
@@ -25,7 +27,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
                 'base_width': 42,
                 'base_height': 14.5,
                 'lid_height': 16,
-                'lid_thickness': 1.5,
                 'lid_extra': 2.0,
                 'outside_wrapping_extra': 20.0,
             }
@@ -53,7 +54,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
                 'base_width': 42,
                 'base_height': 0,
                 'lid_height': 16,
-                'lid_thickness': 1.5,
                 'lid_extra': 2.0,
                 'outside_wrapping_extra': 20.0,
             }

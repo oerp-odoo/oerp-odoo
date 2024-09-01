@@ -34,6 +34,11 @@
                 action="package_box_type_action"
                 sequence="10"
             />
+            <menuitem
+                id="package_carton_menu"
+                action="package_carton_action"
+                sequence="15"
+            />
         </menuitem>
 
     </menuitem>
