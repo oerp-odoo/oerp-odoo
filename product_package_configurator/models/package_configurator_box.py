@@ -1,7 +1,7 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-from .. import const, utils
+from .. import utils
 from ..value_objects.layout import BaseDimensions, Layout2D, LidDimensions
 
 MANDATORY_LAYOUT_INP_FIELDS = [
@@ -17,9 +17,24 @@ class PackageConfiguratorBox(models.Model):
     _inherit = 'package.configurator'
     _description = "Box Configurator"
 
+    @api.model
+    def default_get(self, default_fields):
+        res = super().default_get(default_fields)
+        if res.get('company_id'):
+            company = self.env['res.company'].browse(res['company_id'])
+        else:
+            company = self.env.company
+        if 'lid_extra' in default_fields:
+            res['lid_extra'] = company.package_default_lid_extra
+        if 'outside_wrapping_extra' in default_fields:
+            res[
+                'outside_wrapping_extra'
+            ] = company.package_default_outside_wrapping_extra
+        return res
+
     lid_height = fields.Float(required=True)
-    lid_extra = fields.Float(default=const.DEFAULT_LID_EXTRA)
-    outside_wrapping_extra = fields.Float(default=const.DEFAULT_OUTSIDE_WRAPPING_EXTRA)
+    lid_extra = fields.Float()
+    outside_wrapping_extra = fields.Float()
     box_type_id = fields.Many2one('package.box.type', required=True)
     # Should we call it grayboard?
     carton_id = fields.Many2one('package.carton', required=True)

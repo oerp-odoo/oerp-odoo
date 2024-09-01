@@ -19,6 +19,7 @@
         'security/package_carton_security.xml',
         'security/package_lamination_security.xml',
         'data/decimal_precision.xml',
+        'views/res_config_settings.xml',
         'views/package_box_type.xml',
         'views/package_carton.xml',
         'views/package_lamination.xml',

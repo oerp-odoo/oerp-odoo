@@ -2,7 +2,7 @@
 <odoo>
     <menuitem
         id="package_root_menu"
-        name="Package Configurator"
+        name="Package"
         web_icon="product_package_configurator,static/description/icon.png"
         sequence="50"
         groups="product_package_configurator.package_group_user"
@@ -20,14 +20,13 @@
             sequence="100"
             groups="product_package_configurator.package_group_manager"
         >
-            <!-- TODO: Placeholder to add Settings menu for later.
             <menuitem
                 id="package_config_settings_menu"
                 name="Settings"
                 action="package_config_settings_action"
                 groups="base.group_system"
                 sequence="1"
-            /> -->
+            />
 
             <menuitem
                 id="package_box_type_menu"
