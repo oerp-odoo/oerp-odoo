@@ -27,12 +27,12 @@ class TestPackageBoxLayout(common.TestProductPackageConfiguratorCommon):
                 'base': {
                     'box': Layout(length=194, width=71),
                     'inside_wrapping': Layout(length=194, width=71),
-                    'outside_wrapping': Layout(length=214, width=91),
+                    'outside_wrapping': Layout(length=234, width=111),
                 },
                 'lid': {
                     'box': Layout(length=202, width=79),
                     'inside_wrapping': Layout(length=202, width=79),
-                    'outside_wrapping': Layout(length=222, width=99),
+                    'outside_wrapping': Layout(length=242, width=119),
                 },
             },
         )

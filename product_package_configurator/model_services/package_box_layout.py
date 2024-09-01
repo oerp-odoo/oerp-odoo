@@ -46,7 +46,8 @@ class PackageBoxLayout(models.AbstractModel):
         """Get 2D layouts from 3D dimensions."""
         base_layout = self._get_base_layout(base_dimensions)
         lid_layout = self._get_lid_layout(base_dimensions, lid_dimensions)
-        wrapping_extra = base_dimensions.outside_wrapping_extra
+        # Multiply by 2 for each side.
+        wrapping_extra = base_dimensions.outside_wrapping_extra * 2
         return {
             'base': {
                 'box': base_layout,

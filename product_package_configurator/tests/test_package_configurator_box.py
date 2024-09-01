@@ -35,14 +35,14 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         self.assertEqual(cfg.base_layout_width, 71)
         self.assertEqual(cfg.base_inside_wrapping_length, 194)
         self.assertEqual(cfg.base_inside_wrapping_width, 71)
-        self.assertEqual(cfg.base_outside_wrapping_length, 214)
-        self.assertEqual(cfg.base_outside_wrapping_width, 91)
+        self.assertEqual(cfg.base_outside_wrapping_length, 234)
+        self.assertEqual(cfg.base_outside_wrapping_width, 111)
         self.assertEqual(cfg.lid_layout_length, 202)
         self.assertEqual(cfg.lid_layout_width, 79)
         self.assertEqual(cfg.lid_inside_wrapping_length, 202)
         self.assertEqual(cfg.lid_inside_wrapping_width, 79)
-        self.assertEqual(cfg.lid_outside_wrapping_length, 222)
-        self.assertEqual(cfg.lid_outside_wrapping_width, 99)
+        self.assertEqual(cfg.lid_outside_wrapping_length, 242)
+        self.assertEqual(cfg.lid_outside_wrapping_width, 119)
 
     def test_02_configure_box_missing_base_height(self):
         # WHEN
