@@ -4,7 +4,7 @@
     'name': "HTTP Client with server environment",
     'version': '16.0.2.0.0',
     'summary': 'Store some auth fields on server environment',
-    'license': 'OEEL-1',
+    'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
     'website': "https://timefordev.com",
     'depends': [
