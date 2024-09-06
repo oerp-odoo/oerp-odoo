@@ -17,7 +17,7 @@
         'views/http_client_auth_views.xml',
         'views/regular_client_auth_views.xml',
     ],
-    'external_dependencies': {'python': ['mergedeep']},
+    'external_dependencies': {'python': ['mergedeep', 'validators']},
     'assets': {
         'web.assets_backend': [
             'http_client/static/src/js/error_dialogs.esm.js',
