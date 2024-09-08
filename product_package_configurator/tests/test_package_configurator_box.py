@@ -36,28 +36,28 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         )
         # THEN
         # Layouts
-        self.assertEqual(cfg.base_layout_length, 194)
-        self.assertEqual(cfg.base_layout_width, 71)
-        self.assertEqual(cfg.base_inside_wrapping_length, 194)
-        self.assertEqual(cfg.base_inside_wrapping_width, 71)
-        self.assertEqual(cfg.base_outside_wrapping_length, 234)
-        self.assertEqual(cfg.base_outside_wrapping_width, 111)
-        self.assertEqual(cfg.lid_layout_length, 202)
-        self.assertEqual(cfg.lid_layout_width, 79)
+        self.assertEqual(cfg.base_layout_length, 224)
+        self.assertEqual(cfg.base_layout_width, 101)
+        self.assertEqual(cfg.base_inside_wrapping_length, 224)
+        self.assertEqual(cfg.base_inside_wrapping_width, 101)
+        self.assertEqual(cfg.base_outside_wrapping_length, 264)
+        self.assertEqual(cfg.base_outside_wrapping_width, 141)
+        self.assertEqual(cfg.lid_layout_length, 232)
+        self.assertEqual(cfg.lid_layout_width, 109)
         # Wrapping
-        self.assertEqual(cfg.lid_inside_wrapping_length, 202)
-        self.assertEqual(cfg.lid_inside_wrapping_width, 79)
-        self.assertEqual(cfg.lid_outside_wrapping_length, 242)
-        self.assertEqual(cfg.lid_outside_wrapping_width, 119)
+        self.assertEqual(cfg.lid_inside_wrapping_length, 232)
+        self.assertEqual(cfg.lid_inside_wrapping_width, 109)
+        self.assertEqual(cfg.lid_outside_wrapping_length, 272)
+        self.assertEqual(cfg.lid_outside_wrapping_width, 149)
         # Lamination
-        # (194*71+202*79) * 1.2 / 1000000
-        self.assertEqual(cfg.lamination_inside_area, 0.0356784)
-        # 2 * 0.0356784
-        self.assertEqual(cfg.lamination_inside_price, 0.0713568)
-        # (234*111+242*119) * 1.2 / 1000000
-        self.assertEqual(cfg.lamination_outside_area, 0.06572639999999999)
-        # 2 * 0.06572639999999999
-        self.assertEqual(cfg.lamination_outside_price, 0.13145279999999998)
+        # (224*101+232*109) * 1.2 / 1000000
+        self.assertEqual(cfg.lamination_inside_area, 0.0574944)
+        # 2 * 0.0574944
+        self.assertEqual(cfg.lamination_inside_price, 0.1149888)
+        # (264*141+272*149) * 1.2 / 1000000
+        self.assertEqual(cfg.lamination_outside_area, 0.0933024)
+        # 2 * 0.0933024
+        self.assertEqual(cfg.lamination_outside_price, 0.1866048)
 
     def test_02_configure_box_missing_base_height(self):
         # WHEN

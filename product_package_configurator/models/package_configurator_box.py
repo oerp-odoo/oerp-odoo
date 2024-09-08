@@ -164,17 +164,21 @@ class PackageConfiguratorBox(models.Model):
 
     def _get_layouts_data(self):
         self.ensure_one()
+        # This is not change'able directly on configurator on
+        # purpose!
+        global_extra = self.company_id.package_default_global_box_extra
         res = self.env['package.box.layout'].get_layouts(
             BaseDimensions(
                 length=self.base_length,
                 width=self.base_width,
                 height=self.base_height,
                 outside_wrapping_extra=self.outside_wrapping_extra,
+                extra=global_extra,
             ),
             LidDimensions(
                 height=self.lid_height,
                 thickness=self.carton_id.thickness,
-                extra=self.lid_extra,
+                extra=self.lid_extra + global_extra,
             ),
         )
         return {

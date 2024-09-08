@@ -10,6 +10,7 @@ class DecimalPrecision(StrEnum):
     SIZE = 'Package Configurator Size'
 
 
+DEFAUL_GLOBAL_BOX_EXTRA = 30  # mm
 # Extra size for length and width to compensate, so lid would fit on a
 # base!
 DEFAULT_LID_EXTRA = 2  # mm

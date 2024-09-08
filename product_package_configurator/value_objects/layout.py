@@ -7,6 +7,8 @@ class BaseDimensions:
     width: float
     height: float
     outside_wrapping_extra: float
+    # Extra that is applied to base itself.
+    extra: float  # mm
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True)

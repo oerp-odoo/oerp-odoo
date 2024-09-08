@@ -43,9 +43,10 @@ class PackageBoxLayout(models.AbstractModel):
         self, dimensions: vo_layout.BaseDimensions
     ) -> vo_layout.Layout2D:
         height_converted = self._convert_height(dimensions.height)
+        extra = dimensions.extra
         return vo_layout.Layout2D(
-            length=dimensions.length + height_converted,
-            width=dimensions.width + height_converted,
+            length=dimensions.length + height_converted + extra,
+            width=dimensions.width + height_converted + extra,
         )
 
     def _get_lid_layout(

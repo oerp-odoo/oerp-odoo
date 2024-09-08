@@ -10,13 +10,14 @@ class TestPackageBoxLayout(common.TestProductPackageConfiguratorCommon):
             width=42,
             height=14.5,
             outside_wrapping_extra=20,
+            extra=30,
         )
         lid_dimensions = LidDimensions(
             # TODO: should it be possible to have bigger height on lid
             # than on base?..
             height=16,
             thickness=1.5,
-            extra=2,
+            extra=32,
         )
         # WHEN
         res = self.PackageBoxLayout.get_layouts(base_dimensions, lid_dimensions)
@@ -25,14 +26,14 @@ class TestPackageBoxLayout(common.TestProductPackageConfiguratorCommon):
             res,
             {
                 'base': {
-                    'box': Layout2D(length=194, width=71),
-                    'inside_wrapping': Layout2D(length=194, width=71),
-                    'outside_wrapping': Layout2D(length=234, width=111),
+                    'box': Layout2D(length=224, width=101),
+                    'inside_wrapping': Layout2D(length=224, width=101),
+                    'outside_wrapping': Layout2D(length=264, width=141),
                 },
                 'lid': {
-                    'box': Layout2D(length=202, width=79),
-                    'inside_wrapping': Layout2D(length=202, width=79),
-                    'outside_wrapping': Layout2D(length=242, width=119),
+                    'box': Layout2D(length=232, width=109),
+                    'inside_wrapping': Layout2D(length=232, width=109),
+                    'outside_wrapping': Layout2D(length=272, width=149),
                 },
             },
         )
