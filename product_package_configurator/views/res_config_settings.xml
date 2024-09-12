@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.package</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app
+                    class="app_settings_block"
+                    data-string="Package"
+                    string="Package"
+                    name="product_package_configurator"
+                    groups="product_package_configurator.package_group_manager"
+                >
+                    <block title="Defaults" name="settings_package_defaults">
+                        <setting
+                            id="settings_package_default_global_box_extra"
+                            help="Set default Global Box Extra in mm"
+                        >
+                            <field name="package_default_global_box_extra"/>
+                        </setting>
+                        <setting
+                            id="settings_package_default_lid_extra"
+                            help="Set default Lid Extra in mm"
+                        >
+                            <field name="package_default_lid_extra"/>
+                        </setting>
+                        <setting
+                            id="settings_package_default_outside_wrapping_extra"
+                            help="Set default Outside Wrapping Extra in mm"
+                        >
+                            <field name="package_default_outside_wrapping_extra"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="package_config_settings_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field
+            name="context"
+        >{'module' : 'product_package_configurator', 'bin_size': False}</field>
+    </record>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="package_carton_view_tree" model="ir.ui.view">
+        <field name="name">package.carton.tree</field>
+        <field name="model">package.carton</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="thickness"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="package_carton_view_form" model="ir.ui.view">
+        <field name="name">package.carton.form</field>
+        <field name="model">package.carton</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="name"/>
+                        </group>
+                        <group name="right">
+                            <field name="thickness"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="package_carton_action" model="ir.actions.act_window">
+        <field name="name">Cartons</field>
+        <field name="res_model">package.carton</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
