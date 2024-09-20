@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <!-- TODO: add common views from package.sheet -->
-    <record id="package_carton_view_tree" model="ir.ui.view">
-        <field name="name">package.carton.tree</field>
-        <field name="model">package.carton</field>
+    <record id="package_wrappingpaper_view_tree" model="ir.ui.view">
+        <field name="name">package.wrappingpaper.tree</field>
+        <field name="model">package.wrappingpaper</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
-                <field name="thickness"/>
                 <field name="sheet_length"/>
                 <field name="sheet_width"/>
                 <field name="unit_cost"/>
@@ -16,9 +14,9 @@
         </field>
     </record>
 
-    <record id="package_carton_view_form" model="ir.ui.view">
-        <field name="name">package.carton.form</field>
-        <field name="model">package.carton</field>
+    <record id="package_wrappingpaper_view_form" model="ir.ui.view">
+        <field name="name">package.wrappingpaper.form</field>
+        <field name="model">package.wrappingpaper</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -30,7 +28,6 @@
                             <field name="unit_cost"/>
                         </group>
                         <group name="right">
-                            <field name="thickness"/>
                             <field name="min_qty"/>
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
@@ -40,9 +37,9 @@
         </field>
     </record>
 
-    <record id="package_carton_action" model="ir.actions.act_window">
-        <field name="name">Cartons</field>
-        <field name="res_model">package.carton</field>
+    <record id="package_wrappingpaper_action" model="ir.actions.act_window">
+        <field name="name">Wrapping Papers</field>
+        <field name="res_model">package.wrappingpaper</field>
         <field name="view_mode">tree,form</field>
     </record>
 </odoo>

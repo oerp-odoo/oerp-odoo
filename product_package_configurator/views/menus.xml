@@ -27,7 +27,6 @@
                 groups="base.group_system"
                 sequence="1"
             />
-
             <menuitem
                 id="package_box_type_menu"
                 action="package_box_type_action"
@@ -39,9 +38,14 @@
                 sequence="15"
             />
             <menuitem
+                id="package_wrappingpaper_menu"
+                action="package_wrappingpaper_action"
+                sequence="20"
+            />
+            <menuitem
                 id="package_lamination_menu"
                 action="package_lamination_action"
-                sequence="20"
+                sequence="25"
             />
         </menuitem>
 
