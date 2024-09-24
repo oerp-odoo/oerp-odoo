@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="login_layout_no_powerdby" inherit_id="web.login_layout">
+        <xpath
+            expr="//t[@t-if='not disable_database_manager']/a"
+            position="attributes"
+        >
+            <!-- Removing border-right class as it looks ugly without element to the right
+            (which is powered by URL) -->
+            <attribute name="class">pr-2 mr-1</attribute>
+        </xpath>
+        <xpath expr="//div[@t-if='not disable_footer']/a" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+    </template>
+</odoo>
