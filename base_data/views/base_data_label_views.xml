@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="base_data_label_view_tree" model="ir.ui.view">
+        <field name="name">base.data.label.tree</field>
+        <field name="model">base.data.label</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="base_data_label_view_form" model="ir.ui.view">
+        <field name="name">base.data.label.form</field>
+        <field name="model">base.data.label</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="name"/>
+                        </group>
+                        <group name="right">
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="base_data_label_action" model="ir.actions.act_window">
+        <field name="name">Labels</field>
+        <field name="res_model">base.data.label</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="base_data_label_menu"
+        parent="base_data_root_menu"
+        action="base_data_label_action"
+        sequence="10"
+    />
+</odoo>

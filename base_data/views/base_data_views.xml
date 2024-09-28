@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="base_data_view_tree" model="ir.ui.view">
+        <field name="name">base.data.tree</field>
+        <field name="model">base.data</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="model_id"/>
+                <field name="label_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="base_data_view_form" model="ir.ui.view">
+        <field name="name">base.data.form</field>
+        <field name="model">base.data</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="name"/>
+                            <field
+                                name="model_id"
+                                options="{'no_create': True}"
+                            />
+                            <field name="label_ids" widget="many2many_tags"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group name="right">
+                            <field name="defaults"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="base_data_action" model="ir.actions.act_window">
+        <field name="name">Base Data</field>
+        <field name="res_model">base.data</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="base_data_menu"
+        parent="base_data_root_menu"
+        action="base_data_action"
+        sequence="5"
+    />
+</odoo>

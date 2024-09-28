@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem
+        id="base_data_root_menu"
+        name="Base Data"
+        parent="base.menu_custom"
+        sequence="4"
+        groups="base.group_no_one"
+    />
+</odoo>
