@@ -136,6 +136,14 @@ class TestHttpClientCommon(TransactionCase):
             'path_verify': '/auth/token/verify/',
         }
 
+    @classmethod
+    def _get_dummy_api_key_credentials(cls):
+        return {
+            'auth_method': 'api_key',
+            'identifier': 'ApiKey',
+            'secret': 'SECRET_API_KEY',
+        }
+
     def mock_jwt_access_ok(self, auth, respones_):
         vals = self._get_dummy_jwt_password_auth_vals()
         path_auth = vals['path_auth']

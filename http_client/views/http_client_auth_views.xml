@@ -78,7 +78,11 @@
                             invisible="auth_method == 'none'"
                             readonly="state != 'draft'"
                         >
-                            <field name="identifier" readonly="state != 'draft'"/>
+                            <field
+                                name="identifier"
+                                readonly="state != 'draft'"
+                                required="auth_method == 'api_key'"
+                            />
                             <field
                                 name="secret"
                                 password="True"
@@ -86,6 +90,13 @@
                             />
                             <field name="access_token" invisible="1"/>
                             <field name="refresh_token" invisible="1"/>
+                            <div colspan="2">
+                                <p invisible="auth_method != 'api_key'">
+                                    Provide <strong
+                                    >Identifier</strong> to use as API Key header in request. Use <strong
+                                    >Secret</strong> as API Key.
+                                </p>
+                            </div>
                         </group>
                         <group
                             name="jwt_token"
