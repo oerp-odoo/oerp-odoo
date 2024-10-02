@@ -675,3 +675,25 @@ class TestHttpClientDemoAuth(common.TestHttpClientDemoCommon):
         self.test_auth_1.action_logout()
         self.assertFalse(self.test_auth_1.access_token)
         self.assertFalse(self.test_auth_1.refresh_token)
+
+    def test_30_api_key_auth(self):
+        self.test_auth_1.write(self._get_dummy_api_key_credentials())
+        self.assertEqual(
+            self.test_auth_1.get_data(),
+            {
+                'url': self.test_auth_1.url,
+                'auth': {'headers': {'ApiKey': 'SECRET_API_KEY'}},
+            },
+        )
+
+    def test_31_api_key_auth_custom_identifier(self):
+        self.test_auth_1.write(
+            dict(self._get_dummy_api_key_credentials(), identifier='X-API-KEY')
+        )
+        self.assertEqual(
+            self.test_auth_1.get_data(),
+            {
+                'url': self.test_auth_1.url,
+                'auth': {'headers': {'X-API-KEY': 'SECRET_API_KEY'}},
+            },
+        )

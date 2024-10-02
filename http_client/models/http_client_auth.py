@@ -15,6 +15,7 @@ from .http_client_controller import _raise_endpoint_error
 
 TOKEN_AUTH_PREFIX_MAP = {'bearer': 'Bearer', 'jwt': 'JWT'}
 DEFAULT_EXPIRE_DELTA = -60
+DEFAULT_API_KEY_HEADER = 'ApiKey'
 B64_PADDING = '=='  # Should handle any base64 string.
 
 
@@ -63,6 +64,7 @@ class HttpClientAuth(models.AbstractModel):
             ('basic', "Basic"),
             ('bearer', "Bearer"),
             ('jwt', 'JWT'),
+            ('api_key', "API Key"),
         ],
         required=True,
         default='none',
@@ -169,6 +171,8 @@ class HttpClientAuth(models.AbstractModel):
     def _onchange_auth_method(self):
         if self.auth_method == 'none':
             self.grant_type = False
+        if self.auth_method == 'api_key' and not self.identifier:
+            self.identifier = DEFAULT_API_KEY_HEADER
 
     @api.constrains('url')
     def _check_url(self):
@@ -268,6 +272,8 @@ class HttpClientAuth(models.AbstractModel):
         auth_method = self.auth_method
         if auth_method == 'basic':
             data['auth'] = {'auth': (self.identifier, self.secret)}
+        elif auth_method == 'api_key':
+            data['auth'] = {'headers': {self.identifier: self.secret}}
         elif auth_method in TOKEN_AUTH_PREFIX_MAP:
             prefix = TOKEN_AUTH_PREFIX_MAP[auth_method]
             data['auth'] = {
