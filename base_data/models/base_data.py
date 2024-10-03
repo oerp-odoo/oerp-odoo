@@ -3,6 +3,8 @@ import ast
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import ValidationError
 
+from ..utils import validate_dict_str
+
 
 class BaseData(models.Model):
     """Model to map data for records that are to be created."""
@@ -19,6 +21,7 @@ class BaseData(models.Model):
         'data_id',
         'label_id',
     )
+    option_ids = fields.One2many('base.data.option', 'base_data_id', string="Options")
     active = fields.Boolean(default=True)
 
     @api.constrains('name', 'model_id', 'label_ids')
@@ -37,24 +40,38 @@ class BaseData(models.Model):
 
     @api.constrains('defaults')
     def _check_defaults(self):
-        msg = _("Defaults must be dictionary.")
+        msg = _("Defaults must be a dictionary.")
         for rec in self:
             if rec.defaults:
-                try:
-                    defaults = ast.literal_eval(rec.defaults)
-                    if not isinstance(defaults, dict):
-                        raise ValidationError(msg)
-                except Exception as e:
-                    raise ValidationError(msg + _(" Error: %s", e))
+                validate_dict_str(rec.defaults, msg)
 
     @api.model
-    @tools.ormcache('name', 'model', 'labels')
+    @tools.ormcache('name', 'model', 'labels', 'options')
     # Can't use typehints here, because ormcache does not support it..
-    def get_data(self, name, model, labels=frozenset()):
+    def get_data(self, name, model, labels=frozenset(), options=frozenset()):
+        """Find data record and generate data from it.
+
+        name, model, labels are used to match the record where options
+        is to specify how data is to be generated apart from static
+        defaults.
+
+        Args:
+            name (str): name of the base.data record.
+            model (str): model defined on base.data record.
+            labels (frozenset): labels to filter data records. (
+                default: `frozenset()`)
+            options (frozenset): frozenset of two pair tuples to match
+                extra data. If data conflicts with defaults data, this
+                will take priority. (default: `frozenset()`)
+
+        Returns:
+            dict: generated data
+
+        """
         rec = self._find_match(name, model, labels=labels)
         if not rec:
             return {}
-        return ast.literal_eval(rec.defaults)
+        return rec._get_data(options=options)
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -83,6 +100,12 @@ class BaseData(models.Model):
             if set(rec.label_ids.mapped('name')) == labels:
                 matched_recs |= rec
         return matched_recs
+
+    def _get_data(self, options=frozenset()):
+        self.ensure_one()
+        data = ast.literal_eval(self.defaults)
+        data.update(self.option_ids.get_data(options))
+        return data
 
     @api.model
     def _prepare_domain(self, name: str, model: str, labels: frozenset = frozenset()):

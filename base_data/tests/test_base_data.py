@@ -1,4 +1,5 @@
 from odoo.exceptions import ValidationError
+from odoo.fields import Command
 from odoo.tests.common import TransactionCase
 
 
@@ -39,6 +40,7 @@ class TestBaseData(TransactionCase):
                 },
             ]
         )
+        cls.base_data_no_labels = cls.base_datas[0]
 
     def test_01_get_data_matched_no_labels(self):
         # WHEN
@@ -70,7 +72,36 @@ class TestBaseData(TransactionCase):
         # THEN
         self.assertEqual(data, {'name': 'MY-P4'})
 
-    def test_05_base_data_have_same_keys_no_labels(self):
+    def test_05_get_data_matched_no_labels_with_options(self):
+        # GIVEN
+        self.base_data_no_labels.option_ids = [
+            Command.create(
+                {
+                    'name': 'key1',
+                    'val': 'val1',
+                    'data': "{'name': 'MY-P1-A', 'name2': 'MY-S1'}",
+                },
+            ),
+            Command.create(
+                {'name': 'key2', 'val': 'val2', 'data': "{'street': 'MY-STREET-1'}"},
+            ),
+            Command.create(
+                {'name': 'key3', 'val': 'val3', 'data': "{'street': 'MY-STREET-2'}"},
+            ),
+        ]
+        # WHEN
+        data = self.BaseData.get_data(
+            'MY-D1',
+            # To match key1 and key2.
+            'res.partner',
+            options=frozenset([('key1', 'val1'), ('key2', 'val2'), ('key4', 'val4')]),
+        )
+        # THEN
+        self.assertEqual(
+            data, {'name': 'MY-P1-A', 'name2': 'MY-S1', 'street': 'MY-STREET-1'}
+        )
+
+    def test_06_base_data_have_same_keys_no_labels(self):
         with self.assertRaisesRegex(
             ValidationError, r"Data keys must be unique \(name, model, labels\)!"
         ):
@@ -78,7 +109,7 @@ class TestBaseData(TransactionCase):
                 {'name': 'MY-D1', 'model_id': self.model_res_partner.id}
             )
 
-    def test_06_base_data_have_same_keys_one_label(self):
+    def test_07_base_data_have_same_keys_one_label(self):
         with self.assertRaisesRegex(
             ValidationError, r"Data keys must be unique \(name, model, labels\)!"
         ):
@@ -90,7 +121,7 @@ class TestBaseData(TransactionCase):
                 }
             )
 
-    def test_07_base_data_have_same_keys_two_labels(self):
+    def test_08_base_data_have_same_keys_two_labels(self):
         with self.assertRaisesRegex(
             ValidationError, r"Data keys must be unique \(name, model, labels\)!"
         ):
@@ -102,12 +133,14 @@ class TestBaseData(TransactionCase):
                 }
             )
 
-    def test_08_base_data_defaults_cant_eval(self):
+    def test_09_base_data_defaults_cant_eval(self):
         with self.assertRaisesRegex(
-            ValidationError, r"Defaults must be dictionary\. Error: .+"
+            ValidationError, r"Defaults must be a dictionary\. Error: .+"
         ):
             self.base_datas[0].defaults = "abc"
 
-    def test_09_base_data_defaults_not_dict(self):
-        with self.assertRaisesRegex(ValidationError, r"Defaults must be dictionary\."):
+    def test_10_base_data_defaults_not_dict(self):
+        with self.assertRaisesRegex(
+            ValidationError, r"Defaults must be a dictionary\."
+        ):
             self.base_datas[0].defaults = "'abc'"

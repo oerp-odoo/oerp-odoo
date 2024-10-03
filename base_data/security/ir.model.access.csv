@@ -1,5 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_base_data_user,base_data user,model_base_data,base.group_user,1,0,0,0
 access_base_data_manager,base_data manager,model_base_data,base.group_system,1,1,1,1
+access_base_data_option_user,base_data_option user,model_base_data_option,base.group_user,1,0,0,0
+access_base_data_option_manager,base_data_option manager,model_base_data_option,base.group_system,1,1,1,1
 access_base_data_label_user,base_data_label user,model_base_data_label,base.group_user,1,0,0,0
 access_base_data_label_manager,base_data_label manager,model_base_data_label,base.group_system,1,1,1,1
