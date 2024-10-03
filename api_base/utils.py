@@ -27,13 +27,27 @@ def get_record_id_by_domain(Model, domain, limit=None, raise_not_found=True):
     return record.id
 
 
-def get_record_id_by_name(Model, name, limit=None, raise_not_found=True):
-    return get_record_id_by_domain(
+def get_record_id_by_name(
+    Model, name, limit=None, caseless=False, force_create=False, raise_not_found=True
+):
+    if force_create:
+        raise_not_found = False
+    record_id = get_record_id_by_domain(
         Model,
-        [('name', '=', name)],
+        [('name', '=ilike' if caseless else '=', name)],
         limit=limit,
         raise_not_found=raise_not_found,
     )
+    if record_id is None and force_create:
+        # Attempt to create by name
+        try:
+            record_id = Model.create({'name': name}).id
+        except Exception as e:
+            raise ValidationError(
+                f"Could not create record for {Model._name} using name {name}."
+                + f" Error: {e}"
+            )
+    return record_id
 
 
 def get_partner_id_by_vat(env, vat: str):
