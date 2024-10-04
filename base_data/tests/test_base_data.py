@@ -78,15 +78,15 @@ class TestBaseData(TransactionCase):
             Command.create(
                 {
                     'name': 'key1',
-                    'val': 'val1',
+                    'value': 'val1',
                     'data': "{'name': 'MY-P1-A', 'name2': 'MY-S1'}",
                 },
             ),
             Command.create(
-                {'name': 'key2', 'val': 'val2', 'data': "{'street': 'MY-STREET-1'}"},
+                {'name': 'key2', 'value': 'val2', 'data': "{'street': 'MY-STREET-1'}"},
             ),
             Command.create(
-                {'name': 'key3', 'val': 'val3', 'data': "{'street': 'MY-STREET-2'}"},
+                {'name': 'key3', 'value': 'val3', 'data': "{'street': 'MY-STREET-2'}"},
             ),
         ]
         # WHEN

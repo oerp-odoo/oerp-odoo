@@ -10,7 +10,7 @@ class BaseDataOption(models.Model):
     _description = "Base Data Option"
 
     name = fields.Char(required=True, string="Key")
-    val = fields.Char(required=True, string="Value")
+    value = fields.Char(required=True)
     base_data_id = fields.Many2one('base.data', required=True, ondelete='cascade')
     data = fields.Text(required=True, default="{}")
 
@@ -30,13 +30,13 @@ class BaseDataOption(models.Model):
     def _match_option(self, options=frozenset[tuple[str, str]]):
         for key, val in options:
             for opt in self:
-                if opt.name == key and opt.val == val:
+                if opt.name == key and opt.value == val:
                     yield opt
 
     _sql_constraints = [
         (
-            'name_val_base_data_id_uniq',
-            'unique (name, val, base_data_id)',
+            'name_value_base_data_id_uniq',
+            'unique (name, value, base_data_id)',
             'Key and Value must be unique per Base Data record!',
         )
     ]

@@ -36,7 +36,7 @@
                     <field name="option_ids">
                         <tree editable="bottom">
                             <field name="name"/>
-                            <field name="val"/>
+                            <field name="value"/>
                             <field name="data"/>
                         </tree>
                     </field>
