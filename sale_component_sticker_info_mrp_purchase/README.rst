@@ -7,8 +7,6 @@ Group Name from sale order lines is linked to related MO and then to
 related purchase orders of components. Product Package type is also
 included into sticker information.
 
-Currently it only supports single level of manufacturing orders!
-
 Contributors
 ============
 

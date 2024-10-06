@@ -1,6 +1,6 @@
 from odoo import api, fields, models
 
-from ..utils import prepare_component_sticker_info
+from ..utils import get_sale_mos, prepare_component_sticker_info
 
 
 class PurchaseOrderLine(models.Model):
@@ -26,7 +26,7 @@ class PurchaseOrderLine(models.Model):
         # We find MOs for products that are manufactured using
         # this PO line product (component)!
         mos = moves.group_id.mrp_production_ids
-        info = prepare_component_sticker_info(mos)
+        info = prepare_component_sticker_info(get_sale_mos(mos))
         if info:
             res['component_sticker_info'] = info
         return res
