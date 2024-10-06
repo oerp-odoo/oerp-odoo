@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template
+        id="footer_custom_no_social_links"
+        inherit_id="website.footer_custom"
+    >
+        <xpath expr="//a[hasclass('s_share_facebook')]" position="replace"/>
+        <xpath expr="//a[hasclass('s_share_twitter')]" position="replace"/>
+        <xpath expr="//a[hasclass('s_share_linkedin')]" position="replace"/>
+    </template>
+</odoo>
