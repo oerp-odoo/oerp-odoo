@@ -13,7 +13,7 @@ class TestPackageConfiguratorBoxConstraints(
         cls.package_configurator_box_1 = cls.PackageConfiguratorBox.create(
             {
                 'box_type_id': cls.package_box_type_1.id,
-                'carton_id': cls.package_carton_1.id,
+                'carton_base_id': cls.package_carton_1.id,
                 'base_length': 10,
                 'base_width': 10,
                 'base_height': 10,

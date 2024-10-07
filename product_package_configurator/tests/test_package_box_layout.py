@@ -13,8 +13,6 @@ class TestPackageBoxLayout(common.TestProductPackageConfiguratorCommon):
             extra=30,
         )
         lid_dimensions = LidDimensions(
-            # TODO: should it be possible to have bigger height on lid
-            # than on base?..
             height=16,
             thickness=1.5,
             extra=32,

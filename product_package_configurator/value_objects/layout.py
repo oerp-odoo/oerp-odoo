@@ -29,3 +29,11 @@ class Layout2D:
     @property
     def area(self):
         return self.length * self.width
+
+
+@dataclasses.dataclass(frozen=True, kw_only=True)
+class LayoutFitter:
+    """Data to use when fitting product layouts on sheet layout."""
+
+    product_layout: Layout2D
+    sheet_layout: Layout2D

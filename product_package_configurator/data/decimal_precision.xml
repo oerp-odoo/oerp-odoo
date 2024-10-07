@@ -8,4 +8,20 @@
         <field name="name">Package Configurator Size</field>
         <field name="digits">2</field>
     </record>
+    <record
+        id="decimal_precision_package_price"
+        forcecreate="True"
+        model="decimal.precision"
+    >
+        <field name="name">Package Configurator Price</field>
+        <field name="digits">2</field>
+    </record>
+    <record
+        id="decimal_precision_package_cost"
+        forcecreate="True"
+        model="decimal.precision"
+    >
+        <field name="name">Package Configurator Cost</field>
+        <field name="digits">6</field>
+    </record>
 </odoo>

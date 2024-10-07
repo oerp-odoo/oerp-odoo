@@ -7,7 +7,8 @@
             <tree>
                 <field name="create_date"/>
                 <field name="box_type_id"/>
-                <field name="carton_id"/>
+                <field name="carton_base_id"/>
+                <field name="carton_lid_id"/>
                 <field name="base_length"/>
                 <field name="base_width"/>
                 <field name="base_height"/>
@@ -27,55 +28,194 @@
                     <group name="main">
                         <group name="general" string="General">
                             <field name="box_type_id"/>
-                            <field name="carton_id"/>
+                            <field name="carton_base_id"/>
+                            <!-- TODO: This might not be required as it should be
+                            possible to have box without a lid in a future. -->
+                            <field name="carton_lid_id" required="True"/>
+                            <field name="wrappingpaper_base_outside_id"/>
+                            <field name="wrappingpaper_base_inside_id"/>
+                            <field name="wrappingpaper_lid_outside_id"/>
+                            <field name="wrappingpaper_lid_inside_id"/>
                             <field name="lamination_outside_id"/>
                             <field name="lamination_inside_id"/>
                         </group>
                         <group name="dimensions" string="Dimensions">
-                            <field name="base_length"/>
-                            <field name="base_width"/>
-                            <field name="base_height"/>
-                            <field name="lid_height"/>
-                            <field name="outside_wrapping_extra"/>
-                            <field name="lid_extra"/>
+                            <group>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th/>
+                                            <th>Length</th>
+                                            <th>Width</th>
+                                            <th>Height</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Base</td>
+                                            <td><field name="base_length"/></td>
+                                            <td><field name="base_width"/></td>
+                                            <td><field name="base_height"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </group>
+                            <group>
+                                <field name="lid_height"/>
+                                <field name="outside_wrapping_extra"/>
+                                <!-- Currently not intended to be showed via UI. -->
+                                <field name="lid_extra" invisible="1"/>
+                            </group>
                         </group>
                         <group name="layouts" string="Layouts">
-                            <field name="base_layout_length"/>
-                            <field name="base_layout_width"/>
-                            <field name="base_inside_wrapping_length"/>
-                            <field name="base_inside_wrapping_width"/>
-                            <field name="base_outside_wrapping_length"/>
-                            <field name="base_outside_wrapping_width"/>
-                            <field name="lid_layout_length"/>
-                            <field name="lid_layout_width"/>
-                            <field name="lid_inside_wrapping_length"/>
-                            <field name="lid_inside_wrapping_width"/>
-                            <field name="lid_outside_wrapping_length"/>
-                            <field name="lid_outside_wrapping_width"/>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th/>
+                                        <th>Length</th>
+                                        <th>Width</th>
+                                        <th>Inside Wrapping Length</th>
+                                        <th>Inside Wrapping Width</th>
+                                        <th>Outside Wrapping Length</th>
+                                        <th>Outside Wrapping Width</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Base</td>
+                                        <td><field name="base_layout_length"/></td>
+                                        <td><field name="base_layout_width"/></td>
+                                        <td><field
+                                                name="base_inside_wrapping_length"
+                                            /></td>
+                                        <td><field
+                                                name="base_inside_wrapping_width"
+                                            /></td>
+                                        <td><field
+                                                name="base_outside_wrapping_length"
+                                            /></td>
+                                        <td><field
+                                                name="base_outside_wrapping_width"
+                                            /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lid</td>
+                                        <td><field name="lid_layout_length"/></td>
+                                        <td><field name="lid_layout_width"/></td>
+                                        <td><field
+                                                name="lid_inside_wrapping_length"
+                                            /></td>
+                                        <td><field
+                                                name="lid_inside_wrapping_width"
+                                            /></td>
+                                        <td><field
+                                                name="lid_outside_wrapping_length"
+                                            /></td>
+                                        <td><field
+                                                name="lid_outside_wrapping_width"
+                                            /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </group>
                         <group
                             name="lamination"
                             string="Lamination"
                             invisible="not lamination_inside_id and not lamination_outside_id"
                         >
-                            <field
-                                name="lamination_inside_area"
-                                invisible="not lamination_inside_id"
-                            />
-                            <field
-                                name="lamination_inside_price"
-                                invisible="not lamination_inside_id"
-                            />
-                            <field
-                                name="lamination_outside_area"
-                                invisible="not lamination_outside_id"
-                            />
-                            <field
-                                name="lamination_outside_price"
-                                invisible="not lamination_outside_id"
-                            />
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th/>
+                                        <th>Area</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr invisible="not lamination_outside_id">
+                                        <td>Outside</td>
+                                        <td><field name="lamination_outside_area"/></td>
+                                        <td><field
+                                                name="lamination_outside_unit_cost"
+                                            /></td>
+                                    </tr>
+                                    <tr invisible="not lamination_inside_id">
+                                        <td>Inside</td>
+                                        <td><field name="lamination_inside_area"/></td>
+                                        <td><field
+                                                name="lamination_inside_unit_cost"
+                                            /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </group>
+                        <group
+                            name="fit_quantities"
+                            string="Fit Quantities"
+                            invisible="not base_length or not base_width or not base_height or not lid_height"
+                        >
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th/>
+                                        <th>Layout Fit Quantity</th>
+                                        <th>Inside Wrapping Fit Quantity</th>
+                                        <th>Outside Wrapping Fit Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Base</td>
+                                        <td><field name="base_layout_fit_qty"/></td>
+                                        <td>
+                                            <field name="base_inside_fit_qty"/>
+                                        </td>
+                                        <td>
+                                            <field name="base_outside_fit_qty"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lid</td>
+                                        <td><field name="lid_layout_fit_qty"/></td>
+                                        <td>
+                                            <field name="lid_inside_fit_qty"/>
+                                        </td>
+                                        <td>
+                                            <field name="lid_outside_fit_qty"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </group>
                     </group>
+                    <notebook>
+                        <page name="circulations" string="Circulations">
+                            <field name="circulation_ids">
+                                <tree editable="bottom">
+                                    <field name="quantity"/>
+                                    <field name="unit_cost"/>
+                                    <field name="total_cost"/>
+                                    <field name="total_lamination_outside_cost"/>
+                                    <field name="total_lamination_inside_cost"/>
+                                    <field name="total_cost"/>
+                                    <field name="total_base_carton_quantity"/>
+                                    <field
+                                        name="total_base_outside_wrappingpaper_quantity"
+                                    />
+                                    <field
+                                        name="total_base_inside_wrappingpaper_quantity"
+                                    />
+                                    <field name="total_lid_carton_quantity"/>
+                                    <field
+                                        name="total_lid_outside_wrappingpaper_quantity"
+                                    />
+                                    <field
+                                        name="total_lid_inside_wrappingpaper_quantity"
+                                    />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
