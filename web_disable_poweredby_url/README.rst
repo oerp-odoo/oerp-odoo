@@ -1,7 +1,7 @@
 Web - Hide Powered By URL
 #########################
 
-Hides Powered By URL. Currently in /web/login
+Hides Powered By URL.
 
 Contributors
 ------------
