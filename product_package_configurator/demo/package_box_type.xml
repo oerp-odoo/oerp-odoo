@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="package_box_type_base_lid_0302" model="package.box.type">
+        <field name="name">Base/Lid 0302</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="package_box_type_base_lid_362" model="package.box.type">
+        <field name="name">Base/Lid 362</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="package_box_type_base_lid_363" model="package.box.type">
+        <field name="name">Base/Lid 363</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+</odoo>

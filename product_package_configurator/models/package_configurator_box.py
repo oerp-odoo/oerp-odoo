@@ -210,6 +210,19 @@ class PackageConfiguratorBox(models.Model):
             if not res['height']:
                 raise ValidationError(get_msg(name, _("height"), box_type.min_height))
 
+    def action_setup(self):
+        """Create/recreate setup records for each circulation."""
+        self.ensure_one()
+        self.circulation_ids.create_circulation_setups(self._find_box_setups())
+        return True
+
+    def _find_box_setups(self):
+        # TODO: we might need to search different type of setups separately, when
+        # we will have more than one type!
+        return self.env['package.box.setup'].search(
+            [('company_id', '=', self.company_id.id)]
+        )
+
     def _get_layouts_data(self):
         self.ensure_one()
         # This is not change'able directly on configurator on

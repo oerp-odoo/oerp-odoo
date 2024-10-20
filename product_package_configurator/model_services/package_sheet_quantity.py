@@ -23,7 +23,9 @@ class PackageSheetQuantity(models.AbstractModel):
     def _calc(self, quantity: int, sheet_quantity: SheetQuantity):
         quantities = []
         for item in sheet_quantity.items:
-            quantities.append(calc_sheet_quantity(quantity, item.fit_qty))
+            quantities.append(
+                calc_sheet_quantity(quantity, item.fit_qty) + item.setup_raw_qty
+            )
         total_qty = sum(quantities)
         if sheet_quantity.min_qty > total_qty:
             quantities = update_by_target(sheet_quantity.min_qty, *quantities)

@@ -15,6 +15,11 @@ class PackageConfiguratorBoxCirculation(models.Model):
     _description = "Package Configurator Box Circulation"
 
     configurator_id = fields.Many2one('package.configurator.box')
+    circulation_setup_ids = fields.One2many(
+        'package.configurator.box.circulation.setup',
+        'circulation_id',
+        string="Setups",
+    )
     total_base_carton_quantity = fields.Integer(compute='_compute_sheet_quantity')
     total_lid_carton_quantity = fields.Integer(compute='_compute_sheet_quantity')
     total_base_inside_wrappingpaper_quantity = fields.Integer(
@@ -96,58 +101,93 @@ class PackageConfiguratorBoxCirculation(models.Model):
         'configurator_id.wrappingpaper_lid_outside_id',
         'total_lamination_inside_cost',
         'total_lamination_outside_cost',
+        'circulation_setup_ids.setup_raw_qty',
     )
     def _compute_cost(self):
         for rec in self:
             rec.update(rec._get_price_data())
 
+    def create_circulation_setups(self, setups):
+        self.mapped('circulation_setup_ids').unlink()
+        CirculationSetup = self.env['package.configurator.box.circulation.setup']
+        # It should be called on same configurator!
+        vals_list = []
+        for rec in self:
+            vals_list.extend(CirculationSetup.prepare_circulation_setups(rec, setups))
+        if vals_list:
+            CirculationSetup.create(vals_list)
+        return True
+
     def _get_sheet_quantity_data(self):
-        def group_sheet_data_if_applicable(fit_qty_map, sheet, fit_qty, fname):
+        def group_sheet_data_if_applicable(
+            fit_qty_map, sheet, fit_qty, setup_raw_qty, fname
+        ):
             # min_qty of course is the same, but using it to later
             # retrieve it when building SheetQuantity!
             if fit_qty:
                 fit_qty_map[(sheet.id, sheet.min_qty)].append(
-                    vo_sheet.SheetQuantityItem(code=fname, fit_qty=fit_qty)
+                    vo_sheet.SheetQuantityItem(
+                        code=fname, fit_qty=fit_qty, setup_raw_qty=setup_raw_qty
+                    )
                 )
 
         self.ensure_one()
         data = self._get_init_sheet_quantity_data()
         cfg = self.configurator_id
         fit_qty_map = defaultdict(list)
+        circ_setups = self.circulation_setup_ids
         group_sheet_data_if_applicable(
             fit_qty_map,
             cfg.carton_base_id,
             cfg.base_layout_fit_qty,
+            circ_setups.filtered(
+                lambda r: r.part == const.CirculationSetupPart.BASE_CARTON
+            ).setup_raw_qty,
             'total_base_carton_quantity',
         )
         group_sheet_data_if_applicable(
             fit_qty_map,
             cfg.carton_lid_id,
             cfg.lid_layout_fit_qty,
+            circ_setups.filtered(
+                lambda r: r.part == const.CirculationSetupPart.LID_CARTON
+            ).setup_raw_qty,
             'total_lid_carton_quantity',
         )
         group_sheet_data_if_applicable(
             fit_qty_map,
             cfg.wrappingpaper_base_inside_id,
             cfg.base_inside_fit_qty,
+            circ_setups.filtered(
+                lambda r: r.part == const.CirculationSetupPart.BASE_INSIDE_WRAPPING
+            ).setup_raw_qty,
             'total_base_inside_wrappingpaper_quantity',
         )
         group_sheet_data_if_applicable(
             fit_qty_map,
             cfg.wrappingpaper_lid_inside_id,
             cfg.lid_inside_fit_qty,
+            circ_setups.filtered(
+                lambda r: r.part == const.CirculationSetupPart.LID_INSIDE_WRAPPING
+            ).setup_raw_qty,
             'total_lid_inside_wrappingpaper_quantity',
         )
         group_sheet_data_if_applicable(
             fit_qty_map,
             cfg.wrappingpaper_base_outside_id,
             cfg.base_outside_fit_qty,
+            circ_setups.filtered(
+                lambda r: r.part == const.CirculationSetupPart.BASE_OUTSIDE_WRAPPING
+            ).setup_raw_qty,
             'total_base_outside_wrappingpaper_quantity',
         )
         group_sheet_data_if_applicable(
             fit_qty_map,
             cfg.wrappingpaper_lid_outside_id,
             cfg.lid_outside_fit_qty,
+            circ_setups.filtered(
+                lambda r: r.part == const.CirculationSetupPart.LID_OUTSIDE_WRAPPING
+            ).setup_raw_qty,
             'total_lid_outside_wrappingpaper_quantity',
         )
         sheets = []

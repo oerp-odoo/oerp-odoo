@@ -47,6 +47,11 @@
                 action="package_lamination_action"
                 sequence="25"
             />
+            <menuitem
+                id="package_box_setup_menu"
+                action="package_box_setup_action"
+                sequence="30"
+            />
         </menuitem>
 
     </menuitem>
