@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="package_carton_gray_gray_15_700_1000" model="package.carton">
+        <field name="name">Gray/gray</field>
+        <field name="thickness" eval="1.5"/>
+        <field name="sheet_length" eval="1000"/>
+        <field name="sheet_width" eval="700"/>
+        <field name="unit_cost" eval="0.05"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+</odoo>

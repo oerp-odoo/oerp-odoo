@@ -6,25 +6,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
     def setUpClass(cls):
         super().setUpClass()
         cls.package_box_type_1 = cls.PackageBoxType.create({'name': 'MY-BOX-TYPE-1'})
-        cls.package_configurator_box_1 = cls.PackageConfiguratorBox.create(
-            {
-                'box_type_id': cls.package_box_type_1.id,
-                # thickness: 1.5mm
-                'carton_base_id': cls.package_carton_1.id,
-                'carton_lid_id': cls.package_carton_1.id,
-                'wrappingpaper_base_inside_id': cls.package_wrappingpaper_1.id,
-                'wrappingpaper_base_outside_id': cls.package_wrappingpaper_2.id,
-                'wrappingpaper_lid_inside_id': cls.package_wrappingpaper_1.id,
-                'wrappingpaper_lid_outside_id': cls.package_wrappingpaper_2.id,
-                'base_length': 0,
-                'base_width': 0,
-                'base_height': 0,
-                'lid_height': 0,
-                # unit_cost == 2.0
-                'lamination_outside_id': cls.package_lamination_1.id,
-                'lamination_inside_id': cls.package_lamination_1.id,
-            }
-        )
 
     def test_01_configure_box_basic(self):
         # WHEN
@@ -192,7 +173,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         self.assertEqual(circulation_2.total_lamination_outside_cost, 0.0)
         # 16*0.05 + 46*0.04 + 74*0.06
         self.assertEqual(circulation_2.total_cost, 7.08)
-        # 6.52 / 200
+        # 7.08 / 200
         self.assertEqual(circulation_2.unit_cost, 0.0354)
 
     def test_04_configure_box_with_circulation_n_min_qty(self):
@@ -268,7 +249,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         self.assertEqual(circulation_2.total_lid_outside_wrappingpaper_quantity, 40)
         # 16*0.05 + 46*0.04 + 74*0.06
         self.assertEqual(circulation_2.total_cost, 7.08)
-        # 6.52 / 200
+        # 7.08 / 200
         self.assertEqual(circulation_2.unit_cost, 0.0354)
 
     def test_05_configure_box_with_circulation_n_lamination(self):

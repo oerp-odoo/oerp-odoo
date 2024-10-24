@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record
+        id="package_wrappingpaper_multi_art_150_640_900"
+        model="package.wrappingpaper"
+    >
+        <field name="name">Multi-Art 150 A1</field>
+        <field name="sheet_length" eval="900"/>
+        <field name="sheet_width" eval="640"/>
+        <field name="unit_cost" eval="0.1"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+</odoo>

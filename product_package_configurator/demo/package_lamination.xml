@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="package_lamination_standard" model="package.lamination">
+        <field name="name">Standard</field>
+        <field name="unit_cost" eval="0.04"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+</odoo>

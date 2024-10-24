@@ -10,6 +10,8 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
         cls.PackageConfiguratorBoxCirculation = cls.env[
             'package.configurator.box.circulation'
         ]
+        cls.PackageBoxSetup = cls.env['package.box.setup']
+        cls.PackageBoxSetupRule = cls.env['package.box.setup.rule']
         cls.PackageBoxType = cls.env['package.box.type']
         cls.PackageCarton = cls.env['package.carton']
         cls.PackageWrappingpaper = cls.env['package.wrappingpaper']

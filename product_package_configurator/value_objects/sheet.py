@@ -13,3 +13,4 @@ class SheetQuantity:
 class SheetQuantityItem:
     code: str
     fit_qty: int
+    setup_raw_qty: int
