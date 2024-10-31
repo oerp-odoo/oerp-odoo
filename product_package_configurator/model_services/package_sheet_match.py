@@ -33,9 +33,13 @@ class PackageSheetMatch(models.AbstractModel):
                     ),
                 )
             )
+            if not fit_qty:
+                continue
             # We compare it by how much single fit_qty would cost on single raw sheet!
             matches.append((sheet, sheet.unit_cost / fit_qty))
-        return min(matches, key=lambda x: x[1])[0]
+        return min(matches, key=lambda x: x[1], default=(self.env['package.sheet'], 0))[
+            0
+        ]
 
     def _prepare_sheet_domain(self, sheet_type):
         return [('sheet_type_id', '=', sheet_type.id)]

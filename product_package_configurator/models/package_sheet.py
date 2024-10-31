@@ -57,3 +57,11 @@ class PackageSheet(models.Model):
                         type_scope=rec.sheet_type_id.scope,
                     )
                 )
+
+    @api.constrains('sheet_length', 'sheet_width')
+    def _check_dimensions(self):
+        for rec in self:
+            if rec.sheet_length <= 0 or rec.sheet_width <= 0:
+                raise ValidationError(
+                    _("Sheet Length and Width must be greater than 0!")
+                )
