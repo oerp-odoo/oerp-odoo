@@ -20,6 +20,12 @@ class SheetTypeScope(StrEnum):
     WRAPPINGPAPER = 'wrappingpaper'
 
 
+SHEET_TYPE_SELECTION = [
+    (SheetTypeScope.GREYBOARD, "Grey Board"),
+    (SheetTypeScope.WRAPPINGPAPER, "Wrapping Paper"),
+]
+
+
 class CirculationSetupPart(StrEnum):
     BASE_GREYBOARD = 'base_greyboard'
     LID_GREYBOARD = 'lid_greyboard'

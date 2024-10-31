@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="sheet_type_id"/>
+                <field name="scope" optional="hide"/>
                 <field name="sheet_length"/>
                 <field name="sheet_width"/>
                 <field name="unit_cost"/>
@@ -23,6 +24,7 @@
                     <group name="main">
                         <group name="left">
                             <field name="sheet_type_id" options="{'no_create': True}"/>
+                            <field name="scope" invisible="1"/>
                             <field name="sheet_length"/>
                             <field name="sheet_width"/>
                         </group>
@@ -36,5 +38,24 @@
                 </sheet>
             </form>
         </field>
+    </record>
+
+    <record id="package_sheet_greyboard_action" model="ir.actions.act_window">
+        <field name="name">Grey Boards</field>
+        <field name="res_model">package.sheet</field>
+        <field name="domain">[('scope', '=', 'greyboard')]</field>
+        <field
+            name="context"
+        >{'default_scope': 'greyboard', 'default_thickness_uom': 'mm'}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="package_sheet_wrappingpaper_action" model="ir.actions.act_window">
+        <field name="name">Wrapping Papers</field>
+        <field name="res_model">package.sheet</field>
+        <field name="domain">[('scope', '=', 'wrappingpaper')]</field>
+        <field
+            name="context"
+        >{'default_scope': 'wrappingpaper', 'default_thickness_uom': 'gsm'}</field>
+        <field name="view_mode">tree,form</field>
     </record>
 </odoo>

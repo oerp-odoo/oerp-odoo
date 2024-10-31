@@ -36,12 +36,20 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
             {
                 'box_type_id': self.package_box_type_1.id,
                 # thickness: 1.5mm
-                'greyboard_base_id': self.package_sheet_greyboard_1.id,
-                'greyboard_lid_id': self.package_sheet_greyboard_1.id,
-                'wrappingpaper_base_inside_id': self.package_sheet_wrappingpaper_1.id,
-                'wrappingpaper_base_outside_id': self.package_sheet_wrappingpaper_2.id,
-                'wrappingpaper_lid_inside_id': self.package_sheet_wrappingpaper_1.id,
-                'wrappingpaper_lid_outside_id': self.package_sheet_wrappingpaper_2.id,
+                'sheet_greyboard_base_id': self.package_sheet_greyboard_1.id,
+                'sheet_greyboard_lid_id': self.package_sheet_greyboard_1.id,
+                'sheet_wrappingpaper_base_inside_id': (
+                    self.package_sheet_wrappingpaper_1.id
+                ),
+                'sheet_wrappingpaper_base_outside_id': (
+                    self.package_sheet_wrappingpaper_2.id
+                ),
+                'sheet_wrappingpaper_lid_inside_id': (
+                    self.package_sheet_wrappingpaper_1.id
+                ),
+                'sheet_wrappingpaper_lid_outside_id': (
+                    self.package_sheet_wrappingpaper_2.id
+                ),
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,
@@ -263,12 +271,12 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
             {
                 'box_type_id': self.package_box_type_1.id,
                 # thickness: 1.5mm
-                'greyboard_base_id': self.package_sheet_greyboard_1.id,
-                'greyboard_lid_id': self.package_sheet_greyboard_1.id,
-                'wrappingpaper_base_inside_id': False,
-                'wrappingpaper_base_outside_id': False,
-                'wrappingpaper_lid_inside_id': False,
-                'wrappingpaper_lid_outside_id': False,
+                'sheet_greyboard_base_id': self.package_sheet_greyboard_1.id,
+                'sheet_greyboard_lid_id': self.package_sheet_greyboard_1.id,
+                'sheet_wrappingpaper_base_inside_id': False,
+                'sheet_wrappingpaper_base_outside_id': False,
+                'sheet_wrappingpaper_lid_inside_id': False,
+                'sheet_wrappingpaper_lid_outside_id': False,
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,

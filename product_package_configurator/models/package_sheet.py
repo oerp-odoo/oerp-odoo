@@ -1,14 +1,20 @@
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 from .. import const
 
 
-class PackageSheet(models.AbstractModel):
+class PackageSheet(models.Model):
 
     _name = 'package.sheet'
     _description = "Package Sheet"
 
-    sheet_type_id = fields.Many2one("package.sheet.type", required=True)
+    sheet_type_id = fields.Many2one(
+        "package.sheet.type",
+        required=True,
+        domain="[('scope', '=', scope)]",
+    )
+    scope = fields.Selection(const.SHEET_TYPE_SELECTION, required=True)
     unit_cost = fields.Float(required=True, digits=const.DecimalPrecision.COST)
     sheet_length = fields.Float(
         "Length, mm", required=True, digits=const.DecimalPrecision.SIZE
@@ -38,3 +44,16 @@ class PackageSheet(models.AbstractModel):
             rec.display_name = (
                 f"{st.display_name} {rec.sheet_length:2g}x{rec.sheet_width:2g}"
             )
+
+    @api.constrains('scope', 'sheet_type_id')
+    def _check_scope(self):
+        for rec in self:
+            if rec.scope != rec.sheet_type_id.scope:
+                raise ValidationError(
+                    _(
+                        "Sheet (%(scope)s) and its Type (%(type_scope)s) must match"
+                        + " same Scope!",
+                        scope=rec.scope,
+                        type_scope=rec.sheet_type_id.scope,
+                    )
+                )

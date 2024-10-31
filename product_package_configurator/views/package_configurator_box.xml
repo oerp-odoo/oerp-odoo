@@ -7,8 +7,8 @@
             <tree>
                 <field name="create_date"/>
                 <field name="box_type_id"/>
-                <field name="greyboard_base_id"/>
-                <field name="greyboard_lid_id"/>
+                <field name="sheet_greyboard_base_id"/>
+                <field name="sheet_greyboard_lid_id"/>
                 <field name="base_length"/>
                 <field name="base_width"/>
                 <field name="base_height"/>
@@ -31,14 +31,14 @@
                     <group name="main">
                         <group name="general" string="General">
                             <field name="box_type_id"/>
-                            <field name="greyboard_base_id"/>
+                            <field name="sheet_greyboard_base_id"/>
                             <!-- TODO: This might not be required as it should be
                             possible to have box without a lid in a future. -->
-                            <field name="greyboard_lid_id" required="True"/>
-                            <field name="wrappingpaper_base_outside_id"/>
-                            <field name="wrappingpaper_base_inside_id"/>
-                            <field name="wrappingpaper_lid_outside_id"/>
-                            <field name="wrappingpaper_lid_inside_id"/>
+                            <field name="sheet_greyboard_lid_id" required="True"/>
+                            <field name="sheet_wrappingpaper_base_outside_id"/>
+                            <field name="sheet_wrappingpaper_base_inside_id"/>
+                            <field name="sheet_wrappingpaper_lid_outside_id"/>
+                            <field name="sheet_wrappingpaper_lid_inside_id"/>
                             <field name="lamination_outside_id"/>
                             <field name="lamination_inside_id"/>
                         </group>

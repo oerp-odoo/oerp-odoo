@@ -93,12 +93,12 @@ class PackageConfiguratorBoxCirculation(models.Model):
         'total_lid_inside_wrappingpaper_quantity',
         'total_lid_outside_wrappingpaper_quantity',
         'quantity',
-        'configurator_id.greyboard_base_id',
-        'configurator_id.greyboard_lid_id',
-        'configurator_id.wrappingpaper_base_inside_id',
-        'configurator_id.wrappingpaper_base_outside_id',
-        'configurator_id.wrappingpaper_lid_inside_id',
-        'configurator_id.wrappingpaper_lid_outside_id',
+        'configurator_id.sheet_greyboard_base_id',
+        'configurator_id.sheet_greyboard_lid_id',
+        'configurator_id.sheet_wrappingpaper_base_inside_id',
+        'configurator_id.sheet_wrappingpaper_base_outside_id',
+        'configurator_id.sheet_wrappingpaper_lid_inside_id',
+        'configurator_id.sheet_wrappingpaper_lid_outside_id',
         'total_lamination_inside_cost',
         'total_lamination_outside_cost',
         'circulation_setup_ids.setup_raw_qty',
@@ -138,7 +138,7 @@ class PackageConfiguratorBoxCirculation(models.Model):
         circ_setups = self.circulation_setup_ids
         group_sheet_data_if_applicable(
             fit_qty_map,
-            cfg.greyboard_base_id,
+            cfg.sheet_greyboard_base_id,
             cfg.base_layout_fit_qty,
             circ_setups.filtered(
                 lambda r: r.part == const.CirculationSetupPart.BASE_GREYBOARD
@@ -147,7 +147,7 @@ class PackageConfiguratorBoxCirculation(models.Model):
         )
         group_sheet_data_if_applicable(
             fit_qty_map,
-            cfg.greyboard_lid_id,
+            cfg.sheet_greyboard_lid_id,
             cfg.lid_layout_fit_qty,
             circ_setups.filtered(
                 lambda r: r.part == const.CirculationSetupPart.LID_GREYBOARD
@@ -156,7 +156,7 @@ class PackageConfiguratorBoxCirculation(models.Model):
         )
         group_sheet_data_if_applicable(
             fit_qty_map,
-            cfg.wrappingpaper_base_inside_id,
+            cfg.sheet_wrappingpaper_base_inside_id,
             cfg.base_inside_fit_qty,
             circ_setups.filtered(
                 lambda r: r.part == const.CirculationSetupPart.BASE_INSIDE_WRAPPING
@@ -165,7 +165,7 @@ class PackageConfiguratorBoxCirculation(models.Model):
         )
         group_sheet_data_if_applicable(
             fit_qty_map,
-            cfg.wrappingpaper_lid_inside_id,
+            cfg.sheet_wrappingpaper_lid_inside_id,
             cfg.lid_inside_fit_qty,
             circ_setups.filtered(
                 lambda r: r.part == const.CirculationSetupPart.LID_INSIDE_WRAPPING
@@ -174,7 +174,7 @@ class PackageConfiguratorBoxCirculation(models.Model):
         )
         group_sheet_data_if_applicable(
             fit_qty_map,
-            cfg.wrappingpaper_base_outside_id,
+            cfg.sheet_wrappingpaper_base_outside_id,
             cfg.base_outside_fit_qty,
             circ_setups.filtered(
                 lambda r: r.part == const.CirculationSetupPart.BASE_OUTSIDE_WRAPPING
@@ -183,7 +183,7 @@ class PackageConfiguratorBoxCirculation(models.Model):
         )
         group_sheet_data_if_applicable(
             fit_qty_map,
-            cfg.wrappingpaper_lid_outside_id,
+            cfg.sheet_wrappingpaper_lid_outside_id,
             cfg.lid_outside_fit_qty,
             circ_setups.filtered(
                 lambda r: r.part == const.CirculationSetupPart.LID_OUTSIDE_WRAPPING
@@ -213,25 +213,26 @@ class PackageConfiguratorBoxCirculation(models.Model):
             cfg = self.configurator_id
             total_cost = 0
             total_cost += multiply(
-                cfg.greyboard_base_id.unit_cost, self.total_base_greyboard_quantity
+                cfg.sheet_greyboard_base_id.unit_cost,
+                self.total_base_greyboard_quantity,
             )
             total_cost += multiply(
-                cfg.greyboard_lid_id.unit_cost, self.total_lid_greyboard_quantity
+                cfg.sheet_greyboard_lid_id.unit_cost, self.total_lid_greyboard_quantity
             )
             total_cost += multiply(
-                cfg.wrappingpaper_base_inside_id.unit_cost,
+                cfg.sheet_wrappingpaper_base_inside_id.unit_cost,
                 self.total_base_inside_wrappingpaper_quantity,
             )
             total_cost += multiply(
-                cfg.wrappingpaper_base_outside_id.unit_cost,
+                cfg.sheet_wrappingpaper_base_outside_id.unit_cost,
                 self.total_base_outside_wrappingpaper_quantity,
             )
             total_cost += multiply(
-                cfg.wrappingpaper_lid_inside_id.unit_cost,
+                cfg.sheet_wrappingpaper_lid_inside_id.unit_cost,
                 self.total_lid_inside_wrappingpaper_quantity,
             )
             total_cost += multiply(
-                cfg.wrappingpaper_lid_outside_id.unit_cost,
+                cfg.sheet_wrappingpaper_lid_outside_id.unit_cost,
                 self.total_lid_outside_wrappingpaper_quantity,
             )
             total_cost += self.total_lamination_inside_cost

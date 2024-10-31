@@ -1,7 +1,7 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-from .. import utils
+from .. import const, utils
 from ..value_objects.layout import BaseDimensions, Layout2D, LayoutFitter, LidDimensions
 
 MANDATORY_LAYOUT_INP_FIELDS = [
@@ -39,26 +39,40 @@ class PackageConfiguratorBox(models.Model):
     lid_extra = fields.Float()
     outside_wrapping_extra = fields.Float()
     box_type_id = fields.Many2one('package.box.type', required=True)
-    greyboard_base_id = fields.Many2one(
-        'package.sheet.greyboard', string="Base Grey Board", required=True
+    sheet_greyboard_base_id = fields.Many2one(
+        'package.sheet',
+        string="Base Grey Board",
+        required=True,
+        domain=[('scope', '=', const.SheetTypeScope.GREYBOARD)],
     )
-    greyboard_lid_id = fields.Many2one(
-        'package.sheet.greyboard', string="Lid Grey Board"
+    sheet_greyboard_lid_id = fields.Many2one(
+        'package.sheet',
+        string="Lid Grey Board",
+        domain=[('scope', '=', const.SheetTypeScope.GREYBOARD)],
     )
-    wrappingpaper_base_outside_id = fields.Many2one(
-        'package.sheet.wrappingpaper', string="Base Outside Wrapping Paper"
+    sheet_wrappingpaper_base_outside_id = fields.Many2one(
+        'package.sheet',
+        string="Base Outside Wrapping Paper",
+        domain=[('scope', '=', const.SheetTypeScope.WRAPPINGPAPER)],
     )
-    wrappingpaper_base_inside_id = fields.Many2one(
-        'package.sheet.wrappingpaper', string="Base Inside Wrapping Paper"
+    sheet_wrappingpaper_base_inside_id = fields.Many2one(
+        'package.sheet',
+        string="Base Inside Wrapping Paper",
+        domain=[('scope', '=', const.SheetTypeScope.WRAPPINGPAPER)],
     )
-    wrappingpaper_lid_outside_id = fields.Many2one(
-        'package.sheet.wrappingpaper', string="Lid Outside Wrapping Paper"
+    sheet_wrappingpaper_lid_outside_id = fields.Many2one(
+        'package.sheet',
+        string="Lid Outside Wrapping Paper",
+        domain=[('scope', '=', const.SheetTypeScope.WRAPPINGPAPER)],
     )
-    wrappingpaper_lid_inside_id = fields.Many2one(
-        'package.sheet.wrappingpaper', string="Lid Inside Wrapping Paper"
+    sheet_wrappingpaper_lid_inside_id = fields.Many2one(
+        'package.sheet',
+        string="Lid Inside Wrapping Paper",
+        domain=[('scope', '=', const.SheetTypeScope.WRAPPINGPAPER)],
     )
     lamination_outside_id = fields.Many2one(
-        'package.lamination', string="Outside Lamination"
+        'package.lamination',
+        string="Outside Lamination",
     )
     lamination_inside_id = fields.Many2one(
         'package.lamination', string="Inside Lamination"
@@ -91,7 +105,7 @@ class PackageConfiguratorBox(models.Model):
     lid_outside_fit_qty = fields.Integer(compute='_compute_fit_qty')
 
     @api.depends(
-        'greyboard_base_id',
+        'sheet_greyboard_base_id',
         'base_length',
         'base_width',
         'base_height',
@@ -173,12 +187,12 @@ class PackageConfiguratorBox(models.Model):
         'lid_inside_wrapping_width',
         'lid_outside_wrapping_length',
         'lid_outside_wrapping_width',
-        'greyboard_base_id',
-        'greyboard_lid_id',
-        'wrappingpaper_base_inside_id',
-        'wrappingpaper_base_outside_id',
-        'wrappingpaper_lid_inside_id',
-        'wrappingpaper_lid_outside_id',
+        'sheet_greyboard_base_id',
+        'sheet_greyboard_lid_id',
+        'sheet_wrappingpaper_base_inside_id',
+        'sheet_wrappingpaper_base_outside_id',
+        'sheet_wrappingpaper_lid_inside_id',
+        'sheet_wrappingpaper_lid_outside_id',
     )
     def _compute_fit_qty(self):
         for box in self:
@@ -240,7 +254,7 @@ class PackageConfiguratorBox(models.Model):
             ),
             LidDimensions(
                 height=self.lid_height,
-                thickness=self.greyboard_base_id.sheet_type_id.thickness,
+                thickness=self.sheet_greyboard_base_id.sheet_type_id.thickness,
                 extra=self.lid_extra + global_extra,
             ),
         )
@@ -281,8 +295,8 @@ class PackageConfiguratorBox(models.Model):
             self.base_layout_length,
             self.base_layout_width,
             Layout2D(
-                length=self.greyboard_base_id.sheet_length,
-                width=self.greyboard_base_id.sheet_width,
+                length=self.sheet_greyboard_base_id.sheet_length,
+                width=self.sheet_greyboard_base_id.sheet_width,
             ),
         )
         set_fit_qty_if_applicable(
@@ -291,52 +305,52 @@ class PackageConfiguratorBox(models.Model):
             self.lid_layout_length,
             self.lid_layout_width,
             Layout2D(
-                length=self.greyboard_lid_id.sheet_length,
-                width=self.greyboard_lid_id.sheet_width,
+                length=self.sheet_greyboard_lid_id.sheet_length,
+                width=self.sheet_greyboard_lid_id.sheet_width,
             ),
         )
-        if self.wrappingpaper_base_inside_id:
+        if self.sheet_wrappingpaper_base_inside_id:
             set_fit_qty_if_applicable(
                 data,
                 'base_inside_fit_qty',
                 self.base_inside_wrapping_length,
                 self.base_inside_wrapping_width,
                 Layout2D(
-                    length=self.wrappingpaper_base_inside_id.sheet_length,
-                    width=self.wrappingpaper_base_inside_id.sheet_width,
+                    length=self.sheet_wrappingpaper_base_inside_id.sheet_length,
+                    width=self.sheet_wrappingpaper_base_inside_id.sheet_width,
                 ),
             )
-        if self.wrappingpaper_base_outside_id:
+        if self.sheet_wrappingpaper_base_outside_id:
             set_fit_qty_if_applicable(
                 data,
                 'base_outside_fit_qty',
                 self.base_outside_wrapping_length,
                 self.base_outside_wrapping_width,
                 Layout2D(
-                    length=self.wrappingpaper_base_outside_id.sheet_length,
-                    width=self.wrappingpaper_base_outside_id.sheet_width,
+                    length=self.sheet_wrappingpaper_base_outside_id.sheet_length,
+                    width=self.sheet_wrappingpaper_base_outside_id.sheet_width,
                 ),
             )
-        if self.wrappingpaper_lid_inside_id:
+        if self.sheet_wrappingpaper_lid_inside_id:
             set_fit_qty_if_applicable(
                 data,
                 'lid_inside_fit_qty',
                 self.lid_inside_wrapping_length,
                 self.lid_inside_wrapping_width,
                 Layout2D(
-                    length=self.wrappingpaper_lid_inside_id.sheet_length,
-                    width=self.wrappingpaper_lid_inside_id.sheet_width,
+                    length=self.sheet_wrappingpaper_lid_inside_id.sheet_length,
+                    width=self.sheet_wrappingpaper_lid_inside_id.sheet_width,
                 ),
             )
-        if self.wrappingpaper_lid_outside_id:
+        if self.sheet_wrappingpaper_lid_outside_id:
             set_fit_qty_if_applicable(
                 data,
                 'lid_outside_fit_qty',
                 self.lid_outside_wrapping_length,
                 self.lid_outside_wrapping_width,
                 Layout2D(
-                    length=self.wrappingpaper_lid_outside_id.sheet_length,
-                    width=self.wrappingpaper_lid_outside_id.sheet_width,
+                    length=self.sheet_wrappingpaper_lid_outside_id.sheet_length,
+                    width=self.sheet_wrappingpaper_lid_outside_id.sheet_width,
                 ),
             )
         return data

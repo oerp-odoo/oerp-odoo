@@ -4,7 +4,7 @@ from ..utils.fitter import calc_fit_quantity
 from ..value_objects.layout import Layout2D, LayoutFitter
 
 
-class PackageSheetMatch(models.Model):
+class PackageSheetMatch(models.AbstractModel):
     """Service to find most cost effective sheet."""
 
     _name = 'package.sheet.match'
@@ -12,8 +12,9 @@ class PackageSheetMatch(models.Model):
 
     def match(self, sheet_type, product_layout: Layout2D):
         """Find sheet using its type where it is the most cost effective."""
-        sheet_model = self.env[self._get_sheet_type_map()[sheet_type.scope]]
-        sheets = sheet_model.search(self._prepare_sheet_domain(sheet_type))
+        sheets = self.env['package.sheet'].search(
+            self._prepare_sheet_domain(sheet_type)
+        )
         return self._match(sheets, product_layout)
 
     def _match(self, sheets, product_layout: Layout2D):
@@ -38,9 +39,3 @@ class PackageSheetMatch(models.Model):
 
     def _prepare_sheet_domain(self, sheet_type):
         return [('sheet_type_id', '=', sheet_type.id)]
-
-    def _get_sheet_type_map(self):
-        return {
-            'greyboard': 'package.sheet.greyboard',
-            'wrappingpaper': 'package.sheet.wrappingpaper',
-        }

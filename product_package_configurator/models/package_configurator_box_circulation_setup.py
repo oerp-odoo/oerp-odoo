@@ -98,7 +98,7 @@ class PackageConfiguratorBoxCirculationSetup(models.Model):
                 Layout2D(length=cfg.base_layout_length, width=cfg.base_layout_width),
             ),
         ]
-        if cfg.wrappingpaper_base_inside_id:
+        if cfg.sheet_wrappingpaper_base_inside_id:
             res.append(
                 (
                     const.CirculationSetupPart.BASE_INSIDE_WRAPPING,
@@ -108,7 +108,7 @@ class PackageConfiguratorBoxCirculationSetup(models.Model):
                     ),
                 )
             )
-        if cfg.wrappingpaper_base_outside_id:
+        if cfg.sheet_wrappingpaper_base_outside_id:
             res.append(
                 (
                     const.CirculationSetupPart.BASE_OUTSIDE_WRAPPING,
@@ -118,7 +118,7 @@ class PackageConfiguratorBoxCirculationSetup(models.Model):
                     ),
                 )
             )
-        if cfg.wrappingpaper_lid_inside_id:
+        if cfg.sheet_wrappingpaper_lid_inside_id:
             res.append(
                 (
                     const.CirculationSetupPart.LID_INSIDE_WRAPPING,
@@ -128,7 +128,7 @@ class PackageConfiguratorBoxCirculationSetup(models.Model):
                     ),
                 )
             )
-        if cfg.wrappingpaper_lid_outside_id:
+        if cfg.sheet_wrappingpaper_lid_outside_id:
             res.append(
                 (
                     const.CirculationSetupPart.LID_OUTSIDE_WRAPPING,

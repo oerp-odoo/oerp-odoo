@@ -1,5 +1,7 @@
 from odoo.tests.common import TransactionCase
 
+from .. import const
+
 
 class TestProductPackageConfiguratorCommon(TransactionCase):
     @classmethod
@@ -14,8 +16,7 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
         cls.PackageBoxSetupRule = cls.env['package.box.setup.rule']
         cls.PackageBoxType = cls.env['package.box.type']
         cls.PackageSheetType = cls.env['package.sheet.type']
-        cls.PackageSheetGreyboard = cls.env['package.sheet.greyboard']
-        cls.PackageSheetWrappingpaper = cls.env['package.sheet.wrappingpaper']
+        cls.PackageSheet = cls.env['package.sheet']
         cls.PackageBoxLayout = cls.env['package.box.layout']
         cls.PackageLamination = cls.env['package.lamination']
         (
@@ -27,38 +28,41 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
                     'name': 'Orange/orange',
                     'thickness': 1.5,
                     'thickness_uom': 'mm',
-                    'scope': 'greyboard',
+                    'scope': const.SheetTypeScope.GREYBOARD,
                 },
                 {
                     'name': 'Some Art 1',
                     'thickness': 150,
                     'thickness_uom': 'gsm',
-                    'scope': 'wrappingpaper',
+                    'scope': const.SheetTypeScope.WRAPPINGPAPER,
                 },
             ]
         )
-        cls.package_sheet_greyboard_1 = cls.PackageSheetGreyboard.create(
+        cls.package_sheet_greyboard_1 = cls.PackageSheet.create(
             {
                 'sheet_type_id': cls.package_sheet_type_greyboard_1.id,
                 'sheet_length': 1000,
                 'sheet_width': 700,
                 'unit_cost': 0.05,
+                'scope': const.SheetTypeScope.GREYBOARD,
             }
         )
-        cls.package_sheet_wrappingpaper_1 = cls.PackageSheetWrappingpaper.create(
+        cls.package_sheet_wrappingpaper_1 = cls.PackageSheet.create(
             {
                 'sheet_type_id': cls.package_sheet_type_wrappingpaper_1.id,
                 'sheet_length': 700,
                 'sheet_width': 400,
                 'unit_cost': 0.04,
+                'scope': const.SheetTypeScope.WRAPPINGPAPER,
             }
         )
-        cls.package_sheet_wrappingpaper_2 = cls.PackageSheetWrappingpaper.create(
+        cls.package_sheet_wrappingpaper_2 = cls.PackageSheet.create(
             {
                 'sheet_type_id': cls.package_sheet_type_wrappingpaper_1.id,
                 'sheet_length': 800,
                 'sheet_width': 400,
                 'unit_cost': 0.06,
+                'scope': const.SheetTypeScope.WRAPPINGPAPER,
             }
         )
         cls.package_lamination_1 = cls.PackageLamination.create(
