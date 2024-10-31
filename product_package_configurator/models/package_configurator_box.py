@@ -238,7 +238,7 @@ class PackageConfiguratorBox(models.Model):
             ),
             LidDimensions(
                 height=self.lid_height,
-                thickness=self.carton_base_id.thickness,
+                thickness=self.carton_base_id.sheet_type_id.thickness,
                 extra=self.lid_extra + global_extra,
             ),
         )

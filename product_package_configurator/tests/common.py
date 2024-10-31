@@ -13,14 +13,33 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
         cls.PackageBoxSetup = cls.env['package.box.setup']
         cls.PackageBoxSetupRule = cls.env['package.box.setup.rule']
         cls.PackageBoxType = cls.env['package.box.type']
+        cls.PackageSheetType = cls.env['package.sheet.type']
         cls.PackageCarton = cls.env['package.carton']
         cls.PackageWrappingpaper = cls.env['package.wrappingpaper']
         cls.PackageBoxLayout = cls.env['package.box.layout']
         cls.PackageLamination = cls.env['package.lamination']
+        (
+            cls.package_sheet_type_greyboard_1,
+            cls.package_sheet_type_wrappingpaper_1,
+        ) = cls.PackageSheetType.create(
+            [
+                {
+                    'name': 'Orange/orange',
+                    'thickness': 1.5,
+                    'thickness_uom': 'mm',
+                    'scope': 'greyboard',
+                },
+                {
+                    'name': 'Some Art 1',
+                    'thickness': 150,
+                    'thickness_uom': 'gsm',
+                    'scope': 'wrappingpaper',
+                },
+            ]
+        )
         cls.package_carton_1 = cls.PackageCarton.create(
             {
-                'name': 'Carton 1.5mm',
-                'thickness': 1.5,
+                'sheet_type_id': cls.package_sheet_type_greyboard_1.id,
                 'sheet_length': 1000,
                 'sheet_width': 700,
                 'unit_cost': 0.05,
@@ -28,7 +47,7 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
         )
         cls.package_wrappingpaper_1 = cls.PackageWrappingpaper.create(
             {
-                'name': 'Wrapping 1',
+                'sheet_type_id': cls.package_sheet_type_wrappingpaper_1.id,
                 'sheet_length': 700,
                 'sheet_width': 400,
                 'unit_cost': 0.04,
@@ -36,7 +55,7 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
         )
         cls.package_wrappingpaper_2 = cls.PackageWrappingpaper.create(
             {
-                'name': 'Wrapping 2',
+                'sheet_type_id': cls.package_sheet_type_wrappingpaper_1.id,
                 'sheet_length': 800,
                 'sheet_width': 400,
                 'unit_cost': 0.06,

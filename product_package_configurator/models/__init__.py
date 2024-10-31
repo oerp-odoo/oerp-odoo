@@ -10,4 +10,5 @@ from . import (
     package_carton,
     package_wrappingpaper,
     package_lamination,
+    package_sheet_type,
 )

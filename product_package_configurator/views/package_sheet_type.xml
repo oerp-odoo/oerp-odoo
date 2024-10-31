@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="package_sheet_type_view_tree" model="ir.ui.view">
+        <field name="name">package.sheet.type.tree</field>
+        <field name="model">package.sheet.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="thickness"/>
+                <field name="thickness_uom"/>
+                <field name="scope" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="package_sheet_type_view_form" model="ir.ui.view">
+        <field name="name">package.sheet.type.form</field>
+        <field name="model">package.sheet.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="name"/>
+                            <label for="thickness"/>
+                            <div name="div_thickness">
+                                <field name="thickness" class="oe_inline"/>
+                                <field name="thickness_uom" class="oe_inline"/>
+                            </div>
+                        </group>
+                        <group name="right">
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="package_sheet_type_greyboard_action" model="ir.actions.act_window">
+        <field name="name">Grey Board Types</field>
+        <field name="res_model">package.sheet.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('scope', '=', 'greyboard')]</field>
+        <field
+            name="context"
+        >{'default_scope': 'greyboard', 'default_thickness_uom': 'mm'}</field>
+    </record>
+
+    <record id="package_sheet_type_wrappingpaper_action" model="ir.actions.act_window">
+        <field name="name">Wrapping Paper Types</field>
+        <field name="res_model">package.sheet.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('scope', '=', 'wrappingpaper')]</field>
+        <field
+            name="context"
+        >{'default_scope': 'wrappingpaper', 'default_thickness_uom': 'gsm'}</field>
+    </record>
+</odoo>

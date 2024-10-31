@@ -15,6 +15,11 @@ class SetupType(StrEnum):
     SHEET = 'sheet'
 
 
+class SheetTypeScope(StrEnum):
+    GREYBOARD = 'greyboard'
+    WRAPPINGPAPER = 'wrappingpaper'
+
+
 class CirculationSetupPart(StrEnum):
     BASE_CARTON = 'base_carton'
     LID_CARTON = 'lid_carton'

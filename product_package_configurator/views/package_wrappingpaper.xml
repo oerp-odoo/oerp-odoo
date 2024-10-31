@@ -3,13 +3,11 @@
     <record id="package_wrappingpaper_view_tree" model="ir.ui.view">
         <field name="name">package.wrappingpaper.tree</field>
         <field name="model">package.wrappingpaper</field>
+        <field name="inherit_id" ref="package_sheet_view_tree"/>
+        <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <tree>
-                <field name="name"/>
-                <field name="sheet_length"/>
-                <field name="sheet_width"/>
-                <field name="unit_cost"/>
-                <field name="min_qty"/>
+            <tree position="attributes">
+                <attribute name="string">Wrapping Papers</attribute>
             </tree>
         </field>
     </record>
@@ -17,24 +15,19 @@
     <record id="package_wrappingpaper_view_form" model="ir.ui.view">
         <field name="name">package.wrappingpaper.form</field>
         <field name="model">package.wrappingpaper</field>
+        <field name="inherit_id" ref="package_sheet_view_form"/>
+        <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group name="main">
-                        <group name="left">
-                            <field name="name"/>
-                            <field name="sheet_length"/>
-                            <field name="sheet_width"/>
-                            <field name="unit_cost"/>
-                        </group>
-                        <group name="right">
-                            <field name="min_qty"/>
-                            <field name="company_id" groups="base.group_multi_company"/>
-                        </group>
-                    </group>
-                </sheet>
+            <form position="attributes">
+                <attribute name="string">Wrapping Papers</attribute>
             </form>
         </field>
+    </record>
+
+    <record id="package_wrappingpaper_action" model="ir.actions.act_window">
+        <field name="name">Wrapping Papers</field>
+        <field name="res_model">package.wrappingpaper</field>
+        <field name="view_mode">tree,form</field>
     </record>
 
     <record id="package_wrappingpaper_action" model="ir.actions.act_window">

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="package_sheet_view_tree" model="ir.ui.view">
+        <field name="name">package.sheet.tree</field>
+        <field name="model">package.sheet</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sheet_type_id"/>
+                <field name="sheet_length"/>
+                <field name="sheet_width"/>
+                <field name="unit_cost"/>
+                <field name="min_qty"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="package_sheet_view_form" model="ir.ui.view">
+        <field name="name">package.sheet.form</field>
+        <field name="model">package.sheet</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="sheet_type_id" options="{'no_create': True}"/>
+                            <field name="sheet_length"/>
+                            <field name="sheet_width"/>
+                        </group>
+                        <group name="right">
+                            <field name="min_qty"/>
+                            <field name="unit_cost"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -4,7 +4,7 @@
         id="package_wrappingpaper_multi_art_150_640_900"
         model="package.wrappingpaper"
     >
-        <field name="name">Multi-Art 150 A1</field>
+        <field name="sheet_type_id" ref="package_sheet_type_wrappinpaper_multiart_1"/>
         <field name="sheet_length" eval="900"/>
         <field name="sheet_width" eval="640"/>
         <field name="unit_cost" eval="0.1"/>

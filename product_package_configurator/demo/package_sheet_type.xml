@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="package_sheet_type_greyboard_grey_1" model="package.sheet.type">
+        <field name="name">Grey/grey</field>
+        <field name="scope">greyboard</field>
+        <field name="thickness" eval="1.5"/>
+        <field name="thickness_uom">mm</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="package_sheet_type_wrappinpaper_multiart_1" model="package.sheet.type">
+        <field name="name">Multi-Art</field>
+        <field name="scope">wrappingpaper</field>
+        <field name="thickness" eval="150"/>
+        <field name="thickness_uom">gsm</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+</odoo>
