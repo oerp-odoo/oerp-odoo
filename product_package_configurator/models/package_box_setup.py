@@ -20,7 +20,11 @@ class PackageBoxSetup(models.Model):
         return self.env['package.box.setup.rule'].search([('setup_id', '=', self.id)])
 
     name = fields.Char(required=True)
-    setup_type = fields.Selection([(const.SetupType.SHEET, "Sheet")], required=True)
+    setup_type = fields.Selection(
+        [(const.SetupType.SHEET, "Sheet")],
+        required=True,
+        default=const.SetupType.SHEET,
+    )
     active = fields.Boolean(default=True)
     rule_ids = fields.One2many('package.box.setup.rule', 'setup_id', string="Rules")
     sequence = fields.Integer(default=10)
