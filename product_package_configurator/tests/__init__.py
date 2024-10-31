@@ -5,4 +5,5 @@ from . import (
     test_package_configurator_box_setup,
     test_package_box_match_setup_rule,
     test_utils,
+    test_package_sheet_match,
 )

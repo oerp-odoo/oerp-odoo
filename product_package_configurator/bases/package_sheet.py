@@ -8,7 +8,6 @@ class PackageSheet(models.AbstractModel):
     _name = 'package.sheet'
     _description = "Package Sheet"
 
-    # name = fields.Char(required=True)
     sheet_type_id = fields.Many2one("package.sheet.type", required=True)
     unit_cost = fields.Float(required=True, digits=const.DecimalPrecision.COST)
     sheet_length = fields.Float(
@@ -22,6 +21,7 @@ class PackageSheet(models.AbstractModel):
         help="Minimum order quantity of sheets to be used regardless of how many are"
         + " needed.",
     )
+    active = fields.Boolean(default=True)
     company_id = fields.Many2one(
         'res.company', required=True, default=lambda s: s.env.company
     )

@@ -29,6 +29,7 @@
                         <group name="right">
                             <field name="min_qty"/>
                             <field name="unit_cost"/>
+                            <field name="active" widget="boolean_toggle"/>
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>
