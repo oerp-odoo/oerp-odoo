@@ -5,8 +5,8 @@ from ..utils.fitter import calc_sheet_quantity
 from ..value_objects.layout import Layout2D
 
 MAP_PART_FIT_QTY = {
-    const.CirculationSetupPart.BASE_CARTON: 'base_layout_fit_qty',
-    const.CirculationSetupPart.LID_CARTON: 'lid_layout_fit_qty',
+    const.CirculationSetupPart.BASE_GREYBOARD: 'base_layout_fit_qty',
+    const.CirculationSetupPart.LID_GREYBOARD: 'lid_layout_fit_qty',
     const.CirculationSetupPart.BASE_INSIDE_WRAPPING: 'base_inside_fit_qty',
     const.CirculationSetupPart.BASE_OUTSIDE_WRAPPING: 'base_outside_fit_qty',
     const.CirculationSetupPart.LID_INSIDE_WRAPPING: 'lid_inside_fit_qty',
@@ -24,8 +24,8 @@ class PackageConfiguratorBoxCirculationSetup(models.Model):
     )
     part = fields.Selection(
         [
-            (const.CirculationSetupPart.BASE_CARTON, "Base Carton"),
-            (const.CirculationSetupPart.LID_CARTON, "Lid Carton"),
+            (const.CirculationSetupPart.BASE_GREYBOARD, "Base Grey Board"),
+            (const.CirculationSetupPart.LID_GREYBOARD, "Lid Grey Board"),
             (const.CirculationSetupPart.BASE_INSIDE_WRAPPING, "Base Inside Wrapping"),
             (const.CirculationSetupPart.BASE_OUTSIDE_WRAPPING, "Base Outside Wrapping"),
             (const.CirculationSetupPart.LID_INSIDE_WRAPPING, "Lid Inside Wrapping"),
@@ -87,14 +87,14 @@ class PackageConfiguratorBoxCirculationSetup(models.Model):
         self, circulation
     ) -> list[tuple[const.CirculationSetupPart, Layout2D]]:
         cfg = circulation.configurator_id
-        # NOTE. For now assuming that base/lid carton parts are always used!
+        # NOTE. For now assuming that base/lid grey board parts are always used!
         res = [
             (
-                const.CirculationSetupPart.BASE_CARTON,
+                const.CirculationSetupPart.BASE_GREYBOARD,
                 Layout2D(length=cfg.base_layout_length, width=cfg.base_layout_width),
             ),
             (
-                const.CirculationSetupPart.LID_CARTON,
+                const.CirculationSetupPart.LID_GREYBOARD,
                 Layout2D(length=cfg.base_layout_length, width=cfg.base_layout_width),
             ),
         ]

@@ -21,8 +21,8 @@ class SheetTypeScope(StrEnum):
 
 
 class CirculationSetupPart(StrEnum):
-    BASE_CARTON = 'base_carton'
-    LID_CARTON = 'lid_carton'
+    BASE_GREYBOARD = 'base_greyboard'
+    LID_GREYBOARD = 'lid_greyboard'
     BASE_INSIDE_WRAPPING = 'base_inside_wrapping'
     BASE_OUTSIDE_WRAPPING = 'base_outside_wrapping'
     LID_INSIDE_WRAPPING = 'lid_inside_wrapping'

@@ -14,7 +14,7 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
         cls.PackageBoxSetupRule = cls.env['package.box.setup.rule']
         cls.PackageBoxType = cls.env['package.box.type']
         cls.PackageSheetType = cls.env['package.sheet.type']
-        cls.PackageCarton = cls.env['package.carton']
+        cls.PackageSheetGreyboard = cls.env['package.sheet.greyboard']
         cls.PackageWrappingpaper = cls.env['package.wrappingpaper']
         cls.PackageBoxLayout = cls.env['package.box.layout']
         cls.PackageLamination = cls.env['package.lamination']
@@ -37,7 +37,7 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
                 },
             ]
         )
-        cls.package_carton_1 = cls.PackageCarton.create(
+        cls.package_sheet_greyboard_1 = cls.PackageSheetGreyboard.create(
             {
                 'sheet_type_id': cls.package_sheet_type_greyboard_1.id,
                 'sheet_length': 1000,

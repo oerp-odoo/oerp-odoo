@@ -36,8 +36,8 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
             {
                 'box_type_id': self.package_box_type_1.id,
                 # thickness: 1.5mm
-                'carton_base_id': self.package_carton_1.id,
-                'carton_lid_id': self.package_carton_1.id,
+                'greyboard_base_id': self.package_sheet_greyboard_1.id,
+                'greyboard_lid_id': self.package_sheet_greyboard_1.id,
                 'wrappingpaper_base_inside_id': self.package_wrappingpaper_1.id,
                 'wrappingpaper_base_outside_id': self.package_wrappingpaper_2.id,
                 'wrappingpaper_lid_inside_id': self.package_wrappingpaper_1.id,
@@ -73,7 +73,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         self.assertEqual(cfg.lid_outside_wrapping_length, 272)
         self.assertEqual(cfg.lid_outside_wrapping_width, 149)
         # Quantities
-        # carton layout is 1000x700 (mm)
+        # grey board layout is 1000x700 (mm)
         # outside wrappingpaper layout is 800x400 (mm)
         # inside wrappingpaper layout is 700x400 (mm)
         self.assertEqual(cfg.base_layout_fit_qty, 27)
@@ -93,8 +93,8 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         self.assertEqual(
             set(circulation_1.circulation_setup_ids.mapped('part')),
             {
-                'base_carton',
-                'lid_carton',
+                'base_greyboard',
+                'lid_greyboard',
                 'base_inside_wrapping',
                 'base_outside_wrapping',
                 'lid_inside_wrapping',
@@ -104,7 +104,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         # setup_qty is 100 and fit qty is 27, so 100/27
         self.assertEqual(
             circulation_1.circulation_setup_ids.filtered(
-                lambda r: r.part == 'base_carton'
+                lambda r: r.part == 'base_greyboard'
             ).setup_raw_qty,
             4,
         )
@@ -125,7 +125,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         # 100/27
         self.assertEqual(
             circulation_1.circulation_setup_ids.filtered(
-                lambda r: r.part == 'lid_carton'
+                lambda r: r.part == 'lid_greyboard'
             ).setup_raw_qty,
             4,
         )
@@ -144,8 +144,8 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
             20,
         )
         # 4+4 from base with setup and 4+4 from lid, with setup
-        self.assertEqual(circulation_1.total_base_carton_quantity, 8)
-        self.assertEqual(circulation_1.total_lid_carton_quantity, 8)
+        self.assertEqual(circulation_1.total_base_greyboard_quantity, 8)
+        self.assertEqual(circulation_1.total_lid_greyboard_quantity, 8)
         # 12+12 from base with setup, 12+12 from lid with setup
         self.assertEqual(circulation_1.total_base_inside_wrappingpaper_quantity, 24)
         self.assertEqual(circulation_1.total_lid_inside_wrappingpaper_quantity, 24)
@@ -167,8 +167,8 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         self.assertEqual(
             set(circulation_2.circulation_setup_ids.mapped('part')),
             {
-                'base_carton',
-                'lid_carton',
+                'base_greyboard',
+                'lid_greyboard',
                 'base_inside_wrapping',
                 'base_outside_wrapping',
                 'lid_inside_wrapping',
@@ -178,7 +178,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         # setup_qty is 200 and fit qty is 27, so 200/27
         self.assertEqual(
             circulation_2.circulation_setup_ids.filtered(
-                lambda r: r.part == 'base_carton'
+                lambda r: r.part == 'base_greyboard'
             ).setup_raw_qty,
             8,
         )
@@ -199,7 +199,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         # 200/27
         self.assertEqual(
             circulation_2.circulation_setup_ids.filtered(
-                lambda r: r.part == 'lid_carton'
+                lambda r: r.part == 'lid_greyboard'
             ).setup_raw_qty,
             8,
         )
@@ -218,8 +218,8 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
             40,
         )
         # 8+8 from base with setup and 8+8 from lid with setup
-        self.assertEqual(circulation_2.total_base_carton_quantity, 16)
-        self.assertEqual(circulation_2.total_lid_carton_quantity, 16)
+        self.assertEqual(circulation_2.total_base_greyboard_quantity, 16)
+        self.assertEqual(circulation_2.total_lid_greyboard_quantity, 16)
         # 23+23 from base with setup, 23+23 from lid with setup
         self.assertEqual(circulation_2.total_base_inside_wrappingpaper_quantity, 46)
         self.assertEqual(circulation_2.total_lid_inside_wrappingpaper_quantity, 46)
@@ -234,7 +234,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         # 14.16 / 200
         self.assertEqual(circulation_2.unit_cost, 0.0708)
 
-    def test_02_configure_box_do_setup_only_carton(self):
+    def test_02_configure_box_do_setup_only_greyboard(self):
         # GIVEN
         setup_1, setup_2 = self.PackageBoxSetup.create(
             [
@@ -263,8 +263,8 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
             {
                 'box_type_id': self.package_box_type_1.id,
                 # thickness: 1.5mm
-                'carton_base_id': self.package_carton_1.id,
-                'carton_lid_id': self.package_carton_1.id,
+                'greyboard_base_id': self.package_sheet_greyboard_1.id,
+                'greyboard_lid_id': self.package_sheet_greyboard_1.id,
                 'wrappingpaper_base_inside_id': False,
                 'wrappingpaper_base_outside_id': False,
                 'wrappingpaper_lid_inside_id': False,
@@ -300,7 +300,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         self.assertEqual(cfg.lid_outside_wrapping_length, 272)
         self.assertEqual(cfg.lid_outside_wrapping_width, 149)
         # Quantities
-        # carton layout is 1000x700 (mm)
+        # grey board layout is 1000x700 (mm)
         # outside wrappingpaper layout is 800x400 (mm)
         # inside wrappingpaper layout is 700x400 (mm)
         self.assertEqual(cfg.base_layout_fit_qty, 27)
@@ -311,32 +311,32 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         self.assertEqual(cfg.lid_outside_fit_qty, 0)
         # Circulations
         # With 100 box circulation
-        # For 1 for base carton + 1 for lid carton.
+        # For 1 for base greyboard + 1 for lid greyboard.
         self.assertEqual(len(circulation_1.circulation_setup_ids), 2)
         self.assertEqual(
             circulation_1.circulation_setup_ids.mapped('setup_rule_id'), setup_1_rule_1
         )
         self.assertEqual(
             set(circulation_1.circulation_setup_ids.mapped('part')),
-            {'base_carton', 'lid_carton'},
+            {'base_greyboard', 'lid_greyboard'},
         )
         # 100/27
         self.assertEqual(
             circulation_1.circulation_setup_ids.filtered(
-                lambda r: r.part == 'base_carton'
+                lambda r: r.part == 'base_greyboard'
             ).setup_raw_qty,
             4,
         )
         # 100/27
         self.assertEqual(
             circulation_1.circulation_setup_ids.filtered(
-                lambda r: r.part == 'lid_carton'
+                lambda r: r.part == 'lid_greyboard'
             ).setup_raw_qty,
             4,
         )
         # 4+4 from base with setup and 4+4 from lid with setup
-        self.assertEqual(circulation_1.total_base_carton_quantity, 8)
-        self.assertEqual(circulation_1.total_lid_carton_quantity, 8)
+        self.assertEqual(circulation_1.total_base_greyboard_quantity, 8)
+        self.assertEqual(circulation_1.total_lid_greyboard_quantity, 8)
         # 12 from base, 12 from lid
         self.assertEqual(circulation_1.total_base_inside_wrappingpaper_quantity, 0)
         self.assertEqual(circulation_1.total_lid_inside_wrappingpaper_quantity, 0)
@@ -357,25 +357,25 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         )
         self.assertEqual(
             set(circulation_2.circulation_setup_ids.mapped('part')),
-            {'base_carton', 'lid_carton'},
+            {'base_greyboard', 'lid_greyboard'},
         )
         # 200/27
         self.assertEqual(
             circulation_2.circulation_setup_ids.filtered(
-                lambda r: r.part == 'base_carton'
+                lambda r: r.part == 'base_greyboard'
             ).setup_raw_qty,
             8,
         )
         # 200/27
         self.assertEqual(
             circulation_2.circulation_setup_ids.filtered(
-                lambda r: r.part == 'lid_carton'
+                lambda r: r.part == 'lid_greyboard'
             ).setup_raw_qty,
             8,
         )
         # 8+8 from base with setup and 8+8 from lid with setup
-        self.assertEqual(circulation_2.total_base_carton_quantity, 16)
-        self.assertEqual(circulation_2.total_lid_carton_quantity, 16)
+        self.assertEqual(circulation_2.total_base_greyboard_quantity, 16)
+        self.assertEqual(circulation_2.total_lid_greyboard_quantity, 16)
         self.assertEqual(circulation_2.total_base_inside_wrappingpaper_quantity, 0)
         self.assertEqual(circulation_2.total_lid_inside_wrappingpaper_quantity, 0)
         self.assertEqual(circulation_2.total_base_outside_wrappingpaper_quantity, 0)

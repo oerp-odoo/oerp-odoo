@@ -20,8 +20,8 @@ class PackageConfiguratorBoxCirculation(models.Model):
         'circulation_id',
         string="Setups",
     )
-    total_base_carton_quantity = fields.Integer(compute='_compute_sheet_quantity')
-    total_lid_carton_quantity = fields.Integer(compute='_compute_sheet_quantity')
+    total_base_greyboard_quantity = fields.Integer(compute='_compute_sheet_quantity')
+    total_lid_greyboard_quantity = fields.Integer(compute='_compute_sheet_quantity')
     total_base_inside_wrappingpaper_quantity = fields.Integer(
         compute='_compute_sheet_quantity',
         string="Total Base Inside Wrapping Paper Quantity",
@@ -86,15 +86,15 @@ class PackageConfiguratorBoxCirculation(models.Model):
             )
 
     @api.depends(
-        'total_base_carton_quantity',
+        'total_base_greyboard_quantity',
         'total_base_inside_wrappingpaper_quantity',
         'total_base_outside_wrappingpaper_quantity',
-        'total_lid_carton_quantity',
+        'total_lid_greyboard_quantity',
         'total_lid_inside_wrappingpaper_quantity',
         'total_lid_outside_wrappingpaper_quantity',
         'quantity',
-        'configurator_id.carton_base_id',
-        'configurator_id.carton_lid_id',
+        'configurator_id.greyboard_base_id',
+        'configurator_id.greyboard_lid_id',
         'configurator_id.wrappingpaper_base_inside_id',
         'configurator_id.wrappingpaper_base_outside_id',
         'configurator_id.wrappingpaper_lid_inside_id',
@@ -138,21 +138,21 @@ class PackageConfiguratorBoxCirculation(models.Model):
         circ_setups = self.circulation_setup_ids
         group_sheet_data_if_applicable(
             fit_qty_map,
-            cfg.carton_base_id,
+            cfg.greyboard_base_id,
             cfg.base_layout_fit_qty,
             circ_setups.filtered(
-                lambda r: r.part == const.CirculationSetupPart.BASE_CARTON
+                lambda r: r.part == const.CirculationSetupPart.BASE_GREYBOARD
             ).setup_raw_qty,
-            'total_base_carton_quantity',
+            'total_base_greyboard_quantity',
         )
         group_sheet_data_if_applicable(
             fit_qty_map,
-            cfg.carton_lid_id,
+            cfg.greyboard_lid_id,
             cfg.lid_layout_fit_qty,
             circ_setups.filtered(
-                lambda r: r.part == const.CirculationSetupPart.LID_CARTON
+                lambda r: r.part == const.CirculationSetupPart.LID_GREYBOARD
             ).setup_raw_qty,
-            'total_lid_carton_quantity',
+            'total_lid_greyboard_quantity',
         )
         group_sheet_data_if_applicable(
             fit_qty_map,
@@ -198,10 +198,10 @@ class PackageConfiguratorBoxCirculation(models.Model):
 
     def _get_init_sheet_quantity_data(self):
         return {
-            'total_base_carton_quantity': 0,
+            'total_base_greyboard_quantity': 0,
             'total_base_inside_wrappingpaper_quantity': 0,
             'total_base_outside_wrappingpaper_quantity': 0,
-            'total_lid_carton_quantity': 0,
+            'total_lid_greyboard_quantity': 0,
             'total_lid_inside_wrappingpaper_quantity': 0,
             'total_lid_outside_wrappingpaper_quantity': 0,
         }
@@ -213,10 +213,10 @@ class PackageConfiguratorBoxCirculation(models.Model):
             cfg = self.configurator_id
             total_cost = 0
             total_cost += multiply(
-                cfg.carton_base_id.unit_cost, self.total_base_carton_quantity
+                cfg.greyboard_base_id.unit_cost, self.total_base_greyboard_quantity
             )
             total_cost += multiply(
-                cfg.carton_lid_id.unit_cost, self.total_lid_carton_quantity
+                cfg.greyboard_lid_id.unit_cost, self.total_lid_greyboard_quantity
             )
             total_cost += multiply(
                 cfg.wrappingpaper_base_inside_id.unit_cost,

@@ -10,10 +10,10 @@
                 <field name="total_cost"/>
                 <field name="total_lamination_outside_cost"/>
                 <field name="total_lamination_inside_cost"/>
-                <field name="total_base_carton_quantity"/>
+                <field name="total_base_greyboard_quantity"/>
                 <field name="total_base_outside_wrappingpaper_quantity"/>
                 <field name="total_base_inside_wrappingpaper_quantity"/>
-                <field name="total_lid_carton_quantity"/>
+                <field name="total_lid_greyboard_quantity"/>
                 <field name="total_lid_outside_wrappingpaper_quantity"/>
                 <field name="total_lid_inside_wrappingpaper_quantity"/>
             </tree>
@@ -29,10 +29,10 @@
                     <group name="main">
                         <group name="quantities" string="Quantities">
                             <field name="quantity"/>
-                            <field name="total_base_carton_quantity"/>
+                            <field name="total_base_greyboard_quantity"/>
                             <field name="total_base_outside_wrappingpaper_quantity"/>
                             <field name="total_base_inside_wrappingpaper_quantity"/>
-                            <field name="total_lid_carton_quantity"/>
+                            <field name="total_lid_greyboard_quantity"/>
                             <field name="total_lid_outside_wrappingpaper_quantity"/>
                             <field name="total_lid_inside_wrappingpaper_quantity"/>
                         </group>

@@ -11,9 +11,9 @@ from ..value_objects.layout import LayoutFitter
 def calc_fit_quantity(fitter: LayoutFitter):
     """Calculate how many product layouts fit on single sheet."""
 
-    def calc_side_fit(product_layout, carton_length, carton_width):
-        return math.floor(carton_length / product_layout.length) * math.floor(
-            carton_width / product_layout.width
+    def calc_side_fit(product_layout, greyboard_length, greyboard_width):
+        return math.floor(greyboard_length / product_layout.length) * math.floor(
+            greyboard_width / product_layout.width
         )
 
     product_layout = fitter.product_layout

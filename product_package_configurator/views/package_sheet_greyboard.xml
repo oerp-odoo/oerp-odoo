@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="package_carton_view_tree" model="ir.ui.view">
-        <field name="name">package.carton.tree</field>
-        <field name="model">package.carton</field>
+    <record id="package_sheet_greyboard_view_tree" model="ir.ui.view">
+        <field name="name">package.sheet.greyboard.tree</field>
+        <field name="model">package.sheet.greyboard</field>
         <field name="inherit_id" ref="package_sheet_view_tree"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
@@ -12,9 +12,9 @@
         </field>
     </record>
 
-    <record id="package_carton_view_form" model="ir.ui.view">
-        <field name="name">package.carton.form</field>
-        <field name="model">package.carton</field>
+    <record id="package_sheet_greyboard_view_form" model="ir.ui.view">
+        <field name="name">package.sheet.greyboard.form</field>
+        <field name="model">package.sheet.greyboard</field>
         <field name="inherit_id" ref="package_sheet_view_form"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
@@ -24,9 +24,9 @@
         </field>
     </record>
 
-    <record id="package_carton_action" model="ir.actions.act_window">
-        <field name="name">Cartons</field>
-        <field name="res_model">package.carton</field>
+    <record id="package_sheet_greyboard_action" model="ir.actions.act_window">
+        <field name="name">Grey Boards</field>
+        <field name="res_model">package.sheet.greyboard</field>
         <field name="view_mode">tree,form</field>
     </record>
 </odoo>

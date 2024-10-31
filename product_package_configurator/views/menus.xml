@@ -48,8 +48,8 @@
 
             <menuitem id="package_sheet_menu" name="Sheets" sequence="20">
                 <menuitem
-                    id="package_carton_menu"
-                    action="package_carton_action"
+                    id="package_sheet_greyboard_menu"
+                    action="package_sheet_greyboard_action"
                     sequence="5"
                 />
                 <menuitem

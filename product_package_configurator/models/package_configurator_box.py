@@ -39,10 +39,12 @@ class PackageConfiguratorBox(models.Model):
     lid_extra = fields.Float()
     outside_wrapping_extra = fields.Float()
     box_type_id = fields.Many2one('package.box.type', required=True)
-    carton_base_id = fields.Many2one(
-        'package.carton', string="Base Carton", required=True
+    greyboard_base_id = fields.Many2one(
+        'package.sheet.greyboard', string="Base Grey Board", required=True
     )
-    carton_lid_id = fields.Many2one('package.carton', string="Lid Carton")
+    greyboard_lid_id = fields.Many2one(
+        'package.sheet.greyboard', string="Lid Grey Board"
+    )
     wrappingpaper_base_outside_id = fields.Many2one(
         'package.wrappingpaper', string="Base Outside Wrapping Paper"
     )
@@ -89,7 +91,7 @@ class PackageConfiguratorBox(models.Model):
     lid_outside_fit_qty = fields.Integer(compute='_compute_fit_qty')
 
     @api.depends(
-        'carton_base_id',
+        'greyboard_base_id',
         'base_length',
         'base_width',
         'base_height',
@@ -171,8 +173,8 @@ class PackageConfiguratorBox(models.Model):
         'lid_inside_wrapping_width',
         'lid_outside_wrapping_length',
         'lid_outside_wrapping_width',
-        'carton_base_id',
-        'carton_lid_id',
+        'greyboard_base_id',
+        'greyboard_lid_id',
         'wrappingpaper_base_inside_id',
         'wrappingpaper_base_outside_id',
         'wrappingpaper_lid_inside_id',
@@ -238,7 +240,7 @@ class PackageConfiguratorBox(models.Model):
             ),
             LidDimensions(
                 height=self.lid_height,
-                thickness=self.carton_base_id.sheet_type_id.thickness,
+                thickness=self.greyboard_base_id.sheet_type_id.thickness,
                 extra=self.lid_extra + global_extra,
             ),
         )
@@ -279,8 +281,8 @@ class PackageConfiguratorBox(models.Model):
             self.base_layout_length,
             self.base_layout_width,
             Layout2D(
-                length=self.carton_base_id.sheet_length,
-                width=self.carton_base_id.sheet_width,
+                length=self.greyboard_base_id.sheet_length,
+                width=self.greyboard_base_id.sheet_width,
             ),
         )
         set_fit_qty_if_applicable(
@@ -289,8 +291,8 @@ class PackageConfiguratorBox(models.Model):
             self.lid_layout_length,
             self.lid_layout_width,
             Layout2D(
-                length=self.carton_lid_id.sheet_length,
-                width=self.carton_lid_id.sheet_width,
+                length=self.greyboard_lid_id.sheet_length,
+                width=self.greyboard_lid_id.sheet_width,
             ),
         )
         if self.wrappingpaper_base_inside_id:
