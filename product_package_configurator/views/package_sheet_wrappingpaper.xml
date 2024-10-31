@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="package_wrappingpaper_view_tree" model="ir.ui.view">
-        <field name="name">package.wrappingpaper.tree</field>
-        <field name="model">package.wrappingpaper</field>
+    <record id="package_sheet_wrappingpaper_view_tree" model="ir.ui.view">
+        <field name="name">package.sheet.wrappingpaper.tree</field>
+        <field name="model">package.sheet.wrappingpaper</field>
         <field name="inherit_id" ref="package_sheet_view_tree"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
@@ -12,9 +12,9 @@
         </field>
     </record>
 
-    <record id="package_wrappingpaper_view_form" model="ir.ui.view">
-        <field name="name">package.wrappingpaper.form</field>
-        <field name="model">package.wrappingpaper</field>
+    <record id="package_sheet_wrappingpaper_view_form" model="ir.ui.view">
+        <field name="name">package.sheet.wrappingpaper.form</field>
+        <field name="model">package.sheet.wrappingpaper</field>
         <field name="inherit_id" ref="package_sheet_view_form"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
@@ -24,15 +24,15 @@
         </field>
     </record>
 
-    <record id="package_wrappingpaper_action" model="ir.actions.act_window">
+    <record id="package_sheet_wrappingpaper_action" model="ir.actions.act_window">
         <field name="name">Wrapping Papers</field>
-        <field name="res_model">package.wrappingpaper</field>
+        <field name="res_model">package.sheet.wrappingpaper</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-    <record id="package_wrappingpaper_action" model="ir.actions.act_window">
+    <record id="package_sheet_wrappingpaper_action" model="ir.actions.act_window">
         <field name="name">Wrapping Papers</field>
-        <field name="res_model">package.wrappingpaper</field>
+        <field name="res_model">package.sheet.wrappingpaper</field>
         <field name="view_mode">tree,form</field>
     </record>
 </odoo>

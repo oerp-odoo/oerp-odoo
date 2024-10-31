@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo noupdate="1">
     <record
-        id="package_wrappingpaper_multi_art_150_640_900"
-        model="package.wrappingpaper"
+        id="package_sheet_wrappingpaper_multi_art_150_640_900"
+        model="package.sheet.wrappingpaper"
     >
         <field name="sheet_type_id" ref="package_sheet_type_wrappinpaper_multiart_1"/>
         <field name="sheet_length" eval="900"/>

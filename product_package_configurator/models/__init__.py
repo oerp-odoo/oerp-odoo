@@ -8,7 +8,7 @@ from . import (
     package_box_setup,
     package_box_setup_rule,
     package_sheet_greyboard,
-    package_wrappingpaper,
+    package_sheet_wrappingpaper,
     package_lamination,
     package_sheet_type,
 )

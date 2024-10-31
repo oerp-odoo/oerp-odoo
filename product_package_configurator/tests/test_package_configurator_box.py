@@ -15,10 +15,10 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
                 # thickness: 1.5mm
                 'greyboard_base_id': self.package_sheet_greyboard_1.id,
                 'greyboard_lid_id': self.package_sheet_greyboard_1.id,
-                'wrappingpaper_base_inside_id': self.package_wrappingpaper_1.id,
-                'wrappingpaper_base_outside_id': self.package_wrappingpaper_2.id,
-                'wrappingpaper_lid_inside_id': self.package_wrappingpaper_1.id,
-                'wrappingpaper_lid_outside_id': self.package_wrappingpaper_2.id,
+                'wrappingpaper_base_inside_id': self.package_sheet_wrappingpaper_1.id,
+                'wrappingpaper_base_outside_id': self.package_sheet_wrappingpaper_2.id,
+                'wrappingpaper_lid_inside_id': self.package_sheet_wrappingpaper_1.id,
+                'wrappingpaper_lid_outside_id': self.package_sheet_wrappingpaper_2.id,
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,
@@ -99,10 +99,10 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
                 # thickness: 1.5mm
                 'greyboard_base_id': self.package_sheet_greyboard_1.id,
                 'greyboard_lid_id': self.package_sheet_greyboard_1.id,
-                'wrappingpaper_base_inside_id': self.package_wrappingpaper_1.id,
-                'wrappingpaper_base_outside_id': self.package_wrappingpaper_2.id,
-                'wrappingpaper_lid_inside_id': self.package_wrappingpaper_1.id,
-                'wrappingpaper_lid_outside_id': self.package_wrappingpaper_2.id,
+                'wrappingpaper_base_inside_id': self.package_sheet_wrappingpaper_1.id,
+                'wrappingpaper_base_outside_id': self.package_sheet_wrappingpaper_2.id,
+                'wrappingpaper_lid_inside_id': self.package_sheet_wrappingpaper_1.id,
+                'wrappingpaper_lid_outside_id': self.package_sheet_wrappingpaper_2.id,
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,
@@ -180,19 +180,19 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         # GIVEN
         self.package_sheet_greyboard_1.min_qty = 10
         # Inside
-        self.package_wrappingpaper_1.min_qty = 24
+        self.package_sheet_wrappingpaper_1.min_qty = 24
         # Outside
-        self.package_wrappingpaper_2.min_qty = 50
+        self.package_sheet_wrappingpaper_2.min_qty = 50
         cfg = self.PackageConfiguratorBox.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 # thickness: 1.5mm
                 'greyboard_base_id': self.package_sheet_greyboard_1.id,
                 'greyboard_lid_id': self.package_sheet_greyboard_1.id,
-                'wrappingpaper_base_inside_id': self.package_wrappingpaper_1.id,
-                'wrappingpaper_base_outside_id': self.package_wrappingpaper_2.id,
-                'wrappingpaper_lid_inside_id': self.package_wrappingpaper_1.id,
-                'wrappingpaper_lid_outside_id': self.package_wrappingpaper_2.id,
+                'wrappingpaper_base_inside_id': self.package_sheet_wrappingpaper_1.id,
+                'wrappingpaper_base_outside_id': self.package_sheet_wrappingpaper_2.id,
+                'wrappingpaper_lid_inside_id': self.package_sheet_wrappingpaper_1.id,
+                'wrappingpaper_lid_outside_id': self.package_sheet_wrappingpaper_2.id,
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,
@@ -260,10 +260,10 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
                 # thickness: 1.5mm
                 'greyboard_base_id': self.package_sheet_greyboard_1.id,
                 'greyboard_lid_id': self.package_sheet_greyboard_1.id,
-                'wrappingpaper_base_inside_id': self.package_wrappingpaper_1.id,
-                'wrappingpaper_base_outside_id': self.package_wrappingpaper_2.id,
-                'wrappingpaper_lid_inside_id': self.package_wrappingpaper_1.id,
-                'wrappingpaper_lid_outside_id': self.package_wrappingpaper_2.id,
+                'wrappingpaper_base_inside_id': self.package_sheet_wrappingpaper_1.id,
+                'wrappingpaper_base_outside_id': self.package_sheet_wrappingpaper_2.id,
+                'wrappingpaper_lid_inside_id': self.package_sheet_wrappingpaper_1.id,
+                'wrappingpaper_lid_outside_id': self.package_sheet_wrappingpaper_2.id,
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,
@@ -364,10 +364,10 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
                 # thickness: 1.5mm
                 'greyboard_base_id': self.package_sheet_greyboard_1.id,
                 'greyboard_lid_id': self.package_sheet_greyboard_1.id,
-                'wrappingpaper_base_inside_id': self.package_wrappingpaper_1.id,
-                'wrappingpaper_base_outside_id': self.package_wrappingpaper_2.id,
-                'wrappingpaper_lid_inside_id': self.package_wrappingpaper_1.id,
-                'wrappingpaper_lid_outside_id': self.package_wrappingpaper_2.id,
+                'wrappingpaper_base_inside_id': self.package_sheet_wrappingpaper_1.id,
+                'wrappingpaper_base_outside_id': self.package_sheet_wrappingpaper_2.id,
+                'wrappingpaper_lid_inside_id': self.package_sheet_wrappingpaper_1.id,
+                'wrappingpaper_lid_outside_id': self.package_sheet_wrappingpaper_2.id,
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 0.0,

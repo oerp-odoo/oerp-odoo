@@ -53,8 +53,8 @@
                     sequence="5"
                 />
                 <menuitem
-                    id="package_wrappingpaper_menu"
-                    action="package_wrappingpaper_action"
+                    id="package_sheet_wrappingpaper_menu"
+                    action="package_sheet_wrappingpaper_action"
                     sequence="10"
                 />
             </menuitem>

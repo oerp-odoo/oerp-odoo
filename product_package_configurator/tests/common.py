@@ -15,7 +15,7 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
         cls.PackageBoxType = cls.env['package.box.type']
         cls.PackageSheetType = cls.env['package.sheet.type']
         cls.PackageSheetGreyboard = cls.env['package.sheet.greyboard']
-        cls.PackageWrappingpaper = cls.env['package.wrappingpaper']
+        cls.PackageSheetWrappingpaper = cls.env['package.sheet.wrappingpaper']
         cls.PackageBoxLayout = cls.env['package.box.layout']
         cls.PackageLamination = cls.env['package.lamination']
         (
@@ -45,7 +45,7 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
                 'unit_cost': 0.05,
             }
         )
-        cls.package_wrappingpaper_1 = cls.PackageWrappingpaper.create(
+        cls.package_sheet_wrappingpaper_1 = cls.PackageSheetWrappingpaper.create(
             {
                 'sheet_type_id': cls.package_sheet_type_wrappingpaper_1.id,
                 'sheet_length': 700,
@@ -53,7 +53,7 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
                 'unit_cost': 0.04,
             }
         )
-        cls.package_wrappingpaper_2 = cls.PackageWrappingpaper.create(
+        cls.package_sheet_wrappingpaper_2 = cls.PackageSheetWrappingpaper.create(
             {
                 'sheet_type_id': cls.package_sheet_type_wrappingpaper_1.id,
                 'sheet_length': 800,

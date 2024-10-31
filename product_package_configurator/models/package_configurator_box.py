@@ -46,16 +46,16 @@ class PackageConfiguratorBox(models.Model):
         'package.sheet.greyboard', string="Lid Grey Board"
     )
     wrappingpaper_base_outside_id = fields.Many2one(
-        'package.wrappingpaper', string="Base Outside Wrapping Paper"
+        'package.sheet.wrappingpaper', string="Base Outside Wrapping Paper"
     )
     wrappingpaper_base_inside_id = fields.Many2one(
-        'package.wrappingpaper', string="Base Inside Wrapping Paper"
+        'package.sheet.wrappingpaper', string="Base Inside Wrapping Paper"
     )
     wrappingpaper_lid_outside_id = fields.Many2one(
-        'package.wrappingpaper', string="Lid Outside Wrapping Paper"
+        'package.sheet.wrappingpaper', string="Lid Outside Wrapping Paper"
     )
     wrappingpaper_lid_inside_id = fields.Many2one(
-        'package.wrappingpaper', string="Lid Inside Wrapping Paper"
+        'package.sheet.wrappingpaper', string="Lid Inside Wrapping Paper"
     )
     lamination_outside_id = fields.Many2one(
         'package.lamination', string="Outside Lamination"
