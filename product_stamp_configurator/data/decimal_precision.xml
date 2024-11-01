@@ -8,4 +8,12 @@
         <field name="name">Stamp Weight</field>
         <field name="digits">6</field>
     </record>
+    <record
+        id="decimal_precision_stamp_unit_price"
+        forcecreate="True"
+        model="decimal.precision"
+    >
+        <field name="name">Stamp Unit Price</field>
+        <field name="digits">2</field>
+    </record>
 </odoo>

@@ -3,7 +3,7 @@ import json
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-from ..const import DP_PRICE
+from ..const import DP_PRICE, DP_UNIT_PRICE
 from ..stamp import code, description, name, parsing, price
 from ..utils import FieldTranslation, translate_field
 
@@ -160,17 +160,17 @@ class StampConfigure(models.TransientModel):
     price_sqcm_mold_custom = fields.Float("Custom Mold ㎠ Price", digits=DP_PRICE)
     price_unit_die = fields.Float(
         "Die Unit Price",
-        digits=DP_PRICE,
+        digits=DP_UNIT_PRICE,
         compute='_compute_prices',
     )
     price_unit_counter_die = fields.Float(
         "Counter-Die Unit Price",
-        digits=DP_PRICE,
+        digits=DP_UNIT_PRICE,
         compute='_compute_prices',
     )
     price_unit_mold = fields.Float(
         "Mold Unit Price",
-        digits=DP_PRICE,
+        digits=DP_UNIT_PRICE,
         compute='_compute_prices',
     )
     cost_unit_die = fields.Float(
