@@ -10,16 +10,13 @@ class BoxComponentType:
     Attributes:
         name: unique name identifying component
         label: user friendly name
+        scope: to which types of sheets this component type can be used.
 
     """
 
     name: str
     label: str
     scope: const.SheetTypeScope
-    # TODO: these should be removed once layout calculations are moved to component
-    # model!
-    length_field: str
-    width_field: str
 
     @classmethod
     def from_default(cls):
@@ -27,6 +24,4 @@ class BoxComponentType:
             name="",
             label="",
             scope=const.SheetTypeScope.GREYBOARD,
-            length_field="",
-            width_field="",
         )

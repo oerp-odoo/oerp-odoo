@@ -2,7 +2,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 from .. import const, utils
-from ..value_objects.layout import BaseDimensions, Layout2D, LayoutFitter, LidDimensions
+from ..value_objects import layout as vo_layout
 
 MANDATORY_LAYOUT_INP_FIELDS = [
     'base_length',
@@ -144,11 +144,11 @@ class PackageConfiguratorBox(models.Model):
             data = box._get_init_laminations_data()
             if box.lamination_inside_id:
                 res = calc_area_and_price(
-                    Layout2D(
+                    vo_layout.Layout2D(
                         length=box.base_inside_wrapping_length,
                         width=box.base_inside_wrapping_width,
                     ).area,
-                    Layout2D(
+                    vo_layout.Layout2D(
                         length=box.lid_inside_wrapping_length,
                         width=box.lid_inside_wrapping_width,
                     ).area,
@@ -162,11 +162,11 @@ class PackageConfiguratorBox(models.Model):
                 )
             if box.lamination_outside_id:
                 res = calc_area_and_price(
-                    Layout2D(
+                    vo_layout.Layout2D(
                         length=box.base_outside_wrapping_length,
                         width=box.base_outside_wrapping_width,
                     ).area,
-                    Layout2D(
+                    vo_layout.Layout2D(
                         length=box.lid_outside_wrapping_length,
                         width=box.lid_outside_wrapping_width,
                     ).area,
@@ -252,14 +252,14 @@ class PackageConfiguratorBox(models.Model):
         # TODO: move layout data calculation to component model!
         global_extra = self.company_id.package_default_global_box_extra
         res = self.env['package.box.layout'].get_layouts(
-            BaseDimensions(
+            vo_layout.BaseDimensions(
                 length=self.base_length,
                 width=self.base_width,
                 height=self.base_height,
                 outside_wrapping_extra=self.outside_wrapping_extra,
                 extra=global_extra,
             ),
-            LidDimensions(
+            vo_layout.LidDimensions(
                 height=self.lid_height,
                 thickness=self.sheet_greyboard_base_id.sheet_type_id.thickness,
                 extra=self.lid_extra + global_extra,
@@ -283,13 +283,17 @@ class PackageConfiguratorBox(models.Model):
     # TODO: move this method to a service. It is getting quite clunky.
     def _get_fit_qty_data(self):
         def set_fit_qty_if_applicable(
-            data: dict, fname: str, length: int, width: int, sheet_layout: Layout2D
+            data: dict,
+            fname: str,
+            length: int,
+            width: int,
+            sheet_layout: vo_layout.Layout2D,
         ):
             if not length or not width:
                 return None
             data[fname] = utils.fitter.calc_fit_quantity(
-                LayoutFitter(
-                    product_layout=Layout2D(length=length, width=width),
+                vo_layout.LayoutFitter(
+                    product_layout=vo_layout.Layout2D(length=length, width=width),
                     sheet_layout=sheet_layout,
                 )
             )
@@ -301,7 +305,7 @@ class PackageConfiguratorBox(models.Model):
             'base_layout_fit_qty',
             self.base_layout_length,
             self.base_layout_width,
-            Layout2D(
+            vo_layout.Layout2D(
                 length=self.sheet_greyboard_base_id.sheet_length,
                 width=self.sheet_greyboard_base_id.sheet_width,
             ),
@@ -311,7 +315,7 @@ class PackageConfiguratorBox(models.Model):
             'lid_layout_fit_qty',
             self.lid_layout_length,
             self.lid_layout_width,
-            Layout2D(
+            vo_layout.Layout2D(
                 length=self.sheet_greyboard_lid_id.sheet_length,
                 width=self.sheet_greyboard_lid_id.sheet_width,
             ),
@@ -322,7 +326,7 @@ class PackageConfiguratorBox(models.Model):
                 'base_inside_fit_qty',
                 self.base_inside_wrapping_length,
                 self.base_inside_wrapping_width,
-                Layout2D(
+                vo_layout.Layout2D(
                     length=self.sheet_wrappingpaper_base_inside_id.sheet_length,
                     width=self.sheet_wrappingpaper_base_inside_id.sheet_width,
                 ),
@@ -333,7 +337,7 @@ class PackageConfiguratorBox(models.Model):
                 'base_outside_fit_qty',
                 self.base_outside_wrapping_length,
                 self.base_outside_wrapping_width,
-                Layout2D(
+                vo_layout.Layout2D(
                     length=self.sheet_wrappingpaper_base_outside_id.sheet_length,
                     width=self.sheet_wrappingpaper_base_outside_id.sheet_width,
                 ),
@@ -344,7 +348,7 @@ class PackageConfiguratorBox(models.Model):
                 'lid_inside_fit_qty',
                 self.lid_inside_wrapping_length,
                 self.lid_inside_wrapping_width,
-                Layout2D(
+                vo_layout.Layout2D(
                     length=self.sheet_wrappingpaper_lid_inside_id.sheet_length,
                     width=self.sheet_wrappingpaper_lid_inside_id.sheet_width,
                 ),
@@ -355,7 +359,7 @@ class PackageConfiguratorBox(models.Model):
                 'lid_outside_fit_qty',
                 self.lid_outside_wrapping_length,
                 self.lid_outside_wrapping_width,
-                Layout2D(
+                vo_layout.Layout2D(
                     length=self.sheet_wrappingpaper_lid_outside_id.sheet_length,
                     width=self.sheet_wrappingpaper_lid_outside_id.sheet_width,
                 ),

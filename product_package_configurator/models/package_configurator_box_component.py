@@ -5,6 +5,12 @@ from .. import const, utils
 from ..value_objects import layout as vo_layout
 from ..value_objects.component import BoxComponentType
 
+LAYOUT_CFG_MANDATORY_FIELDS = [
+    'base_length',
+    'base_width',
+    'base_height',
+]
+
 
 class PackageConfiguratorBoxComponent(models.Model):
     _name = 'package.configurator.box.component'
@@ -20,6 +26,8 @@ class PackageConfiguratorBoxComponent(models.Model):
         required=True,
         default='base_greyboard',
     )
+    component_length = fields.Float(compute='_compute_type_data')
+    component_width = fields.Float(compute='_compute_type_data')
     scope = fields.Selection(const.SHEET_TYPE_SELECTION, compute='_compute_type_data')
     sheet_type_id = fields.Many2one(
         'package.sheet.type', domain="[('scope', '=', scope)]"
@@ -47,25 +55,42 @@ class PackageConfiguratorBoxComponent(models.Model):
         for rec in self:
             ct = rec.get_component_type()
             data = rec._get_init_type_data(ct)
-            if ct.name:
-                data['fit_qty'] = rec._calc_fit_qty(ct)
+            # if ct.name:
+            #     data['fit_qty'] = rec._calc_fit_qty(ct)
             rec.update(data)
+        configs = self.mapped('configurator_id')
+        for cfg in configs:
+            res = self.env['package.box.layout'].get_cfg_layouts(cfg)
+            for ctype, layout in res.items():
+                for comp in cfg.component_ids:
+                    if comp.component_type != ctype:
+                        continue
+                    comp.update(
+                        {
+                            'component_length': layout.length,
+                            'component_width': layout.width,
+                        }
+                    )
+                    # NOTE. We must wait, before component_length, component_width
+                    # is set as it is needed for _calc_fit_qty
+                    comp.fit_qty = comp._calc_fit_qty()
+                    break
 
     @api.depends('sheet_type_id')
     def _compute_sheet_id(self):
         for rec in self:
             if not rec.sheet_type_id:
                 continue
-            cfg = rec.configurator_id
-            ct = rec.get_component_type()
-            # TODO: move length/width to component model!
-            if not cfg[ct.length_field] or not cfg[ct.width_field]:
+            # We can't rely on component_length, component_width compute,
+            # because this one can be computed earlier and then those
+            # values would be 0, so we directly get result from get_cfg_layouts!
+            res = self.env['package.box.layout'].get_cfg_layouts(rec.configurator_id)
+            layout = res[rec.component_type]
+            if not layout.length or not layout.width:
                 continue
             rec.sheet_id = rec.env['package.sheet.match'].match(
                 rec.sheet_type_id,
-                vo_layout.Layout2D(
-                    length=cfg[ct.length_field], width=cfg[ct.width_field]
-                ),
+                vo_layout.Layout2D(length=layout.length, width=layout.width),
             )
 
     @api.onchange('component_type')
@@ -108,44 +133,32 @@ class PackageConfiguratorBoxComponent(models.Model):
                 name='base_greyboard',
                 label="Base Grey Board",
                 scope=const.SheetTypeScope.GREYBOARD,
-                length_field='base_layout_length',
-                width_field='base_layout_width',
             ),
             BoxComponentType(
                 name='lid_greyboard',
                 label="Lid Grey Board",
                 scope=const.SheetTypeScope.GREYBOARD,
-                length_field='lid_layout_length',
-                width_field='lid_layout_width',
             ),
             # Wrapping Paper types.
             BoxComponentType(
                 name='base_wrappingpaper_inside',
                 label="Base Inside Wrapping Paper",
                 scope=const.SheetTypeScope.WRAPPINGPAPER,
-                length_field='base_inside_wrapping_length',
-                width_field='base_inside_wrapping_width',
             ),
             BoxComponentType(
                 name='base_wrappingpaper_outside',
                 label="Base Outside Wrapping Paper",
                 scope=const.SheetTypeScope.WRAPPINGPAPER,
-                length_field='base_outside_wrapping_length',
-                width_field='base_outside_wrapping_width',
             ),
             BoxComponentType(
                 name='lid_wrappingpaper_inside',
                 label="Lid Inside Wrapping Paper",
                 scope=const.SheetTypeScope.WRAPPINGPAPER,
-                length_field='lid_inside_wrapping_length',
-                width_field='lid_inside_wrapping_width',
             ),
             BoxComponentType(
                 name='lid_wrappingpaper_outside',
                 label="Lid Outside Wrapping Paper",
                 scope=const.SheetTypeScope.WRAPPINGPAPER,
-                length_field='lid_outside_wrapping_length',
-                width_field='lid_outside_wrapping_width',
             ),
         ]
 
@@ -161,23 +174,21 @@ class PackageConfiguratorBoxComponent(models.Model):
             if ct.name == self.component_type:
                 return ct
 
-    def _calc_fit_qty(self, component_type: BoxComponentType):
-        def can_calc(ct, sheet):
+    def _calc_fit_qty(self):
+        def can_calc(sheet):
             return (
-                cfg[ct.length_field]
-                and cfg[ct.width_field]
+                self.component_length
+                and self.component_width
                 and sheet.sheet_length
                 and sheet.sheet_width
             )
 
         self.ensure_one()
-        ct = component_type
-        cfg = self.configurator_id
         sheet = self.sheet_id
-        if not can_calc(ct, sheet):
+        if not can_calc(sheet):
             return 0
         product_layout = vo_layout.Layout2D(
-            length=cfg[ct.length_field], width=cfg[ct.width_field]
+            length=self.component_length, width=self.component_width
         )
         sheet_layout = vo_layout.Layout2D(
             length=sheet.sheet_length, width=sheet.sheet_width
@@ -192,4 +203,6 @@ class PackageConfiguratorBoxComponent(models.Model):
         return {
             'scope': component_type.scope,
             'fit_qty': 0,
+            'component_length': 0.0,
+            'component_width': 0.0,
         }
