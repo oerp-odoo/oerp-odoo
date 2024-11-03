@@ -79,8 +79,11 @@ class PackageConfiguratorBoxComponent(models.Model):
 
     @api.constrains('component_type')
     def _check_component_type(self):
-        for rec in self:
-            ctypes = rec.configurator_id.component_ids.mapped('component_type')
+        configs = self.mapped('configurator_id')
+        for cfg in configs:
+            ctypes = cfg.component_ids.mapped('component_type')
+            if 'base_greyboard' not in ctypes:
+                raise ValidationError(_("Base Greyboard component is required!"))
             if len(ctypes) != len(set(ctypes)):
                 raise ValidationError(
                     _("Component types must be unique per configurator!")
