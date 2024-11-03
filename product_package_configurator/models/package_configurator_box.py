@@ -102,13 +102,6 @@ class PackageConfiguratorBox(models.Model):
     lamination_inside_unit_cost = fields.Float(compute='_compute_lamination_fields')
     lamination_outside_area = fields.Float(compute='_compute_lamination_fields')
     lamination_outside_unit_cost = fields.Float(compute='_compute_lamination_fields')
-    # Quantities
-    base_layout_fit_qty = fields.Integer(compute='_compute_fit_qty')
-    base_inside_fit_qty = fields.Integer(compute='_compute_fit_qty')
-    base_outside_fit_qty = fields.Integer(compute='_compute_fit_qty')
-    lid_layout_fit_qty = fields.Integer(compute='_compute_fit_qty')
-    lid_inside_fit_qty = fields.Integer(compute='_compute_fit_qty')
-    lid_outside_fit_qty = fields.Integer(compute='_compute_fit_qty')
 
     @api.depends(
         'sheet_greyboard_base_id',
@@ -179,30 +172,6 @@ class PackageConfiguratorBox(models.Model):
                     }
                 )
             box.update(data)
-
-    @api.depends(
-        'base_layout_length',
-        'base_layout_width',
-        'base_inside_wrapping_length',
-        'base_inside_wrapping_width',
-        'base_outside_wrapping_length',
-        'base_outside_wrapping_width',
-        'lid_layout_length',
-        'lid_layout_width',
-        'lid_inside_wrapping_length',
-        'lid_inside_wrapping_width',
-        'lid_outside_wrapping_length',
-        'lid_outside_wrapping_width',
-        'sheet_greyboard_base_id',
-        'sheet_greyboard_lid_id',
-        'sheet_wrappingpaper_base_inside_id',
-        'sheet_wrappingpaper_base_outside_id',
-        'sheet_wrappingpaper_lid_inside_id',
-        'sheet_wrappingpaper_lid_outside_id',
-    )
-    def _compute_fit_qty(self):
-        for box in self:
-            box.update(box._get_fit_qty_data())
 
     @api.constrains(
         'box_type_id',
@@ -279,92 +248,6 @@ class PackageConfiguratorBox(models.Model):
             'lid_outside_wrapping_length': res['lid']['outside_wrapping'].length,
             'lid_outside_wrapping_width': res['lid']['outside_wrapping'].width,
         }
-
-    # TODO: move this method to a service. It is getting quite clunky.
-    def _get_fit_qty_data(self):
-        def set_fit_qty_if_applicable(
-            data: dict,
-            fname: str,
-            length: int,
-            width: int,
-            sheet_layout: vo_layout.Layout2D,
-        ):
-            if not length or not width:
-                return None
-            data[fname] = utils.fitter.calc_fit_quantity(
-                vo_layout.LayoutFitter(
-                    product_layout=vo_layout.Layout2D(length=length, width=width),
-                    sheet_layout=sheet_layout,
-                )
-            )
-
-        self.ensure_one()
-        data = self._get_init_fit_qty_data()
-        set_fit_qty_if_applicable(
-            data,
-            'base_layout_fit_qty',
-            self.base_layout_length,
-            self.base_layout_width,
-            vo_layout.Layout2D(
-                length=self.sheet_greyboard_base_id.sheet_length,
-                width=self.sheet_greyboard_base_id.sheet_width,
-            ),
-        )
-        set_fit_qty_if_applicable(
-            data,
-            'lid_layout_fit_qty',
-            self.lid_layout_length,
-            self.lid_layout_width,
-            vo_layout.Layout2D(
-                length=self.sheet_greyboard_lid_id.sheet_length,
-                width=self.sheet_greyboard_lid_id.sheet_width,
-            ),
-        )
-        if self.sheet_wrappingpaper_base_inside_id:
-            set_fit_qty_if_applicable(
-                data,
-                'base_inside_fit_qty',
-                self.base_inside_wrapping_length,
-                self.base_inside_wrapping_width,
-                vo_layout.Layout2D(
-                    length=self.sheet_wrappingpaper_base_inside_id.sheet_length,
-                    width=self.sheet_wrappingpaper_base_inside_id.sheet_width,
-                ),
-            )
-        if self.sheet_wrappingpaper_base_outside_id:
-            set_fit_qty_if_applicable(
-                data,
-                'base_outside_fit_qty',
-                self.base_outside_wrapping_length,
-                self.base_outside_wrapping_width,
-                vo_layout.Layout2D(
-                    length=self.sheet_wrappingpaper_base_outside_id.sheet_length,
-                    width=self.sheet_wrappingpaper_base_outside_id.sheet_width,
-                ),
-            )
-        if self.sheet_wrappingpaper_lid_inside_id:
-            set_fit_qty_if_applicable(
-                data,
-                'lid_inside_fit_qty',
-                self.lid_inside_wrapping_length,
-                self.lid_inside_wrapping_width,
-                vo_layout.Layout2D(
-                    length=self.sheet_wrappingpaper_lid_inside_id.sheet_length,
-                    width=self.sheet_wrappingpaper_lid_inside_id.sheet_width,
-                ),
-            )
-        if self.sheet_wrappingpaper_lid_outside_id:
-            set_fit_qty_if_applicable(
-                data,
-                'lid_outside_fit_qty',
-                self.lid_outside_wrapping_length,
-                self.lid_outside_wrapping_width,
-                vo_layout.Layout2D(
-                    length=self.sheet_wrappingpaper_lid_outside_id.sheet_length,
-                    width=self.sheet_wrappingpaper_lid_outside_id.sheet_width,
-                ),
-            )
-        return data
 
     def _get_init_layouts_data(self):
         self.ensure_one()

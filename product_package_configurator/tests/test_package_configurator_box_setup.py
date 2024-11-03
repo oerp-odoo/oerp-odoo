@@ -58,6 +58,47 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 'outside_wrapping_extra': 20.0,
             }
         )
+        (
+            comp_base_greyboard,
+            comp_lid_greyboard,
+            comp_base_wrappingpaper_inside,
+            comp_base_wrappingpaper_outside,
+            comp_lid_wrappingpaper_inside,
+            comp_lid_wrappingpaper_outside,
+        ) = self.PackageConfiguratorBoxComponent.create(
+            [
+                {
+                    'component_type': 'base_greyboard',
+                    'sheet_id': self.package_sheet_greyboard_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'lid_greyboard',
+                    'sheet_id': self.package_sheet_greyboard_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'base_wrappingpaper_inside',
+                    'sheet_id': self.package_sheet_wrappingpaper_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'base_wrappingpaper_outside',
+                    'sheet_id': self.package_sheet_wrappingpaper_2.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'lid_wrappingpaper_inside',
+                    'sheet_id': self.package_sheet_wrappingpaper_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'lid_wrappingpaper_outside',
+                    'sheet_id': self.package_sheet_wrappingpaper_2.id,
+                    'configurator_id': cfg.id,
+                },
+            ]
+        )
         circulation_1, circulation_2 = self.PackageConfiguratorBoxCirculation.create(
             [
                 {'quantity': 100, 'configurator_id': cfg.id},
@@ -84,12 +125,12 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         # grey board layout is 1000x700 (mm)
         # outside wrappingpaper layout is 800x400 (mm)
         # inside wrappingpaper layout is 700x400 (mm)
-        self.assertEqual(cfg.base_layout_fit_qty, 27)
-        self.assertEqual(cfg.base_inside_fit_qty, 9)
-        self.assertEqual(cfg.base_outside_fit_qty, 6)
-        self.assertEqual(cfg.lid_layout_fit_qty, 27)
-        self.assertEqual(cfg.lid_inside_fit_qty, 9)
-        self.assertEqual(cfg.lid_outside_fit_qty, 5)
+        self.assertEqual(comp_base_greyboard.fit_qty, 27)
+        self.assertEqual(comp_base_wrappingpaper_inside.fit_qty, 9)
+        self.assertEqual(comp_base_wrappingpaper_outside.fit_qty, 6)
+        self.assertEqual(comp_lid_greyboard.fit_qty, 27)
+        self.assertEqual(comp_lid_wrappingpaper_inside.fit_qty, 9)
+        self.assertEqual(comp_lid_wrappingpaper_outside.fit_qty, 5)
         # Circulations
         # With 100 box circulation
         # Setup
@@ -285,6 +326,23 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 'outside_wrapping_extra': 20.0,
             }
         )
+        (
+            comp_base_greyboard,
+            comp_lid_greyboard,
+        ) = self.PackageConfiguratorBoxComponent.create(
+            [
+                {
+                    'component_type': 'base_greyboard',
+                    'sheet_id': self.package_sheet_greyboard_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'lid_greyboard',
+                    'sheet_id': self.package_sheet_greyboard_1.id,
+                    'configurator_id': cfg.id,
+                },
+            ]
+        )
         circulation_1, circulation_2 = self.PackageConfiguratorBoxCirculation.create(
             [
                 {'quantity': 100, 'configurator_id': cfg.id},
@@ -311,12 +369,8 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         # grey board layout is 1000x700 (mm)
         # outside wrappingpaper layout is 800x400 (mm)
         # inside wrappingpaper layout is 700x400 (mm)
-        self.assertEqual(cfg.base_layout_fit_qty, 27)
-        self.assertEqual(cfg.base_inside_fit_qty, 0)
-        self.assertEqual(cfg.base_outside_fit_qty, 0)
-        self.assertEqual(cfg.lid_layout_fit_qty, 27)
-        self.assertEqual(cfg.lid_inside_fit_qty, 0)
-        self.assertEqual(cfg.lid_outside_fit_qty, 0)
+        self.assertEqual(comp_base_greyboard.fit_qty, 27)
+        self.assertEqual(comp_lid_greyboard.fit_qty, 27)
         # Circulations
         # With 100 box circulation
         # For 1 for base greyboard + 1 for lid greyboard.

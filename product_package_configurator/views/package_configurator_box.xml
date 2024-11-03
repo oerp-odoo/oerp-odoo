@@ -152,44 +152,6 @@
                                 </tbody>
                             </table>
                         </group>
-                        <group
-                            name="fit_quantities"
-                            string="Fit Quantities"
-                            invisible="not base_length or not base_width or not base_height or not lid_height"
-                        >
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th/>
-                                        <th>Layout Fit Quantity</th>
-                                        <th>Inside Wrapping Fit Quantity</th>
-                                        <th>Outside Wrapping Fit Quantity</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Base</td>
-                                        <td><field name="base_layout_fit_qty"/></td>
-                                        <td>
-                                            <field name="base_inside_fit_qty"/>
-                                        </td>
-                                        <td>
-                                            <field name="base_outside_fit_qty"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lid</td>
-                                        <td><field name="lid_layout_fit_qty"/></td>
-                                        <td>
-                                            <field name="lid_inside_fit_qty"/>
-                                        </td>
-                                        <td>
-                                            <field name="lid_outside_fit_qty"/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </group>
                     </group>
                     <notebook>
                         <page name="components" string="Components">

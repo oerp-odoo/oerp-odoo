@@ -4,13 +4,15 @@ from .. import const
 from ..utils.fitter import calc_sheet_quantity
 from ..value_objects.layout import Layout2D
 
+# TODO: get rid of this mapping. Instead component must be related with
+# specific setups!
 MAP_PART_FIT_QTY = {
-    const.CirculationSetupPart.BASE_GREYBOARD: 'base_layout_fit_qty',
-    const.CirculationSetupPart.LID_GREYBOARD: 'lid_layout_fit_qty',
-    const.CirculationSetupPart.BASE_INSIDE_WRAPPING: 'base_inside_fit_qty',
-    const.CirculationSetupPart.BASE_OUTSIDE_WRAPPING: 'base_outside_fit_qty',
-    const.CirculationSetupPart.LID_INSIDE_WRAPPING: 'lid_inside_fit_qty',
-    const.CirculationSetupPart.LID_OUTSIDE_WRAPPING: 'lid_outside_fit_qty',
+    const.CirculationSetupPart.BASE_GREYBOARD: 'base_greyboard',
+    const.CirculationSetupPart.LID_GREYBOARD: 'lid_greyboard',
+    const.CirculationSetupPart.BASE_INSIDE_WRAPPING: 'base_wrappingpaper_inside',
+    const.CirculationSetupPart.BASE_OUTSIDE_WRAPPING: 'base_wrappingpaper_outside',
+    const.CirculationSetupPart.LID_INSIDE_WRAPPING: 'lid_wrappingpaper_inside',
+    const.CirculationSetupPart.LID_OUTSIDE_WRAPPING: 'lid_wrappingpaper_outside',
 }
 
 
@@ -40,19 +42,18 @@ class PackageConfiguratorBoxCirculationSetup(models.Model):
     )
 
     @api.depends(
-        'circulation_id.configurator_id.base_layout_fit_qty',
-        'circulation_id.configurator_id.base_inside_fit_qty',
-        'circulation_id.configurator_id.base_outside_fit_qty',
-        'circulation_id.configurator_id.lid_layout_fit_qty',
-        'circulation_id.configurator_id.lid_inside_fit_qty',
-        'circulation_id.configurator_id.lid_outside_fit_qty',
+        'circulation_id.configurator_id.component_ids.fit_qty',
         'setup_rule_id',
     )
     def _compute_setup_raw_qty(self):
+        def get_component(components, ct):
+            return components.filtered(lambda r: r.component_type == ct)
+
         for rec in self:
             cfg = rec.circulation_id.configurator_id
             setup_raw_qty = 0
-            fit_qty = cfg[MAP_PART_FIT_QTY[rec.part]]
+            components = cfg.component_ids
+            fit_qty = get_component(components, MAP_PART_FIT_QTY[rec.part]).fit_qty
             if fit_qty:
                 setup_raw_qty = calc_sheet_quantity(
                     rec.setup_rule_id.setup_qty, fit_qty

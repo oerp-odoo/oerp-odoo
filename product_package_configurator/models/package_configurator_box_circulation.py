@@ -54,12 +54,7 @@ class PackageConfiguratorBoxCirculation(models.Model):
     )
 
     @api.depends(
-        'configurator_id.base_layout_fit_qty',
-        'configurator_id.base_inside_fit_qty',
-        'configurator_id.base_outside_fit_qty',
-        'configurator_id.lid_layout_fit_qty',
-        'configurator_id.lid_inside_fit_qty',
-        'configurator_id.lid_outside_fit_qty',
+        'configurator_id.component_ids.fit_qty',
         'quantity',
     )
     def _compute_sheet_quantity(self):
@@ -136,10 +131,11 @@ class PackageConfiguratorBoxCirculation(models.Model):
         cfg = self.configurator_id
         fit_qty_map = defaultdict(list)
         circ_setups = self.circulation_setup_ids
+        comps = cfg.component_ids
         group_sheet_data_if_applicable(
             fit_qty_map,
             cfg.sheet_greyboard_base_id,
-            cfg.base_layout_fit_qty,
+            comps.filtered(lambda r: r.component_type == 'base_greyboard').fit_qty,
             circ_setups.filtered(
                 lambda r: r.part == const.CirculationSetupPart.BASE_GREYBOARD
             ).setup_raw_qty,
@@ -148,7 +144,7 @@ class PackageConfiguratorBoxCirculation(models.Model):
         group_sheet_data_if_applicable(
             fit_qty_map,
             cfg.sheet_greyboard_lid_id,
-            cfg.lid_layout_fit_qty,
+            comps.filtered(lambda r: r.component_type == 'lid_greyboard').fit_qty,
             circ_setups.filtered(
                 lambda r: r.part == const.CirculationSetupPart.LID_GREYBOARD
             ).setup_raw_qty,
@@ -157,7 +153,9 @@ class PackageConfiguratorBoxCirculation(models.Model):
         group_sheet_data_if_applicable(
             fit_qty_map,
             cfg.sheet_wrappingpaper_base_inside_id,
-            cfg.base_inside_fit_qty,
+            comps.filtered(
+                lambda r: r.component_type == 'base_wrappingpaper_inside'
+            ).fit_qty,
             circ_setups.filtered(
                 lambda r: r.part == const.CirculationSetupPart.BASE_INSIDE_WRAPPING
             ).setup_raw_qty,
@@ -166,7 +164,9 @@ class PackageConfiguratorBoxCirculation(models.Model):
         group_sheet_data_if_applicable(
             fit_qty_map,
             cfg.sheet_wrappingpaper_lid_inside_id,
-            cfg.lid_inside_fit_qty,
+            comps.filtered(
+                lambda r: r.component_type == 'lid_wrappingpaper_inside'
+            ).fit_qty,
             circ_setups.filtered(
                 lambda r: r.part == const.CirculationSetupPart.LID_INSIDE_WRAPPING
             ).setup_raw_qty,
@@ -175,7 +175,9 @@ class PackageConfiguratorBoxCirculation(models.Model):
         group_sheet_data_if_applicable(
             fit_qty_map,
             cfg.sheet_wrappingpaper_base_outside_id,
-            cfg.base_outside_fit_qty,
+            comps.filtered(
+                lambda r: r.component_type == 'base_wrappingpaper_outside'
+            ).fit_qty,
             circ_setups.filtered(
                 lambda r: r.part == const.CirculationSetupPart.BASE_OUTSIDE_WRAPPING
             ).setup_raw_qty,
@@ -184,7 +186,9 @@ class PackageConfiguratorBoxCirculation(models.Model):
         group_sheet_data_if_applicable(
             fit_qty_map,
             cfg.sheet_wrappingpaper_lid_outside_id,
-            cfg.lid_outside_fit_qty,
+            comps.filtered(
+                lambda r: r.component_type == 'lid_wrappingpaper_outside'
+            ).fit_qty,
             circ_setups.filtered(
                 lambda r: r.part == const.CirculationSetupPart.LID_OUTSIDE_WRAPPING
             ).setup_raw_qty,

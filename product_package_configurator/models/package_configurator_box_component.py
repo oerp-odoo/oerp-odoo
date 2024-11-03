@@ -55,8 +55,6 @@ class PackageConfiguratorBoxComponent(models.Model):
         for rec in self:
             ct = rec.get_component_type()
             data = rec._get_init_type_data(ct)
-            # if ct.name:
-            #     data['fit_qty'] = rec._calc_fit_qty(ct)
             rec.update(data)
         configs = self.mapped('configurator_id')
         for cfg in configs:
