@@ -31,7 +31,7 @@ class TestPackageConfiguratorBoxComponentConstraints(
         with self.assertRaisesRegex(
             ValidationError, r"Component types must be unique per configurator!"
         ):
-            self.PackageConfiguratorBoxComponentType.create(
+            self.PackageConfiguratorBoxComponent.create(
                 [
                     {
                         'component_type': 'base_greyboard',
@@ -67,7 +67,7 @@ class TestPackageConfiguratorBoxComponentConstraints(
             ValidationError,
             r"Scope mismatch\. Scope must match between component options!",
         ):
-            self.PackageConfiguratorBoxComponentType.create(
+            self.PackageConfiguratorBoxComponent.create(
                 [
                     {
                         'component_type': 'base_greyboard',
@@ -99,7 +99,7 @@ class TestPackageConfiguratorBoxComponentConstraints(
             ValidationError,
             r"Scope mismatch\. Scope must match between component options!",
         ):
-            self.PackageConfiguratorBoxComponentType.create(
+            self.PackageConfiguratorBoxComponent.create(
                 [
                     {
                         'component_type': 'base_greyboard',

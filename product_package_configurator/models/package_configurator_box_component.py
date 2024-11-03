@@ -6,7 +6,7 @@ from ..value_objects import layout as vo_layout
 from ..value_objects.component import BoxComponentType
 
 
-class PackageConfiguratorBoxComponentType(models.Model):
+class PackageConfiguratorBoxComponent(models.Model):
     _name = 'package.configurator.box.component'
     _description = "Package Configurator Box Component"
 
@@ -27,8 +27,10 @@ class PackageConfiguratorBoxComponentType(models.Model):
     sheet_id = fields.Many2one(
         'package.sheet',
         required=True,
-        domain="[('scope', '=', scope)]"
-        # TODO: make this computed and stored!
+        domain="[('scope', '=', scope)]",
+        store=True,
+        readonly=False,
+        compute='_compute_sheet_id',
     )
     fit_qty = fields.Integer(compute='_compute_type_data', string="Fit Quantity")
 
@@ -49,6 +51,23 @@ class PackageConfiguratorBoxComponentType(models.Model):
                 data['fit_qty'] = rec._calc_fit_qty(ct)
             rec.update(data)
 
+    @api.depends('sheet_type_id')
+    def _compute_sheet_id(self):
+        for rec in self:
+            if not rec.sheet_type_id:
+                continue
+            cfg = rec.configurator_id
+            ct = rec.get_component_type()
+            # TODO: move length/width to component model!
+            if not cfg[ct.length_field] or not cfg[ct.width_field]:
+                continue
+            rec.sheet_id = rec.env['package.sheet.match'].match(
+                rec.sheet_type_id,
+                vo_layout.Layout2D(
+                    length=cfg[ct.length_field], width=cfg[ct.width_field]
+                ),
+            )
+
     @api.onchange('component_type')
     def _onchange_component_type(self):
         if not self.component_type:
@@ -67,7 +86,7 @@ class PackageConfiguratorBoxComponentType(models.Model):
                     _("Component types must be unique per configurator!")
                 )
 
-    @api.constrains('scope', 'sheet_type_id', 'sheet_id')
+    @api.constrains('component_type', 'sheet_type_id', 'sheet_id')
     def _check_scope(self):
         for rec in self:
             scopes = {rec.scope, rec.sheet_id.scope}

@@ -56,14 +56,6 @@
                                 <!-- Currently not intended to be showed via UI. -->
                                 <field name="lid_extra" invisible="1"/>
                             </group>
-                        <group name="sheet_types" string="Sheet Types">
-                            <field name="sheet_type_greyboard_base_id"/>
-                            <field name="sheet_type_greyboard_lid_id"/>
-                            <field name="sheet_type_wrappingpaper_base_outside_id"/>
-                            <field name="sheet_type_wrappingpaper_base_inside_id"/>
-                            <field name="sheet_type_wrappingpaper_lid_outside_id"/>
-                            <field name="sheet_type_wrappingpaper_lid_inside_id"/>
-                        </group>
                         <group name="general" string="General">
                             <field name="box_type_id"/>
                             <field name="sheet_greyboard_base_id"/>

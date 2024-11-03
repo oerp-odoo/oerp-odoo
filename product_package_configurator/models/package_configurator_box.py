@@ -44,87 +44,37 @@ class PackageConfiguratorBox(models.Model):
     lid_extra = fields.Float()
     outside_wrapping_extra = fields.Float()
     box_type_id = fields.Many2one('package.box.type', required=True)
-    # Sheet types to auto fill sheets.
-    sheet_type_greyboard_base_id = fields.Many2one(
-        'package.sheet.type',
-        string="Base Grey Board Type",
-        domain=[('scope', '=', const.SheetTypeScope.GREYBOARD)],
-    )
-    sheet_type_greyboard_lid_id = fields.Many2one(
-        'package.sheet.type',
-        string="Lid Grey Board Type",
-        domain=[('scope', '=', const.SheetTypeScope.GREYBOARD)],
-    )
-    sheet_type_wrappingpaper_base_outside_id = fields.Many2one(
-        'package.sheet.type',
-        string="Base Outside Wrapping Paper Type",
-        domain=[('scope', '=', const.SheetTypeScope.WRAPPINGPAPER)],
-    )
-    sheet_type_wrappingpaper_base_inside_id = fields.Many2one(
-        'package.sheet.type',
-        string="Base Inside Wrapping Paper Type",
-        domain=[('scope', '=', const.SheetTypeScope.WRAPPINGPAPER)],
-    )
-    sheet_type_wrappingpaper_lid_outside_id = fields.Many2one(
-        'package.sheet.type',
-        string="Lid Outside Wrapping Paper Type",
-        domain=[('scope', '=', const.SheetTypeScope.WRAPPINGPAPER)],
-    )
-    sheet_type_wrappingpaper_lid_inside_id = fields.Many2one(
-        'package.sheet.type',
-        string="Lid Inside Wrapping Paper Type",
-        domain=[('scope', '=', const.SheetTypeScope.WRAPPINGPAPER)],
-    )
-
     # Sheets
     sheet_greyboard_base_id = fields.Many2one(
         'package.sheet',
         string="Base Grey Board",
         required=True,
         domain=[('scope', '=', const.SheetTypeScope.GREYBOARD)],
-        store=True,
-        compute='_compute_sheet_greyboard_base_id',
-        readonly=False,
     )
     sheet_greyboard_lid_id = fields.Many2one(
         'package.sheet',
         string="Lid Grey Board",
         domain=[('scope', '=', const.SheetTypeScope.GREYBOARD)],
-        store=True,
-        compute='_compute_sheet_greyboard_lid_id',
-        readonly=False,
     )
     sheet_wrappingpaper_base_outside_id = fields.Many2one(
         'package.sheet',
         string="Base Outside Wrapping Paper",
         domain=[('scope', '=', const.SheetTypeScope.WRAPPINGPAPER)],
-        store=True,
-        compute='_compute_sheet_wrappingpaper_base_outside_id',
-        readonly=False,
     )
     sheet_wrappingpaper_base_inside_id = fields.Many2one(
         'package.sheet',
         string="Base Inside Wrapping Paper",
         domain=[('scope', '=', const.SheetTypeScope.WRAPPINGPAPER)],
-        store=True,
-        compute='_compute_sheet_wrappingpaper_base_inside_id',
-        readonly=False,
     )
     sheet_wrappingpaper_lid_outside_id = fields.Many2one(
         'package.sheet',
         string="Lid Outside Wrapping Paper",
         domain=[('scope', '=', const.SheetTypeScope.WRAPPINGPAPER)],
-        store=True,
-        compute='_compute_sheet_wrappingpaper_lid_outside_id',
-        readonly=False,
     )
     sheet_wrappingpaper_lid_inside_id = fields.Many2one(
         'package.sheet',
         string="Lid Inside Wrapping Paper",
         domain=[('scope', '=', const.SheetTypeScope.WRAPPINGPAPER)],
-        store=True,
-        compute='_compute_sheet_wrappingpaper_lid_inside_id',
-        readonly=False,
     )
     lamination_outside_id = fields.Many2one(
         'package.lamination',
@@ -159,78 +109,6 @@ class PackageConfiguratorBox(models.Model):
     lid_layout_fit_qty = fields.Integer(compute='_compute_fit_qty')
     lid_inside_fit_qty = fields.Integer(compute='_compute_fit_qty')
     lid_outside_fit_qty = fields.Integer(compute='_compute_fit_qty')
-
-    @api.depends('sheet_type_greyboard_base_id')
-    def _compute_sheet_greyboard_base_id(self):
-        for rec in self:
-            sheet = rec._match_sheet(
-                rec.sheet_greyboard_base_id,
-                rec.sheet_type_greyboard_base_id,
-                rec.base_layout_length,
-                rec.base_layout_width,
-            )
-            if sheet:
-                rec.sheet_greyboard_base_id = sheet
-
-    @api.depends('sheet_type_greyboard_lid_id')
-    def _compute_sheet_greyboard_lid_id(self):
-        for rec in self:
-            sheet = rec._match_sheet(
-                rec.sheet_greyboard_lid_id,
-                rec.sheet_type_greyboard_lid_id,
-                rec.lid_layout_length,
-                rec.lid_layout_width,
-            )
-            if sheet:
-                rec.sheet_greyboard_lid_id = sheet
-
-    @api.depends('sheet_type_wrappingpaper_base_inside_id')
-    def _compute_sheet_wrappingpaper_base_inside_id(self):
-        for rec in self:
-            sheet = rec._match_sheet(
-                rec.sheet_wrappingpaper_base_inside_id,
-                rec.sheet_type_wrappingpaper_base_inside_id,
-                rec.base_layout_length,
-                rec.base_layout_width,
-            )
-            if sheet:
-                rec.sheet_wrappingpaper_base_inside_id = sheet
-
-    @api.depends('sheet_type_wrappingpaper_base_outside_id')
-    def _compute_sheet_wrappingpaper_base_outside_id(self):
-        for rec in self:
-            sheet = rec._match_sheet(
-                rec.sheet_wrappingpaper_base_outside_id,
-                rec.sheet_type_wrappingpaper_base_outside_id,
-                rec.base_layout_length,
-                rec.base_layout_width,
-            )
-            if sheet:
-                rec.sheet_wrappingpaper_base_outside_id = sheet
-
-    @api.depends('sheet_type_wrappingpaper_lid_inside_id')
-    def _compute_sheet_wrappingpaper_lid_inside_id(self):
-        for rec in self:
-            sheet = rec._match_sheet(
-                rec.sheet_wrappingpaper_lid_inside_id,
-                rec.sheet_type_wrappingpaper_lid_inside_id,
-                rec.lid_layout_length,
-                rec.lid_layout_width,
-            )
-            if sheet:
-                rec.sheet_wrappingpaper_lid_inside_id = sheet
-
-    @api.depends('sheet_type_wrappingpaper_lid_outside_id')
-    def _compute_sheet_wrappingpaper_lid_outside_id(self):
-        for rec in self:
-            sheet = self._match_sheet(
-                rec.sheet_wrappingpaper_lid_outside_id,
-                rec.sheet_type_wrappingpaper_lid_outside_id,
-                rec.lid_layout_length,
-                rec.lid_layout_width,
-            )
-            if sheet:
-                rec.sheet_wrappingpaper_lid_outside_id = sheet
 
     @api.depends(
         'sheet_greyboard_base_id',
@@ -359,14 +237,6 @@ class PackageConfiguratorBox(models.Model):
         self.ensure_one()
         self.circulation_ids.create_circulation_setups(self._find_box_setups())
         return True
-
-    @api.model
-    def _match_sheet(self, sheet, sheet_type, length: float, width: float):
-        if sheet or not sheet_type or not length or not width:
-            return self.env['package.sheet']
-        return self.env['package.sheet.match'].match(
-            sheet_type, Layout2D(length=length, width=width)
-        )
 
     def _find_box_setups(self):
         # TODO: we might need to search different type of setups separately, when

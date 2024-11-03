@@ -42,7 +42,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
             comp_base_wrappingpaper_outside,
             comp_lid_wrappingpaper_inside,
             comp_lid_wrappingpaper_outside,
-        ) = self.PackageConfiguratorBoxComponentType.create(
+        ) = self.PackageConfiguratorBoxComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -136,7 +136,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
                 'lamination_inside_id': self.package_lamination_1.id,
             }
         )
-        self.PackageConfiguratorBoxComponentType.create(
+        self.PackageConfiguratorBoxComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -196,7 +196,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
             comp_base_wrappingpaper_outside,
             comp_lid_wrappingpaper_inside,
             comp_lid_wrappingpaper_outside,
-        ) = self.PackageConfiguratorBoxComponentType.create(
+        ) = self.PackageConfiguratorBoxComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -342,7 +342,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
             comp_base_wrappingpaper_outside,
             comp_lid_wrappingpaper_inside,
             comp_lid_wrappingpaper_outside,
-        ) = self.PackageConfiguratorBoxComponentType.create(
+        ) = self.PackageConfiguratorBoxComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -472,7 +472,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
             comp_base_wrappingpaper_outside,
             comp_lid_wrappingpaper_inside,
             comp_lid_wrappingpaper_outside,
-        ) = self.PackageConfiguratorBoxComponentType.create(
+        ) = self.PackageConfiguratorBoxComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
