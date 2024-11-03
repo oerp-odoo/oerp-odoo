@@ -9,6 +9,7 @@ class PackageSheet(models.Model):
     _name = 'package.sheet'
     _description = "Package Sheet"
 
+    name = fields.Char(compute='_compute_name', store=True)
     sheet_type_id = fields.Many2one(
         "package.sheet.type",
         required=True,
@@ -38,12 +39,10 @@ class PackageSheet(models.Model):
         'sheet_length',
         'sheet_width',
     )
-    def _compute_display_name(self):
+    def _compute_name(self):
         for rec in self:
             st = rec.sheet_type_id
-            rec.display_name = (
-                f"{st.display_name} {rec.sheet_length:2g}x{rec.sheet_width:2g}"
-            )
+            rec.name = f"{st.display_name} {rec.sheet_length:2g}x{rec.sheet_width:2g}"
 
     @api.constrains('scope', 'sheet_type_id')
     def _check_scope(self):

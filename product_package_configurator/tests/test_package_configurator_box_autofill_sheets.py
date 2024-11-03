@@ -26,6 +26,7 @@ class TestPackageConfiguratorBoxAutofillSheets(
                 'outside_wrapping_extra': 20.0,
             }
         )
+        cfg._compute_sheet_greyboard_lid_id()
         # THEN
         self.assertEqual(cfg.sheet_greyboard_lid_id, self.package_sheet_greyboard_1)
 
@@ -55,5 +56,6 @@ class TestPackageConfiguratorBoxAutofillSheets(
                 'outside_wrapping_extra': 20.0,
             }
         )
+        cfg._compute_sheet_greyboard_lid_id()
         # THEN
         self.assertEqual(cfg.sheet_greyboard_lid_id, package_sheet_greyboard_2)

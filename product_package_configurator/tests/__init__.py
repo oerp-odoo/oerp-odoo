@@ -9,4 +9,5 @@ from . import (
     test_package_sheet_match,
     test_package_sheet_constraints,
     test_package_sheet_type_constraints,
+    test_package_configurator_box_component_contraints,
 )

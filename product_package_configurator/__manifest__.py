@@ -16,6 +16,7 @@
         'security/product_package_configurator_groups.xml',
         'security/ir.model.access.csv',
         'security/package_configurator_box_security.xml',
+        'security/package_configurator_box_component_security.xml',
         'security/package_configurator_box_circulation_security.xml',
         'security/package_configurator_box_circulation_setup_security.xml',
         'security/package_box_type_security.xml',

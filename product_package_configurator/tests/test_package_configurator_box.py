@@ -33,7 +33,48 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
                 'lid_height': 16,
                 'lid_extra': 2.0,
                 'outside_wrapping_extra': 20.0,
-            }
+            },
+        )
+        (
+            comp_base_greyboard,
+            comp_lid_greyboard,
+            comp_base_wrappingpaper_inside,
+            comp_base_wrappingpaper_outside,
+            comp_lid_wrappingpaper_inside,
+            comp_lid_wrappingpaper_outside,
+        ) = self.PackageConfiguratorBoxComponentType.create(
+            [
+                {
+                    'component_type': 'base_greyboard',
+                    'sheet_id': self.package_sheet_greyboard_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'lid_greyboard',
+                    'sheet_id': self.package_sheet_greyboard_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'base_wrappingpaper_inside',
+                    'sheet_id': self.package_sheet_wrappingpaper_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'base_wrappingpaper_outside',
+                    'sheet_id': self.package_sheet_wrappingpaper_2.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'lid_wrappingpaper_inside',
+                    'sheet_id': self.package_sheet_wrappingpaper_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'lid_wrappingpaper_outside',
+                    'sheet_id': self.package_sheet_wrappingpaper_2.id,
+                    'configurator_id': cfg.id,
+                },
+            ]
         )
         # THEN
         # Layouts
@@ -68,6 +109,13 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         self.assertEqual(cfg.lid_layout_fit_qty, 27)
         self.assertEqual(cfg.lid_inside_fit_qty, 9)
         self.assertEqual(cfg.lid_outside_fit_qty, 5)
+        # Components
+        self.assertEqual(comp_base_greyboard.fit_qty, 27)
+        self.assertEqual(comp_base_wrappingpaper_inside.fit_qty, 9)
+        self.assertEqual(comp_base_wrappingpaper_outside.fit_qty, 6)
+        self.assertEqual(comp_lid_greyboard.fit_qty, 27)
+        self.assertEqual(comp_lid_wrappingpaper_inside.fit_qty, 9)
+        self.assertEqual(comp_lid_wrappingpaper_outside.fit_qty, 5)
 
     def test_02_configure_box_w_lamination(self):
         # WHEN
@@ -87,6 +135,20 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
                 'lamination_outside_id': self.package_lamination_1.id,
                 'lamination_inside_id': self.package_lamination_1.id,
             }
+        )
+        self.PackageConfiguratorBoxComponentType.create(
+            [
+                {
+                    'component_type': 'base_greyboard',
+                    'sheet_id': self.package_sheet_greyboard_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'lid_greyboard',
+                    'sheet_id': self.package_sheet_greyboard_1.id,
+                    'configurator_id': cfg.id,
+                },
+            ]
         )
         # THEN
         # Lamination
@@ -127,6 +189,47 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
                 'outside_wrapping_extra': 20.0,
             }
         )
+        (
+            comp_base_greyboard,
+            comp_lid_greyboard,
+            comp_base_wrappingpaper_inside,
+            comp_base_wrappingpaper_outside,
+            comp_lid_wrappingpaper_inside,
+            comp_lid_wrappingpaper_outside,
+        ) = self.PackageConfiguratorBoxComponentType.create(
+            [
+                {
+                    'component_type': 'base_greyboard',
+                    'sheet_id': self.package_sheet_greyboard_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'lid_greyboard',
+                    'sheet_id': self.package_sheet_greyboard_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'base_wrappingpaper_inside',
+                    'sheet_id': self.package_sheet_wrappingpaper_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'base_wrappingpaper_outside',
+                    'sheet_id': self.package_sheet_wrappingpaper_2.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'lid_wrappingpaper_inside',
+                    'sheet_id': self.package_sheet_wrappingpaper_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'lid_wrappingpaper_outside',
+                    'sheet_id': self.package_sheet_wrappingpaper_2.id,
+                    'configurator_id': cfg.id,
+                },
+            ]
+        )
         # WHEN
         circulation_1, circulation_2 = self.PackageConfiguratorBoxCirculation.create(
             [
@@ -158,6 +261,13 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         self.assertEqual(cfg.lid_layout_fit_qty, 27)
         self.assertEqual(cfg.lid_inside_fit_qty, 9)
         self.assertEqual(cfg.lid_outside_fit_qty, 5)
+        # Components
+        self.assertEqual(comp_base_greyboard.fit_qty, 27)
+        self.assertEqual(comp_base_wrappingpaper_inside.fit_qty, 9)
+        self.assertEqual(comp_base_wrappingpaper_outside.fit_qty, 6)
+        self.assertEqual(comp_lid_greyboard.fit_qty, 27)
+        self.assertEqual(comp_lid_wrappingpaper_inside.fit_qty, 9)
+        self.assertEqual(comp_lid_wrappingpaper_outside.fit_qty, 5)
         # Circulations
         # With 100 box circulation
         # 4 from base and 4 from lid
@@ -225,6 +335,47 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
                 'outside_wrapping_extra': 20.0,
             }
         )
+        (
+            comp_base_greyboard,
+            comp_lid_greyboard,
+            comp_base_wrappingpaper_inside,
+            comp_base_wrappingpaper_outside,
+            comp_lid_wrappingpaper_inside,
+            comp_lid_wrappingpaper_outside,
+        ) = self.PackageConfiguratorBoxComponentType.create(
+            [
+                {
+                    'component_type': 'base_greyboard',
+                    'sheet_id': self.package_sheet_greyboard_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'lid_greyboard',
+                    'sheet_id': self.package_sheet_greyboard_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'base_wrappingpaper_inside',
+                    'sheet_id': self.package_sheet_wrappingpaper_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'base_wrappingpaper_outside',
+                    'sheet_id': self.package_sheet_wrappingpaper_2.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'lid_wrappingpaper_inside',
+                    'sheet_id': self.package_sheet_wrappingpaper_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'lid_wrappingpaper_outside',
+                    'sheet_id': self.package_sheet_wrappingpaper_2.id,
+                    'configurator_id': cfg.id,
+                },
+            ]
+        )
         # WHEN
         circulation_1, circulation_2 = self.PackageConfiguratorBoxCirculation.create(
             [
@@ -244,6 +395,13 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         self.assertEqual(cfg.lid_layout_fit_qty, 27)
         self.assertEqual(cfg.lid_inside_fit_qty, 9)
         self.assertEqual(cfg.lid_outside_fit_qty, 5)
+        # Components
+        self.assertEqual(comp_base_greyboard.fit_qty, 27)
+        self.assertEqual(comp_base_wrappingpaper_inside.fit_qty, 9)
+        self.assertEqual(comp_base_wrappingpaper_outside.fit_qty, 6)
+        self.assertEqual(comp_lid_greyboard.fit_qty, 27)
+        self.assertEqual(comp_lid_wrappingpaper_inside.fit_qty, 9)
+        self.assertEqual(comp_lid_wrappingpaper_outside.fit_qty, 5)
         # Circulations
         # With 100 box circulation
         # 4 from base and 4 from lid, but min_qty = 10
@@ -307,6 +465,47 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
                 'lamination_inside_id': self.package_lamination_1.id,
             }
         )
+        (
+            comp_base_greyboard,
+            comp_lid_greyboard,
+            comp_base_wrappingpaper_inside,
+            comp_base_wrappingpaper_outside,
+            comp_lid_wrappingpaper_inside,
+            comp_lid_wrappingpaper_outside,
+        ) = self.PackageConfiguratorBoxComponentType.create(
+            [
+                {
+                    'component_type': 'base_greyboard',
+                    'sheet_id': self.package_sheet_greyboard_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'lid_greyboard',
+                    'sheet_id': self.package_sheet_greyboard_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'base_wrappingpaper_inside',
+                    'sheet_id': self.package_sheet_wrappingpaper_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'base_wrappingpaper_outside',
+                    'sheet_id': self.package_sheet_wrappingpaper_2.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'lid_wrappingpaper_inside',
+                    'sheet_id': self.package_sheet_wrappingpaper_1.id,
+                    'configurator_id': cfg.id,
+                },
+                {
+                    'component_type': 'lid_wrappingpaper_outside',
+                    'sheet_id': self.package_sheet_wrappingpaper_2.id,
+                    'configurator_id': cfg.id,
+                },
+            ]
+        )
         # WHEN
         circulation_1, circulation_2 = self.PackageConfiguratorBoxCirculation.create(
             [
@@ -338,6 +537,13 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         self.assertEqual(cfg.lid_layout_fit_qty, 27)
         self.assertEqual(cfg.lid_inside_fit_qty, 9)
         self.assertEqual(cfg.lid_outside_fit_qty, 5)
+        # Components
+        self.assertEqual(comp_base_greyboard.fit_qty, 27)
+        self.assertEqual(comp_base_wrappingpaper_inside.fit_qty, 9)
+        self.assertEqual(comp_base_wrappingpaper_outside.fit_qty, 6)
+        self.assertEqual(comp_lid_greyboard.fit_qty, 27)
+        self.assertEqual(comp_lid_wrappingpaper_inside.fit_qty, 9)
+        self.assertEqual(comp_lid_wrappingpaper_outside.fit_qty, 5)
         # Lamination
         # (224*101+232*109) * 1.2 / 1000000
         self.assertEqual(cfg.lamination_inside_area, 0.0574944)

@@ -32,6 +32,11 @@ class PackageConfiguratorBox(models.Model):
             ] = company.package_default_outside_wrapping_extra
         return res
 
+    component_ids = fields.One2many(
+        comodel_name='package.configurator.box.component',
+        inverse_name='configurator_id',
+        string="Components",
+    )
     circulation_ids = fields.One2many(
         comodel_name='package.configurator.box.circulation'
     )
@@ -374,6 +379,7 @@ class PackageConfiguratorBox(models.Model):
         self.ensure_one()
         # This is not change'able directly on configurator on
         # purpose!
+        # TODO: move layout data calculation to component model!
         global_extra = self.company_id.package_default_global_box_extra
         res = self.env['package.box.layout'].get_layouts(
             BaseDimensions(
