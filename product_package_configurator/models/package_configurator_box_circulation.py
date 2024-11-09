@@ -1,6 +1,7 @@
 from collections import defaultdict
 
 from odoo import api, fields, models
+from odoo.fields import Command
 
 from .. import const
 from ..utils.misc import multiply
@@ -15,6 +16,16 @@ class PackageConfiguratorBoxCirculation(models.Model):
     _description = "Package Configurator Box Circulation"
 
     configurator_id = fields.Many2one('package.configurator.box')
+    # components_info = fields.Binary(
+    #     compute='_compute_components_info',
+    #     exportable=False,
+    # )
+    circulation_component_ids = fields.One2many(
+        'package.configurator.box.circulation.component',
+        'circulation_id',
+        store=True,
+        compute='_compute_circulation_component_ids',
+    )
     circulation_setup_ids = fields.One2many(
         'package.configurator.box.circulation.setup',
         'circulation_id',
@@ -52,6 +63,20 @@ class PackageConfiguratorBoxCirculation(models.Model):
     total_cost = fields.Float(
         compute='_compute_cost', digits=const.DecimalPrecision.COST
     )
+
+    @api.depends('configurator_id.component_ids')
+    def _compute_circulation_component_ids(self):
+        for rec in self:
+            components = rec.configurator_id.component_ids
+            data = []
+            for component in components:
+                data.append(Command.create({'component_id': component.id}))
+            rec.circulation_component_ids = data
+
+    # @api.depends()
+    # def _compute_components_info(self):
+    #     for rec in self:
+    #         rec.component_info = rec._get_components_info()
 
     @api.depends(
         'configurator_id.component_ids.fit_qty',
@@ -112,6 +137,41 @@ class PackageConfiguratorBoxCirculation(models.Model):
         if vals_list:
             CirculationSetup.create(vals_list)
         return True
+
+    # def _get_components_info(self):
+    #     def group_sheet_data(
+    #         qty_map, sheet, fit_qty, setup_raw_qty, code
+    #     ):
+    #         # min_qty of course is the same, but using it to later
+    #         # retrieve it when building SheetQuantity!
+    #         qty_map[(sheet.id, sheet.min_qty)].append(
+    #             vo_sheet.SheetQuantityItem(
+    #                 code=code, fit_qty=fit_qty, setup_raw_qty=setup_raw_qty
+    #             )
+    #         )
+    #     self.ensure_one()
+    #     cfg = self.configurator_id
+    #     components = cfg.component_ids
+    #     if not components:
+    #         return False
+    #     qty_map = defaultdict(list)
+    #     circ_setups = self.circulation_setup_ids
+    #     for component in components:
+    #         if not component.fit_qty:
+    #             continue
+    #         sheet = component.sheet_id
+    #         # min_qty of course is the same, but using it to later
+    #         # retrieve it when building SheetQuantity!
+    #         part =
+    #         qty_map[(sheet.id, sheet.min_qty)].append(
+    #             vo_sheet.SheetQuantityItem(
+    #                 code=component.component_type,
+    #                 fit_qty=component.fit_qty,
+    #                 setup_raw_qty=circ_setups.filtered(
+    #                     lambda r: r.part == const.CirculationSetupPart.BASE_GREYBOARD
+    #                 ).setup_raw_qty,
+    #             )
+    #         )
 
     def _get_sheet_quantity_data(self):
         def group_sheet_data_if_applicable(

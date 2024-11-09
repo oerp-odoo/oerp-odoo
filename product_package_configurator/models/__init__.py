@@ -4,6 +4,7 @@ from . import (
     package_configurator_box,
     package_configurator_box_component,
     package_configurator_box_circulation,
+    package_configurator_box_circulation_component,
     package_configurator_box_circulation_setup,
     package_box_type,
     package_box_setup,
