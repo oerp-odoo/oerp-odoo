@@ -35,6 +35,7 @@
         'views/package_lamination.xml',
         'views/package_configurator_box.xml',
         'views/package_configurator_box_circulation.xml',
+        'views/package_configurator_box_circulation_item_setup.xml',
         'views/package_box_setup.xml',
         'views/menus.xml',
     ],

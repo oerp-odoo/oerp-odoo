@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record
+        id="package_configurator_box_circulation_item_setup_view_tree"
+        model="ir.ui.view"
+    >
+        <field name="name">package.configurator.box.circulation.item.setup.tree</field>
+        <field name="model">package.configurator.box.circulation.item.setup</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="setup_rule_id"/>
+                <field name="setup_id"/>
+                <field name="setup_raw_qty"/>
+            </tree>
+        </field>
+    </record>
+
+    <record
+        id="package_configurator_box_circulation_item_setup_view_form"
+        model="ir.ui.view"
+    >
+        <field name="name">package.configurator.box.circulation.item.setup.form</field>
+        <field name="model">package.configurator.box.circulation.item.setup</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="setup_rule_id"/>
+                            <field name="setup_id"/>
+                        </group>
+                        <group name="right">
+                            <field name="setup_raw_qty"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record
+        id="package_configurator_box_circulation_item_setup_action"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Circulation Setups</field>
+        <field name="res_model">package.configurator.box.circulation.item.setup</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

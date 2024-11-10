@@ -15,6 +15,7 @@ LAYOUT_CFG_MANDATORY_FIELDS = [
 class PackageConfiguratorBoxComponent(models.Model):
     _name = 'package.configurator.box.component'
     _description = "Package Configurator Box Component"
+    _rec_name = 'component_type'
 
     @api.model
     def _get_component_type_selection(self):

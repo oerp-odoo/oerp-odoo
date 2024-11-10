@@ -12,6 +12,19 @@ MANDATORY_LAYOUT_INP_FIELDS = [
 ]
 
 
+def get_comps(comps, *comp_types):
+    def filter_comps(comps, ctype):
+        return comps.filtered(lambda r: r.component_type == ctype)
+
+    res = []
+    for ctype in comp_types:
+        comp = filter_comps(comps, ctype)
+        # Adding even if there is no comp found, to make it more
+        # flexible.
+        res.append(comp)
+    return res
+
+
 class PackageConfiguratorBox(models.Model):
     _name = 'package.configurator.box'
     _inherit = 'package.configurator'
@@ -48,7 +61,7 @@ class PackageConfiguratorBox(models.Model):
     sheet_greyboard_base_id = fields.Many2one(
         'package.sheet',
         string="Base Grey Board",
-        required=True,
+        required=False,
         domain=[('scope', '=', const.SheetTypeScope.GREYBOARD)],
     )
     sheet_greyboard_lid_id = fields.Many2one(
@@ -119,6 +132,7 @@ class PackageConfiguratorBox(models.Model):
             else:
                 rec.update(rec._get_init_layouts_data())
 
+    # Move lamination logic to package.configurator.box.component!
     @api.depends(
         'lamination_outside_id',
         'lamination_inside_id',
@@ -130,20 +144,34 @@ class PackageConfiguratorBox(models.Model):
         'lid_inside_wrapping_width',
         'lid_outside_wrapping_length',
         'lid_outside_wrapping_width',
+        'component_ids.component_type',
+        'component_ids.component_length',
+        'component_ids.component_width',
+        'base_length',
+        'base_width',
+        'base_height',
+        'lid_height',
     )
     def _compute_lamination_fields(self):
         calc_area_and_price = utils.lamination.calc_area_and_price
         for box in self:
             data = box._get_init_laminations_data()
+            comps = box.component_ids
             if box.lamination_inside_id:
+                (
+                    comp_base_wrappingpaper_inside,
+                    comp_lid_wrappingpaper_inside,
+                ) = get_comps(
+                    comps, 'base_wrappingpaper_inside', 'lid_wrappingpaper_inside'
+                )
                 res = calc_area_and_price(
                     vo_layout.Layout2D(
-                        length=box.base_inside_wrapping_length,
-                        width=box.base_inside_wrapping_width,
+                        length=comp_base_wrappingpaper_inside.component_length,
+                        width=comp_base_wrappingpaper_inside.component_width,
                     ).area,
                     vo_layout.Layout2D(
-                        length=box.lid_inside_wrapping_length,
-                        width=box.lid_inside_wrapping_width,
+                        length=comp_lid_wrappingpaper_inside.component_length,
+                        width=comp_lid_wrappingpaper_inside.component_width,
                     ).area,
                     box.lamination_inside_id.unit_cost,
                 )
@@ -154,14 +182,20 @@ class PackageConfiguratorBox(models.Model):
                     }
                 )
             if box.lamination_outside_id:
+                (
+                    comp_base_wrappingpaper_outside,
+                    comp_lid_wrappingpaper_outside,
+                ) = get_comps(
+                    comps, 'base_wrappingpaper_outside', 'lid_wrappingpaper_outside'
+                )
                 res = calc_area_and_price(
                     vo_layout.Layout2D(
-                        length=box.base_outside_wrapping_length,
-                        width=box.base_outside_wrapping_width,
+                        length=comp_base_wrappingpaper_outside.component_length,
+                        width=comp_base_wrappingpaper_outside.component_width,
                     ).area,
                     vo_layout.Layout2D(
-                        length=box.lid_outside_wrapping_length,
-                        width=box.lid_outside_wrapping_width,
+                        length=comp_lid_wrappingpaper_outside.component_length,
+                        width=comp_lid_wrappingpaper_outside.component_width,
                     ).area,
                     box.lamination_outside_id.unit_cost,
                 )

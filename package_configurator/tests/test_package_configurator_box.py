@@ -159,14 +159,12 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         )
         # THEN
         # Lamination
-        # (224*101+232*109) * 1.2 / 1000000
-        self.assertEqual(cfg.lamination_inside_area, 0.0574944)
-        # 2 * 0.0574944
-        self.assertEqual(cfg.lamination_inside_unit_cost, 0.1149888)
-        # (264*141+272*149) * 1.2 / 1000000
-        self.assertEqual(cfg.lamination_outside_area, 0.0933024)
-        # 2 * 0.0933024
-        self.assertEqual(cfg.lamination_outside_unit_cost, 0.1866048)
+        # No wrappingpaper components chosen, so there is nothing to
+        # calculate lamination for.
+        self.assertEqual(cfg.lamination_inside_area, 0)
+        self.assertEqual(cfg.lamination_inside_unit_cost, 0)
+        self.assertEqual(cfg.lamination_outside_area, 0)
+        self.assertEqual(cfg.lamination_outside_unit_cost, 0)
 
     def test_03_configure_box_with_circulation(self):
         # GIVEN

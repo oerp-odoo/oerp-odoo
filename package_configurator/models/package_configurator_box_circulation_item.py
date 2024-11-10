@@ -35,6 +35,24 @@ class PackageConfiguratorBoxCirculationItem(models.Model):
             for circ_comp, qty in data.items():
                 circ_comp.quantity = qty
 
+    def action_open_circulation_setups(self):
+        self.ensure_one()
+        action = (
+            self.env['ir.actions.act_window']
+            .sudo()
+            ._for_xml_id(
+                'package_configurator.'
+                + 'package_configurator_box_circulation_item_setup_action'
+            )
+        )
+        action.update(
+            {
+                'context': {'default_circulation_item_id': self.id},
+                'domain': [('circulation_item_id', '=', self.id)],
+            }
+        )
+        return action
+
     def _get_quantity_data(self, circ):
         data = self._get_init_quantity_data(circ)
         circ_items = circ.item_ids
