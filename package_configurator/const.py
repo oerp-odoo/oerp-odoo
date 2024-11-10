@@ -25,16 +25,6 @@ SHEET_TYPE_SELECTION = [
     (SheetTypeScope.WRAPPINGPAPER, "Wrapping Paper"),
 ]
 
-
-class CirculationSetupPart(StrEnum):
-    BASE_GREYBOARD = 'base_greyboard'
-    LID_GREYBOARD = 'lid_greyboard'
-    BASE_INSIDE_WRAPPING = 'base_inside_wrapping'
-    BASE_OUTSIDE_WRAPPING = 'base_outside_wrapping'
-    LID_INSIDE_WRAPPING = 'lid_inside_wrapping'
-    LID_OUTSIDE_WRAPPING = 'lid_outside_wrapping'
-
-
 DEFAUL_GLOBAL_BOX_EXTRA = 30  # mm
 # Extra size for length and width to compensate, so lid would fit on a
 # base!

@@ -16,8 +16,6 @@ class TestPackageConfiguratorBoxAutofillSheets(
         cfg = self.PackageConfiguratorBox.create(
             {
                 'box_type_id': self.package_box_type_1.id,
-                'sheet_greyboard_base_id': self.package_sheet_greyboard_1.id,
-                'sheet_greyboard_lid_id': False,
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,
@@ -40,8 +38,6 @@ class TestPackageConfiguratorBoxAutofillSheets(
         cfg = self.PackageConfiguratorBox.create(
             {
                 'box_type_id': self.package_box_type_1.id,
-                'sheet_greyboard_base_id': self.package_sheet_greyboard_1.id,
-                'sheet_greyboard_lid_id': False,
                 # Too big to fit.
                 'base_length': 16500,
                 'base_width': 4200,

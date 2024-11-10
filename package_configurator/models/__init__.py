@@ -6,7 +6,6 @@ from . import (
     package_configurator_box_circulation,
     package_configurator_box_circulation_item,
     package_configurator_box_circulation_item_setup,
-    package_configurator_box_circulation_setup,
     package_box_type,
     package_box_setup,
     package_box_setup_rule,

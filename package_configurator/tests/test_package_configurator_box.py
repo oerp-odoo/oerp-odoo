@@ -12,21 +12,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         cfg = self.PackageConfiguratorBox.create(
             {
                 'box_type_id': self.package_box_type_1.id,
-                # thickness: 1.5mm
-                'sheet_greyboard_base_id': self.package_sheet_greyboard_1.id,
-                'sheet_greyboard_lid_id': self.package_sheet_greyboard_1.id,
-                'sheet_wrappingpaper_base_inside_id': (
-                    self.package_sheet_wrappingpaper_1.id
-                ),
-                'sheet_wrappingpaper_base_outside_id': (
-                    self.package_sheet_wrappingpaper_2.id
-                ),
-                'sheet_wrappingpaper_lid_inside_id': (
-                    self.package_sheet_wrappingpaper_1.id
-                ),
-                'sheet_wrappingpaper_lid_outside_id': (
-                    self.package_sheet_wrappingpaper_2.id
-                ),
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,
@@ -78,19 +63,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         )
         # THEN
         # Layouts
-        self.assertEqual(cfg.base_layout_length, 224)
-        self.assertEqual(cfg.base_layout_width, 101)
-        self.assertEqual(cfg.base_inside_wrapping_length, 224)
-        self.assertEqual(cfg.base_inside_wrapping_width, 101)
-        self.assertEqual(cfg.base_outside_wrapping_length, 264)
-        self.assertEqual(cfg.base_outside_wrapping_width, 141)
-        self.assertEqual(cfg.lid_layout_length, 232)
-        self.assertEqual(cfg.lid_layout_width, 109)
-        self.assertEqual(cfg.lid_inside_wrapping_length, 232)
-        self.assertEqual(cfg.lid_inside_wrapping_width, 109)
-        self.assertEqual(cfg.lid_outside_wrapping_length, 272)
-        self.assertEqual(cfg.lid_outside_wrapping_width, 149)
-
         self.assertEqual(comp_base_greyboard.component_length, 224)
         self.assertEqual(comp_base_greyboard.component_width, 101)
         self.assertEqual(comp_base_wrappingpaper_inside.component_length, 224)
@@ -129,9 +101,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         cfg = self.PackageConfiguratorBox.create(
             {
                 'box_type_id': self.package_box_type_1.id,
-                # thickness: 1.5mm
-                'sheet_greyboard_base_id': self.package_sheet_greyboard_1.id,
-                'sheet_greyboard_lid_id': self.package_sheet_greyboard_1.id,
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,
@@ -171,21 +140,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         cfg = self.PackageConfiguratorBox.create(
             {
                 'box_type_id': self.package_box_type_1.id,
-                # thickness: 1.5mm
-                'sheet_greyboard_base_id': self.package_sheet_greyboard_1.id,
-                'sheet_greyboard_lid_id': self.package_sheet_greyboard_1.id,
-                'sheet_wrappingpaper_base_inside_id': (
-                    self.package_sheet_wrappingpaper_1.id
-                ),
-                'sheet_wrappingpaper_base_outside_id': (
-                    self.package_sheet_wrappingpaper_2.id
-                ),
-                'sheet_wrappingpaper_lid_inside_id': (
-                    self.package_sheet_wrappingpaper_1.id
-                ),
-                'sheet_wrappingpaper_lid_outside_id': (
-                    self.package_sheet_wrappingpaper_2.id
-                ),
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,
@@ -244,19 +198,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         )
         # THEN
         # Layouts
-        self.assertEqual(cfg.base_layout_length, 224)
-        self.assertEqual(cfg.base_layout_width, 101)
-        self.assertEqual(cfg.base_inside_wrapping_length, 224)
-        self.assertEqual(cfg.base_inside_wrapping_width, 101)
-        self.assertEqual(cfg.base_outside_wrapping_length, 264)
-        self.assertEqual(cfg.base_outside_wrapping_width, 141)
-        self.assertEqual(cfg.lid_layout_length, 232)
-        self.assertEqual(cfg.lid_layout_width, 109)
-        self.assertEqual(cfg.lid_inside_wrapping_length, 232)
-        self.assertEqual(cfg.lid_inside_wrapping_width, 109)
-        self.assertEqual(cfg.lid_outside_wrapping_length, 272)
-        self.assertEqual(cfg.lid_outside_wrapping_width, 149)
-
         self.assertEqual(comp_base_greyboard.component_length, 224)
         self.assertEqual(comp_base_greyboard.component_width, 101)
         self.assertEqual(comp_base_wrappingpaper_inside.component_length, 224)
@@ -321,14 +262,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         )
         # With 100 box circulation
         # 4 from base and 4 from lid
-        self.assertEqual(circulation_1.total_base_greyboard_quantity, 4)
-        self.assertEqual(circulation_1.total_lid_greyboard_quantity, 4)
-        # 12 from base, 12 from lid
-        self.assertEqual(circulation_1.total_base_inside_wrappingpaper_quantity, 12)
-        self.assertEqual(circulation_1.total_lid_inside_wrappingpaper_quantity, 12)
-        # 17 from base, 20 from lid.
-        self.assertEqual(circulation_1.total_base_outside_wrappingpaper_quantity, 17)
-        self.assertEqual(circulation_1.total_lid_outside_wrappingpaper_quantity, 20)
         self.assertEqual(circulation_1.total_lamination_inside_cost, 0.0)
         self.assertEqual(circulation_1.total_lamination_outside_cost, 0.0)
         # 8*0.05 + 24*0.04 + 37*0.06
@@ -374,15 +307,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
             ).quantity,
             40,
         )
-        # 8 from base and 8 from lid
-        self.assertEqual(circulation_2.total_base_greyboard_quantity, 8)
-        self.assertEqual(circulation_2.total_lid_greyboard_quantity, 8)
-        # 23 from base, 23 from lid
-        self.assertEqual(circulation_2.total_base_inside_wrappingpaper_quantity, 23)
-        self.assertEqual(circulation_2.total_lid_inside_wrappingpaper_quantity, 23)
-        # 34 from base, 40 from lid.
-        self.assertEqual(circulation_2.total_base_outside_wrappingpaper_quantity, 34)
-        self.assertEqual(circulation_2.total_lid_outside_wrappingpaper_quantity, 40)
         self.assertEqual(circulation_2.total_lamination_inside_cost, 0.0)
         self.assertEqual(circulation_2.total_lamination_outside_cost, 0.0)
         # 16*0.05 + 46*0.04 + 74*0.06
@@ -400,21 +324,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         cfg = self.PackageConfiguratorBox.create(
             {
                 'box_type_id': self.package_box_type_1.id,
-                # thickness: 1.5mm
-                'sheet_greyboard_base_id': self.package_sheet_greyboard_1.id,
-                'sheet_greyboard_lid_id': self.package_sheet_greyboard_1.id,
-                'sheet_wrappingpaper_base_inside_id': (
-                    self.package_sheet_wrappingpaper_1.id
-                ),
-                'sheet_wrappingpaper_base_outside_id': (
-                    self.package_sheet_wrappingpaper_2.id
-                ),
-                'sheet_wrappingpaper_lid_inside_id': (
-                    self.package_sheet_wrappingpaper_1.id
-                ),
-                'sheet_wrappingpaper_lid_outside_id': (
-                    self.package_sheet_wrappingpaper_2.id
-                ),
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,
@@ -528,16 +437,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
             ).quantity,
             27,
         )
-        self.assertEqual(circulation_1.total_base_greyboard_quantity, 5)
-        self.assertEqual(circulation_1.total_lid_greyboard_quantity, 5)
-        # 12 from base, 12 from lid and min_qty = 24
-        self.assertEqual(circulation_1.total_base_inside_wrappingpaper_quantity, 12)
-        self.assertEqual(circulation_1.total_lid_inside_wrappingpaper_quantity, 12)
-        # 17 from base, 20 from lid. and min_qty = 50, so we increase it proportionally
-        # 37/50 = 0.74 and then 17/0.74 = 23 (rounded up) and 20/0.74 = 27 (
-        # rounded down)
-        self.assertEqual(circulation_1.total_base_outside_wrappingpaper_quantity, 23)
-        self.assertEqual(circulation_1.total_lid_outside_wrappingpaper_quantity, 27)
         # 10*0.05 + 24*0.04 + 50*0.06
         self.assertEqual(circulation_1.total_cost, 4.46)
         # 4.46 / 100
@@ -584,15 +483,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
             ).quantity,
             40,
         )
-        # 8 from base and 8 from lid
-        self.assertEqual(circulation_2.total_base_greyboard_quantity, 8)
-        self.assertEqual(circulation_2.total_lid_greyboard_quantity, 8)
-        # 23 from base, 23 from lid
-        self.assertEqual(circulation_2.total_base_inside_wrappingpaper_quantity, 23)
-        self.assertEqual(circulation_2.total_lid_inside_wrappingpaper_quantity, 23)
-        # 34 from base, 40 from lid.
-        self.assertEqual(circulation_2.total_base_outside_wrappingpaper_quantity, 34)
-        self.assertEqual(circulation_2.total_lid_outside_wrappingpaper_quantity, 40)
         # 16*0.05 + 46*0.04 + 74*0.06
         self.assertEqual(circulation_2.total_cost, 7.08)
         # 7.08 / 200
@@ -603,21 +493,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         cfg = self.PackageConfiguratorBox.create(
             {
                 'box_type_id': self.package_box_type_1.id,
-                # thickness: 1.5mm
-                'sheet_greyboard_base_id': self.package_sheet_greyboard_1.id,
-                'sheet_greyboard_lid_id': self.package_sheet_greyboard_1.id,
-                'sheet_wrappingpaper_base_inside_id': (
-                    self.package_sheet_wrappingpaper_1.id
-                ),
-                'sheet_wrappingpaper_base_outside_id': (
-                    self.package_sheet_wrappingpaper_2.id
-                ),
-                'sheet_wrappingpaper_lid_inside_id': (
-                    self.package_sheet_wrappingpaper_1.id
-                ),
-                'sheet_wrappingpaper_lid_outside_id': (
-                    self.package_sheet_wrappingpaper_2.id
-                ),
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,
@@ -679,19 +554,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         )
         # THEN
         # Layouts
-        self.assertEqual(cfg.base_layout_length, 224)
-        self.assertEqual(cfg.base_layout_width, 101)
-        self.assertEqual(cfg.base_inside_wrapping_length, 224)
-        self.assertEqual(cfg.base_inside_wrapping_width, 101)
-        self.assertEqual(cfg.base_outside_wrapping_length, 264)
-        self.assertEqual(cfg.base_outside_wrapping_width, 141)
-        self.assertEqual(cfg.lid_layout_length, 232)
-        self.assertEqual(cfg.lid_layout_width, 109)
-        self.assertEqual(cfg.lid_inside_wrapping_length, 232)
-        self.assertEqual(cfg.lid_inside_wrapping_width, 109)
-        self.assertEqual(cfg.lid_outside_wrapping_length, 272)
-        self.assertEqual(cfg.lid_outside_wrapping_width, 149)
-
         self.assertEqual(comp_base_greyboard.component_length, 224)
         self.assertEqual(comp_base_greyboard.component_width, 101)
         self.assertEqual(comp_base_wrappingpaper_inside.component_length, 224)
@@ -763,15 +625,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
             ).quantity,
             20,
         )
-        # 4 from base and 4 from lid
-        self.assertEqual(circulation_1.total_base_greyboard_quantity, 4)
-        self.assertEqual(circulation_1.total_lid_greyboard_quantity, 4)
-        # 12 from base, 12 from lid
-        self.assertEqual(circulation_1.total_base_inside_wrappingpaper_quantity, 12)
-        self.assertEqual(circulation_1.total_lid_inside_wrappingpaper_quantity, 12)
-        # 17 from base, 20 from lid.
-        self.assertEqual(circulation_1.total_base_outside_wrappingpaper_quantity, 17)
-        self.assertEqual(circulation_1.total_lid_outside_wrappingpaper_quantity, 20)
         # Lamination cost
         # 0.1149888*100
         self.assertEqual(circulation_1.total_lamination_inside_cost, 11.49888)
@@ -821,15 +674,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
             ).quantity,
             40,
         )
-        # 8 from base and 8 from lid
-        self.assertEqual(circulation_2.total_base_greyboard_quantity, 8)
-        self.assertEqual(circulation_2.total_lid_greyboard_quantity, 8)
-        # 23 from base, 23 from lid
-        self.assertEqual(circulation_2.total_base_inside_wrappingpaper_quantity, 23)
-        self.assertEqual(circulation_2.total_lid_inside_wrappingpaper_quantity, 23)
-        # 34 from base, 40 from lid.
-        self.assertEqual(circulation_2.total_base_outside_wrappingpaper_quantity, 34)
-        self.assertEqual(circulation_2.total_lid_outside_wrappingpaper_quantity, 40)
         # 0.1149888*200
         self.assertEqual(circulation_2.total_lamination_inside_cost, 22.99776)
         # 0.1866048*200
@@ -845,21 +689,6 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         cfg = self.PackageConfiguratorBox.create(
             {
                 'box_type_id': self.package_box_type_1.id,
-                # thickness: 1.5mm
-                'sheet_greyboard_base_id': self.package_sheet_greyboard_1.id,
-                'sheet_greyboard_lid_id': self.package_sheet_greyboard_1.id,
-                'sheet_wrappingpaper_base_inside_id': (
-                    self.package_sheet_wrappingpaper_1.id
-                ),
-                'sheet_wrappingpaper_base_outside_id': (
-                    self.package_sheet_wrappingpaper_2.id
-                ),
-                'sheet_wrappingpaper_lid_inside_id': (
-                    self.package_sheet_wrappingpaper_1.id
-                ),
-                'sheet_wrappingpaper_lid_outside_id': (
-                    self.package_sheet_wrappingpaper_2.id
-                ),
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 0.0,
@@ -914,23 +743,10 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
             ]
         )
         # THEN
-        self.assertEqual(cfg.base_layout_length, 0)
-        self.assertEqual(cfg.base_layout_width, 0)
-        self.assertEqual(cfg.base_inside_wrapping_length, 0)
-        self.assertEqual(cfg.base_inside_wrapping_width, 0)
-        self.assertEqual(cfg.base_outside_wrapping_length, 0)
-        self.assertEqual(cfg.base_outside_wrapping_width, 0)
-        self.assertEqual(cfg.lid_layout_length, 0)
-        self.assertEqual(cfg.lid_layout_width, 0)
-        self.assertEqual(cfg.lid_inside_wrapping_length, 0)
-        self.assertEqual(cfg.lid_inside_wrapping_width, 0)
-        self.assertEqual(cfg.lid_outside_wrapping_length, 0)
-        self.assertEqual(cfg.lid_outside_wrapping_width, 0)
         self.assertEqual(cfg.lamination_inside_area, 0)
         self.assertEqual(cfg.lamination_inside_unit_cost, 0)
         self.assertEqual(cfg.lamination_outside_area, 0)
         self.assertEqual(cfg.lamination_outside_unit_cost, 0)
-
         self.assertEqual(comp_base_greyboard.component_length, 0)
         self.assertEqual(comp_base_greyboard.component_width, 0)
         self.assertEqual(comp_base_wrappingpaper_inside.component_length, 0)

@@ -1,7 +1,7 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-from .. import const, utils
+from .. import utils
 from ..value_objects import layout as vo_layout
 
 MANDATORY_LAYOUT_INP_FIELDS = [
@@ -57,38 +57,6 @@ class PackageConfiguratorBox(models.Model):
     lid_extra = fields.Float()
     outside_wrapping_extra = fields.Float()
     box_type_id = fields.Many2one('package.box.type', required=True)
-    # Sheets
-    sheet_greyboard_base_id = fields.Many2one(
-        'package.sheet',
-        string="Base Grey Board",
-        required=False,
-        domain=[('scope', '=', const.SheetTypeScope.GREYBOARD)],
-    )
-    sheet_greyboard_lid_id = fields.Many2one(
-        'package.sheet',
-        string="Lid Grey Board",
-        domain=[('scope', '=', const.SheetTypeScope.GREYBOARD)],
-    )
-    sheet_wrappingpaper_base_outside_id = fields.Many2one(
-        'package.sheet',
-        string="Base Outside Wrapping Paper",
-        domain=[('scope', '=', const.SheetTypeScope.WRAPPINGPAPER)],
-    )
-    sheet_wrappingpaper_base_inside_id = fields.Many2one(
-        'package.sheet',
-        string="Base Inside Wrapping Paper",
-        domain=[('scope', '=', const.SheetTypeScope.WRAPPINGPAPER)],
-    )
-    sheet_wrappingpaper_lid_outside_id = fields.Many2one(
-        'package.sheet',
-        string="Lid Outside Wrapping Paper",
-        domain=[('scope', '=', const.SheetTypeScope.WRAPPINGPAPER)],
-    )
-    sheet_wrappingpaper_lid_inside_id = fields.Many2one(
-        'package.sheet',
-        string="Lid Inside Wrapping Paper",
-        domain=[('scope', '=', const.SheetTypeScope.WRAPPINGPAPER)],
-    )
     lamination_outside_id = fields.Many2one(
         'package.lamination',
         string="Outside Lamination",
@@ -96,54 +64,16 @@ class PackageConfiguratorBox(models.Model):
     lamination_inside_id = fields.Many2one(
         'package.lamination', string="Inside Lamination"
     )
-    # Base
-    base_layout_length = fields.Float(compute='_compute_layouts_data')
-    base_layout_width = fields.Float(compute='_compute_layouts_data')
-    base_inside_wrapping_length = fields.Float(compute='_compute_layouts_data')
-    base_inside_wrapping_width = fields.Float(compute='_compute_layouts_data')
-    base_outside_wrapping_width = fields.Float(compute='_compute_layouts_data')
-    base_outside_wrapping_length = fields.Float(compute='_compute_layouts_data')
-    # Lid
-    lid_layout_length = fields.Float(compute='_compute_layouts_data')
-    lid_layout_width = fields.Float(compute='_compute_layouts_data')
-    lid_inside_wrapping_length = fields.Float(compute='_compute_layouts_data')
-    lid_inside_wrapping_width = fields.Float(compute='_compute_layouts_data')
-    lid_outside_wrapping_length = fields.Float(compute='_compute_layouts_data')
-    lid_outside_wrapping_width = fields.Float(compute='_compute_layouts_data')
     # Lamination
     lamination_inside_area = fields.Float(compute='_compute_lamination_fields')
     lamination_inside_unit_cost = fields.Float(compute='_compute_lamination_fields')
     lamination_outside_area = fields.Float(compute='_compute_lamination_fields')
     lamination_outside_unit_cost = fields.Float(compute='_compute_lamination_fields')
 
-    @api.depends(
-        'sheet_greyboard_base_id',
-        'base_length',
-        'base_width',
-        'base_height',
-        'lid_height',
-        'lid_extra',
-        'outside_wrapping_extra',
-    )
-    def _compute_layouts_data(self):
-        for rec in self:
-            if all(rec[fname] for fname in MANDATORY_LAYOUT_INP_FIELDS):
-                rec.update(rec._get_layouts_data())
-            else:
-                rec.update(rec._get_init_layouts_data())
-
     # Move lamination logic to package.configurator.box.component!
     @api.depends(
         'lamination_outside_id',
         'lamination_inside_id',
-        'base_inside_wrapping_length',
-        'base_inside_wrapping_width',
-        'base_outside_wrapping_length',
-        'base_outside_wrapping_width',
-        'lid_inside_wrapping_length',
-        'lid_inside_wrapping_width',
-        'lid_outside_wrapping_length',
-        'lid_outside_wrapping_width',
         'component_ids.component_type',
         'component_ids.component_length',
         'component_ids.component_width',
@@ -248,72 +178,10 @@ class PackageConfiguratorBox(models.Model):
             [('company_id', '=', self.company_id.id)]
         )
 
-    def _get_layouts_data(self):
-        self.ensure_one()
-        # This is not change'able directly on configurator on
-        # purpose!
-        # TODO: move layout data calculation to component model!
-        global_extra = self.company_id.package_default_global_box_extra
-        res = self.env['package.box.layout'].get_layouts(
-            vo_layout.BaseDimensions(
-                length=self.base_length,
-                width=self.base_width,
-                height=self.base_height,
-                outside_wrapping_extra=self.outside_wrapping_extra,
-                extra=global_extra,
-            ),
-            vo_layout.LidDimensions(
-                height=self.lid_height,
-                thickness=self.sheet_greyboard_base_id.sheet_type_id.thickness,
-                extra=self.lid_extra + global_extra,
-            ),
-        )
-        return {
-            'base_layout_length': res['base']['box'].length,
-            'base_layout_width': res['base']['box'].width,
-            'base_inside_wrapping_length': res['base']['inside_wrapping'].length,
-            'base_inside_wrapping_width': res['base']['inside_wrapping'].width,
-            'base_outside_wrapping_length': res['base']['outside_wrapping'].length,
-            'base_outside_wrapping_width': res['base']['outside_wrapping'].width,
-            'lid_layout_length': res['lid']['box'].length,
-            'lid_layout_width': res['lid']['box'].width,
-            'lid_inside_wrapping_length': res['lid']['inside_wrapping'].length,
-            'lid_inside_wrapping_width': res['lid']['inside_wrapping'].width,
-            'lid_outside_wrapping_length': res['lid']['outside_wrapping'].length,
-            'lid_outside_wrapping_width': res['lid']['outside_wrapping'].width,
-        }
-
-    def _get_init_layouts_data(self):
-        self.ensure_one()
-        return {
-            'base_layout_length': 0.0,
-            'base_layout_width': 0.0,
-            'base_inside_wrapping_length': 0.0,
-            'base_inside_wrapping_width': 0.0,
-            'base_outside_wrapping_length': 0.0,
-            'base_outside_wrapping_width': 0.0,
-            'lid_layout_length': 0.0,
-            'lid_layout_width': 0.0,
-            'lid_inside_wrapping_length': 0.0,
-            'lid_inside_wrapping_width': 0.0,
-            'lid_outside_wrapping_length': 0.0,
-            'lid_outside_wrapping_width': 0.0,
-        }
-
     def _get_init_laminations_data(self):
         return {
             'lamination_inside_area': 0,
             'lamination_inside_unit_cost': 0,
             'lamination_outside_area': 0,
             'lamination_outside_unit_cost': 0,
-        }
-
-    def _get_init_fit_qty_data(self):
-        return {
-            'base_layout_fit_qty': 0,
-            'base_inside_fit_qty': 0,
-            'base_outside_fit_qty': 0,
-            'lid_layout_fit_qty': 0,
-            'lid_inside_fit_qty': 0,
-            'lid_outside_fit_qty': 0,
         }

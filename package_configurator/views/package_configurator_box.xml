@@ -56,67 +56,10 @@
                             </group>
                         <group name="general" string="General">
                             <field name="box_type_id"/>
-<!--                             <field name="sheet_greyboard_base_id"/>
-                            <field name="sheet_greyboard_lid_id" required="True"/>
-                            <field name="sheet_wrappingpaper_base_outside_id"/>
-                            <field name="sheet_wrappingpaper_base_inside_id"/>
-                            <field name="sheet_wrappingpaper_lid_outside_id"/>
-                            <field name="sheet_wrappingpaper_lid_inside_id"/> -->
                             <field name="lamination_outside_id"/>
                             <field name="lamination_inside_id"/>
                         </group>
                         </group>
-<!--                         <group name="layouts" string="Layouts">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th/>
-                                        <th>Length</th>
-                                        <th>Width</th>
-                                        <th>Inside Wrapping Length</th>
-                                        <th>Inside Wrapping Width</th>
-                                        <th>Outside Wrapping Length</th>
-                                        <th>Outside Wrapping Width</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Base</td>
-                                        <td><field name="base_layout_length"/></td>
-                                        <td><field name="base_layout_width"/></td>
-                                        <td><field
-                                                name="base_inside_wrapping_length"
-                                            /></td>
-                                        <td><field
-                                                name="base_inside_wrapping_width"
-                                            /></td>
-                                        <td><field
-                                                name="base_outside_wrapping_length"
-                                            /></td>
-                                        <td><field
-                                                name="base_outside_wrapping_width"
-                                            /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lid</td>
-                                        <td><field name="lid_layout_length"/></td>
-                                        <td><field name="lid_layout_width"/></td>
-                                        <td><field
-                                                name="lid_inside_wrapping_length"
-                                            /></td>
-                                        <td><field
-                                                name="lid_inside_wrapping_width"
-                                            /></td>
-                                        <td><field
-                                                name="lid_outside_wrapping_length"
-                                            /></td>
-                                        <td><field
-                                                name="lid_outside_wrapping_width"
-                                            /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </group> -->
                         <group
                             name="lamination"
                             string="Lamination"

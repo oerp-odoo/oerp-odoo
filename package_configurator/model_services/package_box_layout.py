@@ -16,7 +16,7 @@ class PackageBoxLayout(models.AbstractModel):
         comp_base_greyboard = components.filtered(
             lambda r: r.component_type == 'base_greyboard'
         )
-        return self.get_layouts_new(
+        return self.get_layouts(
             vo_layout.BaseDimensions(
                 length=cfg.base_length,
                 width=cfg.base_width,
@@ -32,8 +32,7 @@ class PackageBoxLayout(models.AbstractModel):
             ),
         )
 
-    # TODO: rename to get_layouts and remove old one once it is decoupled!
-    def get_layouts_new(
+    def get_layouts(
         self,
         base_dimensions: vo_layout.BaseDimensions,
         lid_dimensions: vo_layout.LidDimensions,
@@ -70,35 +69,6 @@ class PackageBoxLayout(models.AbstractModel):
                 lid_layout,
                 wrapping_extra,
             ),
-        }
-
-    def get_layouts(
-        self,
-        base_dimensions: vo_layout.BaseDimensions,
-        lid_dimensions: vo_layout.LidDimensions,
-    ) -> dict:
-        """Get 2D layouts from 3D dimensions."""
-        base_layout = self._get_base_layout(base_dimensions)
-        lid_layout = self._get_lid_layout(base_dimensions, lid_dimensions)
-        # Multiply by 2 for each side.
-        wrapping_extra = base_dimensions.outside_wrapping_extra * 2
-        return {
-            'base': {
-                'box': base_layout,
-                'inside_wrapping': self._get_inside_wrapping_layout(base_layout),
-                'outside_wrapping': self._get_outside_wrapping_layout(
-                    base_layout,
-                    wrapping_extra,
-                ),
-            },
-            'lid': {
-                'box': lid_layout,
-                'inside_wrapping': self._get_inside_wrapping_layout(lid_layout),
-                'outside_wrapping': self._get_outside_wrapping_layout(
-                    lid_layout,
-                    wrapping_extra,
-                ),
-            },
         }
 
     def _get_base_layout(

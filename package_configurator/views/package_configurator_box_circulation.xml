@@ -10,12 +10,6 @@
                 <field name="total_cost"/>
                 <field name="total_lamination_outside_cost"/>
                 <field name="total_lamination_inside_cost"/>
-<!--                 <field name="total_base_greyboard_quantity"/>
-                <field name="total_base_outside_wrappingpaper_quantity"/>
-                <field name="total_base_inside_wrappingpaper_quantity"/>
-                <field name="total_lid_greyboard_quantity"/>
-                <field name="total_lid_outside_wrappingpaper_quantity"/>
-                <field name="total_lid_inside_wrappingpaper_quantity"/> -->
             </tree>
         </field>
     </record>
@@ -29,12 +23,6 @@
                     <group name="main">
                         <group name="quantities" string="Quantities">
                             <field name="quantity"/>
- <!--                            <field name="total_base_greyboard_quantity"/>
-                            <field name="total_base_outside_wrappingpaper_quantity"/>
-                            <field name="total_base_inside_wrappingpaper_quantity"/>
-                            <field name="total_lid_greyboard_quantity"/>
-                            <field name="total_lid_outside_wrappingpaper_quantity"/>
-                            <field name="total_lid_inside_wrappingpaper_quantity"/> -->
                         </group>
                         <group name="costs" string="Costs">
                             <field name="unit_cost"/>
@@ -58,15 +46,6 @@
                                 </tree>
                             </field>
                         </page>
-<!--                         <page name="circulation_setups" string="Setup">
-                            <field name="circulation_setup_ids">
-                                <tree editable="bottom">
-                                    <field name="part"/>
-                                    <field name="setup_rule_id"/>
-                                    <field name="setup_raw_qty"/>
-                                </tree>
-                            </field>
-                        </page> -->
                     </notebook>
                 </sheet>
             </form>
