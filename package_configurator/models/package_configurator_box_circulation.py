@@ -113,6 +113,8 @@ class PackageConfiguratorBoxCirculation(models.Model):
         'total_lamination_inside_cost',
         'total_lamination_outside_cost',
         'circulation_setup_ids.setup_raw_qty',
+        'item_ids.quantity',
+        'item_ids.circulation_setup_ids.setup_raw_qty',
     )
     def _compute_cost(self):
         for rec in self:
@@ -241,35 +243,13 @@ class PackageConfiguratorBoxCirculation(models.Model):
     def _get_price_data(self):
         self.ensure_one()
         data = {'unit_cost': 0, 'total_cost': 0}
-        if self.quantity:
-            cfg = self.configurator_id
-            total_cost = 0
-            total_cost += multiply(
-                cfg.sheet_greyboard_base_id.unit_cost,
-                self.total_base_greyboard_quantity,
-            )
-            total_cost += multiply(
-                cfg.sheet_greyboard_lid_id.unit_cost, self.total_lid_greyboard_quantity
-            )
-            total_cost += multiply(
-                cfg.sheet_wrappingpaper_base_inside_id.unit_cost,
-                self.total_base_inside_wrappingpaper_quantity,
-            )
-            total_cost += multiply(
-                cfg.sheet_wrappingpaper_base_outside_id.unit_cost,
-                self.total_base_outside_wrappingpaper_quantity,
-            )
-            total_cost += multiply(
-                cfg.sheet_wrappingpaper_lid_inside_id.unit_cost,
-                self.total_lid_inside_wrappingpaper_quantity,
-            )
-            total_cost += multiply(
-                cfg.sheet_wrappingpaper_lid_outside_id.unit_cost,
-                self.total_lid_outside_wrappingpaper_quantity,
-            )
-            total_cost += self.total_lamination_inside_cost
-            total_cost += self.total_lamination_outside_cost
-            data.update(
-                {'unit_cost': total_cost / self.quantity, 'total_cost': total_cost}
-            )
+        if not self.quantity:
+            return data
+        total_cost = 0
+        for item in self.item_ids:
+            unit_cost = item.component_id.sheet_id.unit_cost
+            total_cost += multiply(unit_cost, item.quantity)
+        total_cost += self.total_lamination_inside_cost
+        total_cost += self.total_lamination_outside_cost
+        data.update({'unit_cost': total_cost / self.quantity, 'total_cost': total_cost})
         return data

@@ -139,42 +139,46 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         self.assertEqual(len(circ_items), 6)
         # One setup per component.
         self.assertEqual(len(circ_items.mapped('circulation_setup_ids')), 6)
-        self.assertEqual(
-            circ_items.filtered(
-                lambda r: r.component_id.component_type == 'base_greyboard'
-            ).circulation_setup_ids.setup_raw_qty,
-            4,
+        item_base_greyboard = circ_items.filtered(
+            lambda r: r.component_id.component_type == 'base_greyboard'
+        )
+        self.assertEqual(item_base_greyboard.circulation_setup_ids.setup_raw_qty, 4)
+        self.assertEqual(item_base_greyboard.quantity, 8)
+        item_lid_greyboard = circ_items.filtered(
+            lambda r: r.component_id.component_type == 'lid_greyboard'
+        )
+        self.assertEqual(item_lid_greyboard.circulation_setup_ids.setup_raw_qty, 4)
+        self.assertEqual(item_lid_greyboard.quantity, 8)
+
+        item_base_wrappingpaper_inside = circ_items.filtered(
+            lambda r: r.component_id.component_type == 'base_wrappingpaper_inside'
         )
         self.assertEqual(
-            circ_items.filtered(
-                lambda r: r.component_id.component_type == 'lid_greyboard'
-            ).circulation_setup_ids.setup_raw_qty,
-            4,
+            item_base_wrappingpaper_inside.circulation_setup_ids.setup_raw_qty, 12
         )
-        self.assertEqual(
-            circ_items.filtered(
-                lambda r: r.component_id.component_type == 'base_wrappingpaper_inside'
-            ).circulation_setup_ids.setup_raw_qty,
-            12,
-        )
+        self.assertEqual(item_base_wrappingpaper_inside.quantity, 24)
+
         self.assertEqual(
             circ_items.filtered(
                 lambda r: r.component_id.component_type == 'lid_wrappingpaper_inside'
             ).circulation_setup_ids.setup_raw_qty,
             12,
         )
-        self.assertEqual(
-            circ_items.filtered(
-                lambda r: r.component_id.component_type == 'base_wrappingpaper_outside'
-            ).circulation_setup_ids.setup_raw_qty,
-            17,
+        item_base_wrappingpaper_outside = circ_items.filtered(
+            lambda r: r.component_id.component_type == 'base_wrappingpaper_outside'
         )
         self.assertEqual(
-            circ_items.filtered(
-                lambda r: r.component_id.component_type == 'lid_wrappingpaper_outside'
-            ).circulation_setup_ids.setup_raw_qty,
-            20,
+            item_base_wrappingpaper_outside.circulation_setup_ids.setup_raw_qty, 17
         )
+        self.assertEqual(item_base_wrappingpaper_outside.quantity, 34)
+        item_lid_wrappingpaper_outside = circ_items.filtered(
+            lambda r: r.component_id.component_type == 'lid_wrappingpaper_outside'
+        )
+        self.assertEqual(
+            item_lid_wrappingpaper_outside.circulation_setup_ids.setup_raw_qty, 20
+        )
+        self.assertEqual(item_lid_wrappingpaper_outside.quantity, 40)
+
         self.assertEqual(len(circulation_1.circulation_setup_ids), 6)
         self.assertEqual(
             circulation_1.circulation_setup_ids.mapped('setup_rule_id'), setup_1_rule_1
@@ -269,33 +273,33 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         self.assertEqual(len(circ_items), 6)
         self.assertEqual(len(circ_items.mapped('circulation_setup_ids')), 6)
         # setup_qty is 200 and fit qty is 27, so 200/27
-        self.assertEqual(
-            circ_items.filtered(
-                lambda r: r.component_id.component_type == 'base_greyboard'
-            ).circulation_setup_ids.setup_raw_qty,
-            8,
+        item_base_greyboard = circ_items.filtered(
+            lambda r: r.component_id.component_type == 'base_greyboard'
         )
+        self.assertEqual(item_base_greyboard.circulation_setup_ids.setup_raw_qty, 8)
+        self.assertEqual(item_base_greyboard.quantity, 16)
         # 200/9
-        self.assertEqual(
-            circ_items.filtered(
-                lambda r: r.component_id.component_type == 'lid_greyboard'
-            ).circulation_setup_ids.setup_raw_qty,
-            8,
+        item_lid_greyboard = circ_items.filtered(
+            lambda r: r.component_id.component_type == 'lid_greyboard'
         )
+        self.assertEqual(item_lid_greyboard.circulation_setup_ids.setup_raw_qty, 8)
+        self.assertEqual(item_lid_greyboard.quantity, 16)
         # 200/6
-        self.assertEqual(
-            circ_items.filtered(
-                lambda r: r.component_id.component_type == 'base_wrappingpaper_inside'
-            ).circulation_setup_ids.setup_raw_qty,
-            23,
+        item_base_wrappingpaper_inside = circ_items.filtered(
+            lambda r: r.component_id.component_type == 'base_wrappingpaper_inside'
         )
+        self.assertEqual(
+            item_base_wrappingpaper_inside.circulation_setup_ids.setup_raw_qty, 23
+        )
+        self.assertEqual(item_base_wrappingpaper_inside.quantity, 46)
         # 200/27
-        self.assertEqual(
-            circ_items.filtered(
-                lambda r: r.component_id.component_type == 'lid_wrappingpaper_inside'
-            ).circulation_setup_ids.setup_raw_qty,
-            23,
+        item_lid_wrappingpaper_inside = circ_items.filtered(
+            lambda r: r.component_id.component_type == 'lid_wrappingpaper_inside'
         )
+        self.assertEqual(
+            item_lid_wrappingpaper_inside.circulation_setup_ids.setup_raw_qty, 23
+        )
+        self.assertEqual(item_lid_wrappingpaper_inside.quantity, 46)
         # 200/9
         self.assertEqual(
             circ_items.filtered(
@@ -303,13 +307,21 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
             ).circulation_setup_ids.setup_raw_qty,
             34,
         )
-        # 200/5
-        self.assertEqual(
-            circ_items.filtered(
-                lambda r: r.component_id.component_type == 'lid_wrappingpaper_outside'
-            ).circulation_setup_ids.setup_raw_qty,
-            40,
+        item_base_wrappingpaper_outside = circ_items.filtered(
+            lambda r: r.component_id.component_type == 'base_wrappingpaper_outside'
         )
+        self.assertEqual(
+            item_base_wrappingpaper_outside.circulation_setup_ids.setup_raw_qty, 34
+        )
+        self.assertEqual(item_base_wrappingpaper_outside.quantity, 68)
+        # 200/5
+        item_lid_wrappingpaper_outside = circ_items.filtered(
+            lambda r: r.component_id.component_type == 'lid_wrappingpaper_outside'
+        )
+        self.assertEqual(
+            item_lid_wrappingpaper_outside.circulation_setup_ids.setup_raw_qty, 40
+        )
+        self.assertEqual(item_lid_wrappingpaper_outside.quantity, 80)
 
         # setup_qty is 200 and fit qty is 27, so 200/27
         self.assertEqual(
@@ -464,18 +476,16 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         self.assertEqual(len(circ_items), 2)
         # One setup per component.
         self.assertEqual(len(circ_items.mapped('circulation_setup_ids')), 2)
-        self.assertEqual(
-            circ_items.filtered(
-                lambda r: r.component_id.component_type == 'base_greyboard'
-            ).circulation_setup_ids.setup_raw_qty,
-            4,
+        item_base_greyboard = circ_items.filtered(
+            lambda r: r.component_id.component_type == 'base_greyboard'
         )
-        self.assertEqual(
-            circ_items.filtered(
-                lambda r: r.component_id.component_type == 'lid_greyboard'
-            ).circulation_setup_ids.setup_raw_qty,
-            4,
+        self.assertEqual(item_base_greyboard.circulation_setup_ids.setup_raw_qty, 4)
+        self.assertEqual(item_base_greyboard.quantity, 8)
+        item_lid_greyboard = circ_items.filtered(
+            lambda r: r.component_id.component_type == 'lid_greyboard'
         )
+        self.assertEqual(item_lid_greyboard.circulation_setup_ids.setup_raw_qty, 4)
+        self.assertEqual(item_lid_greyboard.quantity, 8)
         # For 1 for base greyboard + 1 for lid greyboard.
         self.assertEqual(len(circulation_1.circulation_setup_ids), 2)
         self.assertEqual(
@@ -520,18 +530,17 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         self.assertEqual(len(circ_items), 2)
         # One setup per component.
         self.assertEqual(len(circ_items.mapped('circulation_setup_ids')), 2)
-        self.assertEqual(
-            circ_items.filtered(
-                lambda r: r.component_id.component_type == 'base_greyboard'
-            ).circulation_setup_ids.setup_raw_qty,
-            8,
+        item_base_greyboard = circ_items.filtered(
+            lambda r: r.component_id.component_type == 'base_greyboard'
         )
-        self.assertEqual(
-            circ_items.filtered(
-                lambda r: r.component_id.component_type == 'lid_greyboard'
-            ).circulation_setup_ids.setup_raw_qty,
-            8,
+        self.assertEqual(item_base_greyboard.circulation_setup_ids.setup_raw_qty, 8)
+        self.assertEqual(item_base_greyboard.quantity, 16)
+        item_lid_greyboard = circ_items.filtered(
+            lambda r: r.component_id.component_type == 'lid_greyboard'
         )
+        self.assertEqual(item_lid_greyboard.circulation_setup_ids.setup_raw_qty, 8)
+        self.assertEqual(item_lid_greyboard.quantity, 16)
+
         self.assertEqual(len(circulation_2.circulation_setup_ids), 2)
         self.assertEqual(
             circulation_2.circulation_setup_ids.mapped('setup_rule_id'), setup_2_rule_1

@@ -39,8 +39,8 @@ class PackageConfiguratorBoxCirculationItem(models.Model):
         data = self._get_init_quantity_data(circ)
         circ_items = circ.item_ids
         qty_map = defaultdict(list)
-        for circ_item in circ_items:
-            component = circ_item.component_id
+        for item in circ_items:
+            component = item.component_id
             if not component.fit_qty:
                 continue
             sheet = component.sheet_id
@@ -49,10 +49,11 @@ class PackageConfiguratorBoxCirculationItem(models.Model):
             qty_map[(sheet.id, sheet.min_qty)].append(
                 vo_sheet.SheetQuantityItem(
                     # Mapping by circ_item record!
-                    code=circ_item,
+                    code=item,
                     fit_qty=component.fit_qty,
-                    # TODO: integrate with setup!
-                    setup_raw_qty=0,
+                    setup_raw_qty=sum(
+                        s.setup_raw_qty for s in item.circulation_setup_ids
+                    ),
                 )
             )
         sheets = []
