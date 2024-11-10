@@ -5,10 +5,8 @@ from odoo import api, fields, models
 from ..value_objects import sheet as vo_sheet
 
 
-class PackageConfiguratorBoxCirculationComponent(models.Model):
-    """Class to manage components for each circulation."""
-
-    _name = 'package.configurator.box.circulation.component'
+class PackageConfiguratorBoxCirculationItem(models.Model):
+    _name = 'package.configurator.box.circulation.item'
     _description = "Package Configurator Box Circulation Component"
 
     circulation_id = fields.Many2one(
@@ -22,8 +20,8 @@ class PackageConfiguratorBoxCirculationComponent(models.Model):
         compute='_compute_quantity',
     )
     circulation_setup_ids = fields.One2many(
-        'package.configurator.box.circulation.component.setup',
-        'circulation_component_id',
+        'package.configurator.box.circulation.item.setup',
+        'circulation_item_id',
     )
 
     @api.depends(
@@ -39,10 +37,10 @@ class PackageConfiguratorBoxCirculationComponent(models.Model):
 
     def _get_quantity_data(self, circ):
         data = self._get_init_quantity_data(circ)
-        circ_components = circ.circulation_component_ids
+        circ_items = circ.item_ids
         qty_map = defaultdict(list)
-        for circ_component in circ_components:
-            component = circ_component.component_id
+        for circ_item in circ_items:
+            component = circ_item.component_id
             if not component.fit_qty:
                 continue
             sheet = component.sheet_id
@@ -50,8 +48,8 @@ class PackageConfiguratorBoxCirculationComponent(models.Model):
             # retrieve it when building SheetQuantity!
             qty_map[(sheet.id, sheet.min_qty)].append(
                 vo_sheet.SheetQuantityItem(
-                    # Mapping by circ_component record!
-                    code=circ_component,
+                    # Mapping by circ_item record!
+                    code=circ_item,
                     fit_qty=component.fit_qty,
                     # TODO: integrate with setup!
                     setup_raw_qty=0,
@@ -64,4 +62,4 @@ class PackageConfiguratorBoxCirculationComponent(models.Model):
         return data
 
     def _get_init_quantity_data(self, circ):
-        return {cc: 0 for cc in circ.circulation_component_ids}
+        return {cc: 0 for cc in circ.item_ids}

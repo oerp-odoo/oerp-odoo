@@ -16,11 +16,11 @@ class PackageConfiguratorBoxCirculation(models.Model):
     _description = "Package Configurator Box Circulation"
 
     configurator_id = fields.Many2one('package.configurator.box')
-    circulation_component_ids = fields.One2many(
-        'package.configurator.box.circulation.component',
+    item_ids = fields.One2many(
+        'package.configurator.box.circulation.item',
         'circulation_id',
         store=True,
-        compute='_compute_circulation_component_ids',
+        compute='_compute_item_ids',
     )
     circulation_setup_ids = fields.One2many(
         'package.configurator.box.circulation.setup',
@@ -61,13 +61,13 @@ class PackageConfiguratorBoxCirculation(models.Model):
     )
 
     @api.depends('configurator_id.component_ids')
-    def _compute_circulation_component_ids(self):
+    def _compute_item_ids(self):
         for rec in self:
             components = rec.configurator_id.component_ids
             data = []
             for component in components:
                 data.append(Command.create({'component_id': component.id}))
-            rec.circulation_component_ids = data
+            rec.item_ids = data
 
     @api.depends(
         'configurator_id.component_ids.fit_qty',
@@ -128,19 +128,17 @@ class PackageConfiguratorBoxCirculation(models.Model):
             vals_list.extend(CirculationSetup.prepare_circulation_setups(rec, setups))
         if vals_list:
             CirculationSetup.create(vals_list)
-        self.mapped('circulation_component_ids.circulation_setup_ids').unlink()
-        CirculationComponentSetup = self.env[
-            'package.configurator.box.circulation.component.setup'
+        self.mapped('item_ids.circulation_setup_ids').unlink()
+        CirculationItemSetup = self.env[
+            'package.configurator.box.circulation.item.setup'
         ]
         vals_list = []
-        for circ_component in self.circulation_component_ids:
+        for circ_item in self.item_ids:
             vals_list.extend(
-                CirculationComponentSetup.prepare_circulation_setups(
-                    circ_component, setups
-                )
+                CirculationItemSetup.prepare_circulation_setups(circ_item, setups)
             )
         if vals_list:
-            CirculationComponentSetup.create(vals_list)
+            CirculationItemSetup.create(vals_list)
         return True
 
     def _get_sheet_quantity_data(self):
