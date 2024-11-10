@@ -11,8 +11,8 @@
                     class="app_settings_block"
                     data-string="Package"
                     string="Package"
-                    name="product_package_configurator"
-                    groups="product_package_configurator.package_group_manager"
+                    name="package_configurator"
+                    groups="package_configurator.package_group_manager"
                 >
                     <block title="Defaults" name="settings_package_defaults">
                         <setting
@@ -48,6 +48,6 @@
         <field name="target">inline</field>
         <field
             name="context"
-        >{'module' : 'product_package_configurator', 'bin_size': False}</field>
+        >{'module' : 'package_configurator', 'bin_size': False}</field>
     </record>
 </odoo>

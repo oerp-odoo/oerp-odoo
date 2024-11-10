@@ -13,7 +13,7 @@
         'product',
     ],
     'data': [
-        'security/product_package_configurator_groups.xml',
+        'security/package_configurator_groups.xml',
         'security/ir.model.access.csv',
         'security/package_configurator_box_security.xml',
         'security/package_configurator_box_component_security.xml',

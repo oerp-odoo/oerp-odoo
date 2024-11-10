@@ -3,22 +3,22 @@
     <menuitem
         id="package_root_menu"
         name="Package"
-        web_icon="product_package_configurator,static/description/icon.png"
+        web_icon="package_configurator,static/description/icon.png"
         sequence="50"
-        groups="product_package_configurator.package_group_user"
+        groups="package_configurator.package_group_user"
     >
         <menuitem
             id="package_configurator_box_menu"
             action="package_configurator_box_action"
             sequence="60"
-            groups="product_package_configurator.package_group_manager"
+            groups="package_configurator.package_group_manager"
         />
 
         <menuitem
             id="package_config_menu"
             name="Configuration"
             sequence="100"
-            groups="product_package_configurator.package_group_manager"
+            groups="package_configurator.package_group_manager"
         >
             <menuitem
                 id="package_config_settings_menu"
