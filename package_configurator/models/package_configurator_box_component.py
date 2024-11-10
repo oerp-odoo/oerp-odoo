@@ -27,8 +27,8 @@ class PackageConfiguratorBoxComponent(models.Model):
         required=True,
         default='base_greyboard',
     )
-    component_length = fields.Float(compute='_compute_type_data')
-    component_width = fields.Float(compute='_compute_type_data')
+    component_length = fields.Float(compute='_compute_type_data', string="Length")
+    component_width = fields.Float(compute='_compute_type_data', string="Width")
     scope = fields.Selection(const.SHEET_TYPE_SELECTION, compute='_compute_type_data')
     sheet_type_id = fields.Many2one(
         'package.sheet.type', domain="[('scope', '=', scope)]"
@@ -51,6 +51,7 @@ class PackageConfiguratorBoxComponent(models.Model):
         'configurator_id.lid_height',
         'configurator_id.lid_extra',
         'configurator_id.outside_wrapping_extra',
+        'configurator_id.component_ids.component_type',
     )
     def _compute_type_data(self):
         for rec in self:

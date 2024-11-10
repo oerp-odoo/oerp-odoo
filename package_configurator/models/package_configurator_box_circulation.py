@@ -37,6 +37,7 @@ class PackageConfiguratorBoxCirculation(models.Model):
     @api.depends('configurator_id.component_ids')
     def _compute_item_ids(self):
         for rec in self:
+            rec.item_ids = [Command.clear()]
             components = rec.configurator_id.component_ids
             data = []
             for component in components:

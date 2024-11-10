@@ -110,6 +110,8 @@
                                         name="sheet_id"
                                         options="{'no_create': True}"
                                     />
+                                    <field name="component_length"/>
+                                    <field name="component_width"/>
                                     <field name="fit_qty"/>
                                 </tree>
                             </field>

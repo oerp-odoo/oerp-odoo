@@ -10,11 +10,14 @@ class PackageConfiguratorBoxCirculationItem(models.Model):
     _description = "Package Configurator Box Circulation Component"
 
     circulation_id = fields.Many2one(
-        'package.configurator.box.circulation', required=True
+        'package.configurator.box.circulation',
+        required=True,
+        ondelete='cascade',
     )
     component_id = fields.Many2one(
         'package.configurator.box.component',
         required=True,
+        ondelete='cascade',
     )
     quantity = fields.Integer(
         compute='_compute_quantity',
