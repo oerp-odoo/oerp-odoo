@@ -21,6 +21,10 @@ class PackageConfiguratorBoxCirculationComponent(models.Model):
     quantity = fields.Integer(
         compute='_compute_quantity',
     )
+    circulation_setup_ids = fields.One2many(
+        'package.configurator.box.circulation.component.setup',
+        'circulation_component_id',
+    )
 
     @api.depends(
         'circulation_id.configurator_id.component_ids.component_type',

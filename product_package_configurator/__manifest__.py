@@ -19,6 +19,7 @@
         'security/package_configurator_box_component_security.xml',
         'security/package_configurator_box_circulation_security.xml',
         'security/package_configurator_box_circulation_component_security.xml',
+        'security/package_configurator_box_circulation_component_setup_security.xml',
         'security/package_configurator_box_circulation_setup_security.xml',
         'security/package_box_type_security.xml',
         'security/package_box_setup_security.xml',
