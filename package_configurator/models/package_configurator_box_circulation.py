@@ -80,7 +80,7 @@ class PackageConfiguratorBoxCirculation(models.Model):
     )
     def _compute_cost(self):
         for rec in self:
-            rec.update(rec._get_price_data())
+            rec.update(rec._get_cost_data())
 
     def create_circulation_setups(self, setups):
         self.mapped('item_ids.circulation_setup_ids').unlink()
@@ -93,10 +93,10 @@ class PackageConfiguratorBoxCirculation(models.Model):
                 CirculationItemSetup.prepare_circulation_setups(circ_item, setups)
             )
         if vals_list:
-            CirculationItemSetup.create(vals_list)
-        return True
+            return CirculationItemSetup.create(vals_list)
+        return CirculationItemSetup
 
-    def _get_price_data(self):
+    def _get_cost_data(self):
         self.ensure_one()
         data = {'unit_cost': 0, 'total_cost': 0}
         if not self.quantity:
@@ -105,6 +105,7 @@ class PackageConfiguratorBoxCirculation(models.Model):
         for item in self.item_ids:
             unit_cost = item.component_id.sheet_id.unit_cost
             total_cost += multiply(unit_cost, item.quantity)
+            total_cost += multiply(item.print_unit_cost, item.quantity)
         total_cost += self.total_lamination_inside_cost
         total_cost += self.total_lamination_outside_cost
         data.update({'unit_cost': total_cost / self.quantity, 'total_cost': total_cost})

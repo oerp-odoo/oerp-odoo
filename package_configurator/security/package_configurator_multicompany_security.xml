@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="package_box_setup_rule_rule_company" model="ir.rule">
+        <field name="name">package.box.setup.rule: Multi-Company</field>
+        <field name="model_id" ref="model_package_box_setup_rule"/>
+        <field name="domain_force">[('setup_id.company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="package_box_setup_rule_company" model="ir.rule">
+        <field name="name">package.box.setup: Multi-Company</field>
+        <field name="model_id" ref="model_package_box_setup"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="package_box_type_rule_company" model="ir.rule">
+        <field name="name">package.box.type: Multi-Company</field>
+        <field name="model_id" ref="model_package_box_type"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="package_configurator_box_circulation_item_rule_company" model="ir.rule">
+        <field
+            name="name"
+        >package.configurator.box.circulation.item: Multi-Company</field>
+        <field name="model_id" ref="model_package_configurator_box_circulation_item"/>
+        <field
+            name="domain_force"
+        >[('circulation_id.configurator_id.company_id', 'in', company_ids)]</field>
+    </record>
+    <record
+        id="package_configurator_box_circulation_item_setup_rule_company"
+        model="ir.rule"
+    >
+        <field
+            name="name"
+        >package.configurator.box.circulation.item.setup: Multi-Company</field>
+        <field
+            name="model_id"
+            ref="model_package_configurator_box_circulation_item_setup"
+        />
+        <field
+            name="domain_force"
+        >[('circulation_item_id.circulation_id.configurator_id.company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="package_configurator_box_circulation_rule_company" model="ir.rule">
+        <field name="name">package.configurator.box.circulation: Multi-Company</field>
+        <field name="model_id" ref="model_package_configurator_box_circulation"/>
+        <field
+            name="domain_force"
+        >[('configurator_id.company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="package_configurator_box_component_rule_company" model="ir.rule">
+        <field name="name">package.configurator.box.component: Multi-Company</field>
+        <field name="model_id" ref="model_package_configurator_box_component"/>
+        <field
+            name="domain_force"
+        >[('configurator_id.company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="package_configurator_box_rule_company" model="ir.rule">
+        <field name="name">package.configurator.box: Multi-Company</field>
+        <field name="model_id" ref="model_package_configurator_box"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="package_lamination_rule_company" model="ir.rule">
+        <field name="name">package.lamination: Multi-Company</field>
+        <field name="model_id" ref="model_package_lamination"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="package_print_color_rule_company" model="ir.rule">
+        <field name="name">package.print.color: Multi-Company</field>
+        <field name="model_id" ref="model_package_print_color"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="package_print_house_rule_company" model="ir.rule">
+        <field name="name">package.print.house: Multi-Company</field>
+        <field name="model_id" ref="model_package_print_house"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="package_sheet_rule_company" model="ir.rule">
+        <field name="name">package.sheet: Multi-Company</field>
+        <field name="model_id" ref="model_package_sheet"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="package_sheet_type_rule_company" model="ir.rule">
+        <field name="name">package.sheet_type: Multi-Company</field>
+        <field name="model_id" ref="model_package_sheet_type"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="package_print_pricelist_rule_company" model="ir.rule">
+        <field name="name">package.print.pricelist: Multi-Company</field>
+        <field name="model_id" ref="model_package_print_pricelist"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="package_print_pricelist_rule_rule_company" model="ir.rule">
+        <field name="name">package.print.pricelist.rule: Multi-Company</field>
+        <field name="model_id" ref="model_package_print_pricelist_rule"/>
+        <field
+            name="domain_force"
+        >[('print_pricelist_id.company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>

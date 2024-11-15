@@ -7,6 +7,7 @@
             <tree>
                 <field name="create_date"/>
                 <field name="box_type_id"/>
+                <field name="print_house_id"/>
                 <field name="base_length"/>
                 <field name="base_width"/>
                 <field name="base_height"/>
@@ -56,6 +57,7 @@
                             </group>
                         <group name="general" string="General">
                             <field name="box_type_id"/>
+                            <field name="print_house_id"/>
                             <field name="lamination_outside_id"/>
                             <field name="lamination_inside_id"/>
                         </group>
@@ -109,6 +111,10 @@
                                     <field
                                         name="sheet_id"
                                         options="{'no_create': True}"
+                                    />
+                                    <field
+                                        name="print_color_id"
+                                        column_invisible="not parent.print_house_id"
                                     />
                                     <field name="component_length"/>
                                     <field name="component_width"/>

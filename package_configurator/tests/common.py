@@ -8,6 +8,7 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.ProductProduct = cls.env['product.product']
+        cls.PackagePrintHouse = cls.env['package.print.house']
         cls.PackageConfiguratorBox = cls.env['package.configurator.box']
         cls.PackageConfiguratorBoxComponent = cls.env[
             'package.configurator.box.component'
@@ -15,8 +16,12 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
         cls.PackageConfiguratorBoxCirculation = cls.env[
             'package.configurator.box.circulation'
         ]
+        cls.PackagePrintColor = cls.env['package.print.color']
         cls.PackageBoxSetup = cls.env['package.box.setup']
         cls.PackageBoxSetupRule = cls.env['package.box.setup.rule']
+        cls.PackagePrintHouse = cls.env['package.print.house']
+        cls.PackagePrintPricelist = cls.env['package.print.pricelist']
+        cls.PackagePrintPricelistRule = cls.env['package.print.pricelist.rule']
         cls.PackageBoxType = cls.env['package.box.type']
         cls.PackageSheetType = cls.env['package.sheet.type']
         cls.PackageSheet = cls.env['package.sheet']

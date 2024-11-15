@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="package_print_house_view_tree" model="ir.ui.view">
+        <field name="name">package.print.house.tree</field>
+        <field name="model">package.print.house</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="print_pricelist_id"/>
+                <field name="print_max_length"/>
+                <field name="print_max_width"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="package_print_house_view_form" model="ir.ui.view">
+        <field name="name">package.print.house.form</field>
+        <field name="model">package.print.house</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="name"/>
+                            <field name="print_pricelist_id"/>
+                        </group>
+                        <group name="right">
+                            <field name="print_max_length"/>
+                            <field name="print_max_width"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="package_print_house_action" model="ir.actions.act_window">
+        <field name="name">Printing Houses</field>
+        <field name="res_model">package.print.house</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

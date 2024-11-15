@@ -1,7 +1,7 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-from .. import utils
+from .. import const, utils
 from ..value_objects import layout as vo_layout
 
 MANDATORY_LAYOUT_INP_FIELDS = [
@@ -57,6 +57,7 @@ class PackageConfiguratorBox(models.Model):
     lid_extra = fields.Float()
     outside_wrapping_extra = fields.Float()
     box_type_id = fields.Many2one('package.box.type', required=True)
+    print_house_id = fields.Many2one('package.print.house')
     lamination_outside_id = fields.Many2one(
         'package.lamination',
         string="Outside Lamination",
@@ -168,15 +169,23 @@ class PackageConfiguratorBox(models.Model):
     def action_setup(self):
         """Create/recreate setup records for each circulation."""
         self.ensure_one()
-        self.circulation_ids.create_circulation_setups(self._find_box_setups())
-        return True
+        return self.circulation_ids.create_circulation_setups(self._find_box_setups())
 
     def _find_box_setups(self):
-        # TODO: we might need to search different type of setups separately, when
-        # we will have more than one type!
-        return self.env['package.box.setup'].search(
-            [('company_id', '=', self.company_id.id)]
-        )
+        self.ensure_one()
+        domain = self._prepare_box_setups_domain()
+        return self.env['package.box.setup'].search(domain)
+
+    def _prepare_box_setups_domain(self):
+        self.ensure_one()
+        # By default we always look for sheet type setups.
+        setup_types = [const.SetupType.SHEET]
+        if self.print_house_id:
+            setup_types.append(const.SetupType.PRINT)
+        return [
+            ('setup_type', 'in', setup_types),
+            ('company_id', '=', self.company_id.id),
+        ]
 
     def _get_init_laminations_data(self):
         return {

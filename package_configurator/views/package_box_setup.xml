@@ -7,7 +7,7 @@
             <tree>
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
-                <field name="setup_type"/>
+                <field name="setup_type" optional="hide"/>
             </tree>
         </field>
     </record>
@@ -21,7 +21,7 @@
                     <group name="general" string="General">
                         <group name="left">
                             <field name="name"/>
-                            <field name="setup_type"/>
+                            <field name="setup_type" invisible="1"/>
                             <field name="active" widget="boolean_toggle"/>
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
@@ -48,9 +48,18 @@
         </field>
     </record>
 
-    <record id="package_box_setup_action" model="ir.actions.act_window">
-        <field name="name">Setup</field>
+    <record id="package_box_setup_sheet_action" model="ir.actions.act_window">
+        <field name="name">Sheets Setup</field>
         <field name="res_model">package.box.setup</field>
         <field name="view_mode">tree,form</field>
+        <field name="domain">[('setup_type', '=', 'sheet')]</field>
+        <field name="context">{'default_setup_type': 'sheet'}</field>
+    </record>
+    <record id="package_box_setup_print_action" model="ir.actions.act_window">
+        <field name="name">Prints Setup</field>
+        <field name="res_model">package.box.setup</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('setup_type', '=', 'print')]</field>
+        <field name="context">{'default_setup_type': 'print'}</field>
     </record>
 </odoo>

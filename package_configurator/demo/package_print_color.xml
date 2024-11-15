@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="package_print_color_1" model="package.print.color">
+        <field name="name">Color One</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+</odoo>

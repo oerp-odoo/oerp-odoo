@@ -10,7 +10,7 @@ class PackageSheetQuantity(models.AbstractModel):
     _description = "Package Sheet Quantity"
 
     def calc(self, quantity: int, sheet_quantities: list[SheetQuantity]):
-        """Calculate needed sheets quantity by fit quantity.
+        """Calculate needed raw sheets quantity by fit quantity.
 
         If different parts have same sheet material, calculations are
         grouped to make sure minimum order quantity is not duplicated!

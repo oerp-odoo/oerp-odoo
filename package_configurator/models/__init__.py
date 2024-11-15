@@ -10,8 +10,10 @@ from . import (
     package_box_setup,
     package_box_setup_rule,
     package_sheet,
-    # package_sheet_greyboard,
-    # package_sheet_wrappingpaper,
     package_lamination,
     package_sheet_type,
+    package_print_house,
+    package_print_color,
+    package_print_pricelist,
+    package_print_pricelist_rule,
 )

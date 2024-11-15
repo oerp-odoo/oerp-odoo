@@ -13,12 +13,18 @@ class DecimalPrecision(StrEnum):
 
 class SetupType(StrEnum):
     SHEET = 'sheet'
+    PRINT = 'print'
 
 
 class SheetTypeScope(StrEnum):
     GREYBOARD = 'greyboard'
     WRAPPINGPAPER = 'wrappingpaper'
 
+
+SETUP_TYPE_SELECTION = [
+    (SetupType.SHEET, "Sheet"),
+    (SetupType.PRINT, "Print"),
+]
 
 SHEET_TYPE_SELECTION = [
     (SheetTypeScope.GREYBOARD, "Grey Board"),

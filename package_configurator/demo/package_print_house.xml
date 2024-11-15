@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="package_print_house_1" model="package.print.house">
+        <field name="name">Print House 1</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="print_pricelist_id" ref="package_print_pricelist_1"/>
+    </record>
+</odoo>

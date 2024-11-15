@@ -15,7 +15,11 @@ LAYOUT_CFG_MANDATORY_FIELDS = [
 class PackageConfiguratorBoxComponent(models.Model):
     _name = 'package.configurator.box.component'
     _description = "Package Configurator Box Component"
-    _rec_name = 'component_type'
+
+    @api.depends('component_type')
+    def _compute_display_name(self):
+        for rec in self:
+            rec.display_name = utils.misc.get_selection_label(rec, 'component_type')
 
     @api.model
     def _get_component_type_selection(self):
@@ -41,7 +45,14 @@ class PackageConfiguratorBoxComponent(models.Model):
         readonly=False,
         compute='_compute_sheet_id',
     )
-    fit_qty = fields.Integer(compute='_compute_type_data', string="Fit Quantity")
+    print_color_id = fields.Many2one('package.print.color')
+    sheet_usable_length = fields.Float(compute='_compute_type_data')
+    sheet_usable_width = fields.Float(compute='_compute_type_data')
+    fit_qty = fields.Integer(
+        compute='_compute_type_data',
+        string="Fit Quantity",
+        help="How many box layouts would fit on single raw sheet",
+    )
 
     @api.depends(
         'component_type',
@@ -52,6 +63,7 @@ class PackageConfiguratorBoxComponent(models.Model):
         'configurator_id.lid_extra',
         'configurator_id.outside_wrapping_extra',
         'configurator_id.component_ids.component_type',
+        'configurator_id.print_house_id',
     )
     def _compute_type_data(self):
         for rec in self:
@@ -69,6 +81,7 @@ class PackageConfiguratorBoxComponent(models.Model):
                         {
                             'component_length': layout.length,
                             'component_width': layout.width,
+                            **comp._get_sheet_usable_dimensions_data(),
                         }
                     )
                     # NOTE. We must wait, before component_length, component_width
@@ -174,24 +187,39 @@ class PackageConfiguratorBoxComponent(models.Model):
             if ct.name == self.component_type:
                 return ct
 
+    def _get_sheet_usable_dimensions_data(self):
+        self.ensure_one()
+        sheet = self.sheet_id
+        house = self.configurator_id.print_house_id
+        return {
+            'sheet_usable_length': min(
+                # If max is not set, it means, we have no limit, so we use sheet
+                # length!
+                sheet.sheet_length,
+                house.print_max_length or sheet.sheet_length,
+            ),
+            'sheet_usable_width': min(
+                sheet.sheet_width, house.print_max_width or sheet.sheet_width
+            ),
+        }
+
     def _calc_fit_qty(self):
-        def can_calc(sheet):
+        def can_calc():
             return (
                 self.component_length
                 and self.component_width
-                and sheet.sheet_length
-                and sheet.sheet_width
+                and self.sheet_usable_length
+                and self.sheet_usable_width
             )
 
         self.ensure_one()
-        sheet = self.sheet_id
-        if not can_calc(sheet):
+        if not can_calc():
             return 0
         product_layout = vo_layout.Layout2D(
             length=self.component_length, width=self.component_width
         )
         sheet_layout = vo_layout.Layout2D(
-            length=sheet.sheet_length, width=sheet.sheet_width
+            length=self.sheet_usable_length, width=self.sheet_usable_width
         )
         layout_fitter = vo_layout.LayoutFitter(
             product_layout=product_layout, sheet_layout=sheet_layout
@@ -205,4 +233,6 @@ class PackageConfiguratorBoxComponent(models.Model):
             'fit_qty': 0,
             'component_length': 0.0,
             'component_width': 0.0,
+            'sheet_usable_length': 0.0,
+            'sheet_usable_width': 0.0,
         }

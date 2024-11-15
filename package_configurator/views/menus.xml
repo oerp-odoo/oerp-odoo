@@ -32,8 +32,7 @@
                 action="package_box_type_action"
                 sequence="10"
             />
-
-            <menuitem id="package_sheet_type_menu" name="Sheet Types" sequence="15">
+            <menuitem id="package_sheet_type_menu" name="Sheet Types" sequence="20">
                 <menuitem
                     id="package_sheet_type_greyboard_menu"
                     action="package_sheet_type_greyboard_action"
@@ -46,7 +45,7 @@
                 />
             </menuitem>
 
-            <menuitem id="package_sheet_menu" name="Sheets" sequence="20">
+            <menuitem id="package_sheet_menu" name="Sheets" sequence="25">
                 <menuitem
                     id="package_sheet_greyboard_menu"
                     action="package_sheet_greyboard_action"
@@ -59,16 +58,41 @@
                 />
             </menuitem>
 
+            <menuitem id="package_print_menu" name="Printing" sequence="30">
+               <menuitem
+                    id="package_print_color"
+                    action="package_print_color_action"
+                    sequence="5"
+                />
+               <menuitem
+                    id="package_print_pricelist"
+                    action="package_print_pricelist_action"
+                    sequence="10"
+                />
+                <menuitem
+                    id="package_print_house"
+                    action="package_print_house_action"
+                    sequence="20"
+                />
+            </menuitem>
+
             <menuitem
                 id="package_lamination_menu"
                 action="package_lamination_action"
-                sequence="25"
+                sequence="35"
             />
-            <menuitem
-                id="package_box_setup_menu"
-                action="package_box_setup_action"
-                sequence="30"
-            />
+            <menuitem id="package_box_setup_menu" name="Setups" sequence="40">
+                <menuitem
+                    id="package_box_setup_sheet_menu"
+                    action="package_box_setup_sheet_action"
+                    sequence="5"
+                />
+                <menuitem
+                    id="package_box_setup_print_menu"
+                    action="package_box_setup_print_action"
+                    sequence="10"
+                />
+            </menuitem>
         </menuitem>
 
     </menuitem>

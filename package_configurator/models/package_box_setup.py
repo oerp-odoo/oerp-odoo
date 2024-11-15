@@ -21,9 +21,8 @@ class PackageBoxSetup(models.Model):
 
     name = fields.Char(required=True)
     setup_type = fields.Selection(
-        [(const.SetupType.SHEET, "Sheet")],
+        const.SETUP_TYPE_SELECTION,
         required=True,
-        default=const.SetupType.SHEET,
     )
     active = fields.Boolean(default=True)
     rule_ids = fields.One2many('package.box.setup.rule', 'setup_id', string="Rules")

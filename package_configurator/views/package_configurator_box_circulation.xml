@@ -42,6 +42,7 @@
                                         icon="fa-wrench"
                                     />
                                     <field name="component_id"/>
+                                    <field name="print_unit_cost"/>
                                     <field name="quantity"/>
                                 </tree>
                             </field>

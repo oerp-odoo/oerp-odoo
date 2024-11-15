@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="package_print_pricelist_1" model="package.print.pricelist">
+        <field name="name">Pricelist One</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+</odoo>

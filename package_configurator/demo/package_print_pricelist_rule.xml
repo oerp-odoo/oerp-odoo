@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="package_print_pricelist_rule_1" model="package.print.pricelist.rule">
+        <field name="print_pricelist_id" ref="package_print_pricelist_1"/>
+        <field name="color_id" ref="package_print_color_1"/>
+        <field name="min_qty" eval="1"/>
+        <field name="unit_cost" eval="0.9"/>
+    </record>
+</odoo>
