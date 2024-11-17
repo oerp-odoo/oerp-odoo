@@ -93,6 +93,15 @@
                                 </tbody>
                             </table>
                         </group>
+                        <separator
+                            name="warnings"
+                            string="Warnings"
+                            invisible="not description_warnings"
+                        />
+                        <field
+                            name="description_warnings"
+                            invisible="not description_warnings"
+                        />
                     </group>
                     <notebook>
                         <page name="components" string="Components">

@@ -2,7 +2,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 from .. import const, utils
-from ..value_objects import layout as vo_layout
+from ..value_objects import layout as vo_layout, package_warning as vo_pw
 
 MANDATORY_LAYOUT_INP_FIELDS = [
     'base_length',
@@ -70,6 +70,14 @@ class PackageConfiguratorBox(models.Model):
     lamination_inside_unit_cost = fields.Float(compute='_compute_lamination_fields')
     lamination_outside_area = fields.Float(compute='_compute_lamination_fields')
     lamination_outside_unit_cost = fields.Float(compute='_compute_lamination_fields')
+
+    @api.depends(
+        'lid_height',
+        'component_ids.sheet_id',
+        'component_ids.fit_qty',
+    )
+    def _compute_description_warnings(self):
+        super()._compute_description_warnings()
 
     # Move lamination logic to package.configurator.box.component!
     @api.depends(
@@ -170,6 +178,12 @@ class PackageConfiguratorBox(models.Model):
         """Create/recreate setup records for each circulation."""
         self.ensure_one()
         return self.circulation_ids.create_circulation_setups(self._find_box_setups())
+
+    def get_warnings(self) -> list[vo_pw.PackageWarning]:
+        """Extend to add box configurator warnings."""
+        res = super().get_warnings()
+        res.extend(self.env['package.box.warning'].get_warnings(self))
+        return res
 
     def _find_box_setups(self):
         self.ensure_one()
