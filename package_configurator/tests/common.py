@@ -9,6 +9,7 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
         super().setUpClass()
         cls.ProductProduct = cls.env['product.product']
         cls.PackagePrintHouse = cls.env['package.print.house']
+        cls.PackageDefaultComponent = cls.env['package.default.component']
         cls.PackageConfiguratorBox = cls.env['package.configurator.box']
         cls.PackageConfiguratorBoxComponent = cls.env[
             'package.configurator.box.component'

@@ -72,9 +72,11 @@ class PackageConfiguratorBox(models.Model):
     lamination_outside_unit_cost = fields.Float(compute='_compute_lamination_fields')
 
     @api.depends(
+        'box_type_id',
         'lid_height',
         'component_ids.sheet_id',
         'component_ids.fit_qty',
+        'component_ids.component_type',
     )
     def _compute_description_warnings(self):
         super()._compute_description_warnings()
