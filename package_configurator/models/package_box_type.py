@@ -13,6 +13,14 @@ class PackageBoxType(models.Model):
     min_length = fields.Float("Minimum Length (mm)", help=HELP_MIN_MSG)
     min_width = fields.Float("Minimum Width (mm)", help=HELP_MIN_MSG)
     min_height = fields.Float("Minimum Height (mm)", help=HELP_MIN_MSG)
+    default_component_ids = fields.Many2many(
+        'package.default.component',
+        'package_box_type_default_component_rel',
+        'box_type_id',
+        'default_component_id',
+        string="Default Components",
+        help="Will be pre filled on configurator if no component was selected yet",
+    )
     company_id = fields.Many2one(
         'res.company', required=True, default=lambda s: s.env.company
     )

@@ -31,7 +31,7 @@ class TestPackageConfiguratorBoxWarnings(common.TestProductPackageConfiguratorCo
             ]
         )
         # WHEN
-        warnings = cfg.get_description_warnings()
+        warnings = cfg.get_warnings()
         # THEN
         self.assertEqual(
             warnings,

@@ -19,6 +19,10 @@
                     <group name="main">
                         <group name="left">
                             <field name="name"/>
+                            <field
+                                name="default_component_ids"
+                                widget="many2many_tags"
+                            />
                         </group>
                         <group name="right">
                             <field name="min_length"/>

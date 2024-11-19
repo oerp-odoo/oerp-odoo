@@ -146,6 +146,15 @@ class PackageConfiguratorBox(models.Model):
                 )
             box.update(data)
 
+    @api.onchange('box_type_id')
+    def _onchange_box_type_id(self):
+        if self.box_type_id.default_component_ids and not self.component_ids:
+            PackageComponent = self.env['package.configurator.box.component']
+            for default_comp in self.box_type_id.default_component_ids:
+                self.component_ids |= PackageComponent.new(
+                    {'component_type': default_comp.component_type}
+                )
+
     @api.constrains(
         'box_type_id',
         'base_length',

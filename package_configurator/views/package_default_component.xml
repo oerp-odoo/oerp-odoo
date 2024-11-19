@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="package_default_component_view_tree" model="ir.ui.view">
+        <field name="name">package.default.component.tree</field>
+        <field name="model">package.default.component</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="component_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="package_default_component_view_form" model="ir.ui.view">
+        <field name="name">package.default.component.form</field>
+        <field name="model">package.default.component</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="component_type"/>
+                        </group>
+                        <group name="right">
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="package_default_component_action" model="ir.actions.act_window">
+        <field name="name">Default Components</field>
+        <field name="res_model">package.default.component</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

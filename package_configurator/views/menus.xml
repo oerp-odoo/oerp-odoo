@@ -93,6 +93,11 @@
                     sequence="10"
                 />
             </menuitem>
+            <menuitem
+                id="package_default_component_menu"
+                action="package_default_component_action"
+                sequence="45"
+            />
         </menuitem>
 
     </menuitem>
