@@ -1,17 +1,16 @@
 # Author: Andrius Laukavičius. Copyright: Andrius Laukavičius.
 # See LICENSE and COPYRIGHT files for details.
 {
-    "name": "Purchase - No Vendor Grouping",
+    "name": "Procurement Group - Parent Root",
     "version": "17.0.1.0.0",
-    "summary": "Do not group purchase order procurements via vendors",
+    "summary": "Compute root parent group for each procurement group",
     "license": "LGPL-3",
     "author": "Andrius Laukavičius",
     "website": "https://timefordev.com",
-    "category": "Inventory/Purchase",
+    "category": "Inventory/Inventory",
     "depends": [
         # odoo
-        "purchase_stock",
+        "stock",
     ],
     "installable": True,
-    "data": ["views/res_config_settings.xml"],
 }
