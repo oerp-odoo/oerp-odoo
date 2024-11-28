@@ -7,6 +7,7 @@ from . import (
     test_package_configurator_box_setup,
     test_package_configurator_box_print_cost,
     test_package_box_match_setup_rule,
+    test_package_box_setup_rule_qty,
     test_utils,
     test_package_sheet_match,
     test_package_sheet_constraints,
