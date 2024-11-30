@@ -1,5 +1,4 @@
 from odoo import api, fields, models
-from odoo.tools.sql import column_exists, create_column
 
 
 class ProcurementGroup(models.Model):
@@ -19,8 +18,10 @@ class ProcurementGroup(models.Model):
 
     def _get_parent_root(self):
         def get_parent(g):
-            # Usually should be a single group, but either way using first found!..
-            return g.stock_move_ids.move_dest_ids.group_id[:1]
+            groups = g.stock_move_ids.move_dest_ids.group_id - g
+            # If there are multiple parent groups, all of them should
+            # eventually still point to the next parent (if there is).
+            return groups[:1]
 
         self.ensure_one()
         parent_group = self
@@ -29,10 +30,3 @@ class ProcurementGroup(models.Model):
             parent_group = candidate
             candidate = get_parent(parent_group)
         return parent_group
-
-    def _auto_init(self):
-        # To avoid computing old procurement groups. Depending on database there could
-        # be huge number of rows in this table!
-        if not column_exists(self.env.cr, "procurement_group", "parent_root_id"):
-            create_column(self.env.cr, "procurement_group", "parent_root_id", "int4")
-        return super()._auto_init()

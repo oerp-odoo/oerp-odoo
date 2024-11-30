@@ -2,7 +2,7 @@
 # See LICENSE and COPYRIGHT files for details.
 {
     "name": "Procurement Group - Parent Root",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.0.1",
     "summary": "Compute root parent group for each procurement group",
     "license": "LGPL-3",
     "author": "Andrius Laukavičius",
