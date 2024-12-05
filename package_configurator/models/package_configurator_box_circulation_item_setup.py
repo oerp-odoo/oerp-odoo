@@ -30,11 +30,14 @@ class PackageConfiguratorBoxCirculationItemSetup(models.Model):
         for rec in self:
             component = rec.circulation_item_id.component_id
             setup_raw_qty = 0
-            fit_qty = component.fit_qty
-            if fit_qty:
-                setup_raw_qty = calc_sheet_quantity(
-                    rec.setup_rule_id.setup_fixed_qty, fit_qty
-                )
+            if rec.setup_id.setup_qty_measure == 'cut':
+                fit_qty = component.fit_qty
+                if fit_qty:
+                    setup_raw_qty = calc_sheet_quantity(
+                        rec.setup_rule_id.setup_fixed_qty, fit_qty
+                    )
+            else:
+                setup_raw_qty = rec.setup_rule_id.setup_fixed_qty
             rec.setup_raw_qty = setup_raw_qty
 
     @api.model
