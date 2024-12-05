@@ -65,11 +65,11 @@ class PackageBoxSetupRule(models.Model):
             or self.component_type == component_type
         )
 
-    def calc_setup_qty(self, min_qty: int) -> int:
+    def calc_setup_qty(self, qty: int) -> int:
         self.ensure_one()
         if self.setup_id.setup_qty_mode == 'fixed':
             return self.setup_fixed_qty
-        return self._calc_relative_setup_qty(min_qty)
+        return self._calc_relative_setup_qty(qty)
 
     def _calc_relative_setup_qty(self, qty: int) -> int:
         self.ensure_one()
