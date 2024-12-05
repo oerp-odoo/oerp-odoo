@@ -13,8 +13,8 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
         )
         rules = self.PackageBoxSetupRule.create(
             [
-                {'setup_id': setup_1.id, 'min_qty': 2000, 'setup_qty': 200},
-                {'setup_id': setup_1.id, 'min_qty': 1000, 'setup_qty': 100},
+                {'setup_id': setup_1.id, 'min_qty': 2000, 'setup_fixed_qty': 200},
+                {'setup_id': setup_1.id, 'min_qty': 1000, 'setup_fixed_qty': 100},
             ]
         )
         setup_1_rule_1 = rules[0]
@@ -47,8 +47,8 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
         )
         rules = self.PackageBoxSetupRule.create(
             [
-                {'setup_id': setup_1.id, 'min_qty': 2000, 'setup_qty': 200},
-                {'setup_id': setup_1.id, 'min_qty': 1000, 'setup_qty': 100},
+                {'setup_id': setup_1.id, 'min_qty': 2000, 'setup_fixed_qty': 200},
+                {'setup_id': setup_1.id, 'min_qty': 1000, 'setup_fixed_qty': 100},
             ]
         )
         setup_1_rule_1 = rules[0]
@@ -81,8 +81,8 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
         )
         rules = self.PackageBoxSetupRule.create(
             [
-                {'setup_id': setup_1.id, 'min_qty': 1700, 'setup_qty': 251},
-                {'setup_id': setup_1.id, 'min_qty': 1000, 'setup_qty': 90},
+                {'setup_id': setup_1.id, 'min_qty': 1700, 'setup_fixed_qty': 251},
+                {'setup_id': setup_1.id, 'min_qty': 1000, 'setup_fixed_qty': 90},
             ]
         )
         setup_1_rule_1 = rules[0]
@@ -116,8 +116,8 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
         )
         rules = self.PackageBoxSetupRule.create(
             [
-                {'setup_id': setup_1.id, 'min_qty': 2000, 'setup_qty': 200},
-                {'setup_id': setup_1.id, 'min_qty': 1000, 'setup_qty': 100},
+                {'setup_id': setup_1.id, 'min_qty': 2000, 'setup_fixed_qty': 200},
+                {'setup_id': setup_1.id, 'min_qty': 1000, 'setup_fixed_qty': 100},
             ]
         )
         setup_1_rule_2 = rules[1]

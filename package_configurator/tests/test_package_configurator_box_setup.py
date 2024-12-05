@@ -34,9 +34,9 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         setup_1_rule_1, setup_2_rule_1 = self.PackageBoxSetupRule.create(
             [
                 # To be used for first circulation
-                {'setup_id': setup_1.id, 'min_qty': 50, 'setup_qty': 100},
+                {'setup_id': setup_1.id, 'min_qty': 50, 'setup_fixed_qty': 100},
                 # To be used for second circulation
-                {'setup_id': setup_2.id, 'min_qty': 150, 'setup_qty': 200},
+                {'setup_id': setup_2.id, 'min_qty': 150, 'setup_fixed_qty': 200},
             ]
         )
         cfg = self.PackageConfiguratorBox.create(
@@ -168,7 +168,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         circ_items = circulation_2.item_ids
         self.assertEqual(len(circ_items), 6)
         self.assertEqual(len(circ_items.mapped('circulation_setup_ids')), 6)
-        # setup_qty is 200 and fit qty is 27, so 200/27
+        # setup_fixed_qty is 200 and fit qty is 27, so 200/27
         item_base_greyboard = circ_items.filtered(
             lambda r: r.component_id.component_type == 'base_greyboard'
         )
@@ -245,11 +245,11 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         self.PackageBoxSetupRule.create(
             [
                 # To be used for first circulation
-                {'setup_id': setup_1.id, 'min_qty': 50, 'setup_qty': 100},
+                {'setup_id': setup_1.id, 'min_qty': 50, 'setup_fixed_qty': 100},
                 # To be used for second circulation
-                {'setup_id': setup_2.id, 'min_qty': 150, 'setup_qty': 200},
+                {'setup_id': setup_2.id, 'min_qty': 150, 'setup_fixed_qty': 200},
                 # This is expected to be ignored, because printing house is not selected
-                {'setup_id': setup_print.id, 'min_qty': 1, 'setup_qty': 1000},
+                {'setup_id': setup_print.id, 'min_qty': 1, 'setup_fixed_qty': 1000},
             ]
         )
         cfg = self.PackageConfiguratorBox.create(
@@ -360,9 +360,9 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         self.PackageBoxSetupRule.create(
             [
                 # To be used for first circulation
-                {'setup_id': setup_1.id, 'min_qty': 50, 'setup_qty': 100},
+                {'setup_id': setup_1.id, 'min_qty': 50, 'setup_fixed_qty': 100},
                 # To be used for second circulation
-                {'setup_id': setup_2.id, 'min_qty': 150, 'setup_qty': 200},
+                {'setup_id': setup_2.id, 'min_qty': 150, 'setup_fixed_qty': 200},
             ]
         )
         cfg = self.PackageConfiguratorBox.create(
@@ -474,8 +474,8 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         )
         self.PackageBoxSetupRule.create(
             [
-                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_qty': 100},
-                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_qty': 100},
+                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 100},
+                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 100},
             ]
         )
         cfg = self.PackageConfiguratorBox.create(
@@ -562,7 +562,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         )
         self.PackageBoxSetupRule.create(
             [
-                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_qty': 100},
+                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 100},
             ]
         )
         cfg = self.PackageConfiguratorBox.create(

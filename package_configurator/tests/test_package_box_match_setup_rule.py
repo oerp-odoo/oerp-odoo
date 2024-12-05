@@ -19,10 +19,10 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         rules = self.PackageBoxSetupRule.create(
             [
-                {'setup_id': setup_1.id, 'min_qty': 100, 'setup_qty': 0},
-                {'setup_id': setup_1.id, 'min_qty': 200, 'setup_qty': 0},
-                {'setup_id': setup_2.id, 'min_qty': 300, 'setup_qty': 0},
-                {'setup_id': setup_2.id, 'min_qty': 400, 'setup_qty': 0},
+                {'setup_id': setup_1.id, 'min_qty': 100, 'setup_fixed_qty': 0},
+                {'setup_id': setup_1.id, 'min_qty': 200, 'setup_fixed_qty': 0},
+                {'setup_id': setup_2.id, 'min_qty': 300, 'setup_fixed_qty': 0},
+                {'setup_id': setup_2.id, 'min_qty': 400, 'setup_fixed_qty': 0},
             ]
         )
         setup_1_rule_1 = rules[0]
@@ -73,10 +73,10 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             setup_2_rule_2,
         ) = self.PackageBoxSetupRule.create(
             [
-                {'setup_id': setup_1.id, 'min_qty': 100, 'setup_qty': 0},
-                {'setup_id': setup_1.id, 'min_qty': 200, 'setup_qty': 0},
-                {'setup_id': setup_2.id, 'min_qty': 300, 'setup_qty': 0},
-                {'setup_id': setup_2.id, 'min_qty': 400, 'setup_qty': 0},
+                {'setup_id': setup_1.id, 'min_qty': 100, 'setup_fixed_qty': 0},
+                {'setup_id': setup_1.id, 'min_qty': 200, 'setup_fixed_qty': 0},
+                {'setup_id': setup_2.id, 'min_qty': 300, 'setup_fixed_qty': 0},
+                {'setup_id': setup_2.id, 'min_qty': 400, 'setup_fixed_qty': 0},
             ]
         )
         layout = Layout2D(length=100, width=50)
@@ -123,8 +123,8 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         setup_1_rule_1, setup_2_rule_1 = self.PackageBoxSetupRule.create(
             [
-                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_qty': 0},
-                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_qty': 0},
+                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 0},
+                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 0},
             ]
         )
         # WHEN layout length less than 100
@@ -158,8 +158,8 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         setup_1_rule_1, setup_2_rule_1 = self.PackageBoxSetupRule.create(
             [
-                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_qty': 0},
-                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_qty': 0},
+                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 0},
+                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 0},
             ]
         )
         # WHEN layout length less than 100
@@ -193,8 +193,8 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         setup_1_rule_1, setup_2_rule_1 = self.PackageBoxSetupRule.create(
             [
-                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_qty': 0},
-                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_qty': 0},
+                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 0},
+                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 0},
             ]
         )
         # WHEN layout width less than 100
@@ -228,8 +228,8 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         setup_1_rule_1, _setup_2_rule_1 = self.PackageBoxSetupRule.create(
             [
-                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_qty': 0},
-                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_qty': 0},
+                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 0},
+                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 0},
             ]
         )
         # WHEN layout width less than 100
@@ -269,8 +269,8 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         setup_1_rule_1, setup_2_rule_1 = self.PackageBoxSetupRule.create(
             [
-                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_qty': 0},
-                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_qty': 0},
+                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 0},
+                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 0},
             ]
         )
         # WHEN layout matches second setup
@@ -308,8 +308,8 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         setup_1_rule_1, setup_2_rule_1 = self.PackageBoxSetupRule.create(
             [
-                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_qty': 0},
-                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_qty': 0},
+                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 0},
+                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 0},
             ]
         )
         # WHEN layout matches second setup
@@ -340,8 +340,8 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         setup_1_rule_1, setup_2_rule_1 = self.PackageBoxSetupRule.create(
             [
-                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_qty': 0},
-                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_qty': 0},
+                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 0},
+                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 0},
             ]
         )
         # WHEN
@@ -370,8 +370,8 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         setup_1_rule_1, setup_2_rule_1 = self.PackageBoxSetupRule.create(
             [
-                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_qty': 0},
-                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_qty': 0},
+                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 0},
+                {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 0},
             ]
         )
         # WHEN

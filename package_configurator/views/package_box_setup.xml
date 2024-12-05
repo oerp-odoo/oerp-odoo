@@ -40,7 +40,7 @@
                             <field name="rule_ids">
                                 <tree editable="bottom">
                                     <field name="min_qty"/>
-                                    <field name="setup_qty"/>
+                                    <field name="setup_fixed_qty"/>
                                 </tree>
                             </field>
                         </page>

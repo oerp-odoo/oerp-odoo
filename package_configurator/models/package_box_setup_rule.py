@@ -15,8 +15,8 @@ class PackageBoxSetupRule(models.Model):
         "Minimum Box Quantity", help="Minimum quantity of boxes to match this rule"
     )
     # TODO: rename to setup_fixed_qty
-    setup_qty = fields.Integer(
-        "Setup Quantity",
+    setup_fixed_qty = fields.Integer(
+        "Fixed Setup Quantity",
         # NOTE. This is quantity for prepared material, like cut sheet, not the whole
         # raw sheet!
         help="Material wastage quantity used when doing setup",
@@ -38,11 +38,11 @@ class PackageBoxSetupRule(models.Model):
                     return self.browse()
         return self.browse()
 
-    @api.depends('setup_id', 'min_qty', 'setup_qty')
+    @api.depends('setup_id', 'min_qty', 'setup_fixed_qty')
     def _compute_name(self):
         for rec in self:
             setup = rec.setup_id
-            rec.name = f'{setup.name} ({rec.min_qty}/{rec.setup_qty})'
+            rec.name = f'{setup.name} ({rec.min_qty}/{rec.setup_fixed_qty})'
 
     _sql_constraints = [
         (
@@ -59,7 +59,7 @@ class PackageBoxSetupRule(models.Model):
     def calc_setup_qty(self, min_qty: int) -> int:
         self.ensure_one()
         if self.setup_id.setup_qty_mode == 'fixed':
-            return self.setup_qty
+            return self.setup_fixed_qty
         return self._calc_relative_setup_qty(min_qty)
 
     def _calc_relative_setup_qty(self, qty: int) -> int:
@@ -67,10 +67,10 @@ class PackageBoxSetupRule(models.Model):
         # Greater rule must have higher quantity than current
         greater_rule = self._greater_rule
         if not greater_rule or qty <= self.min_qty:
-            return self.setup_qty
+            return self.setup_fixed_qty
         if greater_rule.min_qty <= max(qty, self.min_qty):
-            return greater_rule.setup_qty
+            return greater_rule.setup_fixed_qty
         rel_min_qty = greater_rule.min_qty - self.min_qty
-        rel_setup_qty = greater_rule.setup_qty - self.setup_qty
+        rel_setup_qty = greater_rule.setup_fixed_qty - self.setup_fixed_qty
         ratio = rel_setup_qty / rel_min_qty
-        return math.ceil((qty - self.min_qty) * ratio + self.setup_qty)
+        return math.ceil((qty - self.min_qty) * ratio + self.setup_fixed_qty)
