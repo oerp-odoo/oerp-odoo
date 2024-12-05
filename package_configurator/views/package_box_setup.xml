@@ -8,6 +8,7 @@
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="setup_qty_mode" optional="show"/>
+                <field name="setup_qty_measure" optional="show"/>
                 <field name="setup_type" optional="hide"/>
             </tree>
         </field>
@@ -23,6 +24,7 @@
                         <group name="left">
                             <field name="name"/>
                             <field name="setup_qty_mode"/>
+                            <field name="setup_qty_measure"/>
                             <field name="setup_type" invisible="1"/>
                             <field name="active" widget="boolean_toggle"/>
                             <field name="company_id" groups="base.group_multi_company"/>

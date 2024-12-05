@@ -32,6 +32,13 @@ class PackageBoxSetup(models.Model):
         help="* Fixed: use defined setup quantity on rule\n* Relative: calculate"
         " proportional quantity from the matched rule to the next role.",
     )
+    setup_qty_measure = fields.Selection(
+        [('cut', "Cut Sheets"), ('raw', "Raw Sheets")],
+        required=True,
+        string="Setup Quantity Measure",
+        default='cut',
+        help="How to measure setup quantity",
+    )
     active = fields.Boolean(default=True)
     rule_ids = fields.One2many('package.box.setup.rule', 'setup_id', string="Rules")
     sequence = fields.Integer(default=10)
