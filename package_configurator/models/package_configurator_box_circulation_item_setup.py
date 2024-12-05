@@ -33,7 +33,7 @@ class PackageConfiguratorBoxCirculationItemSetup(models.Model):
             fit_qty = component.fit_qty
             if fit_qty:
                 setup_raw_qty = calc_sheet_quantity(
-                    rec.setup_rule_id.setup_qty, fit_qty
+                    rec.setup_rule_id.setup_fixed_qty, fit_qty
                 )
             rec.setup_raw_qty = setup_raw_qty
 
