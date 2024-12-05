@@ -81,27 +81,27 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         layout = Layout2D(length=100, width=50)
         # WHEN QTY too low for any rule
-        rule = (setup_2 | setup_1).match_setup_rule(50, layout)
+        rule = (setup_2 | setup_1).match_setup_rule(50, layout=layout)
         # THEN
         self.assertEqual(rule, self.PackageBoxSetupRule)
         # WHEN QTY less than 200
-        rule = (setup_2 | setup_1).match_setup_rule(150, layout)
+        rule = (setup_2 | setup_1).match_setup_rule(150, layout=layout)
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
         # WHEN QTY less than 300
-        rule = (setup_2 | setup_1).match_setup_rule(250, layout)
+        rule = (setup_2 | setup_1).match_setup_rule(250, layout=layout)
         # THEN
         self.assertEqual(rule, setup_1_rule_2)
         # WHEN QTY is 300
-        rule = (setup_2 | setup_1).match_setup_rule(300, layout)
+        rule = (setup_2 | setup_1).match_setup_rule(300, layout=layout)
         # THEN
         self.assertEqual(rule, setup_2_rule_1)
         # WHEN QTY less than 400
-        rule = (setup_2 | setup_1).match_setup_rule(350, layout)
+        rule = (setup_2 | setup_1).match_setup_rule(350, layout=layout)
         # THEN
         self.assertEqual(rule, setup_2_rule_1)
         # WHEN QTY greater than 400
-        rule = (setup_2 | setup_1).match_setup_rule(450, layout)
+        rule = (setup_2 | setup_1).match_setup_rule(450, layout=layout)
         # THEN
         self.assertEqual(rule, setup_2_rule_2)
 
@@ -128,15 +128,21 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             ]
         )
         # WHEN layout length less than 100
-        rule = (setup_1 | setup_2).match_setup_rule(100, Layout2D(length=50, width=50))
+        rule = (setup_1 | setup_2).match_setup_rule(
+            100, layout=Layout2D(length=50, width=50)
+        )
         # THEN
         self.assertEqual(rule, self.PackageBoxSetupRule)
         # WHEN layout length less than 200
-        rule = (setup_1 | setup_2).match_setup_rule(100, Layout2D(length=150, width=50))
+        rule = (setup_1 | setup_2).match_setup_rule(
+            100, layout=Layout2D(length=150, width=50)
+        )
         # THEN
         self.assertEqual(rule, setup_2_rule_1)
         # WHEN layout length greater than 200
-        rule = (setup_1 | setup_2).match_setup_rule(100, Layout2D(length=250, width=50))
+        rule = (setup_1 | setup_2).match_setup_rule(
+            100, layout=Layout2D(length=250, width=50)
+        )
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
 
@@ -163,15 +169,21 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             ]
         )
         # WHEN layout length less than 100
-        rule = (setup_1 | setup_2).match_setup_rule(100, Layout2D(length=50, width=50))
+        rule = (setup_1 | setup_2).match_setup_rule(
+            100, layout=Layout2D(length=50, width=50)
+        )
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
         # WHEN layout length less than 200
-        rule = (setup_1 | setup_2).match_setup_rule(100, Layout2D(length=150, width=50))
+        rule = (setup_1 | setup_2).match_setup_rule(
+            100, layout=Layout2D(length=150, width=50)
+        )
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
         # WHEN layout length greater than 200
-        rule = (setup_1 | setup_2).match_setup_rule(100, Layout2D(length=250, width=50))
+        rule = (setup_1 | setup_2).match_setup_rule(
+            100, layout=Layout2D(length=250, width=50)
+        )
         # THEN
         self.assertEqual(rule, self.PackageBoxSetupRule)
 
@@ -198,15 +210,21 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             ]
         )
         # WHEN layout width less than 100
-        rule = (setup_1 | setup_2).match_setup_rule(100, Layout2D(length=50, width=50))
+        rule = (setup_1 | setup_2).match_setup_rule(
+            100, layout=Layout2D(length=50, width=50)
+        )
         # THEN
         self.assertEqual(rule, self.PackageBoxSetupRule)
         # WHEN layout width less than 200
-        rule = (setup_1 | setup_2).match_setup_rule(100, Layout2D(length=50, width=150))
+        rule = (setup_1 | setup_2).match_setup_rule(
+            100, layout=Layout2D(length=50, width=150)
+        )
         # THEN
         self.assertEqual(rule, setup_2_rule_1)
         # WHEN layout width greater than 200
-        rule = (setup_1 | setup_2).match_setup_rule(100, Layout2D(length=50, width=250))
+        rule = (setup_1 | setup_2).match_setup_rule(
+            100, layout=Layout2D(length=50, width=250)
+        )
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
 
@@ -233,15 +251,21 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             ]
         )
         # WHEN layout width less than 100
-        rule = (setup_1 | setup_2).match_setup_rule(100, Layout2D(length=50, width=50))
+        rule = (setup_1 | setup_2).match_setup_rule(
+            100, layout=Layout2D(length=50, width=50)
+        )
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
         # WHEN layout width less than 200
-        rule = (setup_1 | setup_2).match_setup_rule(100, Layout2D(length=50, width=150))
+        rule = (setup_1 | setup_2).match_setup_rule(
+            100, layout=Layout2D(length=50, width=150)
+        )
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
         # WHEN layout width greater than 200
-        rule = (setup_1 | setup_2).match_setup_rule(100, Layout2D(length=50, width=250))
+        rule = (setup_1 | setup_2).match_setup_rule(
+            100, layout=Layout2D(length=50, width=250)
+        )
         # THEN
         self.assertEqual(rule, self.PackageBoxSetupRule)
 
@@ -274,12 +298,14 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             ]
         )
         # WHEN layout matches second setup
-        rule = (setup_1 | setup_2).match_setup_rule(100, Layout2D(length=160, width=50))
+        rule = (setup_1 | setup_2).match_setup_rule(
+            100, layout=Layout2D(length=160, width=50)
+        )
         # THEN
         self.assertEqual(rule, setup_2_rule_1)
         # WHEN layout matches first setup
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, Layout2D(length=230, width=110)
+            100, layout=Layout2D(length=230, width=110)
         )
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
@@ -314,7 +340,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         # WHEN layout matches second setup
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, Layout2D(length=5000, width=5000)
+            100, layout=Layout2D(length=5000, width=5000)
         )
         # THEN
         self.assertEqual(rule, self.PackageBoxSetupRule)
@@ -378,3 +404,92 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         rule = (setup_1 | setup_2).match_setup_rule(100, box_type=box_type_2)
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
+
+    def test_11_match_setup_rule_by_component_type_all_used(self):
+        # GIVEN
+        setup_1, setup_2 = self.PackageBoxSetup.create(
+            [
+                {
+                    'name': 'MY-BOX-SHEET-SETUP-1',
+                    'setup_type': 'sheet',
+                },
+                {
+                    'name': 'MY-BOX-SHEET-SETUP-2',
+                    'setup_type': 'sheet',
+                },
+            ],
+        )
+        (
+            setup_1_rule_1,
+            setup_1_rule_2,
+            setup_2_rule_1,
+        ) = self.PackageBoxSetupRule.create(
+            [
+                {
+                    'setup_id': setup_1.id,
+                    'min_qty': 3,
+                    'setup_fixed_qty': 0,
+                    'component_type': 'base_greyboard',
+                },
+                {
+                    'setup_id': setup_1.id,
+                    'min_qty': 2,
+                    'setup_fixed_qty': 0,
+                    'component_type': 'lid_greyboard',
+                },
+                {
+                    'setup_id': setup_2.id,
+                    'min_qty': 1,
+                    'setup_fixed_qty': 0,
+                    'component_type': 'base_wrappingpaper_inside',
+                },
+            ]
+        )
+        # WHEN
+        rule = (setup_1 | setup_2).match_setup_rule(100, component_type='lid_greyboard')
+        # THEN
+        self.assertEqual(rule, setup_1_rule_2)
+
+    def test_12_match_setup_rule_by_component_type_some_used(self):
+        # GIVEN
+        setup_1, setup_2 = self.PackageBoxSetup.create(
+            [
+                {
+                    'name': 'MY-BOX-SHEET-SETUP-1',
+                    'setup_type': 'sheet',
+                },
+                {
+                    'name': 'MY-BOX-SHEET-SETUP-2',
+                    'setup_type': 'sheet',
+                },
+            ],
+        )
+        (
+            setup_1_rule_1,
+            setup_1_rule_2,
+            setup_2_rule_1,
+        ) = self.PackageBoxSetupRule.create(
+            [
+                {
+                    'setup_id': setup_1.id,
+                    'min_qty': 3,
+                    'setup_fixed_qty': 0,
+                },
+                {
+                    'setup_id': setup_1.id,
+                    'min_qty': 2,
+                    'setup_fixed_qty': 0,
+                    'component_type': 'lid_greyboard',
+                },
+                {
+                    'setup_id': setup_2.id,
+                    'min_qty': 1,
+                    'setup_fixed_qty': 0,
+                    'component_type': 'base_wrappingpaper_inside',
+                },
+            ]
+        )
+        # WHEN
+        rule = (setup_1 | setup_2).match_setup_rule(100, component_type='lid_greyboard')
+        # THEN
+        self.assertEqual(rule, setup_1_rule_2)
