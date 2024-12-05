@@ -22,23 +22,32 @@ class PackageConfiguratorBoxCirculationItemSetup(models.Model):
         "Raw Setup Quantity", compute='_compute_setup_raw_qty'
     )
 
+    @property
+    def _setup_raw_qty(self):
+        self.ensure_one()
+        circ_item = self.circulation_item_id
+        setup_raw_qty = self.setup_rule_id.calc_setup_qty(
+            circ_item.circulation_id.quantity
+        )
+        # With raw measure, nothing needs to be converted.
+        if self.setup_id.setup_qty_measure == 'raw':
+            return setup_raw_qty
+        # Handle `cut` measure.
+        fit_qty = circ_item.component_id.fit_qty
+        if not fit_qty:
+            return 0
+        # setup quantity on rule is in cut sheets measure, to we convert it to
+        # raw measure.
+        return calc_sheet_quantity(setup_raw_qty, fit_qty)
+
     @api.depends(
         'circulation_item_id.component_id.fit_qty',
+        'circulation_item_id.circulation_id.quantity',
         'setup_rule_id',
     )
     def _compute_setup_raw_qty(self):
         for rec in self:
-            component = rec.circulation_item_id.component_id
-            setup_raw_qty = 0
-            if rec.setup_id.setup_qty_measure == 'cut':
-                fit_qty = component.fit_qty
-                if fit_qty:
-                    setup_raw_qty = calc_sheet_quantity(
-                        rec.setup_rule_id.setup_fixed_qty, fit_qty
-                    )
-            else:
-                setup_raw_qty = rec.setup_rule_id.setup_fixed_qty
-            rec.setup_raw_qty = setup_raw_qty
+            rec.setup_raw_qty = rec._setup_raw_qty
 
     @api.model
     def prepare_circulation_setups(self, circ_item, setups):
