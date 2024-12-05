@@ -53,7 +53,10 @@ class PackageConfiguratorBoxCirculationItemSetup(models.Model):
             if not self._is_circ_item_need_setup(circ_item, setup_type, sgroup):
                 continue
             setup_rule = sgroup.match_setup_rule(
-                circ.quantity, layout=layout, box_type=circ.configurator_id.box_type_id
+                circ.quantity,
+                component_type=component.component_type,
+                layout=layout,
+                box_type=circ.configurator_id.box_type_id,
             )
             if setup_rule:
                 vals_list.append(self._prepare_ciculation_setup(circ_item, setup_rule))

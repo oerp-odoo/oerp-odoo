@@ -54,14 +54,18 @@ class PackageBoxSetup(models.Model):
     max_layout_width = fields.Float("Maximum Layout Width (mm)", help=HELP_NO_LIMIT)
 
     def match_setup_rule(
-        self, box_qty: int, layout: Layout2D | None = None, box_type=None
+        self,
+        quantity: int,
+        component_type: str | None = None,
+        layout: Layout2D | None = None,
+        box_type=None,
     ):
         """Match setup rule by scanning setups and their rules."""
         for setup in self:
             if not setup._match_setup(layout=layout, box_type=box_type):
                 continue
             for rule in setup._rules_ordered:
-                if rule.match_rule(box_qty):
+                if rule.match_rule(quantity, component_type=component_type):
                     return rule
         return self.env['package.box.setup.rule']
 

@@ -6,15 +6,22 @@ from odoo import api, fields, models
 class PackageBoxSetupRule(models.Model):
     _name = 'package.box.setup.rule'
     _description = "Package Box Setup Rule"
-    _order = "min_qty desc, id"
+    _order = "component_type_sequence, min_qty desc, id"
 
     name = fields.Char(compute='_compute_name')
-
     setup_id = fields.Many2one('package.box.setup', required=True, ondelete='cascade')
     min_qty = fields.Integer(
         "Minimum Box Quantity", help="Minimum quantity of boxes to match this rule"
     )
-    # TODO: rename to setup_fixed_qty
+    component_type = fields.Selection(
+        lambda s: s.env[
+            'package.configurator.box.component'
+        ]._get_component_type_selection(),
+    )
+    component_type_sequence = fields.Integer(
+        compute='_compute_component_type_sequence',
+        store=True,
+    )
     setup_fixed_qty = fields.Integer(
         "Fixed Setup Quantity",
         # NOTE. This is quantity for prepared material, like cut sheet, not the whole
@@ -44,17 +51,19 @@ class PackageBoxSetupRule(models.Model):
             setup = rec.setup_id
             rec.name = f'{setup.name} ({rec.min_qty}/{rec.setup_fixed_qty})'
 
-    _sql_constraints = [
-        (
-            'min_qty_setup_uniq',
-            'unique (min_qty, setup_id)',
-            'The Minimum Quantity must be Unique per Setup!',
-        )
-    ]
+    @api.depends('component_type')
+    def _compute_component_type_sequence(self):
+        for rec in self:
+            # To order rules with component_type before without component_type.
+            rec.component_type_sequence = 1 if rec.component_type else 2
 
-    def match_rule(self, box_qty: int):
+    def match_rule(self, qty: int, component_type: str | None = None):
         self.ensure_one()
-        return box_qty >= self.min_qty
+        return qty >= self.min_qty and (
+            not self.component_type
+            or component_type is None
+            or self.component_type == component_type
+        )
 
     def calc_setup_qty(self, min_qty: int) -> int:
         self.ensure_one()
