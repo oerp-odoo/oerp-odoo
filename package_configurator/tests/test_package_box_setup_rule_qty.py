@@ -129,3 +129,33 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
         qty = setup_1_rule_2.calc_setup_qty(5000)
         # THEN
         self.assertEqual(qty, 200)
+
+    # TODO: create TestPackageBoxSetupRule class and move these tests.
+    def test_05_box_setup_inp_qty_measure_box(self):
+        # GIVEN
+        setup = self.PackageBoxSetup.create(
+            {
+                'name': 'MY-BOX-SHEET-SETUP-1',
+                'setup_type': 'sheet',
+                'inp_qty_measure': 'box',
+            }
+        )
+        # WHEN
+        inp_qty = setup.convert_inp_qty(200, 27)
+        # THEN
+        self.assertEqual(inp_qty, 200)
+
+    def test_06_box_setup_inp_qty_measure_raw(self):
+        # GIVEN
+        setup = self.PackageBoxSetup.create(
+            {
+                'name': 'MY-BOX-SHEET-SETUP-1',
+                'setup_type': 'sheet',
+                # Raw Sheets
+                'inp_qty_measure': 'raw_sheet',
+            }
+        )
+        # WHEN
+        inp_qty = setup.convert_inp_qty(200, 27)
+        # THEN
+        self.assertEqual(inp_qty, 8)
