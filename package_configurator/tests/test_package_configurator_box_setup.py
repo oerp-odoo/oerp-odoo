@@ -613,14 +613,14 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         self.assertEqual(len(circ_items), 2)
         self.assertEqual(len(circ_items.mapped('circulation_setup_ids')), 0)
 
-    def test_06_configure_box_do_setup_measure_by_raw(self):
+    def test_06_configure_box_do_setup_qty_measure_raw(self):
         # GIVEN
         setup_1 = self.PackageBoxSetup.create(
             [
                 {
                     'name': 'MY-BOX-SHEET-SETUP-1',
                     'setup_type': 'sheet',
-                    'setup_qty_measure': 'raw',
+                    'setup_qty_measure': 'raw_sheet',
                     'sequence': 20,
                 },
             ],
@@ -675,3 +675,71 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         # on setup_fixed_qty!
         self.assertEqual(item_base_greyboard.circulation_setup_ids.setup_raw_qty, 100)
         self.assertEqual(item_base_greyboard.quantity, 104)
+
+    def test_07_configure_box_do_setup_inp_qty_measure_raw(self):
+        # GIVEN
+        setup_1 = self.PackageBoxSetup.create(
+            [
+                {
+                    'name': 'MY-BOX-SHEET-SETUP-1',
+                    'setup_type': 'sheet',
+                    'setup_qty_measure': 'raw_sheet',
+                    'inp_qty_measure': 'raw_sheet',
+                    'sequence': 20,
+                },
+            ],
+        )
+        rule_1, rule_2 = self.PackageBoxSetupRule.create(
+            [
+                {'setup_id': setup_1.id, 'min_qty': 50, 'setup_fixed_qty': 100},
+                {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 200},
+            ]
+        )
+        cfg = self.PackageConfiguratorBox.create(
+            {
+                'box_type_id': self.package_box_type_1.id,
+                'base_length': 165,
+                'base_width': 42,
+                'base_height': 14.5,
+                'lid_height': 16,
+                'lid_extra': 2.0,
+                'outside_wrapping_extra': 20.0,
+            }
+        )
+        (comp_base_greyboard,) = self.PackageConfiguratorBoxComponent.create(
+            [
+                {
+                    'component_type': 'base_greyboard',
+                    'sheet_id': self.package_sheet_greyboard_1.id,
+                    'configurator_id': cfg.id,
+                },
+            ]
+        )
+        circulation_1 = self.PackageConfiguratorBoxCirculation.create(
+            [
+                {'quantity': 100, 'configurator_id': cfg.id},
+            ]
+        )
+        # WHEN
+        cfg.action_setup()
+        # THEN
+        # Quantities
+        # Circulations
+        # With 100 box circulation
+        # Setup
+        circ_items = circulation_1.item_ids
+        self.assertEqual(len(circ_items), 1)
+        # One setup per component.
+        self.assertEqual(len(circ_items.mapped('circulation_setup_ids')), 1)
+        item_base_greyboard = circ_items.filtered(
+            lambda r: r.component_id.component_type == 'base_greyboard'
+        )
+        # With raw measure, there is no conversion, we simply calculate what is
+        # on setup_fixed_qty!
+        self.assertEqual(item_base_greyboard.circulation_setup_ids.setup_raw_qty, 200)
+        # Second rule is to be created, because 100 boxes of quantity is 4 raw sheets,
+        # so we don't satisfy minimum quantity of 50 (when measured by raw sheets).
+        self.assertEqual(
+            item_base_greyboard.circulation_setup_ids.setup_rule_id, rule_2
+        )
+        self.assertEqual(item_base_greyboard.quantity, 204)

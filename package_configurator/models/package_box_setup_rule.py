@@ -11,7 +11,8 @@ class PackageBoxSetupRule(models.Model):
     name = fields.Char(compute='_compute_name')
     setup_id = fields.Many2one('package.box.setup', required=True, ondelete='cascade')
     min_qty = fields.Integer(
-        "Minimum Box Quantity", help="Minimum quantity of boxes to match this rule"
+        "Minimum Quantity",
+        help="Minimum quantity of either boxes or raw sheets to match this rule",
     )
     component_type = fields.Selection(
         lambda s: s.env[
@@ -24,8 +25,6 @@ class PackageBoxSetupRule(models.Model):
     )
     setup_fixed_qty = fields.Integer(
         "Fixed Setup Quantity",
-        # NOTE. This is quantity for prepared material, like cut sheet, not the whole
-        # raw sheet!
         help="Material wastage quantity used when doing setup",
         required=True,
     )
@@ -57,19 +56,20 @@ class PackageBoxSetupRule(models.Model):
             # To order rules with component_type before without component_type.
             rec.component_type_sequence = 1 if rec.component_type else 2
 
-    def match_rule(self, qty: int, component_type: str | None = None):
+    def match_rule(self, inp_qty: int, component_type: str | None = None):
         self.ensure_one()
-        return qty >= self.min_qty and (
+        return inp_qty >= self.min_qty and (
             not self.component_type
             or component_type is None
             or self.component_type == component_type
         )
 
-    def calc_setup_qty(self, qty: int) -> int:
+    def calc_setup_qty(self, inp_qty: int) -> int:
+        """Calc real setup quantity when quantity of boxes/components is known."""
         self.ensure_one()
         if self.setup_id.setup_qty_mode == 'fixed':
             return self.setup_fixed_qty
-        return self._calc_relative_setup_qty(qty)
+        return self._calc_relative_setup_qty(inp_qty)
 
     def _calc_relative_setup_qty(self, qty: int) -> int:
         self.ensure_one()

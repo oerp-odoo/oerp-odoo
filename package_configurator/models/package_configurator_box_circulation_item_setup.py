@@ -26,17 +26,18 @@ class PackageConfiguratorBoxCirculationItemSetup(models.Model):
     def _setup_raw_qty(self):
         self.ensure_one()
         circ_item = self.circulation_item_id
-        setup_raw_qty = self.setup_rule_id.calc_setup_qty(
-            circ_item.circulation_id.quantity
-        )
-        # With raw measure, nothing needs to be converted.
-        if self.setup_id.setup_qty_measure == 'raw':
-            return setup_raw_qty
-        # Handle `cut` measure.
         fit_qty = circ_item.component_id.fit_qty
         if not fit_qty:
             return 0
-        # setup quantity on rule is in cut sheets measure, to we convert it to
+        inp_qty = self.setup_id.convert_inp_qty(
+            circ_item.circulation_id.quantity, fit_qty
+        )
+        setup_raw_qty = self.setup_rule_id.calc_setup_qty(inp_qty)
+        # With raw measure, nothing needs to be converted.
+        if self.setup_id.setup_qty_measure == 'raw_sheet':
+            return setup_raw_qty
+        # Handle `cut` measure.
+        # setup quantity on rule is in cut sheets measure, so we convert it to
         # raw measure.
         return calc_sheet_quantity(setup_raw_qty, fit_qty)
 
@@ -66,6 +67,7 @@ class PackageConfiguratorBoxCirculationItemSetup(models.Model):
                 continue
             setup_rule = sgroup.match_setup_rule(
                 circ.quantity,
+                component.fit_qty,
                 component_type=component.component_type,
                 layout=layout,
                 box_type=circ.configurator_id.box_type_id,

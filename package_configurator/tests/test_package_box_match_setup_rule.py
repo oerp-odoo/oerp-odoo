@@ -28,27 +28,27 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         setup_1_rule_1 = rules[0]
         setup_1_rule_2 = rules[1]
         # WHEN QTY too low for any rule
-        rule = (setup_1 | setup_2).match_setup_rule(50)
+        rule = (setup_1 | setup_2).match_setup_rule(50, 1)
         # THEN
         self.assertEqual(rule, self.PackageBoxSetupRule)
         # WHEN QTY less than 200
-        rule = (setup_1 | setup_2).match_setup_rule(150)
+        rule = (setup_1 | setup_2).match_setup_rule(150, 1)
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
         # WHEN QTY less than 300
-        rule = (setup_1 | setup_2).match_setup_rule(250)
+        rule = (setup_1 | setup_2).match_setup_rule(250, 1)
         # THEN
         self.assertEqual(rule, setup_1_rule_2)
         # WHEN QTY is 300
-        rule = (setup_1 | setup_2).match_setup_rule(300)
+        rule = (setup_1 | setup_2).match_setup_rule(300, 1)
         # THEN
         self.assertEqual(rule, setup_1_rule_2)
         # WHEN QTY less than 400
-        rule = (setup_1 | setup_2).match_setup_rule(350)
+        rule = (setup_1 | setup_2).match_setup_rule(350, 1)
         # THEN
         self.assertEqual(rule, setup_1_rule_2)
         # WHEN QTY greater than 400
-        rule = (setup_1 | setup_2).match_setup_rule(450)
+        rule = (setup_1 | setup_2).match_setup_rule(450, 1)
         # THEN
         self.assertEqual(rule, setup_1_rule_2)
 
@@ -81,27 +81,27 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         layout = Layout2D(length=100, width=50)
         # WHEN QTY too low for any rule
-        rule = (setup_2 | setup_1).match_setup_rule(50, layout=layout)
+        rule = (setup_2 | setup_1).match_setup_rule(50, 1, layout=layout)
         # THEN
         self.assertEqual(rule, self.PackageBoxSetupRule)
         # WHEN QTY less than 200
-        rule = (setup_2 | setup_1).match_setup_rule(150, layout=layout)
+        rule = (setup_2 | setup_1).match_setup_rule(150, 1, layout=layout)
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
         # WHEN QTY less than 300
-        rule = (setup_2 | setup_1).match_setup_rule(250, layout=layout)
+        rule = (setup_2 | setup_1).match_setup_rule(250, 1, layout=layout)
         # THEN
         self.assertEqual(rule, setup_1_rule_2)
         # WHEN QTY is 300
-        rule = (setup_2 | setup_1).match_setup_rule(300, layout=layout)
+        rule = (setup_2 | setup_1).match_setup_rule(300, 1, layout=layout)
         # THEN
         self.assertEqual(rule, setup_2_rule_1)
         # WHEN QTY less than 400
-        rule = (setup_2 | setup_1).match_setup_rule(350, layout=layout)
+        rule = (setup_2 | setup_1).match_setup_rule(350, 1, layout=layout)
         # THEN
         self.assertEqual(rule, setup_2_rule_1)
         # WHEN QTY greater than 400
-        rule = (setup_2 | setup_1).match_setup_rule(450, layout=layout)
+        rule = (setup_2 | setup_1).match_setup_rule(450, 1, layout=layout)
         # THEN
         self.assertEqual(rule, setup_2_rule_2)
 
@@ -129,19 +129,19 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         # WHEN layout length less than 100
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, layout=Layout2D(length=50, width=50)
+            100, 1, layout=Layout2D(length=50, width=50)
         )
         # THEN
         self.assertEqual(rule, self.PackageBoxSetupRule)
         # WHEN layout length less than 200
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, layout=Layout2D(length=150, width=50)
+            100, 1, layout=Layout2D(length=150, width=50)
         )
         # THEN
         self.assertEqual(rule, setup_2_rule_1)
         # WHEN layout length greater than 200
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, layout=Layout2D(length=250, width=50)
+            100, 1, layout=Layout2D(length=250, width=50)
         )
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
@@ -170,19 +170,19 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         # WHEN layout length less than 100
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, layout=Layout2D(length=50, width=50)
+            100, 1, layout=Layout2D(length=50, width=50)
         )
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
         # WHEN layout length less than 200
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, layout=Layout2D(length=150, width=50)
+            100, 1, layout=Layout2D(length=150, width=50)
         )
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
         # WHEN layout length greater than 200
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, layout=Layout2D(length=250, width=50)
+            100, 1, layout=Layout2D(length=250, width=50)
         )
         # THEN
         self.assertEqual(rule, self.PackageBoxSetupRule)
@@ -211,19 +211,19 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         # WHEN layout width less than 100
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, layout=Layout2D(length=50, width=50)
+            100, 1, layout=Layout2D(length=50, width=50)
         )
         # THEN
         self.assertEqual(rule, self.PackageBoxSetupRule)
         # WHEN layout width less than 200
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, layout=Layout2D(length=50, width=150)
+            100, 1, layout=Layout2D(length=50, width=150)
         )
         # THEN
         self.assertEqual(rule, setup_2_rule_1)
         # WHEN layout width greater than 200
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, layout=Layout2D(length=50, width=250)
+            100, 1, layout=Layout2D(length=50, width=250)
         )
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
@@ -252,19 +252,19 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         # WHEN layout width less than 100
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, layout=Layout2D(length=50, width=50)
+            100, 1, layout=Layout2D(length=50, width=50)
         )
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
         # WHEN layout width less than 200
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, layout=Layout2D(length=50, width=150)
+            100, 1, layout=Layout2D(length=50, width=150)
         )
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
         # WHEN layout width greater than 200
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, layout=Layout2D(length=50, width=250)
+            100, 1, layout=Layout2D(length=50, width=250)
         )
         # THEN
         self.assertEqual(rule, self.PackageBoxSetupRule)
@@ -299,13 +299,13 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         # WHEN layout matches second setup
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, layout=Layout2D(length=160, width=50)
+            100, 1, layout=Layout2D(length=160, width=50)
         )
         # THEN
         self.assertEqual(rule, setup_2_rule_1)
         # WHEN layout matches first setup
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, layout=Layout2D(length=230, width=110)
+            100, 1, layout=Layout2D(length=230, width=110)
         )
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
@@ -340,7 +340,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         )
         # WHEN layout matches second setup
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, layout=Layout2D(length=5000, width=5000)
+            100, 1, layout=Layout2D(length=5000, width=5000)
         )
         # THEN
         self.assertEqual(rule, self.PackageBoxSetupRule)
@@ -371,7 +371,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             ]
         )
         # WHEN
-        rule = (setup_1 | setup_2).match_setup_rule(100, box_type=box_type_2)
+        rule = (setup_1 | setup_2).match_setup_rule(100, 1, box_type=box_type_2)
         # THEN
         self.assertEqual(rule, setup_2_rule_1)
 
@@ -401,7 +401,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             ]
         )
         # WHEN
-        rule = (setup_1 | setup_2).match_setup_rule(100, box_type=box_type_2)
+        rule = (setup_1 | setup_2).match_setup_rule(100, 1, box_type=box_type_2)
         # THEN
         self.assertEqual(rule, setup_1_rule_1)
 
@@ -446,7 +446,9 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             ]
         )
         # WHEN
-        rule = (setup_1 | setup_2).match_setup_rule(100, component_type='lid_greyboard')
+        rule = (setup_1 | setup_2).match_setup_rule(
+            100, 1, component_type='lid_greyboard'
+        )
         # THEN
         self.assertEqual(rule, setup_1_rule_2)
 
@@ -490,6 +492,8 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             ]
         )
         # WHEN
-        rule = (setup_1 | setup_2).match_setup_rule(100, component_type='lid_greyboard')
+        rule = (setup_1 | setup_2).match_setup_rule(
+            100, 1, component_type='lid_greyboard'
+        )
         # THEN
         self.assertEqual(rule, setup_1_rule_2)
