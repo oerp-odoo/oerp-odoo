@@ -57,6 +57,7 @@ class PackageConfiguratorBoxComponent(models.Model):
     @api.depends(
         'component_type',
         'sheet_id',
+        'print_color_id',
         'configurator_id.base_length',
         'configurator_id.base_width',
         'configurator_id.lid_height',
@@ -190,7 +191,13 @@ class PackageConfiguratorBoxComponent(models.Model):
     def _get_sheet_usable_dimensions_data(self):
         self.ensure_one()
         sheet = self.sheet_id
+        # Print house limitations can only be used if component uses
+        # color. Otherwise it means, no printing will be used for this
+        # component!
         house = self.configurator_id.print_house_id
+        if not self.print_color_id:
+            # Force empty recordset.
+            house = house.browse()
         return {
             'sheet_usable_length': min(
                 # If max is not set, it means, we have no limit, so we use sheet
