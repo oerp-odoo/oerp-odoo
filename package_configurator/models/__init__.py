@@ -1,6 +1,7 @@
 from . import (
     res_company,
     res_config_settings,
+    package_area,
     package_configurator_box,
     package_configurator_box_component,
     package_configurator_box_circulation,

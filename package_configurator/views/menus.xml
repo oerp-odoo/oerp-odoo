@@ -98,6 +98,11 @@
                 action="package_default_component_action"
                 sequence="45"
             />
+            <menuitem
+                id="package_area_menu"
+                action="package_area_action"
+                sequence="50"
+            />
         </menuitem>
 
     </menuitem>

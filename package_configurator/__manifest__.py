@@ -17,6 +17,7 @@
         'security/ir.model.access.csv',
         'security/package_configurator_multicompany_security.xml',
         'data/decimal_precision.xml',
+        'views/package_area.xml',
         'views/package_sheet.xml',
         'views/res_config_settings.xml',
         'views/package_box_type.xml',

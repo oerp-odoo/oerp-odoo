@@ -101,4 +101,10 @@
             name="domain_force"
         >[('print_pricelist_id.company_id', 'in', company_ids)]</field>
     </record>
+
+    <record id="package_area_rule_company" model="ir.rule">
+        <field name="name">package.area: Multi-Company</field>
+        <field name="model_id" ref="model_package_area"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
 </odoo>
