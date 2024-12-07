@@ -83,8 +83,8 @@
             />
             <menuitem id="package_box_setup_menu" name="Setups" sequence="40">
                 <menuitem
-                    id="package_box_setup_sheet_menu"
-                    action="package_box_setup_sheet_action"
+                    id="package_box_setup_production_menu"
+                    action="package_box_setup_production_action"
                     sequence="5"
                 />
                 <menuitem

@@ -6,8 +6,8 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
         # GIVEN
         setup_1 = self.PackageBoxSetup.create(
             {
-                'name': 'MY-BOX-SHEET-SETUP-1',
-                'setup_type': 'sheet',
+                'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                'setup_type': 'production',
                 'setup_qty_mode': 'fixed',
             }
         )
@@ -40,8 +40,8 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
         # GIVEN
         setup_1 = self.PackageBoxSetup.create(
             {
-                'name': 'MY-BOX-SHEET-SETUP-1',
-                'setup_type': 'sheet',
+                'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                'setup_type': 'production',
                 'setup_qty_mode': 'relative',
             }
         )
@@ -74,8 +74,8 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
         # GIVEN
         setup_1 = self.PackageBoxSetup.create(
             {
-                'name': 'MY-BOX-SHEET-SETUP-1',
-                'setup_type': 'sheet',
+                'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                'setup_type': 'production',
                 'setup_qty_mode': 'relative',
             }
         )
@@ -109,8 +109,8 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
         # GIVEN
         setup_1 = self.PackageBoxSetup.create(
             {
-                'name': 'MY-BOX-SHEET-SETUP-1',
-                'setup_type': 'sheet',
+                'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                'setup_type': 'production',
                 'setup_qty_mode': 'relative',
             }
         )
@@ -135,8 +135,8 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
         # GIVEN
         setup = self.PackageBoxSetup.create(
             {
-                'name': 'MY-BOX-SHEET-SETUP-1',
-                'setup_type': 'sheet',
+                'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                'setup_type': 'production',
                 'inp_qty_measure': 'box',
             }
         )
@@ -149,8 +149,8 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
         # GIVEN
         setup = self.PackageBoxSetup.create(
             {
-                'name': 'MY-BOX-SHEET-SETUP-1',
-                'setup_type': 'sheet',
+                'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                'setup_type': 'production',
                 # Raw Sheets
                 'inp_qty_measure': 'raw_sheet',
             }

@@ -8,12 +8,12 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         setup_1, setup_2 = self.PackageBoxSetup.create(
             [
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-1',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                    'setup_type': 'production',
                 },
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-2',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-2',
+                    'setup_type': 'production',
                 },
             ],
         )
@@ -57,12 +57,12 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         setup_1, setup_2 = self.PackageBoxSetup.create(
             [
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-1',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                    'setup_type': 'production',
                 },
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-2',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-2',
+                    'setup_type': 'production',
                 },
             ],
         )
@@ -110,13 +110,13 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         setup_1, setup_2 = self.PackageBoxSetup.create(
             [
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-1',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                    'setup_type': 'production',
                     'min_layout_length': 200,
                 },
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-2',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-2',
+                    'setup_type': 'production',
                     'min_layout_length': 100,
                 },
             ],
@@ -151,13 +151,13 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         setup_1, setup_2 = self.PackageBoxSetup.create(
             [
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-1',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                    'setup_type': 'production',
                     'max_layout_length': 200,
                 },
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-2',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-2',
+                    'setup_type': 'production',
                     'max_layout_length': 100,
                 },
             ],
@@ -192,13 +192,13 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         setup_1, setup_2 = self.PackageBoxSetup.create(
             [
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-1',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                    'setup_type': 'production',
                     'min_layout_width': 200,
                 },
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-2',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-2',
+                    'setup_type': 'production',
                     'min_layout_width': 100,
                 },
             ],
@@ -233,13 +233,13 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         setup_1, setup_2 = self.PackageBoxSetup.create(
             [
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-1',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                    'setup_type': 'production',
                     'max_layout_width': 200,
                 },
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-2',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-2',
+                    'setup_type': 'production',
                     'max_layout_width': 100,
                 },
             ],
@@ -274,16 +274,16 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         setup_1, setup_2 = self.PackageBoxSetup.create(
             [
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-1',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                    'setup_type': 'production',
                     'min_layout_width': 100,
                     'max_layout_width': 150,
                     'min_layout_length': 200,
                     'max_layout_length': 250,
                 },
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-2',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-2',
+                    'setup_type': 'production',
                     'min_layout_width': 50,
                     'max_layout_width': 100,
                     'min_layout_length': 150,
@@ -315,16 +315,16 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         setup_1, setup_2 = self.PackageBoxSetup.create(
             [
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-1',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                    'setup_type': 'production',
                     'min_layout_width': 100,
                     'max_layout_width': 150,
                     'min_layout_length': 200,
                     'max_layout_length': 250,
                 },
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-2',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-2',
+                    'setup_type': 'production',
                     'min_layout_width': 50,
                     'max_layout_width': 100,
                     'min_layout_length': 150,
@@ -353,13 +353,13 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         setup_1, setup_2 = self.PackageBoxSetup.create(
             [
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-1',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                    'setup_type': 'production',
                     'box_type_ids': [(4, box_type_1.id)],
                 },
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-2',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-2',
+                    'setup_type': 'production',
                     'box_type_ids': [(4, box_type_2.id)],
                 },
             ],
@@ -383,13 +383,13 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         setup_1, setup_2 = self.PackageBoxSetup.create(
             [
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-1',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                    'setup_type': 'production',
                     'box_type_ids': [(4, box_type_1.id), (4, box_type_2.id)],
                 },
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-2',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-2',
+                    'setup_type': 'production',
                     'box_type_ids': [(4, box_type_2.id)],
                 },
             ],
@@ -410,12 +410,12 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         setup_1, setup_2 = self.PackageBoxSetup.create(
             [
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-1',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                    'setup_type': 'production',
                 },
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-2',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-2',
+                    'setup_type': 'production',
                 },
             ],
         )
@@ -457,12 +457,12 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         setup_1, setup_2 = self.PackageBoxSetup.create(
             [
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-1',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                    'setup_type': 'production',
                 },
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-2',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-2',
+                    'setup_type': 'production',
                 },
             ],
         )

@@ -12,8 +12,7 @@ class DecimalPrecision(StrEnum):
 
 
 class SetupType(StrEnum):
-    # TODO: rename SHEET to PRODUCTION.
-    SHEET = 'sheet'
+    PRODUCTION = 'production'
     PRINT = 'print'
 
 
@@ -23,7 +22,7 @@ class SheetTypeScope(StrEnum):
 
 
 SETUP_TYPE_SELECTION = [
-    (SetupType.SHEET, "Sheet"),
+    (SetupType.PRODUCTION, "Production"),
     (SetupType.PRINT, "Print"),
 ]
 
