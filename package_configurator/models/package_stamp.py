@@ -24,5 +24,6 @@ class PackageStamp(models.Model):
     @api.depends('stamp_type', 'area_range_from_id', 'area_range_to_id')
     def _compute_name(self):
         for rec in self:
+            range_name = rec.area_range_name
             label = get_selection_label(rec, 'stamp_type')
-            rec.name = f'{rec.area_range_name} ({label})'
+            rec.name = f'{range_name} ({label})'

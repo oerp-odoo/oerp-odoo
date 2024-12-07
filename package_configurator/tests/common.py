@@ -10,6 +10,7 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
         cls.ProductProduct = cls.env['product.product']
         cls.PackageArea = cls.env['package.area']
         cls.PackageStamp = cls.env['package.stamp']
+        cls.PackageFoil = cls.env['package.foil']
         cls.PackagePrintHouse = cls.env['package.print.house']
         cls.PackageDefaultComponent = cls.env['package.default.component']
         cls.PackageConfiguratorBox = cls.env['package.configurator.box']
@@ -17,6 +18,7 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
             'package.configurator.box.component'
         ]
         cls.PackageConfiguratorBoxStamp = cls.env['package.configurator.box.stamp']
+        cls.PackageConfiguratorBoxFoil = cls.env['package.configurator.box.foil']
         cls.PackageConfiguratorBoxCirculation = cls.env[
             'package.configurator.box.circulation'
         ]

@@ -19,8 +19,11 @@ class PackageAreaRangeMixin(models.AbstractModel):
                 rec.area_range_name = f'{from_name} - {to_name}'
             elif from_name:
                 rec.area_range_name = f'>{from_name}'
-            else:
+            elif to_name:
                 rec.area_range_name = f'<{to_name}'
+            else:
+                # To acts as placeholder before any range is selected!
+                rec.area_range_name = 'New'
 
     @api.constrains('area_range_from_id', 'area_range_to_id')
     def _check_area_range(self):

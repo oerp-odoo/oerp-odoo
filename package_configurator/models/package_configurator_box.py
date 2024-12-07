@@ -55,6 +55,11 @@ class PackageConfiguratorBox(models.Model):
         inverse_name='configurator_id',
         string="Stamps",
     )
+    cfg_foil_ids = fields.One2many(
+        comodel_name='package.configurator.box.foil',
+        inverse_name='configurator_id',
+        string="Foils",
+    )
     circulation_ids = fields.One2many(
         comodel_name='package.configurator.box.circulation'
     )

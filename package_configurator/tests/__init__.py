@@ -16,4 +16,5 @@ from . import (
     test_package_sheet_usable_dimensions,
     test_package_print_match_pricelist_rule,
     test_package_configurator_box_stamp_cost,
+    test_package_configurator_box_foil_cost,
 )

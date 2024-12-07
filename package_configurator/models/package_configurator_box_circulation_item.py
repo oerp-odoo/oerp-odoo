@@ -6,8 +6,8 @@ from .. import const
 from ..value_objects import sheet as vo_sheet
 
 
-def filter_cfg_stamps(cfg, component):
-    return cfg.cfg_stamp_ids.filtered(lambda r: r.component_id == component)
+def filter_by_component(recs, component):
+    return recs.filtered(lambda r: r.component_id == component)
 
 
 class PackageConfiguratorBoxCirculationItem(models.Model):
@@ -32,6 +32,10 @@ class PackageConfiguratorBoxCirculationItem(models.Model):
     stamp_cost = fields.Float(
         digits=const.DecimalPrecision.COST,
         compute='_compute_stamp_cost',
+    )
+    foil_cost = fields.Float(
+        digits=const.DecimalPrecision.COST,
+        compute='_compute_foil_cost',
     )
     circulation_setup_ids = fields.One2many(
         'package.configurator.box.circulation.item.setup',
@@ -71,8 +75,23 @@ class PackageConfiguratorBoxCirculationItem(models.Model):
     def _compute_stamp_cost(self):
         for rec in self:
             cfg = rec.circulation_id.configurator_id
-            cfg_stamps = filter_cfg_stamps(cfg, rec.component_id)
+            cfg_stamps = filter_by_component(cfg.cfg_stamp_ids, rec.component_id)
             rec.stamp_cost = sum(cs.stamp_id.cost for cs in cfg_stamps)
+
+    @api.depends(
+        'circulation_id.configurator_id.cfg_foil_ids.component_id',
+        'circulation_id.configurator_id.cfg_foil_ids.foil_id',
+        'circulation_id.quantity',
+    )
+    def _compute_foil_cost(self):
+        for rec in self:
+            cfg = rec.circulation_id.configurator_id
+            qty = rec.circulation_id.quantity
+            cfg_foils = filter_by_component(cfg.cfg_foil_ids, rec.component_id)
+            form_cost = sum(cf.foil_id.form_cost for cf in cfg_foils)
+            # Cost of material itself
+            film_cost = sum(cf.foil_id.unit_cost * qty for cf in cfg_foils)
+            rec.foil_cost = form_cost + film_cost
 
     def action_open_circulation_setups(self):
         self.ensure_one()

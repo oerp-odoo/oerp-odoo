@@ -21,6 +21,7 @@
         'views/package_area.xml',
         'views/package_sheet.xml',
         'views/package_stamp.xml',
+        'views/package_foil.xml',
         'views/package_box_type.xml',
         'views/package_sheet_type.xml',
         'views/package_lamination.xml',

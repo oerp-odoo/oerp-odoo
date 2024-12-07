@@ -108,6 +108,11 @@
                 action="package_stamp_action"
                 sequence="55"
             />
+            <menuitem
+                id="package_foil_menu"
+                action="package_foil_action"
+                sequence="60"
+            />
         </menuitem>
 
     </menuitem>
