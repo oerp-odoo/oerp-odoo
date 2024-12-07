@@ -204,7 +204,7 @@ class PackageConfiguratorBox(models.Model):
     def _prepare_box_setups_domain(self):
         self.ensure_one()
         # By default we always look for sheet type setups.
-        setup_types = [const.SetupType.SHEET]
+        setup_types = [const.SetupType.PRODUCTION]
         if self.print_house_id:
             setup_types.append(const.SetupType.PRINT)
         return [

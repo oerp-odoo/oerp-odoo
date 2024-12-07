@@ -46,7 +46,7 @@
                                     <field name="min_qty"/>
                                     <field
                                         name="component_type"
-                                        column_invisible="parent.setup_type != 'sheet'"
+                                        column_invisible="parent.setup_type != 'production'"
                                     />
                                     <field name="setup_fixed_qty"/>
                                 </tree>
@@ -58,12 +58,12 @@
         </field>
     </record>
 
-    <record id="package_box_setup_sheet_action" model="ir.actions.act_window">
-        <field name="name">Sheets Setup</field>
+    <record id="package_box_setup_production_action" model="ir.actions.act_window">
+        <field name="name">Productions Setup</field>
         <field name="res_model">package.box.setup</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('setup_type', '=', 'sheet')]</field>
-        <field name="context">{'default_setup_type': 'sheet'}</field>
+        <field name="domain">[('setup_type', '=', 'production')]</field>
+        <field name="context">{'default_setup_type': 'production'}</field>
     </record>
     <record id="package_box_setup_print_action" model="ir.actions.act_window">
         <field name="name">Prints Setup</field>

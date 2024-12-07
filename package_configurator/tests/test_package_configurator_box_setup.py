@@ -19,14 +19,14 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         setup_1, setup_2 = self.PackageBoxSetup.create(
             [
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-1',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                    'setup_type': 'production',
                     'sequence': 20,
                 },
                 # To try matching this first!
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-2',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-2',
+                    'setup_type': 'production',
                     'sequence': 10,
                 },
             ],
@@ -225,14 +225,14 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         setup_1, setup_2, setup_print = self.PackageBoxSetup.create(
             [
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-1',
-                    'setup_type': const.SetupType.SHEET,
+                    'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                    'setup_type': const.SetupType.PRODUCTION,
                     'sequence': 20,
                 },
                 # To try matching this first!
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-2',
-                    'setup_type': const.SetupType.SHEET,
+                    'name': 'MY-BOX-PRODUCTION-SETUP-2',
+                    'setup_type': const.SetupType.PRODUCTION,
                     'sequence': 10,
                 },
                 {
@@ -461,8 +461,8 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         setup_1, setup_2 = self.PackageBoxSetup.create(
             [
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-1',
-                    'setup_type': const.SetupType.SHEET,
+                    'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                    'setup_type': const.SetupType.PRODUCTION,
                     'sequence': 10,
                 },
                 {
@@ -618,8 +618,8 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         setup_1 = self.PackageBoxSetup.create(
             [
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-1',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                    'setup_type': 'production',
                     'setup_qty_measure': 'raw_sheet',
                     'sequence': 20,
                 },
@@ -681,8 +681,8 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         setup_1 = self.PackageBoxSetup.create(
             [
                 {
-                    'name': 'MY-BOX-SHEET-SETUP-1',
-                    'setup_type': 'sheet',
+                    'name': 'MY-BOX-PRODUCTION-SETUP-1',
+                    'setup_type': 'production',
                     'setup_qty_measure': 'raw_sheet',
                     'inp_qty_measure': 'raw_sheet',
                     'sequence': 20,
