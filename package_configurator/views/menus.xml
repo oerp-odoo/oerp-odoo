@@ -103,6 +103,11 @@
                 action="package_area_action"
                 sequence="50"
             />
+            <menuitem
+                id="package_stamp_menu"
+                action="package_stamp_action"
+                sequence="55"
+            />
         </menuitem>
 
     </menuitem>

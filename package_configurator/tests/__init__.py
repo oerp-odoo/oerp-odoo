@@ -15,4 +15,5 @@ from . import (
     test_package_configurator_box_component_contraints,
     test_package_sheet_usable_dimensions,
     test_package_print_match_pricelist_rule,
+    test_package_configurator_box_stamp_cost,
 )

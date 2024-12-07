@@ -15,6 +15,7 @@ LAYOUT_CFG_MANDATORY_FIELDS = [
 class PackageConfiguratorBoxComponent(models.Model):
     _name = 'package.configurator.box.component'
     _description = "Package Configurator Box Component"
+    _rec_name = 'component_type'
 
     @api.depends('component_type')
     def _compute_display_name(self):
@@ -25,7 +26,9 @@ class PackageConfiguratorBoxComponent(models.Model):
     def _get_component_type_selection(self):
         return [(ct.name, ct.label) for ct in self.get_component_types()]
 
-    configurator_id = fields.Many2one('package.configurator.box', required=True)
+    configurator_id = fields.Many2one(
+        'package.configurator.box', required=True, ondelete='cascade'
+    )
     component_type = fields.Selection(
         _get_component_type_selection,
         required=True,

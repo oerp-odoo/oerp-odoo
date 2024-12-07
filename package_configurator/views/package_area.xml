@@ -28,6 +28,7 @@
                                 options="{'no_create': True}"
                                 domain="[('category_id', '=', uom_categ_length_id)]"
                             />
+                            <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>
                 </sheet>

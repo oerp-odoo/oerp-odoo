@@ -8,7 +8,7 @@ class PackageArea(models.Model):
     def _get_uom_categ_length_id(self):
         return self.env.ref('uom.uom_categ_length').id
 
-    name = fields.Char(compute='_compute_name', store=True)
+    name = fields.Char(compute='_compute_name')
     pa_length = fields.Float(string="Length", required=True)
     pa_width = fields.Float(string="Width", required=True)
     # Hack to force only specific types of UoMs!

@@ -8,12 +8,15 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.ProductProduct = cls.env['product.product']
+        cls.PackageArea = cls.env['package.area']
+        cls.PackageStamp = cls.env['package.stamp']
         cls.PackagePrintHouse = cls.env['package.print.house']
         cls.PackageDefaultComponent = cls.env['package.default.component']
         cls.PackageConfiguratorBox = cls.env['package.configurator.box']
         cls.PackageConfiguratorBoxComponent = cls.env[
             'package.configurator.box.component'
         ]
+        cls.PackageConfiguratorBoxStamp = cls.env['package.configurator.box.stamp']
         cls.PackageConfiguratorBoxCirculation = cls.env[
             'package.configurator.box.circulation'
         ]
@@ -28,6 +31,7 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
         cls.PackageSheet = cls.env['package.sheet']
         cls.PackageBoxLayout = cls.env['package.box.layout']
         cls.PackageLamination = cls.env['package.lamination']
+        cls.uom_cm = cls.env.ref('uom.product_uom_cm')
         (
             cls.package_sheet_type_greyboard_1,
             cls.package_sheet_type_wrappingpaper_1,
