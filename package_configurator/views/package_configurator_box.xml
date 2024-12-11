@@ -131,6 +131,38 @@
                                 </tree>
                             </field>
                         </page>
+                        <page name="stamps" string="Emboss/Deboss">
+                            <field name="cfg_stamp_ids">
+                                <tree editable="bottom">
+                                    <field name="configurator_id" column_invisible="1"/>
+                                    <field
+                                        name="component_id"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field name="side"/>
+                                    <field
+                                        name="stamp_id"
+                                        options="{'no_create': True}"
+                                    />
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="foils" string="Foils">
+                            <field name="cfg_foil_ids">
+                                <tree editable="bottom">
+                                    <field name="configurator_id" column_invisible="1"/>
+                                    <field
+                                        name="component_id"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field name="side"/>
+                                    <field
+                                        name="foil_id"
+                                        options="{'no_create': True}"
+                                    />
+                                </tree>
+                            </field>
+                        </page>
                         <page name="circulations" string="Circulations">
                             <field name="circulation_ids"/>
                         </page>

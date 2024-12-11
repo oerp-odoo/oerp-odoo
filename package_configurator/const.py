@@ -11,6 +11,11 @@ class DecimalPrecision(StrEnum):
     COST = 'Package Configurator Cost'
 
 
+class ComponentSide(StrEnum):
+    INSIDE = 'inside'
+    OUTSIDE = 'outside'
+
+
 class SetupType(StrEnum):
     PRODUCTION = 'production'
     PRINT = 'print'
@@ -20,6 +25,11 @@ class SheetTypeScope(StrEnum):
     GREYBOARD = 'greyboard'
     WRAPPINGPAPER = 'wrappingpaper'
 
+
+COMPONENT_SIDE_SELECTION = [
+    (ComponentSide.INSIDE, "Inside"),
+    (ComponentSide.OUTSIDE, "Outside"),
+]
 
 SETUP_TYPE_SELECTION = [
     (SetupType.PRODUCTION, "Production"),

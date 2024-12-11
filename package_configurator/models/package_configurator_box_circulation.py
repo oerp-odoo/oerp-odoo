@@ -76,6 +76,7 @@ class PackageConfiguratorBoxCirculation(models.Model):
         'total_lamination_inside_cost',
         'total_lamination_outside_cost',
         'item_ids.quantity',
+        'item_ids.stamp_cost',
         'item_ids.circulation_setup_ids.setup_raw_qty',
     )
     def _compute_cost(self):
@@ -106,6 +107,8 @@ class PackageConfiguratorBoxCirculation(models.Model):
             unit_cost = item.component_id.sheet_id.unit_cost
             total_cost += multiply(unit_cost, item.quantity)
             total_cost += multiply(item.print_unit_cost, item.quantity)
+            total_cost += item.stamp_cost
+            total_cost += item.foil_cost
         total_cost += self.total_lamination_inside_cost
         total_cost += self.total_lamination_outside_cost
         data.update({'unit_cost': total_cost / self.quantity, 'total_cost': total_cost})

@@ -1,8 +1,13 @@
 from . import (
     res_company,
     res_config_settings,
+    package_area,
+    package_stamp,
+    package_foil,
     package_configurator_box,
     package_configurator_box_component,
+    package_configurator_box_stamp,
+    package_configurator_box_foil,
     package_configurator_box_circulation,
     package_configurator_box_circulation_item,
     package_configurator_box_circulation_item_setup,

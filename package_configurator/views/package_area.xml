@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="package_area_view_tree" model="ir.ui.view">
+        <field name="name">package.area.tree</field>
+        <field name="model">package.area</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="package_area_view_form" model="ir.ui.view">
+        <field name="name">package.area.form</field>
+        <field name="model">package.area</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="pa_length"/>
+                            <field name="pa_width"/>
+                        </group>
+                        <group name="right">
+                            <field name="uom_categ_length_id" invisible="1"/>
+                            <field
+                                name="uom_id"
+                                options="{'no_create': True}"
+                                domain="[('category_id', '=', uom_categ_length_id)]"
+                            />
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="package_area_action" model="ir.actions.act_window">
+        <field name="name">Areas</field>
+        <field name="res_model">package.area</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
