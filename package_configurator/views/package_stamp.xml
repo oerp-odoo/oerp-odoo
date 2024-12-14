@@ -6,7 +6,8 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
-                <field name="cost"/>
+                <field name="tool_cost"/>
+                <field name="with_foil"/>
             </tree>
         </field>
     </record>
@@ -21,7 +22,13 @@
                         <group name="left">
                             <field name="name" invisible="1"/>
                             <field name="stamp_type"/>
-                            <field name="cost"/>
+                            <field name="tool_cost"/>
+                            <field name="with_foil"/>
+                            <field
+                                name="unit_cost"
+                                invisible="not with_foil"
+                                required="with_foil"
+                            />
                         </group>
                         <group name="right">
                             <field

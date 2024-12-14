@@ -14,7 +14,7 @@ class TestPackageConfiguratorBoxStampCost(common.TestProductPackageConfiguratorC
             {
                 'area_range_from_id': cls.area_1.id,
                 'stamp_type': 'emboss',
-                'cost': 50,
+                'tool_cost': 50,
             }
         )
         cls.package_sheet_1 = cls.PackageSheet.create(
@@ -94,3 +94,31 @@ class TestPackageConfiguratorBoxStampCost(common.TestProductPackageConfiguratorC
         self.assertEqual(circ_item.stamp_cost, 100)
         self.assertEqual(circ.unit_cost, 1)
         self.assertEqual(circ.total_cost, 100)
+
+    def test_03_cfg_box_stamp_cost_single_stamp_with_foil(self):
+        # GIVEN
+        self.stamp_1.write(
+            {
+                'with_foil': True,
+                'unit_cost': 1,
+            }
+        )
+        self.PackageConfiguratorBoxStamp.create(
+            {
+                'configurator_id': self.cfg_1.id,
+                'component_id': self.comp_base_greyboard.id,
+                'stamp_id': self.stamp_1.id,
+                'side': 'inside',
+            }
+        )
+        # WHEN
+        circ = self.PackageConfiguratorBoxCirculation.create(
+            {'quantity': 100, 'configurator_id': self.cfg_1.id},
+        )
+        # THEN
+        # Only 1 item expected.
+        circ_item = circ.item_ids[0]
+        # 50 + 100 = fixed cost + 1 * 100 quantity
+        self.assertEqual(circ_item.stamp_cost, 150)
+        self.assertEqual(circ.unit_cost, 1.5)
+        self.assertEqual(circ.total_cost, 150)
