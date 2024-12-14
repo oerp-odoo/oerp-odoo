@@ -71,12 +71,20 @@ class PackageConfiguratorBoxCirculationItem(models.Model):
     @api.depends(
         'circulation_id.configurator_id.cfg_stamp_ids.component_id',
         'circulation_id.configurator_id.cfg_stamp_ids.stamp_id',
+        'circulation_id.quantity',
     )
     def _compute_stamp_cost(self):
         for rec in self:
             cfg = rec.circulation_id.configurator_id
+            qty = rec.circulation_id.quantity
             cfg_stamps = filter_by_component(cfg.cfg_stamp_ids, rec.component_id)
-            rec.stamp_cost = sum(cs.stamp_id.cost for cs in cfg_stamps)
+            tool_cost = sum(cs.stamp_id.tool_cost for cs in cfg_stamps)
+            foil_cost = sum(
+                cs.stamp_id.unit_cost * qty
+                for cs in cfg_stamps
+                if cs.stamp_id.with_foil
+            )
+            rec.stamp_cost = tool_cost + foil_cost
 
     @api.depends(
         'circulation_id.configurator_id.cfg_foil_ids.component_id',

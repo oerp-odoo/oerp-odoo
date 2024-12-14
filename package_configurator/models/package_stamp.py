@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 from .. import const
 from ..utils.misc import get_selection_label
@@ -19,11 +19,15 @@ class PackageStamp(models.Model):
     company_id = fields.Many2one(
         'res.company', required=True, default=lambda s: s.env.company
     )
-    cost = fields.Float("Tool Cost", digits=const.DecimalPrecision.COST)
+    tool_cost = fields.Float(digits=const.DecimalPrecision.COST)
+    with_foil = fields.Boolean()
+    unit_cost = fields.Float(digits=const.DecimalPrecision.COST)
 
-    @api.depends('stamp_type', 'area_range_from_id', 'area_range_to_id')
+    @api.depends('stamp_type', 'with_foil', 'area_range_from_id', 'area_range_to_id')
     def _compute_name(self):
         for rec in self:
             range_name = rec.area_range_name
             label = get_selection_label(rec, 'stamp_type')
+            if rec.with_foil:
+                label = f'{label}, {_("Foil")}'
             rec.name = f'{range_name} ({label})'
