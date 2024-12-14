@@ -63,10 +63,11 @@ class TestPackageConfiguratorBoxFoilCost(common.TestProductPackageConfiguratorCo
         # THEN
         # Only 1 item expected.
         circ_item = circ.item_ids[0]
-        # 50 + 0.1 * 100
-        self.assertEqual(circ_item.foil_cost, 60)
-        self.assertEqual(circ.unit_cost, 0.6)
-        self.assertEqual(circ.total_cost, 60)
+        # 100 cut sheets are converted to raw sheets (so we get 4 raw sheets)
+        # 50 + 0.1 * 4
+        self.assertEqual(circ_item.foil_cost, 50.4)
+        self.assertEqual(circ.unit_cost, 0.504)
+        self.assertEqual(circ.total_cost, 50.4)
 
     def test_02_cfg_box_foil_cost_two_foils(self):
         # GIVEN
@@ -92,7 +93,53 @@ class TestPackageConfiguratorBoxFoilCost(common.TestProductPackageConfiguratorCo
         )
         # THEN
         circ_item = circ.item_ids[0]
-        # (50 + 0.1 * 100) + (50 + 0.1 * 100)
-        self.assertEqual(circ_item.foil_cost, 120)
-        self.assertEqual(circ.unit_cost, 1.2)
-        self.assertEqual(circ.total_cost, 120)
+        # (50 + 0.1 * 4) + (50 + 0.1 * 4)
+        self.assertEqual(circ_item.foil_cost, 100.8)
+        self.assertEqual(circ.unit_cost, 1.008)
+        self.assertEqual(circ.total_cost, 100.8)
+
+    def test_03_cfg_box_foil_cost_with_setup(self):
+        # GIVEN
+        setup_1 = self.PackageBoxSetup.create(
+            {
+                'name': 'MY-BOX-FOIL-SETUP-1',
+                'setup_type': 'foil',
+            },
+        )
+        self.PackageBoxSetupRule.create(
+            {'setup_id': setup_1.id, 'min_qty': 50, 'setup_fixed_qty': 20},
+        )
+        circ = self.PackageConfiguratorBoxCirculation.create(
+            {'quantity': 100, 'configurator_id': self.cfg_1.id},
+        )
+        self.PackageConfiguratorBoxFoil.create(
+            [
+                {
+                    'configurator_id': self.cfg_1.id,
+                    'component_id': self.comp_base_greyboard.id,
+                    'foil_id': self.foil_1.id,
+                    'side': 'inside',
+                },
+                {
+                    'configurator_id': self.cfg_1.id,
+                    'component_id': self.comp_base_greyboard.id,
+                    'foil_id': self.foil_1.id,
+                    'side': 'outside',
+                },
+            ]
+        )
+        # WHEN
+        self.cfg_1.action_setup()
+        # THEN
+        circ_item = circ.item_ids[0]
+        # Setup.
+        self.assertEqual(len(circ_item.circulation_setup_ids), 1)
+        circ_setup_foil = circ_item.circulation_setup_ids[0]
+        self.assertEqual(circ_setup_foil.setup_id.setup_type, 'foil')
+        # 20 cut sheets fit into single raw sheet
+        self.assertEqual(circ_setup_foil.setup_raw_qty, 1)
+        # Cost
+        # (50 + 0.1 * (4+1)) + (50 + 0.1 * (4+1))
+        self.assertEqual(circ_item.foil_cost, 101)
+        self.assertEqual(circ.unit_cost, 1.01)
+        self.assertEqual(circ.total_cost, 101)

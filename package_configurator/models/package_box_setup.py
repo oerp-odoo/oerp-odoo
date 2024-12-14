@@ -1,7 +1,7 @@
 from odoo import fields, models
 
 from .. import const
-from ..utils.fitter import calc_sheet_quantity
+from ..utils.fitter import calc_raw_sheet_quantity
 from ..value_objects.layout import Layout2D
 
 HELP_NO_LIMIT = "0 means no limit"
@@ -77,7 +77,7 @@ class PackageBoxSetup(models.Model):
         if self.inp_qty_measure == 'box':
             return qty
         try:
-            return calc_sheet_quantity(qty, fit_qty)
+            return calc_raw_sheet_quantity(qty, fit_qty)
         except ZeroDivisionError:
             return 0
 

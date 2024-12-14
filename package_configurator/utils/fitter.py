@@ -31,7 +31,7 @@ def calc_fit_quantity_multi(fitters: list[LayoutFitter]):
     return quantities
 
 
-def calc_sheet_quantity(product_qty: int, fit_qty: int):
+def calc_raw_sheet_quantity(product_qty: int, fit_qty: int):
     """Calculate how many sheets are needed.
 
     Args:

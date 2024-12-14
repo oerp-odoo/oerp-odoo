@@ -1,7 +1,7 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-from .. import const, utils
+from .. import utils
 from ..value_objects import layout as vo_layout, package_warning as vo_pw
 
 MANDATORY_LAYOUT_INP_FIELDS = [
@@ -213,14 +213,7 @@ class PackageConfiguratorBox(models.Model):
 
     def _prepare_box_setups_domain(self):
         self.ensure_one()
-        # By default we always look for sheet type setups.
-        setup_types = [const.SetupType.PRODUCTION]
-        if self.print_house_id:
-            setup_types.append(const.SetupType.PRINT)
-        return [
-            ('setup_type', 'in', setup_types),
-            ('company_id', '=', self.company_id.id),
-        ]
+        return [('company_id', '=', self.company_id.id)]
 
     def _get_init_laminations_data(self):
         return {

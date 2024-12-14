@@ -19,6 +19,8 @@ class ComponentSide(StrEnum):
 class SetupType(StrEnum):
     PRODUCTION = 'production'
     PRINT = 'print'
+    # Used for both foil and stamps!
+    FOIL = 'foil'
 
 
 class SheetTypeScope(StrEnum):
@@ -34,6 +36,7 @@ COMPONENT_SIDE_SELECTION = [
 SETUP_TYPE_SELECTION = [
     (SetupType.PRODUCTION, "Production"),
     (SetupType.PRINT, "Print"),
+    (SetupType.FOIL, "Foil"),
 ]
 
 SHEET_TYPE_SELECTION = [
