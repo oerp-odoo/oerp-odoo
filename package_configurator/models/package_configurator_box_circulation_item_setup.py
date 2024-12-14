@@ -3,7 +3,7 @@ from collections import defaultdict
 from odoo import api, fields, models
 
 from .. import const
-from ..utils.fitter import calc_sheet_quantity
+from ..utils.fitter import calc_raw_sheet_quantity
 from ..value_objects.layout import Layout2D
 
 
@@ -29,6 +29,7 @@ class PackageConfiguratorBoxCirculationItemSetup(models.Model):
         fit_qty = circ_item.component_id.fit_qty
         if not fit_qty:
             return 0
+
         inp_qty = self.setup_id.convert_inp_qty(
             circ_item.circulation_id.quantity, fit_qty
         )
@@ -39,7 +40,7 @@ class PackageConfiguratorBoxCirculationItemSetup(models.Model):
         # Handle `cut` measure.
         # setup quantity on rule is in cut sheets measure, so we convert it to
         # raw measure.
-        return calc_sheet_quantity(setup_raw_qty, fit_qty)
+        return calc_raw_sheet_quantity(setup_raw_qty, fit_qty)
 
     @api.depends(
         'circulation_item_id.component_id.fit_qty',
@@ -77,14 +78,26 @@ class PackageConfiguratorBoxCirculationItemSetup(models.Model):
         return vals_list
 
     def _is_circ_item_need_setup(self, circ_item, setup_type, setups):
-        if (
-            setup_type == const.SetupType.PRINT
-            # If component has no color selected, it means, no setup is needed for it.
-            # PRINT is valid when it is used only on some components, but not all!
-            and not circ_item.component_id.print_color_id
-        ):
-            return False
+        if setup_type == const.SetupType.PRINT:
+            return self._is_circ_item_need_print_setup(circ_item)
+        if setup_type == const.SetupType.FOIL:
+            return self._is_circ_item_need_foil_setup(circ_item)
         return True
+
+    def _is_circ_item_need_print_setup(self, circ_item):
+        cfg = circ_item.circulation_id.configurator_id
+        # If component has no color selected, it means, no setup is needed for it.
+        # PRINT is valid when it is used only on some components, but not all!
+        return cfg.print_house_id and circ_item.component_id.print_color_id
+
+    def _is_circ_item_need_foil_setup(self, circ_item):
+        comp = circ_item.component_id
+        cfg = circ_item.circulation_id.configurator_id
+        # foil setup is used for both foil and stamps!
+        return bool(
+            cfg.cfg_foil_ids.filtered(lambda r: r.component_id == comp)
+            or cfg.cfg_stamp_ids.filtered(lambda r: r.component_id == comp)
+        )
 
     @api.model
     def _prepare_ciculation_setup(self, circulation_item, setup_rule):

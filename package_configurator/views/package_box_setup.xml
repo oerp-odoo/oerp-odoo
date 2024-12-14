@@ -72,4 +72,11 @@
         <field name="domain">[('setup_type', '=', 'print')]</field>
         <field name="context">{'default_setup_type': 'print'}</field>
     </record>
+    <record id="package_box_setup_foil_action" model="ir.actions.act_window">
+        <field name="name">Foils Setup</field>
+        <field name="res_model">package.box.setup</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('setup_type', '=', 'foil')]</field>
+        <field name="context">{'default_setup_type': 'foil'}</field>
+    </record>
 </odoo>

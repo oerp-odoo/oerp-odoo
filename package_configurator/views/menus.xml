@@ -92,6 +92,11 @@
                     action="package_box_setup_print_action"
                     sequence="10"
                 />
+                <menuitem
+                    id="package_box_setup_foil_menu"
+                    action="package_box_setup_foil_action"
+                    sequence="10"
+                />
             </menuitem>
             <menuitem
                 id="package_default_component_menu"

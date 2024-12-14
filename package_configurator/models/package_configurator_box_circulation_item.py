@@ -3,6 +3,7 @@ from collections import defaultdict
 from odoo import api, fields, models
 
 from .. import const
+from ..utils.fitter import calc_raw_sheet_quantity
 from ..value_objects import sheet as vo_sheet
 
 
@@ -76,7 +77,7 @@ class PackageConfiguratorBoxCirculationItem(models.Model):
     def _compute_stamp_cost(self):
         for rec in self:
             cfg = rec.circulation_id.configurator_id
-            qty = rec.circulation_id.quantity
+            qty = rec._get_foil_stamp_raw_qty()
             cfg_stamps = filter_by_component(cfg.cfg_stamp_ids, rec.component_id)
             tool_cost = sum(cs.stamp_id.tool_cost for cs in cfg_stamps)
             foil_cost = sum(
@@ -94,7 +95,7 @@ class PackageConfiguratorBoxCirculationItem(models.Model):
     def _compute_foil_cost(self):
         for rec in self:
             cfg = rec.circulation_id.configurator_id
-            qty = rec.circulation_id.quantity
+            qty = rec._get_foil_stamp_raw_qty()
             cfg_foils = filter_by_component(cfg.cfg_foil_ids, rec.component_id)
             form_cost = sum(cf.foil_id.form_cost for cf in cfg_foils)
             # Cost of material itself
@@ -174,3 +175,18 @@ class PackageConfiguratorBoxCirculationItem(models.Model):
 
     def _get_init_print_unit_cost_data(self, circ):
         return {ci: 0.0 for ci in circ.item_ids}
+
+    def _get_foil_stamp_raw_qty(self):
+        self.ensure_one()
+        comp = self.component_id
+        qty = calc_raw_sheet_quantity(self.circulation_id.quantity, comp.fit_qty)
+        # We also need to include its setup quantity
+        circ_setups = self._get_circ_item_setups(const.SetupType.FOIL)
+        setup_qty = sum(circ_setup.setup_raw_qty for circ_setup in circ_setups)
+        return qty + setup_qty
+
+    def _get_circ_item_setups(self, setup_type: const.SetupType):
+        self.ensure_one()
+        return self.circulation_setup_ids.filtered(
+            lambda r: r.setup_id.setup_type == setup_type
+        )

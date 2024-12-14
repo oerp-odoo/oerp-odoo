@@ -81,5 +81,5 @@ class TestUtils(TransactionCase):
         # THEN
         self.assertEqual(qty, 0)
 
-    def test_12_fitter_calc_sheet_quantity_min_qty(self):
-        self.assertEqual(utils.fitter.calc_sheet_quantity(100, 3), 34)
+    def test_12_fitter_calc_raw_sheet_quantity_min_qty(self):
+        self.assertEqual(utils.fitter.calc_raw_sheet_quantity(100, 3), 34)

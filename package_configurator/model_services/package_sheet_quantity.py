@@ -1,6 +1,6 @@
 from odoo import models
 
-from ..utils.fitter import calc_sheet_quantity
+from ..utils.fitter import calc_raw_sheet_quantity
 from ..utils.misc import update_by_target
 from ..value_objects.sheet import SheetQuantity
 
@@ -24,7 +24,7 @@ class PackageSheetQuantity(models.AbstractModel):
         quantities = []
         for item in sheet_quantity.items:
             quantities.append(
-                calc_sheet_quantity(quantity, item.fit_qty) + item.setup_raw_qty
+                calc_raw_sheet_quantity(quantity, item.fit_qty) + item.setup_raw_qty
             )
         total_qty = sum(quantities)
         if sheet_quantity.min_qty > total_qty:
