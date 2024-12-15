@@ -58,40 +58,7 @@
                         <group name="general" string="General">
                             <field name="box_type_id"/>
                             <field name="print_house_id"/>
-                            <field name="lamination_outside_id"/>
-                            <field name="lamination_inside_id"/>
                         </group>
-                        </group>
-                        <group
-                            name="lamination"
-                            string="Lamination"
-                            invisible="not lamination_inside_id and not lamination_outside_id"
-                        >
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th/>
-                                        <th>Area</th>
-                                        <th>Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr invisible="not lamination_outside_id">
-                                        <td>Outside</td>
-                                        <td><field name="lamination_outside_area"/></td>
-                                        <td><field
-                                                name="lamination_outside_unit_cost"
-                                            /></td>
-                                    </tr>
-                                    <tr invisible="not lamination_inside_id">
-                                        <td>Inside</td>
-                                        <td><field name="lamination_inside_area"/></td>
-                                        <td><field
-                                                name="lamination_inside_unit_cost"
-                                            /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
                         </group>
                         <separator
                             name="warnings"
@@ -161,6 +128,20 @@
                                         name="foil_id"
                                         options="{'no_create': True}"
                                     />
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="lamination" string="Lamination">
+                            <field name="cfg_lamination_ids">
+                                <tree editable="bottom">
+                                    <field name="configurator_id" column_invisible="1"/>
+                                    <field name="side"/>
+                                    <field
+                                        name="lamination_id"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field name="area"/>
+                                    <field name="area_unit_cost"/>
                                 </tree>
                             </field>
                         </page>

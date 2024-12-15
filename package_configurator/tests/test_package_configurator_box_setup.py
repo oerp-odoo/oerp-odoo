@@ -157,8 +157,6 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
             item_lid_wrappingpaper_outside.circulation_setup_ids.setup_raw_qty, 20
         )
         self.assertEqual(item_lid_wrappingpaper_outside.quantity, 40)
-        self.assertEqual(circulation_1.total_lamination_inside_cost, 0.0)
-        self.assertEqual(circulation_1.total_lamination_outside_cost, 0.0)
         # With setup
         # (8+4+4)*0.05 + (24+12+12)*0.04 + (37+17+20)*0.06
         self.assertEqual(circulation_1.total_cost, 7.159999999999999)
@@ -212,8 +210,6 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
             item_lid_wrappingpaper_outside.circulation_setup_ids.setup_raw_qty, 40
         )
         self.assertEqual(item_lid_wrappingpaper_outside.quantity, 80)
-        self.assertEqual(circulation_2.total_lamination_inside_cost, 0.0)
-        self.assertEqual(circulation_2.total_lamination_outside_cost, 0.0)
         # With setup
         # (16+8+8)*0.05 + (46+23+23)*0.04 + (74+34+40)*0.06
         self.assertEqual(circulation_2.total_cost, 14.16)
@@ -311,8 +307,6 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         )
         self.assertEqual(item_lid_greyboard.circulation_setup_ids.setup_raw_qty, 4)
         self.assertEqual(item_lid_greyboard.quantity, 8)
-        self.assertEqual(circulation_1.total_lamination_inside_cost, 0.0)
-        self.assertEqual(circulation_1.total_lamination_outside_cost, 0.0)
         # With setup
         # (8+4+4)*0.05
         self.assertEqual(circulation_1.total_cost, 0.7999999999999999)
@@ -333,8 +327,6 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         )
         self.assertEqual(item_lid_greyboard.circulation_setup_ids.setup_raw_qty, 8)
         self.assertEqual(item_lid_greyboard.quantity, 16)
-        self.assertEqual(circulation_2.total_lamination_inside_cost, 0.0)
-        self.assertEqual(circulation_2.total_lamination_outside_cost, 0.0)
         # (16+8+8)*0.05
         self.assertEqual(circulation_2.total_cost, 1.5999999999999999)
         # 1.6 / 200
@@ -427,8 +419,6 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         )
         self.assertEqual(item_lid_greyboard.circulation_setup_ids.setup_raw_qty, 4)
         self.assertEqual(item_lid_greyboard.quantity, 8)
-        self.assertEqual(circulation_1.total_lamination_inside_cost, 0.0)
-        self.assertEqual(circulation_1.total_lamination_outside_cost, 0.0)
         # With setup
         # (8+4+4)*0.05
         self.assertEqual(circulation_1.total_cost, 0.7999999999999999)
@@ -449,8 +439,6 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         )
         self.assertEqual(item_lid_greyboard.circulation_setup_ids.setup_raw_qty, 8)
         self.assertEqual(item_lid_greyboard.quantity, 16)
-        self.assertEqual(circulation_2.total_lamination_inside_cost, 0.0)
-        self.assertEqual(circulation_2.total_lamination_outside_cost, 0.0)
         # (16+8+8)*0.05
         self.assertEqual(circulation_2.total_cost, 1.5999999999999999)
         # 1.6 / 200

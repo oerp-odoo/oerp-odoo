@@ -67,6 +67,13 @@
             name="domain_force"
         >[('configurator_id.company_id', 'in', company_ids)]</field>
     </record>
+    <record id="package_configurator_box_lamination_rule_company" model="ir.rule">
+        <field name="name">package.configurator.box.lamination: Multi-Company</field>
+        <field name="model_id" ref="model_package_configurator_box_lamination"/>
+        <field
+            name="domain_force"
+        >[('configurator_id.company_id', 'in', company_ids)]</field>
+    </record>
     <record id="package_configurator_box_rule_company" model="ir.rule">
         <field name="name">package.configurator.box: Multi-Company</field>
         <field name="model_id" ref="model_package_configurator_box"/>

@@ -8,6 +8,7 @@ from . import (
     package_configurator_box_component,
     package_configurator_box_stamp,
     package_configurator_box_foil,
+    package_configurator_box_lamination,
     package_configurator_box_circulation,
     package_configurator_box_circulation_item,
     package_configurator_box_circulation_item_setup,

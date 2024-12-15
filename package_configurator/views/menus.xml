@@ -76,11 +76,6 @@
                 />
             </menuitem>
 
-            <menuitem
-                id="package_lamination_menu"
-                action="package_lamination_action"
-                sequence="35"
-            />
             <menuitem id="package_box_setup_menu" name="Setups" sequence="40">
                 <menuitem
                     id="package_box_setup_production_menu"
@@ -98,26 +93,35 @@
                     sequence="10"
                 />
             </menuitem>
-            <menuitem
-                id="package_default_component_menu"
-                action="package_default_component_action"
-                sequence="45"
-            />
-            <menuitem
-                id="package_area_menu"
-                action="package_area_action"
-                sequence="50"
-            />
-            <menuitem
-                id="package_stamp_menu"
-                action="package_stamp_action"
-                sequence="55"
-            />
-            <menuitem
-                id="package_foil_menu"
-                action="package_foil_action"
-                sequence="60"
-            />
+            <menuitem id="package_addins_menu" name="Addins" sequence="45">
+                <menuitem
+                    id="package_stamp_menu"
+                    action="package_stamp_action"
+                    sequence="5"
+                />
+                <menuitem
+                    id="package_foil_menu"
+                    action="package_foil_action"
+                    sequence="10"
+                />
+                <menuitem
+                    id="package_lamination_menu"
+                    action="package_lamination_action"
+                    sequence="15"
+                />
+            </menuitem>
+            <menuitem id="package_misc_menu" name="Misc" sequence="50">
+                <menuitem
+                    id="package_area_menu"
+                    action="package_area_action"
+                    sequence="5"
+                />
+                <menuitem
+                    id="package_default_component_menu"
+                    action="package_default_component_action"
+                    sequence="10"
+                />
+            </menuitem>
         </menuitem>
 
     </menuitem>
