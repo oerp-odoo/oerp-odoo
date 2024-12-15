@@ -32,7 +32,7 @@
     </record>
 
     <record id="package_lamination_action" model="ir.actions.act_window">
-        <field name="name">Laminations</field>
+        <field name="name">Lamination</field>
         <field name="res_model">package.lamination</field>
         <field name="view_mode">tree,form</field>
     </record>

@@ -19,11 +19,8 @@ class PackageConfiguratorBoxCirculation(models.Model):
         store=True,
         compute='_compute_item_ids',
     )
-    total_lamination_inside_cost = fields.Float(
-        compute='_compute_lamination_cost', digits=const.DecimalPrecision.COST
-    )
-    total_lamination_outside_cost = fields.Float(
-        compute='_compute_lamination_cost', digits=const.DecimalPrecision.COST
+    total_lamination_cost = fields.Float(
+        compute='_compute_total_lamination_cost', digits=const.DecimalPrecision.COST
     )
     # price/cost fields should be part of package.configurator.circulation
     # abstraction, which would need to be implemented in concrete class.
@@ -33,6 +30,15 @@ class PackageConfiguratorBoxCirculation(models.Model):
     total_cost = fields.Float(
         compute='_compute_cost', digits=const.DecimalPrecision.COST
     )
+
+    @property
+    def _total_lamination_cost(self):
+        self.ensure_one()
+        cost = 0.0
+        for cfg_lamination in self.configurator_id.cfg_lamination_ids:
+            # area_unit_cost means, one cut sheet.
+            cost += self.quantity * cfg_lamination.area_unit_cost
+        return cost
 
     @api.depends('configurator_id.component_ids')
     def _compute_item_ids(self):
@@ -54,27 +60,16 @@ class PackageConfiguratorBoxCirculation(models.Model):
 
     @api.depends(
         'quantity',
-        'configurator_id.lamination_inside_unit_cost',
-        'configurator_id.lamination_outside_unit_cost',
+        'configurator_id.cfg_lamination_ids.side',
+        'configurator_id.cfg_lamination_ids.lamination_id',
     )
-    def _compute_lamination_cost(self):
+    def _compute_total_lamination_cost(self):
         for rec in self:
-            cfg = rec.configurator_id
-            rec.update(
-                {
-                    'total_lamination_inside_cost': (
-                        rec.quantity * cfg.lamination_inside_unit_cost
-                    ),
-                    'total_lamination_outside_cost': (
-                        rec.quantity * cfg.lamination_outside_unit_cost
-                    ),
-                }
-            )
+            rec.total_lamination_cost = rec._total_lamination_cost
 
     @api.depends(
         'quantity',
-        'total_lamination_inside_cost',
-        'total_lamination_outside_cost',
+        'total_lamination_cost',
         'item_ids.quantity',
         'item_ids.stamp_cost',
         'item_ids.circulation_setup_ids.setup_raw_qty',
@@ -109,7 +104,6 @@ class PackageConfiguratorBoxCirculation(models.Model):
             total_cost += multiply(item.print_unit_cost, item.quantity)
             total_cost += item.stamp_cost
             total_cost += item.foil_cost
-        total_cost += self.total_lamination_inside_cost
-        total_cost += self.total_lamination_outside_cost
+        total_cost += self.total_lamination_cost
         data.update({'unit_cost': total_cost / self.quantity, 'total_cost': total_cost})
         return data

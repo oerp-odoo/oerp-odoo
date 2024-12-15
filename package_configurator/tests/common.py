@@ -19,6 +19,9 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
         ]
         cls.PackageConfiguratorBoxStamp = cls.env['package.configurator.box.stamp']
         cls.PackageConfiguratorBoxFoil = cls.env['package.configurator.box.foil']
+        cls.PackageConfiguratorBoxLamination = cls.env[
+            'package.configurator.box.lamination'
+        ]
         cls.PackageConfiguratorBoxCirculation = cls.env[
             'package.configurator.box.circulation'
         ]
@@ -78,11 +81,5 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
                 'sheet_width': 400,
                 'unit_cost': 0.06,
                 'scope': const.SheetTypeScope.WRAPPINGPAPER,
-            }
-        )
-        cls.package_lamination_1 = cls.PackageLamination.create(
-            {
-                'name': 'Lamination 1',
-                'unit_cost': 2,
             }
         )
