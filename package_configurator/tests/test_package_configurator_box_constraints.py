@@ -10,7 +10,7 @@ class TestPackageConfiguratorBoxConstraints(
     def setUpClass(cls):
         super().setUpClass()
         cls.package_box_type_1 = cls.PackageBoxType.create({'name': 'MY-BOX-TYPE-1'})
-        cls.package_configurator_box_1 = cls.PackageConfiguratorBox.create(
+        cls.cfg_1 = cls.PackageConfiguratorBox.create(
             {
                 'box_type_id': cls.package_box_type_1.id,
                 'base_length': 10,
@@ -27,7 +27,7 @@ class TestPackageConfiguratorBoxConstraints(
         with self.assertRaisesRegex(
             ValidationError, r"Minimum box \(.+\) length is .+"
         ):
-            self.package_configurator_box_1.base_length = 10
+            self.cfg_1.base_length = 10
 
     def test_02_box_type_width_less_than_min(self):
         # GIVEN

@@ -13,9 +13,13 @@ class PackageBoxLayout(models.AbstractModel):
         # This is not change'able directly on configurator on purpose!
         global_extra = cfg.company_id.package_default_global_box_extra
         components = cfg.mapped('component_ids')
+        # FIXME: if you switch between component types and sheets,
+        # it is possible that multiple base greyboards will be created
+        # in memory, which is not what we expect (even though it would
+        # not be possible to save it).
         comp_base_greyboard = components.filtered(
             lambda r: r.component_type == 'base_greyboard'
-        )
+        )[:1]
         return self.get_layouts(
             vo_layout.BaseDimensions(
                 length=cfg.base_length,

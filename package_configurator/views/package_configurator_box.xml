@@ -124,6 +124,7 @@
                                     <field
                                         name="print_color_id"
                                         column_invisible="not parent.print_house_id"
+                                        readonly="scope != 'wrappingpaper'"
                                     />
                                     <field name="component_length"/>
                                     <field name="component_width"/>
