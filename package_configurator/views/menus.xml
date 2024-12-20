@@ -60,17 +60,22 @@
 
             <menuitem id="package_print_menu" name="Printing" sequence="30">
                <menuitem
-                    id="package_print_color"
+                    id="package_print_color_menu"
                     action="package_print_color_action"
                     sequence="5"
                 />
                <menuitem
-                    id="package_print_pricelist"
+                    id="package_print_pricelist_menu"
                     action="package_print_pricelist_action"
                     sequence="10"
                 />
+               <menuitem
+                    id="package_print_pricelist_rule_menu"
+                    action="package_print_pricelist_rule_action"
+                    sequence="15"
+                />
                 <menuitem
-                    id="package_print_house"
+                    id="package_print_house_menu"
                     action="package_print_house_action"
                     sequence="20"
                 />

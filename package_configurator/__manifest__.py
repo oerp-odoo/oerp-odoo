@@ -32,6 +32,7 @@
         'views/package_box_setup.xml',
         'views/package_print_house.xml',
         'views/package_print_pricelist.xml',
+        'views/package_print_pricelist_rule.xml',
         'views/package_print_color.xml',
         'views/menus.xml',
     ],

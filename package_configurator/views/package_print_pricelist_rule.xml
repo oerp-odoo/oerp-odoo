@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="package_print_pricelist_rule_view_tree" model="ir.ui.view">
+        <field name="name">package.print.pricelist.rule.tree</field>
+        <field name="model">package.print.pricelist.rule</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="print_pricelist_id"/>
+                <field name="color_id"/>
+                <field name="min_qty"/>
+                <field name="unit_cost"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="package_print_pricelist_rule_view_form" model="ir.ui.view">
+        <field name="name">package.print.pricelist.rule.form</field>
+        <field name="model">package.print.pricelist.rule</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="print_pricelist_id"/>
+                            <field name="color_id"/>
+                        </group>
+                        <group name="right">
+                            <field name="min_qty"/>
+                            <field name="unit_cost"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="package_print_pricelist_rule_action" model="ir.actions.act_window">
+        <field name="name">Pricelist Rules</field>
+        <field name="res_model">package.print.pricelist.rule</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
