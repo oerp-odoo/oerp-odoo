@@ -44,7 +44,7 @@ class PackageConfiguratorCirculationItem(models.Model):
     )
 
     @api.depends(
-        'circulation_id.configurator_id.component_ids.component_type',
+        'circulation_id.configurator_id.component_ids.component_type_id',
         'circulation_id.configurator_id.component_ids.sheet_id',
         'circulation_id.configurator_id.component_ids.fit_qty',
         'circulation_id.quantity',

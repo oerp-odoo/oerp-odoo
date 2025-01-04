@@ -45,7 +45,7 @@
                                 <tree editable="bottom">
                                     <field name="min_qty"/>
                                     <field
-                                        name="component_type"
+                                        name="component_type_id"
                                         column_invisible="parent.setup_type != 'production'"
                                     />
                                     <field name="setup_fixed_qty"/>

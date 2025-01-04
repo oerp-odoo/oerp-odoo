@@ -23,10 +23,10 @@ class TestPackageBoxLayout(common.TestProductPackageConfiguratorCommon):
         self.assertEqual(
             res,
             {
-                'base_greyboard': Layout2D(length=224, width=101),
+                'base': Layout2D(length=224, width=101),
                 'base_wrappingpaper_inside': Layout2D(length=224, width=101),
                 'base_wrappingpaper_outside': Layout2D(length=264, width=141),
-                'lid_greyboard': Layout2D(length=232, width=109),
+                'lid': Layout2D(length=232, width=109),
                 'lid_wrappingpaper_inside': Layout2D(length=232, width=109),
                 'lid_wrappingpaper_outside': Layout2D(length=272, width=149),
             },

@@ -85,7 +85,7 @@ class PackageBoxSetup(models.Model):
         self,
         quantity: int,
         fit_qty: int,
-        component_type: str | None = None,
+        component_type=None,
         layout: Layout2D | None = None,
         box_type=None,
     ):

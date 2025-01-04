@@ -1,4 +1,5 @@
-from .. import const
+from odoo.fields import Command
+
 from . import common
 
 
@@ -23,7 +24,9 @@ class TestPackageConfiguratorLaminationCost(
                     'sheet_width': 700,
                     # On purpose to calc only foil cost!
                     'unit_cost': 0,
-                    'scope': const.SheetTypeScope.GREYBOARD,
+                    'component_kind_ids': [
+                        Command.set([cls.component_kind_greyboard.id])
+                    ],
                 },
                 {
                     'sheet_type_id': cls.package_sheet_type_wrappingpaper_1.id,
@@ -31,7 +34,9 @@ class TestPackageConfiguratorLaminationCost(
                     'sheet_width': 700,
                     # On purpose to calc only foil cost!
                     'unit_cost': 0,
-                    'scope': const.SheetTypeScope.WRAPPINGPAPER,
+                    'component_kind_ids': [
+                        Command.set([cls.component_kind_wrappingpaper.id])
+                    ],
                 },
             ]
         )
@@ -44,44 +49,44 @@ class TestPackageConfiguratorLaminationCost(
                 'lid_height': 16,
                 'lid_extra': 2.0,
                 'outside_wrapping_extra': 20.0,
+                'package_type_id': cls.package_type_box.id,
             },
         )
-        (
-            cls.comp_base_greyboard,
-            cls.comp_lid_greyboard,
-            cls.comp_base_wrappingpaper_inside,
-            cls.comp_base_wrappingpaper_outside,
-            cls.comp_lid_wrappingpaper_inside,
-            cls.comp_lid_wrappingpaper_outside,
-        ) = cls.PackageConfiguratorComponent.create(
+        cls.PackageConfiguratorComponent.create(
             [
                 {
-                    'component_type': 'base_greyboard',
+                    'component_type_id': cls.component_type_base.id,
                     'sheet_id': cls.sheet_greyboard_1.id,
                     'configurator_id': cls.cfg_1.id,
                 },
                 {
-                    'component_type': 'lid_greyboard',
+                    'component_type_id': cls.component_type_lid.id,
                     'sheet_id': cls.sheet_greyboard_1.id,
                     'configurator_id': cls.cfg_1.id,
                 },
                 {
-                    'component_type': 'base_wrappingpaper_inside',
+                    'component_type_id': (
+                        cls.component_type_base_wrappingpaper_inside.id
+                    ),
                     'sheet_id': cls.sheet_wrappingpaper_1.id,
                     'configurator_id': cls.cfg_1.id,
                 },
                 {
-                    'component_type': 'base_wrappingpaper_outside',
+                    'component_type_id': (
+                        cls.component_type_base_wrappingpaper_outside.id
+                    ),
                     'sheet_id': cls.sheet_wrappingpaper_1.id,
                     'configurator_id': cls.cfg_1.id,
                 },
                 {
-                    'component_type': 'lid_wrappingpaper_inside',
+                    'component_type_id': cls.component_type_lid_wrappingpaper_inside.id,
                     'sheet_id': cls.sheet_wrappingpaper_1.id,
                     'configurator_id': cls.cfg_1.id,
                 },
                 {
-                    'component_type': 'lid_wrappingpaper_outside',
+                    'component_type_id': (
+                        cls.component_type_lid_wrappingpaper_outside.id
+                    ),
                     'sheet_id': cls.sheet_wrappingpaper_1.id,
                     'configurator_id': cls.cfg_1.id,
                 },

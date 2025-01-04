@@ -7,13 +7,18 @@
         sequence="50"
         groups="package_configurator.package_group_user"
     >
-        <menuitem
-            id="package_configurator_menu"
-            action="package_configurator_action"
-            sequence="60"
-            groups="package_configurator.package_group_manager"
-        />
-
+        <menuitem id="package_configurator_menu" name="Configurators" sequence="60">
+            <menuitem
+                id="package_configurator_box_menu"
+                action="package_configurator_box_action"
+                sequence="5"
+            />
+            <menuitem
+                id="package_configurator_insert_menu"
+                action="package_configurator_insert_action"
+                sequence="10"
+            />
+        </menuitem>
         <menuitem
             id="package_config_menu"
             name="Configuration"

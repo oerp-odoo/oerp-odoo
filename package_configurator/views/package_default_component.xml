@@ -5,7 +5,7 @@
         <field name="model">package.default.component</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="component_type"/>
+                <field name="component_type_id"/>
             </tree>
         </field>
     </record>
@@ -18,7 +18,7 @@
                 <sheet>
                     <group name="main">
                         <group name="left">
-                            <field name="component_type"/>
+                            <field name="component_type_id"/>
                         </group>
                         <group name="right">
                             <field name="company_id" groups="base.group_multi_company"/>

@@ -1,4 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_package_type_user,package_type user,model_package_type,package_group_user,1,0,0,0
+access_package_component_kind_user,package_component_kind user,model_package_component_kind,package_group_user,1,0,0,0
+access_package_component_type_user,package_component_type user,model_package_component_type,package_group_user,1,0,0,0
 access_package_configurator_user,package_configurator user,model_package_configurator,package_group_user,1,1,1,0
 access_package_configurator_manager,package_configurator manager,model_package_configurator,package_group_manager,1,1,1,1
 access_package_configurator_component_user,package_configurator_component user,model_package_configurator_component,package_group_user,1,1,1,1

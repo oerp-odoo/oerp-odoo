@@ -1,18 +1,14 @@
-from odoo import api, fields, models
-
-from .. import utils
+from odoo import fields, models
 
 
 class PackageDefaultComponent(models.Model):
     _name = 'package.default.component'
     _description = "Package Default Component"
+    _rec_name = 'component_type_id'
 
-    component_type = fields.Selection(
-        lambda s: s.env[
-            'package.configurator.component'
-        ]._get_component_type_selection(),
+    component_type_id = fields.Many2one(
+        'package.component.type',
         required=True,
-        default='base_greyboard',
     )
     company_id = fields.Many2one(
         'res.company', required=True, default=lambda s: s.env.company
@@ -20,13 +16,8 @@ class PackageDefaultComponent(models.Model):
 
     _sql_constraints = [
         (
-            'component_type_company_id_uniq',
-            'unique (component_type, company_id)',
+            'component_type_id_company_id_uniq',
+            'unique (component_type_id, company_id)',
             'The Component Type must be unique per company!',
         )
     ]
-
-    @api.depends('component_type')
-    def _compute_display_name(self):
-        for rec in self:
-            rec.display_name = utils.misc.get_selection_label(rec, 'component_type')

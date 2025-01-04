@@ -20,12 +20,13 @@ class TestPackageWarnings(common.TestProductPackageConfiguratorCommon):
                 'lid_height': 16,
                 'lid_extra': 2.0,
                 'outside_wrapping_extra': 20.0,
+                'package_type_id': self.package_type_box.id,
             },
         )
         self.PackageConfiguratorComponent.create(
             [
                 {
-                    'component_type': 'base_greyboard',
+                    'component_type_id': self.component_type_base.id,
                     'sheet_id': self.package_sheet_greyboard_1.id,
                     'configurator_id': cfg.id,
                 },
@@ -39,7 +40,7 @@ class TestPackageWarnings(common.TestProductPackageConfiguratorCommon):
             [
                 vo_pw.PackageWarning(
                     warning_type=vo_pw.WarningType.DANGER,
-                    message='Component "Base Grey Board" won\'t fit on sheet '
+                    message='Component "Base" won\'t fit on sheet '
                     + f'{self.package_sheet_greyboard_1.display_name}',
                 )
             ],
@@ -48,7 +49,9 @@ class TestPackageWarnings(common.TestProductPackageConfiguratorCommon):
     def test_02_configure_box_warning_missing_default_components(self):
         # GIVEN
         self.package_box_type_1.default_component_ids |= (
-            self.PackageDefaultComponent.create({'component_type': 'lid_greyboard'})
+            self.PackageDefaultComponent.create(
+                {'component_type_id': self.component_type_lid.id}
+            )
         )
         cfg = self.PackageConfigurator.create(
             {
@@ -59,12 +62,13 @@ class TestPackageWarnings(common.TestProductPackageConfiguratorCommon):
                 'lid_height': 16,
                 'lid_extra': 2.0,
                 'outside_wrapping_extra': 20.0,
+                'package_type_id': self.package_type_box.id,
             },
         )
         self.PackageConfiguratorComponent.create(
             [
                 {
-                    'component_type': 'base_greyboard',
+                    'component_type_id': self.component_type_base.id,
                     'sheet_id': self.package_sheet_greyboard_1.id,
                     'configurator_id': cfg.id,
                 },
@@ -80,7 +84,7 @@ class TestPackageWarnings(common.TestProductPackageConfiguratorCommon):
                     warning_type=vo_pw.WarningType.WARNING,
                     message=(
                         'Expected default components not used: '
-                        + '<strong>Lid Grey Board</strong>'
+                        + '<strong>Lid</strong>'
                     ),
                 )
             ],

@@ -22,19 +22,20 @@ class TestPackageSheetUsableDimensions(common.TestProductPackageConfiguratorComm
                 'lid_height': 16,
                 'lid_extra': 2.0,
                 'outside_wrapping_extra': 20.0,
+                'package_type_id': self.package_type_box.id,
             },
         )
-        comp_base_greyboard = self.PackageConfiguratorComponent.create(
+        comp_base = self.PackageConfiguratorComponent.create(
             {
-                'component_type': 'base_greyboard',
+                'component_type_id': self.component_type_base.id,
                 'sheet_id': self.package_sheet_greyboard_1.id,
                 'configurator_id': cfg.id,
                 'print_color_id': self.print_color_1.id,
             },
         )
         # THEN
-        self.assertEqual(comp_base_greyboard.sheet_usable_length, 1000)
-        self.assertEqual(comp_base_greyboard.sheet_usable_width, 700)
+        self.assertEqual(comp_base.sheet_usable_length, 1000)
+        self.assertEqual(comp_base.sheet_usable_width, 700)
 
     def test_02_sheet_usable_dimensions_print_house_lower_dimensions(self):
         # GIVEN
@@ -51,19 +52,20 @@ class TestPackageSheetUsableDimensions(common.TestProductPackageConfiguratorComm
                 'lid_extra': 2.0,
                 'outside_wrapping_extra': 20.0,
                 'print_house_id': self.print_house_1.id,
+                'package_type_id': self.package_type_box.id,
             },
         )
-        comp_base_greyboard = self.PackageConfiguratorComponent.create(
+        comp_base = self.PackageConfiguratorComponent.create(
             {
-                'component_type': 'base_greyboard',
+                'component_type_id': self.component_type_base.id,
                 'sheet_id': self.package_sheet_greyboard_1.id,
                 'configurator_id': cfg.id,
                 'print_color_id': self.print_color_1.id,
             },
         )
         # THEN
-        self.assertEqual(comp_base_greyboard.sheet_usable_length, 900)
-        self.assertEqual(comp_base_greyboard.sheet_usable_width, 600)
+        self.assertEqual(comp_base.sheet_usable_length, 900)
+        self.assertEqual(comp_base.sheet_usable_width, 600)
 
     def test_03_sheet_usable_dimensions_print_house_lower_dimensions_no_color(self):
         # GIVEN
@@ -80,19 +82,20 @@ class TestPackageSheetUsableDimensions(common.TestProductPackageConfiguratorComm
                 'lid_extra': 2.0,
                 'outside_wrapping_extra': 20.0,
                 'print_house_id': self.print_house_1.id,
+                'package_type_id': self.package_type_box.id,
             },
         )
-        comp_base_greyboard = self.PackageConfiguratorComponent.create(
+        comp_base = self.PackageConfiguratorComponent.create(
             {
-                'component_type': 'base_greyboard',
+                'component_type_id': self.component_type_base.id,
                 'sheet_id': self.package_sheet_greyboard_1.id,
                 'configurator_id': cfg.id,
                 'print_color_id': False,
             },
         )
         # THEN
-        self.assertEqual(comp_base_greyboard.sheet_usable_length, 1000)
-        self.assertEqual(comp_base_greyboard.sheet_usable_width, 700)
+        self.assertEqual(comp_base.sheet_usable_length, 1000)
+        self.assertEqual(comp_base.sheet_usable_width, 700)
 
     def test_04_sheet_usable_dimensions_print_house_higher_dimensions(self):
         # GIVEN
@@ -109,19 +112,20 @@ class TestPackageSheetUsableDimensions(common.TestProductPackageConfiguratorComm
                 'lid_extra': 2.0,
                 'outside_wrapping_extra': 20.0,
                 'print_house_id': self.print_house_1.id,
+                'package_type_id': self.package_type_box.id,
             },
         )
-        comp_base_greyboard = self.PackageConfiguratorComponent.create(
+        comp_base = self.PackageConfiguratorComponent.create(
             {
-                'component_type': 'base_greyboard',
+                'component_type_id': self.component_type_base.id,
                 'sheet_id': self.package_sheet_greyboard_1.id,
                 'configurator_id': cfg.id,
                 'print_color_id': self.print_color_1.id,
             },
         )
         # THEN
-        self.assertEqual(comp_base_greyboard.sheet_usable_length, 1000)
-        self.assertEqual(comp_base_greyboard.sheet_usable_width, 700)
+        self.assertEqual(comp_base.sheet_usable_length, 1000)
+        self.assertEqual(comp_base.sheet_usable_width, 700)
 
     def test_05_sheet_usable_dimensions_print_house_higher_no_limit(self):
         # GIVEN
@@ -138,16 +142,17 @@ class TestPackageSheetUsableDimensions(common.TestProductPackageConfiguratorComm
                 'lid_extra': 2.0,
                 'outside_wrapping_extra': 20.0,
                 'print_house_id': self.print_house_1.id,
+                'package_type_id': self.package_type_box.id,
             },
         )
-        comp_base_greyboard = self.PackageConfiguratorComponent.create(
+        comp_base = self.PackageConfiguratorComponent.create(
             {
-                'component_type': 'base_greyboard',
+                'component_type_id': self.component_type_base.id,
                 'sheet_id': self.package_sheet_greyboard_1.id,
                 'configurator_id': cfg.id,
                 'print_color_id': self.print_color_1.id,
             },
         )
         # THEN
-        self.assertEqual(comp_base_greyboard.sheet_usable_length, 1000)
-        self.assertEqual(comp_base_greyboard.sheet_usable_width, 700)
+        self.assertEqual(comp_base.sheet_usable_length, 1000)
+        self.assertEqual(comp_base.sheet_usable_width, 700)

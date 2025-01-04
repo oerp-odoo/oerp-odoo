@@ -15,6 +15,7 @@ class TestPackageConfiguratorConstraints(common.TestProductPackageConfiguratorCo
                 'base_width': 10,
                 'base_height': 10,
                 'lid_height': 0,
+                'package_type_id': cls.package_type_box.id,
             }
         )
 

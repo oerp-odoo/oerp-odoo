@@ -1,4 +1,5 @@
-from .. import const
+from odoo.fields import Command
+
 from . import common
 
 
@@ -24,7 +25,7 @@ class TestPackageConfiguratorFoilCost(common.TestProductPackageConfiguratorCommo
                 'sheet_width': 700,
                 # On purpose to calc only foil cost!
                 'unit_cost': 0,
-                'scope': const.SheetTypeScope.GREYBOARD,
+                'component_kind_ids': [Command.set([cls.component_kind_greyboard.id])],
             }
         )
         cls.cfg_1 = cls.PackageConfigurator.create(
@@ -36,11 +37,12 @@ class TestPackageConfiguratorFoilCost(common.TestProductPackageConfiguratorCommo
                 'lid_height': 16,
                 'lid_extra': 2.0,
                 'outside_wrapping_extra': 20.0,
+                'package_type_id': cls.package_type_box.id,
             },
         )
         cls.comp_base_greyboard = cls.PackageConfiguratorComponent.create(
             {
-                'component_type': 'base_greyboard',
+                'component_type_id': cls.component_type_base.id,
                 'sheet_id': cls.package_sheet_1.id,
                 'configurator_id': cls.cfg_1.id,
             },
