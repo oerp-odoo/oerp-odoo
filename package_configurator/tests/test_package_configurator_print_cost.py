@@ -1,7 +1,7 @@
 from . import common
 
 
-class TestPackageConfiguratorBoxPrintCost(common.TestProductPackageConfiguratorCommon):
+class TestPackageConfiguratorPrintCost(common.TestProductPackageConfiguratorCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -52,7 +52,7 @@ class TestPackageConfiguratorBoxPrintCost(common.TestProductPackageConfiguratorC
             ]
         )
         # GIVEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -69,7 +69,7 @@ class TestPackageConfiguratorBoxPrintCost(common.TestProductPackageConfiguratorC
             comp_lid_greyboard,
             comp_base_wrappingpaper_inside,
             comp_base_wrappingpaper_outside,
-        ) = self.PackageConfiguratorBoxComponent.create(
+        ) = self.PackageConfiguratorComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -96,7 +96,7 @@ class TestPackageConfiguratorBoxPrintCost(common.TestProductPackageConfiguratorC
             ]
         )
         # WHEN
-        circulation_1, circulation_2 = self.PackageConfiguratorBoxCirculation.create(
+        circulation_1, circulation_2 = self.PackageConfiguratorCirculation.create(
             [
                 {'quantity': 100, 'configurator_id': cfg.id},
                 {'quantity': 200, 'configurator_id': cfg.id},
@@ -204,7 +204,7 @@ class TestPackageConfiguratorBoxPrintCost(common.TestProductPackageConfiguratorC
                 },
             ]
         )
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -221,7 +221,7 @@ class TestPackageConfiguratorBoxPrintCost(common.TestProductPackageConfiguratorC
             comp_lid_greyboard,
             comp_base_wrappingpaper_inside,
             comp_base_wrappingpaper_outside,
-        ) = self.PackageConfiguratorBoxComponent.create(
+        ) = self.PackageConfiguratorComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -248,7 +248,7 @@ class TestPackageConfiguratorBoxPrintCost(common.TestProductPackageConfiguratorC
             ]
         )
         # WHEN
-        circulation_1, circulation_2 = self.PackageConfiguratorBoxCirculation.create(
+        circulation_1, circulation_2 = self.PackageConfiguratorCirculation.create(
             [
                 {'quantity': 100, 'configurator_id': cfg.id},
                 {'quantity': 200, 'configurator_id': cfg.id},
@@ -356,7 +356,7 @@ class TestPackageConfiguratorBoxPrintCost(common.TestProductPackageConfiguratorC
                 },
             ]
         )
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -373,7 +373,7 @@ class TestPackageConfiguratorBoxPrintCost(common.TestProductPackageConfiguratorC
             comp_lid_greyboard,
             comp_base_wrappingpaper_inside,
             comp_base_wrappingpaper_outside,
-        ) = self.PackageConfiguratorBoxComponent.create(
+        ) = self.PackageConfiguratorComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -400,7 +400,7 @@ class TestPackageConfiguratorBoxPrintCost(common.TestProductPackageConfiguratorC
             ]
         )
         # WHEN
-        circulation_1, circulation_2 = self.PackageConfiguratorBoxCirculation.create(
+        circulation_1, circulation_2 = self.PackageConfiguratorCirculation.create(
             [
                 {'quantity': 100, 'configurator_id': cfg.id},
                 {'quantity': 200, 'configurator_id': cfg.id},

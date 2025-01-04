@@ -5,16 +5,16 @@ from .. import const
 from ..utils.misc import multiply
 
 
-class PackageConfiguratorBoxCirculation(models.Model):
-    """Model to be able to have multiple circulation options for box."""
+class PackageConfiguratorCirculation(models.Model):
+    """Model to be able to have multiple circulation options for package."""
 
-    _name = 'package.configurator.box.circulation'
-    _inherit = 'package.configurator.circulation'
-    _description = "Package Configurator Box Circulation"
+    _name = 'package.configurator.circulation'
+    _description = "Package Configurator Circulation"
 
-    configurator_id = fields.Many2one('package.configurator.box')
+    configurator_id = fields.Many2one('package.configurator', required=True)
+    quantity = fields.Integer(required=True)
     item_ids = fields.One2many(
-        'package.configurator.box.circulation.item',
+        'package.configurator.circulation.item',
         'circulation_id',
         store=True,
         compute='_compute_item_ids',
@@ -80,9 +80,7 @@ class PackageConfiguratorBoxCirculation(models.Model):
 
     def create_circulation_setups(self, setups):
         self.mapped('item_ids.circulation_setup_ids').unlink()
-        CirculationItemSetup = self.env[
-            'package.configurator.box.circulation.item.setup'
-        ]
+        CirculationItemSetup = self.env['package.configurator.circulation.item.setup']
         vals_list = []
         for circ_item in self.item_ids:
             vals_list.extend(

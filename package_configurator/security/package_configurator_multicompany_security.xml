@@ -15,68 +15,63 @@
         <field name="model_id" ref="model_package_box_type"/>
         <field name="domain_force">[('company_id', 'in', company_ids)]</field>
     </record>
-    <record id="package_configurator_box_circulation_item_rule_company" model="ir.rule">
-        <field
-            name="name"
-        >package.configurator.box.circulation.item: Multi-Company</field>
-        <field name="model_id" ref="model_package_configurator_box_circulation_item"/>
+    <record id="package_configurator_circulation_item_rule_company" model="ir.rule">
+        <field name="name">package.configurator.circulation.item: Multi-Company</field>
+        <field name="model_id" ref="model_package_configurator_circulation_item"/>
         <field
             name="domain_force"
         >[('circulation_id.configurator_id.company_id', 'in', company_ids)]</field>
     </record>
     <record
-        id="package_configurator_box_circulation_item_setup_rule_company"
+        id="package_configurator_circulation_item_setup_rule_company"
         model="ir.rule"
     >
         <field
             name="name"
-        >package.configurator.box.circulation.item.setup: Multi-Company</field>
-        <field
-            name="model_id"
-            ref="model_package_configurator_box_circulation_item_setup"
-        />
+        >package.configurator.circulation.item.setup: Multi-Company</field>
+        <field name="model_id" ref="model_package_configurator_circulation_item_setup"/>
         <field
             name="domain_force"
         >[('circulation_item_id.circulation_id.configurator_id.company_id', 'in', company_ids)]</field>
     </record>
-    <record id="package_configurator_box_circulation_rule_company" model="ir.rule">
-        <field name="name">package.configurator.box.circulation: Multi-Company</field>
-        <field name="model_id" ref="model_package_configurator_box_circulation"/>
+    <record id="package_configurator_circulation_rule_company" model="ir.rule">
+        <field name="name">package.configurator.circulation: Multi-Company</field>
+        <field name="model_id" ref="model_package_configurator_circulation"/>
         <field
             name="domain_force"
         >[('configurator_id.company_id', 'in', company_ids)]</field>
     </record>
-    <record id="package_configurator_box_component_rule_company" model="ir.rule">
-        <field name="name">package.configurator.box.component: Multi-Company</field>
-        <field name="model_id" ref="model_package_configurator_box_component"/>
+    <record id="package_configurator_component_rule_company" model="ir.rule">
+        <field name="name">package.configurator.component: Multi-Company</field>
+        <field name="model_id" ref="model_package_configurator_component"/>
         <field
             name="domain_force"
         >[('configurator_id.company_id', 'in', company_ids)]</field>
     </record>
-    <record id="package_configurator_box_stamp_rule_company" model="ir.rule">
-        <field name="name">package.configurator.box.stamp: Multi-Company</field>
-        <field name="model_id" ref="model_package_configurator_box_stamp"/>
+    <record id="package_configurator_stamp_rule_company" model="ir.rule">
+        <field name="name">package.configurator.stamp: Multi-Company</field>
+        <field name="model_id" ref="model_package_configurator_stamp"/>
         <field
             name="domain_force"
         >[('configurator_id.company_id', 'in', company_ids)]</field>
     </record>
-    <record id="package_configurator_box_foil_rule_company" model="ir.rule">
-        <field name="name">package.configurator.box.foil: Multi-Company</field>
-        <field name="model_id" ref="model_package_configurator_box_foil"/>
+    <record id="package_configurator_foil_rule_company" model="ir.rule">
+        <field name="name">package.configurator.foil: Multi-Company</field>
+        <field name="model_id" ref="model_package_configurator_foil"/>
         <field
             name="domain_force"
         >[('configurator_id.company_id', 'in', company_ids)]</field>
     </record>
-    <record id="package_configurator_box_lamination_rule_company" model="ir.rule">
-        <field name="name">package.configurator.box.lamination: Multi-Company</field>
-        <field name="model_id" ref="model_package_configurator_box_lamination"/>
+    <record id="package_configurator_lamination_rule_company" model="ir.rule">
+        <field name="name">package.configurator.lamination: Multi-Company</field>
+        <field name="model_id" ref="model_package_configurator_lamination"/>
         <field
             name="domain_force"
         >[('configurator_id.company_id', 'in', company_ids)]</field>
     </record>
-    <record id="package_configurator_box_rule_company" model="ir.rule">
-        <field name="name">package.configurator.box: Multi-Company</field>
-        <field name="model_id" ref="model_package_configurator_box"/>
+    <record id="package_configurator_rule_company" model="ir.rule">
+        <field name="name">package.configurator: Multi-Company</field>
+        <field name="model_id" ref="model_package_configurator"/>
         <field name="domain_force">[('company_id', 'in', company_ids)]</field>
     </record>
     <record id="package_lamination_rule_company" model="ir.rule">

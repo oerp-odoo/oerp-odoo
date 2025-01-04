@@ -3,7 +3,7 @@ from odoo.tests.form import Form
 from . import common
 
 
-class TestPackageConfiguratorBoxAutofillSheets(
+class TestPackageConfiguratorAutofillSheets(
     common.TestProductPackageConfiguratorCommon
 ):
     @classmethod
@@ -13,7 +13,7 @@ class TestPackageConfiguratorBoxAutofillSheets(
 
     def test_01_configure_box_autofill_base_greyboard(self):
         # WHEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -25,9 +25,7 @@ class TestPackageConfiguratorBoxAutofillSheets(
             }
         )
         ctx = {'default_configurator_id': cfg.id}
-        with Form(
-            self.PackageConfiguratorBoxComponent.with_context(**ctx)
-        ) as component:
+        with Form(self.PackageConfiguratorComponent.with_context(**ctx)) as component:
             component.component_type = 'base_greyboard'
             component.sheet_type_id = self.package_sheet_type_greyboard_1
             # THEN
@@ -35,7 +33,7 @@ class TestPackageConfiguratorBoxAutofillSheets(
 
     def test_02_configure_box_not_autofill_base_greyboard(self):
         # WHEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 # Too big to fit.
@@ -48,7 +46,7 @@ class TestPackageConfiguratorBoxAutofillSheets(
             }
         )
         ctx = {'default_configurator_id': cfg.id}
-        with Form(self.PackageConfiguratorBoxComponent.with_context(**ctx)) as comp:
+        with Form(self.PackageConfiguratorComponent.with_context(**ctx)) as comp:
             comp.component_type = 'base_greyboard'
             comp.sheet_type_id = self.package_sheet_type_greyboard_1
             # THEN

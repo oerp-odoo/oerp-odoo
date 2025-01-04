@@ -2,7 +2,7 @@ from .. import const
 from . import common
 
 
-class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommon):
+class TestPackageConfiguratorSetup(common.TestProductPackageConfiguratorCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -39,7 +39,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 {'setup_id': setup_2.id, 'min_qty': 150, 'setup_fixed_qty': 200},
             ]
         )
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -57,7 +57,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
             comp_base_wrappingpaper_outside,
             comp_lid_wrappingpaper_inside,
             comp_lid_wrappingpaper_outside,
-        ) = self.PackageConfiguratorBoxComponent.create(
+        ) = self.PackageConfiguratorComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -91,7 +91,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 },
             ]
         )
-        circulation_1, circulation_2 = self.PackageConfiguratorBoxCirculation.create(
+        circulation_1, circulation_2 = self.PackageConfiguratorCirculation.create(
             [
                 {'quantity': 100, 'configurator_id': cfg.id},
                 {'quantity': 200, 'configurator_id': cfg.id},
@@ -248,7 +248,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 {'setup_id': setup_print.id, 'min_qty': 1, 'setup_fixed_qty': 1000},
             ]
         )
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -262,7 +262,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         (
             comp_base_greyboard,
             comp_lid_greyboard,
-        ) = self.PackageConfiguratorBoxComponent.create(
+        ) = self.PackageConfiguratorComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -276,7 +276,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 },
             ]
         )
-        circulation_1, circulation_2 = self.PackageConfiguratorBoxCirculation.create(
+        circulation_1, circulation_2 = self.PackageConfiguratorCirculation.create(
             [
                 {'quantity': 100, 'configurator_id': cfg.id},
                 {'quantity': 200, 'configurator_id': cfg.id},
@@ -357,7 +357,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 {'setup_id': setup_2.id, 'min_qty': 150, 'setup_fixed_qty': 200},
             ]
         )
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -372,7 +372,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
         (
             comp_base_greyboard,
             comp_lid_greyboard,
-        ) = self.PackageConfiguratorBoxComponent.create(
+        ) = self.PackageConfiguratorComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -388,7 +388,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 },
             ]
         )
-        circulation_1, circulation_2 = self.PackageConfiguratorBoxCirculation.create(
+        circulation_1, circulation_2 = self.PackageConfiguratorCirculation.create(
             [
                 {'quantity': 100, 'configurator_id': cfg.id},
                 {'quantity': 200, 'configurator_id': cfg.id},
@@ -466,7 +466,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 100},
             ]
         )
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -478,7 +478,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 'print_house_id': self.print_house_1.id,
             }
         )
-        self.PackageConfiguratorBoxComponent.create(
+        self.PackageConfiguratorComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -494,7 +494,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 },
             ]
         )
-        circulation_1, circulation_2 = self.PackageConfiguratorBoxCirculation.create(
+        circulation_1, circulation_2 = self.PackageConfiguratorCirculation.create(
             [
                 {'quantity': 100, 'configurator_id': cfg.id},
                 {'quantity': 200, 'configurator_id': cfg.id},
@@ -553,7 +553,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 100},
             ]
         )
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -565,7 +565,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 'print_house_id': self.print_house_1.id,
             }
         )
-        self.PackageConfiguratorBoxComponent.create(
+        self.PackageConfiguratorComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -579,7 +579,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 },
             ]
         )
-        circulation_1, circulation_2 = self.PackageConfiguratorBoxCirculation.create(
+        circulation_1, circulation_2 = self.PackageConfiguratorCirculation.create(
             [
                 {'quantity': 100, 'configurator_id': cfg.id},
                 {'quantity': 200, 'configurator_id': cfg.id},
@@ -618,7 +618,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 {'setup_id': setup_1.id, 'min_qty': 50, 'setup_fixed_qty': 100},
             ]
         )
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -629,7 +629,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 'outside_wrapping_extra': 20.0,
             }
         )
-        (comp_base_greyboard,) = self.PackageConfiguratorBoxComponent.create(
+        (comp_base_greyboard,) = self.PackageConfiguratorComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -638,7 +638,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 },
             ]
         )
-        circulation_1 = self.PackageConfiguratorBoxCirculation.create(
+        circulation_1 = self.PackageConfiguratorCirculation.create(
             [
                 {'quantity': 100, 'configurator_id': cfg.id},
             ]
@@ -683,7 +683,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 200},
             ]
         )
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -694,7 +694,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 'outside_wrapping_extra': 20.0,
             }
         )
-        (comp_base_greyboard,) = self.PackageConfiguratorBoxComponent.create(
+        (comp_base_greyboard,) = self.PackageConfiguratorComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -703,7 +703,7 @@ class TestPackageConfiguratorBoxSetup(common.TestProductPackageConfiguratorCommo
                 },
             ]
         )
-        circulation_1 = self.PackageConfiguratorBoxCirculation.create(
+        circulation_1 = self.PackageConfiguratorCirculation.create(
             [
                 {'quantity': 100, 'configurator_id': cfg.id},
             ]

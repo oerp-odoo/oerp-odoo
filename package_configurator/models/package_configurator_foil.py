@@ -3,15 +3,15 @@ from odoo import fields, models
 from .. import const
 
 
-class PackageConfiguratorBoxStamp(models.Model):
-    _name = 'package.configurator.box.stamp'
-    _description = "Package Configurator Box Stamp"
+class PackageConfiguratorFoil(models.Model):
+    _name = 'package.configurator.foil'
+    _description = "Package Configurator Foil"
 
     configurator_id = fields.Many2one(
-        'package.configurator.box', required=True, ondelete='cascade'
+        'package.configurator', required=True, ondelete='cascade'
     )
     component_id = fields.Many2one(
-        'package.configurator.box.component',
+        'package.configurator.component',
         required=True,
         domain="[('configurator_id', '=', configurator_id)]",
         ondelete='cascade',
@@ -21,4 +21,4 @@ class PackageConfiguratorBoxStamp(models.Model):
         default=const.ComponentSide.INSIDE,
         required=True,
     )
-    stamp_id = fields.Many2one('package.stamp', required=True)
+    foil_id = fields.Many2one('package.foil', required=True)

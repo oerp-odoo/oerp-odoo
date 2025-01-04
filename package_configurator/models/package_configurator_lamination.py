@@ -19,12 +19,12 @@ def get_comps(comps, *comp_types):
     return res
 
 
-class PackageConfiguratorBoxLamination(models.Model):
-    _name = 'package.configurator.box.lamination'
-    _description = "Package Configurator Box Lamination"
+class PackageConfiguratorLamination(models.Model):
+    _name = 'package.configurator.lamination'
+    _description = "Package Configurator Lamination"
 
     configurator_id = fields.Many2one(
-        'package.configurator.box', required=True, ondelete='cascade'
+        'package.configurator', required=True, ondelete='cascade'
     )
     side = fields.Selection(
         const.COMPONENT_SIDE_SELECTION,

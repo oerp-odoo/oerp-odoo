@@ -8,8 +8,8 @@
         groups="package_configurator.package_group_user"
     >
         <menuitem
-            id="package_configurator_box_menu"
-            action="package_configurator_box_action"
+            id="package_configurator_menu"
+            action="package_configurator_action"
             sequence="60"
             groups="package_configurator.package_group_manager"
         />

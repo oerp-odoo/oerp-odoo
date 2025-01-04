@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="package_configurator_box_view_tree" model="ir.ui.view">
-        <field name="name">package.configurator.box.tree</field>
-        <field name="model">package.configurator.box</field>
+    <record id="package_configurator_view_tree" model="ir.ui.view">
+        <field name="name">package.configurator.tree</field>
+        <field name="model">package.configurator</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="create_date"/>
@@ -17,9 +17,9 @@
         </field>
     </record>
 
-    <record id="package_configurator_box_view_form" model="ir.ui.view">
-        <field name="name">package.configurator.box.form</field>
-        <field name="model">package.configurator.box</field>
+    <record id="package_configurator_view_form" model="ir.ui.view">
+        <field name="name">package.configurator.form</field>
+        <field name="model">package.configurator</field>
         <field name="arch" type="xml">
             <form>
                 <header>
@@ -154,9 +154,9 @@
         </field>
     </record>
 
-    <record id="package_configurator_box_action" model="ir.actions.act_window">
+    <record id="package_configurator_action" model="ir.actions.act_window">
         <field name="name">Box Configurator</field>
-        <field name="res_model">package.configurator.box</field>
+        <field name="res_model">package.configurator</field>
         <field name="view_mode">tree,form</field>
     </record>
 </odoo>
