@@ -8,7 +8,7 @@ from ..value_objects import layout as vo_layout
 # TODO: move to utils/component.py?
 def get_comps(comps, *comp_types):
     def filter_comps(comps, ctype):
-        return comps.filtered(lambda r: r.component_type == ctype)
+        return comps.filtered(lambda r: r.component_type_id.code == ctype)
 
     res = []
     for ctype in comp_types:
@@ -63,7 +63,7 @@ class PackageConfiguratorLamination(models.Model):
         return {'area': res['area'], 'area_unit_cost': res['price']}
 
     @api.depends(
-        'configurator_id.component_ids.component_type',
+        'configurator_id.component_ids.component_type_id',
         'configurator_id.component_ids.component_length',
         'configurator_id.component_ids.component_width',
         'side',

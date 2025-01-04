@@ -429,25 +429,27 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
                     'setup_id': setup_1.id,
                     'min_qty': 3,
                     'setup_fixed_qty': 0,
-                    'component_type': 'base_greyboard',
+                    'component_type_id': self.component_type_base.id,
                 },
                 {
                     'setup_id': setup_1.id,
                     'min_qty': 2,
                     'setup_fixed_qty': 0,
-                    'component_type': 'lid_greyboard',
+                    'component_type_id': self.component_type_lid.id,
                 },
                 {
                     'setup_id': setup_2.id,
                     'min_qty': 1,
                     'setup_fixed_qty': 0,
-                    'component_type': 'base_wrappingpaper_inside',
+                    'component_type_id': (
+                        self.component_type_base_wrappingpaper_inside.id
+                    ),
                 },
             ]
         )
         # WHEN
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, 1, component_type='lid_greyboard'
+            100, 1, component_type=self.component_type_lid
         )
         # THEN
         self.assertEqual(rule, setup_1_rule_2)
@@ -481,19 +483,21 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
                     'setup_id': setup_1.id,
                     'min_qty': 2,
                     'setup_fixed_qty': 0,
-                    'component_type': 'lid_greyboard',
+                    'component_type_id': self.component_type_lid.id,
                 },
                 {
                     'setup_id': setup_2.id,
                     'min_qty': 1,
                     'setup_fixed_qty': 0,
-                    'component_type': 'base_wrappingpaper_inside',
+                    'component_type_id': (
+                        self.component_type_base_wrappingpaper_inside.id
+                    ),
                 },
             ]
         )
         # WHEN
         rule = (setup_1 | setup_2).match_setup_rule(
-            100, 1, component_type='lid_greyboard'
+            100, 1, component_type=self.component_type_lid
         )
         # THEN
         self.assertEqual(rule, setup_1_rule_2)

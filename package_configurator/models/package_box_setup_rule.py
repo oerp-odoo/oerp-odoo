@@ -14,11 +14,7 @@ class PackageBoxSetupRule(models.Model):
         "Minimum Quantity",
         help="Minimum quantity of either boxes or raw sheets to match this rule",
     )
-    component_type = fields.Selection(
-        lambda s: s.env[
-            'package.configurator.component'
-        ]._get_component_type_selection(),
-    )
+    component_type_id = fields.Many2one('package.component.type')
     component_type_sequence = fields.Integer(
         compute='_compute_component_type_sequence',
         store=True,
@@ -50,18 +46,18 @@ class PackageBoxSetupRule(models.Model):
             setup = rec.setup_id
             rec.name = f'{setup.name} ({rec.min_qty}/{rec.setup_fixed_qty})'
 
-    @api.depends('component_type')
+    @api.depends('component_type_id')
     def _compute_component_type_sequence(self):
         for rec in self:
             # To order rules with component_type before without component_type.
-            rec.component_type_sequence = 1 if rec.component_type else 2
+            rec.component_type_sequence = 1 if rec.component_type_id else 2
 
-    def match_rule(self, inp_qty: int, component_type: str | None = None):
+    def match_rule(self, inp_qty: int, component_type=None):
         self.ensure_one()
         return inp_qty >= self.min_qty and (
-            not self.component_type
+            not self.component_type_id
             or component_type is None
-            or self.component_type == component_type
+            or self.component_type_id == component_type
         )
 
     def calc_setup_qty(self, inp_qty: int) -> int:

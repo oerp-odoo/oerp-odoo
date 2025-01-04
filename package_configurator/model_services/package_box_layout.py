@@ -14,12 +14,12 @@ class PackageBoxLayout(models.AbstractModel):
         global_extra = cfg.company_id.package_default_global_box_extra
         components = cfg.mapped('component_ids')
         # FIXME: if you switch between component types and sheets,
-        # it is possible that multiple base greyboards will be created
+        # it is possible that multiple bases will be created
         # in memory, which is not what we expect (even though it would
         # not be possible to save it).
-        comp_base_greyboard = components.filtered(
-            lambda r: r.component_type == 'base_greyboard'
-        )[:1]
+        comp_base = components.filtered(lambda r: r.component_type_id.code == 'base')[
+            :1
+        ]
         return self.get_layouts(
             vo_layout.BaseDimensions(
                 length=cfg.base_length,
@@ -31,7 +31,7 @@ class PackageBoxLayout(models.AbstractModel):
             vo_layout.LidDimensions(
                 height=cfg.lid_height,
                 # Lid greyboard depends on base greyboard thickness!
-                thickness=comp_base_greyboard.sheet_id.sheet_type_id.thickness,
+                thickness=comp_base.sheet_id.sheet_type_id.thickness,
                 extra=cfg.lid_extra + global_extra,
             ),
         )
@@ -49,10 +49,10 @@ class PackageBoxLayout(models.AbstractModel):
         ):
             layout_zero = vo_layout.Layout2D(length=0.0, width=0.0)
             return {
-                'base_greyboard': layout_zero,
+                'base': layout_zero,
                 'base_wrappingpaper_inside': layout_zero,
                 'base_wrappingpaper_outside': layout_zero,
-                'lid_greyboard': layout_zero,
+                'lid': layout_zero,
                 'lid_wrappingpaper_inside': layout_zero,
                 'lid_wrappingpaper_outside': layout_zero,
             }
@@ -61,13 +61,13 @@ class PackageBoxLayout(models.AbstractModel):
         # Multiply by 2 for each side.
         wrapping_extra = base_dimensions.outside_wrapping_extra * 2
         return {
-            'base_greyboard': base_layout,
+            'base': base_layout,
             'base_wrappingpaper_inside': self._get_inside_wrapping_layout(base_layout),
             'base_wrappingpaper_outside': self._get_outside_wrapping_layout(
                 base_layout,
                 wrapping_extra,
             ),
-            'lid_greyboard': lid_layout,
+            'lid': lid_layout,
             'lid_wrappingpaper_inside': self._get_inside_wrapping_layout(lid_layout),
             'lid_wrappingpaper_outside': self._get_outside_wrapping_layout(
                 lid_layout,

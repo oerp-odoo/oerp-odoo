@@ -13,9 +13,14 @@ class PackageSheet(models.Model):
     sheet_type_id = fields.Many2one(
         "package.sheet.type",
         required=True,
-        domain="[('scope', '=', scope)]",
+        domain="[('component_kind_ids', 'in', component_kind_ids)]",
     )
-    scope = fields.Selection(const.SHEET_TYPE_SELECTION, required=True)
+    component_kind_ids = fields.Many2many(
+        'package.component.kind',
+        'package_sheet_component_kind_rel',
+        'sheet_id',
+        'kind_id',
+    )
     unit_cost = fields.Float(required=True, digits=const.DecimalPrecision.COST)
     sheet_length = fields.Float(
         "Length, mm", required=True, digits=const.DecimalPrecision.SIZE
@@ -44,16 +49,18 @@ class PackageSheet(models.Model):
             st = rec.sheet_type_id
             rec.name = f"{st.display_name} {rec.sheet_length:2g}x{rec.sheet_width:2g}"
 
-    @api.constrains('scope', 'sheet_type_id')
-    def _check_scope(self):
+    @api.constrains('component_kind_ids', 'sheet_type_id')
+    def _check_component_kind_ids(self):
         for rec in self:
-            if rec.scope != rec.sheet_type_id.scope:
+            if not rec.component_kind_ids & rec.sheet_type_id.component_kind_ids:
                 raise ValidationError(
                     _(
-                        "Sheet (%(scope)s) and its Type (%(type_scope)s) must match"
-                        + " same Scope!",
-                        scope=rec.scope,
-                        type_scope=rec.sheet_type_id.scope,
+                        "Sheet (%(kinds1)s) and its Type (%(kinds2)s) must match "
+                        + "at least one Component Kind!",
+                        kinds1=', '.join(rec.component_kind_ids.mapped('name')),
+                        kinds2=', '.join(
+                            rec.sheet_type_id.component_kind_ids.mapped('name')
+                        ),
                     )
                 )
 

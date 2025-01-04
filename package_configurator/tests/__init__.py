@@ -1,7 +1,7 @@
 from . import (
     test_package_configurator_constraints,
     test_package_box_layout,
-    test_package_configurator,
+    test_package_configurator_box,
     test_package_warnings,
     test_package_configurator_autofill_sheets,
     test_package_configurator_setup,
@@ -9,6 +9,7 @@ from . import (
     test_package_box_match_setup_rule,
     test_package_box_setup_rule_qty,
     test_utils,
+    test_package_component_type,
     test_package_sheet_match,
     test_package_sheet_constraints,
     test_package_sheet_type_constraints,

@@ -62,6 +62,7 @@ class TestPackageConfiguratorPrintCost(common.TestProductPackageConfiguratorComm
                 'lid_extra': 2.0,
                 'outside_wrapping_extra': 20.0,
                 'print_house_id': self.print_house_1.id,
+                'package_type_id': self.package_type_box.id,
             }
         )
         (
@@ -72,23 +73,27 @@ class TestPackageConfiguratorPrintCost(common.TestProductPackageConfiguratorComm
         ) = self.PackageConfiguratorComponent.create(
             [
                 {
-                    'component_type': 'base_greyboard',
+                    'component_type_id': self.component_type_base.id,
                     'sheet_id': self.package_sheet_greyboard_1.id,
                     'configurator_id': cfg.id,
                 },
                 {
-                    'component_type': 'lid_greyboard',
+                    'component_type_id': self.component_type_lid.id,
                     'sheet_id': self.package_sheet_greyboard_1.id,
                     'configurator_id': cfg.id,
                 },
                 {
-                    'component_type': 'base_wrappingpaper_inside',
+                    'component_type_id': (
+                        self.component_type_base_wrappingpaper_inside.id
+                    ),
                     'sheet_id': self.package_sheet_wrappingpaper_1.id,
                     'configurator_id': cfg.id,
                     'print_color_id': self.color_1.id,
                 },
                 {
-                    'component_type': 'base_wrappingpaper_outside',
+                    'component_type_id': (
+                        self.component_type_base_wrappingpaper_outside.id
+                    ),
                     'sheet_id': self.package_sheet_wrappingpaper_1.id,
                     'configurator_id': cfg.id,
                     'print_color_id': self.color_2.id,
@@ -117,23 +122,25 @@ class TestPackageConfiguratorPrintCost(common.TestProductPackageConfiguratorComm
         circ_items = circulation_1.item_ids
         self.assertEqual(len(circ_items), 4)
         circ_item_base_greyboard = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_greyboard'
+            lambda r: r.component_id.component_type_id.code == 'base'
         )
         self.assertEqual(circ_item_base_greyboard.quantity, 4)
         self.assertEqual(circ_item_base_greyboard.print_unit_cost, 0.0)
         circ_item_lid_greyboard = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'lid_greyboard'
+            lambda r: r.component_id.component_type_id.code == 'lid'
         )
         self.assertEqual(circ_item_lid_greyboard.quantity, 4)
         self.assertEqual(circ_item_lid_greyboard.print_unit_cost, 0.0)
 
         circ_item_base_wrappingpaper_inside = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_wrappingpaper_inside'
+            lambda r: r.component_id.component_type_id.code
+            == 'base_wrappingpaper_inside'
         )
         self.assertEqual(circ_item_base_wrappingpaper_inside.quantity, 12)
         self.assertEqual(circ_item_base_wrappingpaper_inside.print_unit_cost, 10)
         circ_item_base_wrappingpaper_outside = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_wrappingpaper_outside'
+            lambda r: r.component_id.component_type_id.code
+            == 'base_wrappingpaper_outside'
         )
         self.assertEqual(circ_item_base_wrappingpaper_outside.quantity, 25)
         # Rule to have lower price must have minimum 30 quantity.
@@ -148,23 +155,25 @@ class TestPackageConfiguratorPrintCost(common.TestProductPackageConfiguratorComm
         self.assertEqual(len(circ_items), 4)
 
         circ_item_base_greyboard = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_greyboard'
+            lambda r: r.component_id.component_type_id.code == 'base'
         )
         self.assertEqual(circ_item_base_greyboard.quantity, 8)
         self.assertEqual(circ_item_base_greyboard.print_unit_cost, 0.0)
         circ_item_lid_greyboard = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'lid_greyboard'
+            lambda r: r.component_id.component_type_id.code == 'lid'
         )
         self.assertEqual(circ_item_lid_greyboard.quantity, 8)
         self.assertEqual(circ_item_lid_greyboard.print_unit_cost, 0.0)
 
         circ_item_base_wrappingpaper_inside = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_wrappingpaper_inside'
+            lambda r: r.component_id.component_type_id.code
+            == 'base_wrappingpaper_inside'
         )
         self.assertEqual(circ_item_base_wrappingpaper_inside.quantity, 23)
         self.assertEqual(circ_item_base_wrappingpaper_inside.print_unit_cost, 10)
         circ_item_base_wrappingpaper_outside = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_wrappingpaper_outside'
+            lambda r: r.component_id.component_type_id.code
+            == 'base_wrappingpaper_outside'
         )
         self.assertEqual(circ_item_base_wrappingpaper_outside.quantity, 50)
         self.assertEqual(circ_item_base_wrappingpaper_outside.print_unit_cost, 6)
@@ -214,6 +223,7 @@ class TestPackageConfiguratorPrintCost(common.TestProductPackageConfiguratorComm
                 'lid_extra': 2.0,
                 'outside_wrapping_extra': 20.0,
                 'print_house_id': self.print_house_1.id,
+                'package_type_id': self.package_type_box.id,
             }
         )
         (
@@ -224,23 +234,27 @@ class TestPackageConfiguratorPrintCost(common.TestProductPackageConfiguratorComm
         ) = self.PackageConfiguratorComponent.create(
             [
                 {
-                    'component_type': 'base_greyboard',
+                    'component_type_id': self.component_type_base.id,
                     'sheet_id': self.package_sheet_greyboard_1.id,
                     'configurator_id': cfg.id,
                 },
                 {
-                    'component_type': 'lid_greyboard',
+                    'component_type_id': self.component_type_lid.id,
                     'sheet_id': self.package_sheet_greyboard_1.id,
                     'configurator_id': cfg.id,
                 },
                 {
-                    'component_type': 'base_wrappingpaper_inside',
+                    'component_type_id': (
+                        self.component_type_base_wrappingpaper_inside.id
+                    ),
                     'sheet_id': self.package_sheet_wrappingpaper_1.id,
                     'configurator_id': cfg.id,
                     'print_color_id': self.color_1.id,
                 },
                 {
-                    'component_type': 'base_wrappingpaper_outside',
+                    'component_type_id': (
+                        self.component_type_base_wrappingpaper_outside.id
+                    ),
                     'sheet_id': self.package_sheet_wrappingpaper_2.id,
                     'configurator_id': cfg.id,
                     'print_color_id': self.color_1.id,
@@ -269,23 +283,25 @@ class TestPackageConfiguratorPrintCost(common.TestProductPackageConfiguratorComm
         circ_items = circulation_1.item_ids
         self.assertEqual(len(circ_items), 4)
         circ_item_base_greyboard = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_greyboard'
+            lambda r: r.component_id.component_type_id.code == 'base'
         )
         self.assertEqual(circ_item_base_greyboard.quantity, 4)
         self.assertEqual(circ_item_base_greyboard.print_unit_cost, 0.0)
         circ_item_lid_greyboard = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'lid_greyboard'
+            lambda r: r.component_id.component_type_id.code == 'lid'
         )
         self.assertEqual(circ_item_lid_greyboard.quantity, 4)
         self.assertEqual(circ_item_lid_greyboard.print_unit_cost, 0.0)
 
         circ_item_base_wrappingpaper_inside = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_wrappingpaper_inside'
+            lambda r: r.component_id.component_type_id.code
+            == 'base_wrappingpaper_inside'
         )
         self.assertEqual(circ_item_base_wrappingpaper_inside.quantity, 12)
         self.assertEqual(circ_item_base_wrappingpaper_inside.print_unit_cost, 10)
         circ_item_base_wrappingpaper_outside = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_wrappingpaper_outside'
+            lambda r: r.component_id.component_type_id.code
+            == 'base_wrappingpaper_outside'
         )
         self.assertEqual(circ_item_base_wrappingpaper_outside.quantity, 17)
         # Rule to have lower price must have minimum 20 quantity.
@@ -300,23 +316,25 @@ class TestPackageConfiguratorPrintCost(common.TestProductPackageConfiguratorComm
         self.assertEqual(len(circ_items), 4)
 
         circ_item_base_greyboard = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_greyboard'
+            lambda r: r.component_id.component_type_id.code == 'base'
         )
         self.assertEqual(circ_item_base_greyboard.quantity, 8)
         self.assertEqual(circ_item_base_greyboard.print_unit_cost, 0.0)
         circ_item_lid_greyboard = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'lid_greyboard'
+            lambda r: r.component_id.component_type_id.code == 'lid'
         )
         self.assertEqual(circ_item_lid_greyboard.quantity, 8)
         self.assertEqual(circ_item_lid_greyboard.print_unit_cost, 0.0)
 
         circ_item_base_wrappingpaper_inside = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_wrappingpaper_inside'
+            lambda r: r.component_id.component_type_id.code
+            == 'base_wrappingpaper_inside'
         )
         self.assertEqual(circ_item_base_wrappingpaper_inside.quantity, 23)
         self.assertEqual(circ_item_base_wrappingpaper_inside.print_unit_cost, 5)
         circ_item_base_wrappingpaper_outside = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_wrappingpaper_outside'
+            lambda r: r.component_id.component_type_id.code
+            == 'base_wrappingpaper_outside'
         )
         self.assertEqual(circ_item_base_wrappingpaper_outside.quantity, 34)
         self.assertEqual(circ_item_base_wrappingpaper_outside.print_unit_cost, 5)
@@ -366,6 +384,7 @@ class TestPackageConfiguratorPrintCost(common.TestProductPackageConfiguratorComm
                 'lid_extra': 2.0,
                 'outside_wrapping_extra': 20.0,
                 'print_house_id': self.print_house_1.id,
+                'package_type_id': self.package_type_box.id,
             }
         )
         (
@@ -376,23 +395,27 @@ class TestPackageConfiguratorPrintCost(common.TestProductPackageConfiguratorComm
         ) = self.PackageConfiguratorComponent.create(
             [
                 {
-                    'component_type': 'base_greyboard',
+                    'component_type_id': self.component_type_base.id,
                     'sheet_id': self.package_sheet_greyboard_1.id,
                     'configurator_id': cfg.id,
                 },
                 {
-                    'component_type': 'lid_greyboard',
+                    'component_type_id': self.component_type_lid.id,
                     'sheet_id': self.package_sheet_greyboard_1.id,
                     'configurator_id': cfg.id,
                 },
                 {
-                    'component_type': 'base_wrappingpaper_inside',
+                    'component_type_id': (
+                        self.component_type_base_wrappingpaper_inside.id
+                    ),
                     'sheet_id': self.package_sheet_wrappingpaper_1.id,
                     'configurator_id': cfg.id,
                     'print_color_id': self.color_1.id,
                 },
                 {
-                    'component_type': 'base_wrappingpaper_outside',
+                    'component_type_id': (
+                        self.component_type_base_wrappingpaper_outside.id
+                    ),
                     'sheet_id': self.package_sheet_wrappingpaper_1.id,
                     'configurator_id': cfg.id,
                     'print_color_id': self.color_1.id,
@@ -421,18 +444,19 @@ class TestPackageConfiguratorPrintCost(common.TestProductPackageConfiguratorComm
         circ_items = circulation_1.item_ids
         self.assertEqual(len(circ_items), 4)
         circ_item_base_greyboard = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_greyboard'
+            lambda r: r.component_id.component_type_id.code == 'base'
         )
         self.assertEqual(circ_item_base_greyboard.quantity, 4)
         self.assertEqual(circ_item_base_greyboard.print_unit_cost, 0.0)
         circ_item_lid_greyboard = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'lid_greyboard'
+            lambda r: r.component_id.component_type_id.code == 'lid'
         )
         self.assertEqual(circ_item_lid_greyboard.quantity, 4)
         self.assertEqual(circ_item_lid_greyboard.print_unit_cost, 0.0)
 
         circ_item_base_wrappingpaper_inside = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_wrappingpaper_inside'
+            lambda r: r.component_id.component_type_id.code
+            == 'base_wrappingpaper_inside'
         )
         self.assertEqual(circ_item_base_wrappingpaper_inside.quantity, 12)
         # When we have same color and material used for printing, quantity is grouped,
@@ -440,7 +464,8 @@ class TestPackageConfiguratorPrintCost(common.TestProductPackageConfiguratorComm
         # in totals over two components. That means, it matches rule with lower cost!
         self.assertEqual(circ_item_base_wrappingpaper_inside.print_unit_cost, 5)
         circ_item_base_wrappingpaper_outside = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_wrappingpaper_outside'
+            lambda r: r.component_id.component_type_id.code
+            == 'base_wrappingpaper_outside'
         )
         self.assertEqual(circ_item_base_wrappingpaper_outside.quantity, 25)
         self.assertEqual(circ_item_base_wrappingpaper_outside.print_unit_cost, 5)
@@ -454,23 +479,25 @@ class TestPackageConfiguratorPrintCost(common.TestProductPackageConfiguratorComm
         self.assertEqual(len(circ_items), 4)
 
         circ_item_base_greyboard = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_greyboard'
+            lambda r: r.component_id.component_type_id.code == 'base'
         )
         self.assertEqual(circ_item_base_greyboard.quantity, 8)
         self.assertEqual(circ_item_base_greyboard.print_unit_cost, 0.0)
         circ_item_lid_greyboard = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'lid_greyboard'
+            lambda r: r.component_id.component_type_id.code == 'lid'
         )
         self.assertEqual(circ_item_lid_greyboard.quantity, 8)
         self.assertEqual(circ_item_lid_greyboard.print_unit_cost, 0.0)
 
         circ_item_base_wrappingpaper_inside = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_wrappingpaper_inside'
+            lambda r: r.component_id.component_type_id.code
+            == 'base_wrappingpaper_inside'
         )
         self.assertEqual(circ_item_base_wrappingpaper_inside.quantity, 23)
         self.assertEqual(circ_item_base_wrappingpaper_inside.print_unit_cost, 5)
         circ_item_base_wrappingpaper_outside = circ_items.filtered(
-            lambda r: r.component_id.component_type == 'base_wrappingpaper_outside'
+            lambda r: r.component_id.component_type_id.code
+            == 'base_wrappingpaper_outside'
         )
         self.assertEqual(circ_item_base_wrappingpaper_outside.quantity, 50)
         self.assertEqual(circ_item_base_wrappingpaper_outside.print_unit_cost, 5)

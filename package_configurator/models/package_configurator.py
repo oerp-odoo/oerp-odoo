@@ -26,6 +26,7 @@ class PackageConfigurator(models.Model):
         default="draft",
         required=True,
     )
+    package_type_id = fields.Many2one('package.type', required=True)
     base_length = fields.Float(required=True)
     base_width = fields.Float(required=True)
     base_height = fields.Float(required=True)
@@ -73,7 +74,7 @@ class PackageConfigurator(models.Model):
         'lid_height',
         'component_ids.sheet_id',
         'component_ids.fit_qty',
-        'component_ids.component_type',
+        'component_ids.component_type_id',
     )
     def _compute_description_warnings(self):
         for rec in self:

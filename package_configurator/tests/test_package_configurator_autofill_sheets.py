@@ -22,14 +22,15 @@ class TestPackageConfiguratorAutofillSheets(
                 'lid_height': 16,
                 'lid_extra': 2.0,
                 'outside_wrapping_extra': 20.0,
+                'package_type_id': self.package_type_box.id,
             }
         )
         ctx = {'default_configurator_id': cfg.id}
-        with Form(self.PackageConfiguratorComponent.with_context(**ctx)) as component:
-            component.component_type = 'base_greyboard'
-            component.sheet_type_id = self.package_sheet_type_greyboard_1
+        with Form(self.PackageConfiguratorComponent.with_context(**ctx)) as comp:
+            comp.component_type_id = self.component_type_base
+            comp.sheet_type_id = self.package_sheet_type_greyboard_1
             # THEN
-            self.assertEqual(component.sheet_id, self.package_sheet_greyboard_1)
+            self.assertEqual(comp.sheet_id, self.package_sheet_greyboard_1)
 
     def test_02_configure_box_not_autofill_base_greyboard(self):
         # WHEN
@@ -43,11 +44,12 @@ class TestPackageConfiguratorAutofillSheets(
                 'lid_height': 16,
                 'lid_extra': 2.0,
                 'outside_wrapping_extra': 20.0,
+                'package_type_id': self.package_type_box.id,
             }
         )
         ctx = {'default_configurator_id': cfg.id}
         with Form(self.PackageConfiguratorComponent.with_context(**ctx)) as comp:
-            comp.component_type = 'base_greyboard'
+            comp.component_type_id = self.component_type_base
             comp.sheet_type_id = self.package_sheet_type_greyboard_1
             # THEN
             self.assertEqual(comp.sheet_id, self.PackageSheet)

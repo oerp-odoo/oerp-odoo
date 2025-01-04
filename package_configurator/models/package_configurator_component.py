@@ -1,49 +1,32 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-from .. import const, utils
+from .. import utils
 from ..value_objects import layout as vo_layout
-from ..value_objects.component import BoxComponentType
-
-LAYOUT_CFG_MANDATORY_FIELDS = [
-    'base_length',
-    'base_width',
-    'base_height',
-]
 
 
 class PackageConfiguratorComponent(models.Model):
     _name = 'package.configurator.component'
     _description = "Package Configurator Component"
-    _rec_name = 'component_type'
-
-    @api.depends('component_type')
-    def _compute_display_name(self):
-        for rec in self:
-            rec.display_name = utils.misc.get_selection_label(rec, 'component_type')
-
-    @api.model
-    def _get_component_type_selection(self):
-        return [(ct.name, ct.label) for ct in self.get_component_types()]
+    _rec_name = 'component_type_id'
 
     configurator_id = fields.Many2one(
         'package.configurator', required=True, ondelete='cascade'
     )
-    component_type = fields.Selection(
-        _get_component_type_selection,
-        required=True,
-        default='base_greyboard',
-    )
+    component_type_id = fields.Many2one('package.component.type', required=True)
     component_length = fields.Float(compute='_compute_type_data', string="Length")
     component_width = fields.Float(compute='_compute_type_data', string="Width")
-    scope = fields.Selection(const.SHEET_TYPE_SELECTION, compute='_compute_type_data')
+    component_kind_ids = fields.Many2many(
+        related='component_type_id.component_kind_ids'
+    )
     sheet_type_id = fields.Many2one(
-        'package.sheet.type', domain="[('scope', '=', scope)]"
+        'package.sheet.type',
+        domain="[('component_kind_ids', 'in', component_kind_ids)]",
     )
     sheet_id = fields.Many2one(
         'package.sheet',
         required=True,
-        domain="[('scope', '=', scope)]",
+        domain="[('component_kind_ids', 'in', component_kind_ids)]",
         store=True,
         readonly=False,
         compute='_compute_sheet_id',
@@ -58,7 +41,7 @@ class PackageConfiguratorComponent(models.Model):
     )
 
     @api.depends(
-        'component_type',
+        'component_type_id',
         'sheet_id',
         'print_color_id',
         'configurator_id.base_length',
@@ -66,20 +49,19 @@ class PackageConfiguratorComponent(models.Model):
         'configurator_id.lid_height',
         'configurator_id.lid_extra',
         'configurator_id.outside_wrapping_extra',
-        'configurator_id.component_ids.component_type',
+        'configurator_id.component_ids.component_type_id',
         'configurator_id.print_house_id',
     )
     def _compute_type_data(self):
         for rec in self:
-            ct = rec.get_component_type()
-            data = rec._get_init_type_data(ct)
+            data = rec._get_init_type_data()
             rec.update(data)
         configs = self.mapped('configurator_id')
         for cfg in configs:
             res = self.env['package.box.layout'].get_cfg_layouts(cfg)
             for ctype, layout in res.items():
                 for comp in cfg.component_ids:
-                    if comp.component_type != ctype:
+                    if comp.component_type_id.code != ctype:
                         continue
                     comp.update(
                         {
@@ -102,7 +84,7 @@ class PackageConfiguratorComponent(models.Model):
             # because this one can be computed earlier and then those
             # values would be 0, so we directly get result from get_cfg_layouts!
             res = self.env['package.box.layout'].get_cfg_layouts(rec.configurator_id)
-            layout = res[rec.component_type]
+            layout = res[rec.component_type_id.code]
             if not layout.length or not layout.width:
                 continue
             rec.sheet_id = rec.env['package.sheet.match'].match(
@@ -110,86 +92,40 @@ class PackageConfiguratorComponent(models.Model):
                 vo_layout.Layout2D(length=layout.length, width=layout.width),
             )
 
-    @api.onchange('component_type')
-    def _onchange_component_type(self):
-        if not self.component_type:
+    @api.onchange('component_type_id')
+    def _onchange_component_type_id(self):
+        if not self.component_type_id:
             return
         if self.sheet_type_id:
             self.sheet_type_id = False
         if self.sheet_id:
             self.sheet_id = False
 
-    @api.constrains('component_type')
-    def _check_component_type(self):
+    @api.constrains('component_type_id')
+    def _check_component_type_id(self):
         configs = self.mapped('configurator_id')
         for cfg in configs:
-            ctypes = cfg.component_ids.mapped('component_type')
-            if 'base_greyboard' not in ctypes:
-                raise ValidationError(_("Base Greyboard component is required!"))
+            ctypes = [c.component_type_id.code for c in cfg.component_ids]
+            if 'base' not in ctypes:
+                raise ValidationError(_("Base component is required!"))
             if len(ctypes) != len(set(ctypes)):
                 raise ValidationError(
                     _("Component types must be unique per configurator!")
                 )
 
-    @api.constrains('component_type', 'sheet_type_id', 'sheet_id')
-    def _check_scope(self):
+    @api.constrains('component_type_id', 'sheet_type_id', 'sheet_id')
+    def _check_component_kind_ids(self):
         for rec in self:
-            scopes = {rec.scope, rec.sheet_id.scope}
+            kinds = rec.component_kind_ids & rec.sheet_id.component_kind_ids
             if rec.sheet_type_id:
-                scopes.add(rec.sheet_type_id.scope)
-            if len(scopes) != 1:
+                kinds = kinds & rec.sheet_type_id.component_kind_ids
+            if not kinds:
                 raise ValidationError(
-                    _("Scope mismatch. Scope must match between component options!")
+                    _(
+                        "Kind mismatch. At least one kind must match between "
+                        + "component options!"
+                    )
                 )
-
-    @api.model
-    def get_component_types(self) -> list[BoxComponentType]:
-        return [
-            # Grey board types.
-            BoxComponentType(
-                name='base_greyboard',
-                label="Base Grey Board",
-                scope=const.SheetTypeScope.GREYBOARD,
-            ),
-            BoxComponentType(
-                name='lid_greyboard',
-                label="Lid Grey Board",
-                scope=const.SheetTypeScope.GREYBOARD,
-            ),
-            # Wrapping Paper types.
-            BoxComponentType(
-                name='base_wrappingpaper_inside',
-                label="Base Inside Wrapping Paper",
-                scope=const.SheetTypeScope.WRAPPINGPAPER,
-            ),
-            BoxComponentType(
-                name='base_wrappingpaper_outside',
-                label="Base Outside Wrapping Paper",
-                scope=const.SheetTypeScope.WRAPPINGPAPER,
-            ),
-            BoxComponentType(
-                name='lid_wrappingpaper_inside',
-                label="Lid Inside Wrapping Paper",
-                scope=const.SheetTypeScope.WRAPPINGPAPER,
-            ),
-            BoxComponentType(
-                name='lid_wrappingpaper_outside',
-                label="Lid Outside Wrapping Paper",
-                scope=const.SheetTypeScope.WRAPPINGPAPER,
-            ),
-        ]
-
-    def get_component_type(self) -> BoxComponentType:
-        self.ensure_one()
-        # Happens before record is saved.
-        if not self.component_type:
-            return BoxComponentType.from_default()
-        component_types = self.get_component_types()
-        for ct in component_types:
-            # There should always be a match, because action_type selection
-            # is generated from this action types list itself!
-            if ct.name == self.component_type:
-                return ct
 
     def _get_sheet_usable_dimensions_data(self):
         self.ensure_one()
@@ -236,10 +172,9 @@ class PackageConfiguratorComponent(models.Model):
         )
         return utils.fitter.calc_fit_quantity(layout_fitter)
 
-    def _get_init_type_data(self, component_type: BoxComponentType):
+    def _get_init_type_data(self):
         self.ensure_one()
         return {
-            'scope': component_type.scope,
             'fit_qty': 0,
             'component_length': 0.0,
             'component_width': 0.0,

@@ -28,6 +28,7 @@
                 <sheet>
                     <!-- TODO: add state field with statusbar widget -->
                     <group name="main">
+                        <field name="package_type_id" invisible="1"/>
                         <group name="dimensions" string="Dimensions">
                             <group>
                                 <table class="table">
@@ -52,7 +53,7 @@
                             <group>
                                 <field name="lid_height"/>
                                 <field name="outside_wrapping_extra"/>
-                                <!-- Currently not intended to be showed via UI. -->
+                                <!-- Not intended to be showed via UI. -->
                                 <field name="lid_extra" invisible="1"/>
                             </group>
                         <group name="general" string="General">
@@ -75,11 +76,11 @@
                             <field name="component_ids">
                                 <tree editable="bottom">
                                     <field
-                                        name="scope"
+                                        name="component_kind_ids"
                                         invisible="1"
                                         column_invisible="1"
                                     />
-                                    <field name="component_type"/>
+                                    <field name="component_type_id"/>
                                     <field
                                         name="sheet_type_id"
                                         options="{'no_create': True}"
@@ -91,7 +92,7 @@
                                     <field
                                         name="print_color_id"
                                         column_invisible="not parent.print_house_id"
-                                        readonly="scope != 'wrappingpaper'"
+                                        readonly="'wrappingpaper' not in component_kind_ids.mapped('code')"
                                     />
                                     <field name="component_length"/>
                                     <field name="component_width"/>
@@ -154,9 +155,23 @@
         </field>
     </record>
 
-    <record id="package_configurator_action" model="ir.actions.act_window">
+    <record id="package_configurator_box_action" model="ir.actions.act_window">
         <field name="name">Box Configurator</field>
         <field name="res_model">package.configurator</field>
         <field name="view_mode">tree,form</field>
+        <field name="domain">[('package_type', '=', 'box')]</field>
+        <field
+            name="context"
+        >{'default_package_type': 'box', 'package_type': 'box'}</field>
+    </record>
+
+    <record id="package_configurator_insert_action" model="ir.actions.act_window">
+        <field name="name">Insert Configurator</field>
+        <field name="res_model">package.configurator</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('package_type', '=', 'insert')]</field>
+        <field
+            name="context"
+        >{'default_package_type': 'insert', 'package_type': 'insert'}</field>
     </record>
 </odoo>

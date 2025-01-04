@@ -6,7 +6,11 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="sheet_type_id"/>
-                <field name="scope" optional="hide"/>
+                <field
+                    name="component_kind_ids"
+                    widget="many2many_tags"
+                    optional="hide"
+                />
                 <field name="sheet_length"/>
                 <field name="sheet_width"/>
                 <field name="unit_cost"/>
@@ -24,7 +28,7 @@
                     <group name="main">
                         <group name="left">
                             <field name="sheet_type_id" options="{'no_create': True}"/>
-                            <field name="scope" invisible="1"/>
+                            <field name="component_kind_ids" invisible="1"/>
                             <field name="sheet_length"/>
                             <field name="sheet_width"/>
                         </group>
@@ -40,6 +44,7 @@
         </field>
     </record>
 
+    <!-- TODO scope with component_kind_ids! -->
     <record id="package_sheet_greyboard_action" model="ir.actions.act_window">
         <field name="name">Grey Boards</field>
         <field name="res_model">package.sheet</field>

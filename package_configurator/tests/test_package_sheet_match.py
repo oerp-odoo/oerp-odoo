@@ -1,23 +1,22 @@
-from odoo.addons.base.tests.common import BaseCommon
+from odoo.fields import Command
 
-from .. import const
 from ..value_objects.layout import Layout2D
+from .common import TestProductPackageConfiguratorCommon
 
 
-class TestPackageSheetMatch(BaseCommon):
+class TestPackageSheetMatch(TestProductPackageConfiguratorCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.PackageSheetType = cls.env['package.sheet.type']
-        cls.PackageSheet = cls.env['package.sheet']
-        cls.PackageSheetMatch = cls.env['package.sheet.match']
         (cls.package_sheet_type_greyboard_1,) = cls.PackageSheetType.create(
             [
                 {
                     'name': 'Orange/orange',
                     'thickness': 1.5,
                     'thickness_uom': 'mm',
-                    'scope': const.SheetTypeScope.GREYBOARD,
+                    'component_kind_ids': [
+                        Command.set([cls.component_kind_greyboard.id])
+                    ],
                 },
             ]
         )
@@ -31,21 +30,27 @@ class TestPackageSheetMatch(BaseCommon):
                     'sheet_width': 500,
                     'sheet_length': 1000,
                     'unit_cost': 2,
-                    'scope': const.SheetTypeScope.GREYBOARD,
+                    'component_kind_ids': [
+                        Command.set([self.component_kind_greyboard.id])
+                    ],
                 },
                 {
                     'sheet_type_id': self.package_sheet_type_greyboard_1.id,
                     'sheet_width': 600,
                     'sheet_length': 1000,
                     'unit_cost': 2,
-                    'scope': const.SheetTypeScope.GREYBOARD,
+                    'component_kind_ids': [
+                        Command.set([self.component_kind_greyboard.id])
+                    ],
                 },
                 {
                     'sheet_type_id': self.package_sheet_type_greyboard_1.id,
                     'sheet_width': 700,
                     'sheet_length': 1000,
                     'unit_cost': 2,
-                    'scope': const.SheetTypeScope.GREYBOARD,
+                    'component_kind_ids': [
+                        Command.set([self.component_kind_greyboard.id])
+                    ],
                 },
             ]
         )
@@ -65,21 +70,27 @@ class TestPackageSheetMatch(BaseCommon):
                     'sheet_width': 500,
                     'sheet_length': 1000,
                     'unit_cost': 2,
-                    'scope': const.SheetTypeScope.GREYBOARD,
+                    'component_kind_ids': [
+                        Command.set([self.component_kind_greyboard.id])
+                    ],
                 },
                 {
                     'sheet_type_id': self.package_sheet_type_greyboard_1.id,
                     'sheet_width': 600,
                     'sheet_length': 1000,
                     'unit_cost': 200,
-                    'scope': const.SheetTypeScope.GREYBOARD,
+                    'component_kind_ids': [
+                        Command.set([self.component_kind_greyboard.id])
+                    ],
                 },
                 {
                     'sheet_type_id': self.package_sheet_type_greyboard_1.id,
                     'sheet_width': 700,
                     'sheet_length': 1000,
                     'unit_cost': 300,
-                    'scope': const.SheetTypeScope.GREYBOARD,
+                    'component_kind_ids': [
+                        Command.set([self.component_kind_greyboard.id])
+                    ],
                 },
             ]
         )

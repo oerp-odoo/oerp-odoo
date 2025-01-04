@@ -16,6 +16,11 @@ class ComponentSide(StrEnum):
     OUTSIDE = 'outside'
 
 
+class PackageType(StrEnum):
+    BOX = 'box'
+    INSERT = 'insert'
+
+
 class SetupType(StrEnum):
     PRODUCTION = 'production'
     PRINT = 'print'
@@ -23,8 +28,15 @@ class SetupType(StrEnum):
     FOIL = 'foil'
 
 
-class SheetTypeScope(StrEnum):
+# class SheetTypeScope(StrEnum):
+#     GREYBOARD = 'greyboard'
+#     CARTON = 'carton'
+#     WRAPPINGPAPER = 'wrappingpaper'
+
+
+class ComponentKind(StrEnum):
     GREYBOARD = 'greyboard'
+    CARTON = 'carton'
     WRAPPINGPAPER = 'wrappingpaper'
 
 
@@ -33,16 +45,22 @@ COMPONENT_SIDE_SELECTION = [
     (ComponentSide.OUTSIDE, "Outside"),
 ]
 
+PACKAGE_TYPE_SELECTION = [
+    (PackageType.BOX, "Box"),
+    (PackageType.INSERT, "Insert"),
+]
+
 SETUP_TYPE_SELECTION = [
     (SetupType.PRODUCTION, "Production"),
     (SetupType.PRINT, "Print"),
     (SetupType.FOIL, "Foil"),
 ]
 
-SHEET_TYPE_SELECTION = [
-    (SheetTypeScope.GREYBOARD, "Grey Board"),
-    (SheetTypeScope.WRAPPINGPAPER, "Wrapping Paper"),
-]
+# SHEET_SCOPE_SELECTION = [
+#     (SheetTypeScope.GREYBOARD, "Grey Board"),
+#     (SheetTypeScope.CARTON, "Carton"),
+#     (SheetTypeScope.WRAPPINGPAPER, "Wrapping Paper"),
+# ]
 
 DEFAUL_GLOBAL_BOX_EXTRA = 30  # mm
 # Extra size for length and width to compensate, so lid would fit on a

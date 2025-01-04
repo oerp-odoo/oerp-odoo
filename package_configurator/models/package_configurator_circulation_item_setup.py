@@ -69,7 +69,7 @@ class PackageConfiguratorCirculationItemSetup(models.Model):
             setup_rule = sgroup.match_setup_rule(
                 circ.quantity,
                 component.fit_qty,
-                component_type=component.component_type,
+                component_type=component.component_type_id or None,
                 layout=layout,
                 box_type=circ.configurator_id.box_type_id,
             )
@@ -88,7 +88,7 @@ class PackageConfiguratorCirculationItemSetup(models.Model):
         cfg = circ_item.circulation_id.configurator_id
         # If component has no color selected, it means, no setup is needed for it.
         # PRINT is valid when it is used only on some components, but not all!
-        return cfg.print_house_id and circ_item.component_id.print_color_id
+        return bool(cfg.print_house_id and circ_item.component_id.print_color_id)
 
     def _is_circ_item_need_foil_setup(self, circ_item):
         comp = circ_item.component_id
