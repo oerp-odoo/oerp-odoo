@@ -2,15 +2,16 @@ from ..value_objects import package_warning as vo_pw
 from . import common
 
 
-class TestPackageConfiguratorBoxWarnings(common.TestProductPackageConfiguratorCommon):
+class TestPackageWarnings(common.TestProductPackageConfiguratorCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.PackageWarning = cls.env['package.warning']
         cls.package_box_type_1 = cls.PackageBoxType.create({'name': 'MY-BOX-TYPE-1'})
 
     def test_01_configure_box_warning_box_component_not_fitting_on_sheet(self):
         # GIVEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 10000,
@@ -21,7 +22,7 @@ class TestPackageConfiguratorBoxWarnings(common.TestProductPackageConfiguratorCo
                 'outside_wrapping_extra': 20.0,
             },
         )
-        self.PackageConfiguratorBoxComponent.create(
+        self.PackageConfiguratorComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -31,7 +32,7 @@ class TestPackageConfiguratorBoxWarnings(common.TestProductPackageConfiguratorCo
             ]
         )
         # WHEN
-        warnings = cfg.get_warnings()
+        warnings = self.PackageWarning.get_warnings(cfg)
         # THEN
         self.assertEqual(
             warnings,
@@ -49,7 +50,7 @@ class TestPackageConfiguratorBoxWarnings(common.TestProductPackageConfiguratorCo
         self.package_box_type_1.default_component_ids |= (
             self.PackageDefaultComponent.create({'component_type': 'lid_greyboard'})
         )
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 1,
@@ -60,7 +61,7 @@ class TestPackageConfiguratorBoxWarnings(common.TestProductPackageConfiguratorCo
                 'outside_wrapping_extra': 20.0,
             },
         )
-        self.PackageConfiguratorBoxComponent.create(
+        self.PackageConfiguratorComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -70,7 +71,7 @@ class TestPackageConfiguratorBoxWarnings(common.TestProductPackageConfiguratorCo
             ]
         )
         # WHEN
-        warnings = cfg.get_warnings()
+        warnings = self.PackageWarning.get_warnings(cfg)
         # THEN
         self.assertEqual(
             warnings,

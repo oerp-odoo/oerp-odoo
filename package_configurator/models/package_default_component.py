@@ -9,7 +9,7 @@ class PackageDefaultComponent(models.Model):
 
     component_type = fields.Selection(
         lambda s: s.env[
-            'package.configurator.box.component'
+            'package.configurator.component'
         ]._get_component_type_selection(),
         required=True,
         default='base_greyboard',

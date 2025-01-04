@@ -13,18 +13,12 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
         cls.PackageFoil = cls.env['package.foil']
         cls.PackagePrintHouse = cls.env['package.print.house']
         cls.PackageDefaultComponent = cls.env['package.default.component']
-        cls.PackageConfiguratorBox = cls.env['package.configurator.box']
-        cls.PackageConfiguratorBoxComponent = cls.env[
-            'package.configurator.box.component'
-        ]
-        cls.PackageConfiguratorBoxStamp = cls.env['package.configurator.box.stamp']
-        cls.PackageConfiguratorBoxFoil = cls.env['package.configurator.box.foil']
-        cls.PackageConfiguratorBoxLamination = cls.env[
-            'package.configurator.box.lamination'
-        ]
-        cls.PackageConfiguratorBoxCirculation = cls.env[
-            'package.configurator.box.circulation'
-        ]
+        cls.PackageConfigurator = cls.env['package.configurator']
+        cls.PackageConfiguratorComponent = cls.env['package.configurator.component']
+        cls.PackageConfiguratorStamp = cls.env['package.configurator.stamp']
+        cls.PackageConfiguratorFoil = cls.env['package.configurator.foil']
+        cls.PackageConfiguratorLamination = cls.env['package.configurator.lamination']
+        cls.PackageConfiguratorCirculation = cls.env['package.configurator.circulation']
         cls.PackagePrintColor = cls.env['package.print.color']
         cls.PackageBoxSetup = cls.env['package.box.setup']
         cls.PackageBoxSetupRule = cls.env['package.box.setup.rule']

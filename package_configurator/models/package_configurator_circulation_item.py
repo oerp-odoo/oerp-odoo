@@ -11,17 +11,17 @@ def filter_by_component(recs, component):
     return recs.filtered(lambda r: r.component_id == component)
 
 
-class PackageConfiguratorBoxCirculationItem(models.Model):
-    _name = 'package.configurator.box.circulation.item'
-    _description = "Package Configurator Box Circulation Component"
+class PackageConfiguratorCirculationItem(models.Model):
+    _name = 'package.configurator.circulation.item'
+    _description = "Package Configurator Circulation Component"
 
     circulation_id = fields.Many2one(
-        'package.configurator.box.circulation',
+        'package.configurator.circulation',
         required=True,
         ondelete='cascade',
     )
     component_id = fields.Many2one(
-        'package.configurator.box.component',
+        'package.configurator.component',
         required=True,
         ondelete='cascade',
     )
@@ -39,7 +39,7 @@ class PackageConfiguratorBoxCirculationItem(models.Model):
         compute='_compute_foil_cost',
     )
     circulation_setup_ids = fields.One2many(
-        'package.configurator.box.circulation.item.setup',
+        'package.configurator.circulation.item.setup',
         'circulation_item_id',
     )
 
@@ -109,7 +109,7 @@ class PackageConfiguratorBoxCirculationItem(models.Model):
             .sudo()
             ._for_xml_id(
                 'package_configurator.'
-                + 'package_configurator_box_circulation_item_setup_action'
+                + 'package_configurator_circulation_item_setup_action'
             )
         )
         action.update(

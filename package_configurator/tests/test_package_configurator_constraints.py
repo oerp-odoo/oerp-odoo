@@ -3,14 +3,12 @@ from odoo.exceptions import ValidationError
 from . import common
 
 
-class TestPackageConfiguratorBoxConstraints(
-    common.TestProductPackageConfiguratorCommon
-):
+class TestPackageConfiguratorConstraints(common.TestProductPackageConfiguratorCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.package_box_type_1 = cls.PackageBoxType.create({'name': 'MY-BOX-TYPE-1'})
-        cls.cfg_1 = cls.PackageConfiguratorBox.create(
+        cls.cfg_1 = cls.PackageConfigurator.create(
             {
                 'box_type_id': cls.package_box_type_1.id,
                 'base_length': 10,

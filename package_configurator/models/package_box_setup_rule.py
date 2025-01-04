@@ -16,7 +16,7 @@ class PackageBoxSetupRule(models.Model):
     )
     component_type = fields.Selection(
         lambda s: s.env[
-            'package.configurator.box.component'
+            'package.configurator.component'
         ]._get_component_type_selection(),
     )
     component_type_sequence = fields.Integer(

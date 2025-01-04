@@ -13,7 +13,7 @@ class TestPackageSheetUsableDimensions(common.TestProductPackageConfiguratorComm
         # GIVEN
         self.package_sheet_greyboard_1.write({'sheet_length': 1000, 'sheet_width': 700})
         # WHEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -24,7 +24,7 @@ class TestPackageSheetUsableDimensions(common.TestProductPackageConfiguratorComm
                 'outside_wrapping_extra': 20.0,
             },
         )
-        comp_base_greyboard = self.PackageConfiguratorBoxComponent.create(
+        comp_base_greyboard = self.PackageConfiguratorComponent.create(
             {
                 'component_type': 'base_greyboard',
                 'sheet_id': self.package_sheet_greyboard_1.id,
@@ -41,7 +41,7 @@ class TestPackageSheetUsableDimensions(common.TestProductPackageConfiguratorComm
         self.package_sheet_greyboard_1.write({'sheet_length': 1000, 'sheet_width': 700})
         self.print_house_1.write({'print_max_length': 900, 'print_max_width': 600})
         # WHEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -53,7 +53,7 @@ class TestPackageSheetUsableDimensions(common.TestProductPackageConfiguratorComm
                 'print_house_id': self.print_house_1.id,
             },
         )
-        comp_base_greyboard = self.PackageConfiguratorBoxComponent.create(
+        comp_base_greyboard = self.PackageConfiguratorComponent.create(
             {
                 'component_type': 'base_greyboard',
                 'sheet_id': self.package_sheet_greyboard_1.id,
@@ -70,7 +70,7 @@ class TestPackageSheetUsableDimensions(common.TestProductPackageConfiguratorComm
         self.package_sheet_greyboard_1.write({'sheet_length': 1000, 'sheet_width': 700})
         self.print_house_1.write({'print_max_length': 900, 'print_max_width': 600})
         # WHEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -82,7 +82,7 @@ class TestPackageSheetUsableDimensions(common.TestProductPackageConfiguratorComm
                 'print_house_id': self.print_house_1.id,
             },
         )
-        comp_base_greyboard = self.PackageConfiguratorBoxComponent.create(
+        comp_base_greyboard = self.PackageConfiguratorComponent.create(
             {
                 'component_type': 'base_greyboard',
                 'sheet_id': self.package_sheet_greyboard_1.id,
@@ -99,7 +99,7 @@ class TestPackageSheetUsableDimensions(common.TestProductPackageConfiguratorComm
         self.package_sheet_greyboard_1.write({'sheet_length': 1000, 'sheet_width': 700})
         self.print_house_1.write({'print_max_length': 1200, 'print_max_width': 800})
         # WHEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -111,7 +111,7 @@ class TestPackageSheetUsableDimensions(common.TestProductPackageConfiguratorComm
                 'print_house_id': self.print_house_1.id,
             },
         )
-        comp_base_greyboard = self.PackageConfiguratorBoxComponent.create(
+        comp_base_greyboard = self.PackageConfiguratorComponent.create(
             {
                 'component_type': 'base_greyboard',
                 'sheet_id': self.package_sheet_greyboard_1.id,
@@ -128,7 +128,7 @@ class TestPackageSheetUsableDimensions(common.TestProductPackageConfiguratorComm
         self.package_sheet_greyboard_1.write({'sheet_length': 1000, 'sheet_width': 700})
         self.print_house_1.write({'print_max_length': 0, 'print_max_width': 0})
         # WHEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -140,7 +140,7 @@ class TestPackageSheetUsableDimensions(common.TestProductPackageConfiguratorComm
                 'print_house_id': self.print_house_1.id,
             },
         )
-        comp_base_greyboard = self.PackageConfiguratorBoxComponent.create(
+        comp_base_greyboard = self.PackageConfiguratorComponent.create(
             {
                 'component_type': 'base_greyboard',
                 'sheet_id': self.package_sheet_greyboard_1.id,

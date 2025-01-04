@@ -2,7 +2,7 @@ from .. import const
 from . import common
 
 
-class TestPackageConfiguratorBoxLaminationCost(
+class TestPackageConfiguratorLaminationCost(
     common.TestProductPackageConfiguratorCommon
 ):
     @classmethod
@@ -35,7 +35,7 @@ class TestPackageConfiguratorBoxLaminationCost(
                 },
             ]
         )
-        cls.cfg_1 = cls.PackageConfiguratorBox.create(
+        cls.cfg_1 = cls.PackageConfigurator.create(
             {
                 'box_type_id': cls.package_box_type_1.id,
                 'base_length': 165,
@@ -53,7 +53,7 @@ class TestPackageConfiguratorBoxLaminationCost(
             cls.comp_base_wrappingpaper_outside,
             cls.comp_lid_wrappingpaper_inside,
             cls.comp_lid_wrappingpaper_outside,
-        ) = cls.PackageConfiguratorBoxComponent.create(
+        ) = cls.PackageConfiguratorComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -90,11 +90,11 @@ class TestPackageConfiguratorBoxLaminationCost(
 
     def test_01_cfg_box_lamination_cost_single_lamination(self):
         # GIVEN
-        circ = self.PackageConfiguratorBoxCirculation.create(
+        circ = self.PackageConfiguratorCirculation.create(
             {'quantity': 100, 'configurator_id': self.cfg_1.id},
         )
         # WHEN
-        box_lamination = self.PackageConfiguratorBoxLamination.create(
+        box_lamination = self.PackageConfiguratorLamination.create(
             {
                 'configurator_id': self.cfg_1.id,
                 'side': 'inside',
@@ -112,14 +112,14 @@ class TestPackageConfiguratorBoxLaminationCost(
 
     def test_02_cfg_box_lamination_cost_two_lamination(self):
         # GIVEN
-        circ = self.PackageConfiguratorBoxCirculation.create(
+        circ = self.PackageConfiguratorCirculation.create(
             {'quantity': 100, 'configurator_id': self.cfg_1.id},
         )
         # WHEN
         (
             box_lamination_1,
             box_lamination_2,
-        ) = self.PackageConfiguratorBoxLamination.create(
+        ) = self.PackageConfiguratorLamination.create(
             [
                 {
                     'configurator_id': self.cfg_1.id,

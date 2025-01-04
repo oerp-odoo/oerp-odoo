@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="package_configurator_box_circulation_view_tree" model="ir.ui.view">
-        <field name="name">package.configurator.box.circulation.tree</field>
-        <field name="model">package.configurator.box.circulation</field>
+    <record id="package_configurator_circulation_view_tree" model="ir.ui.view">
+        <field name="name">package.configurator.circulation.tree</field>
+        <field name="model">package.configurator.circulation</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="quantity"/>
@@ -13,9 +13,9 @@
         </field>
     </record>
 
-    <record id="package_configurator_box_circulation_view_form" model="ir.ui.view">
-        <field name="name">package.configurator.box.circulation.form</field>
-        <field name="model">package.configurator.box.circulation</field>
+    <record id="package_configurator_circulation_view_form" model="ir.ui.view">
+        <field name="name">package.configurator.circulation.form</field>
+        <field name="model">package.configurator.circulation</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>

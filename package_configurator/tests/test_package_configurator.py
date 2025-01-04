@@ -1,7 +1,7 @@
 from . import common
 
 
-class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
+class TestPackageConfigurator(common.TestProductPackageConfiguratorCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -9,7 +9,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
 
     def test_01_configure_box_basic(self):
         # WHEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -27,7 +27,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
             comp_base_wrappingpaper_outside,
             comp_lid_wrappingpaper_inside,
             comp_lid_wrappingpaper_outside,
-        ) = self.PackageConfiguratorBoxComponent.create(
+        ) = self.PackageConfiguratorComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -89,7 +89,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
 
     def test_03_configure_box_with_circulation(self):
         # GIVEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -107,7 +107,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
             comp_base_wrappingpaper_outside,
             comp_lid_wrappingpaper_inside,
             comp_lid_wrappingpaper_outside,
-        ) = self.PackageConfiguratorBoxComponent.create(
+        ) = self.PackageConfiguratorComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -142,7 +142,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
             ]
         )
         # WHEN
-        circulation_1, circulation_2 = self.PackageConfiguratorBoxCirculation.create(
+        circulation_1, circulation_2 = self.PackageConfiguratorCirculation.create(
             [
                 {'quantity': 100, 'configurator_id': cfg.id},
                 {'quantity': 200, 'configurator_id': cfg.id},
@@ -268,7 +268,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         self.package_sheet_wrappingpaper_1.min_qty = 24
         # Outside
         self.package_sheet_wrappingpaper_2.min_qty = 50
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -286,7 +286,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
             comp_base_wrappingpaper_outside,
             comp_lid_wrappingpaper_inside,
             comp_lid_wrappingpaper_outside,
-        ) = self.PackageConfiguratorBoxComponent.create(
+        ) = self.PackageConfiguratorComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',
@@ -321,7 +321,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
             ]
         )
         # WHEN
-        circulation_1, circulation_2 = self.PackageConfiguratorBoxCirculation.create(
+        circulation_1, circulation_2 = self.PackageConfiguratorCirculation.create(
             [
                 {'quantity': 100, 'configurator_id': cfg.id},
                 {'quantity': 200, 'configurator_id': cfg.id},
@@ -437,7 +437,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
 
     def test_06_configure_box_missing_base_height(self):
         # GIVEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -456,7 +456,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
             comp_base_wrappingpaper_outside,
             comp_lid_wrappingpaper_inside,
             comp_lid_wrappingpaper_outside,
-        ) = self.PackageConfiguratorBoxComponent.create(
+        ) = self.PackageConfiguratorComponent.create(
             [
                 {
                     'component_type': 'base_greyboard',

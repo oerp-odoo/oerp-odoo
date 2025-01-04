@@ -3,7 +3,7 @@ from odoo.exceptions import ValidationError
 from . import common
 
 
-class TestPackageConfiguratorBoxComponentConstraints(
+class TestPackageConfiguratorComponentConstraints(
     common.TestProductPackageConfiguratorCommon
 ):
     @classmethod
@@ -13,7 +13,7 @@ class TestPackageConfiguratorBoxComponentConstraints(
 
     def test_01_box_component_duplicate_part(self):
         # GIVEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -28,7 +28,7 @@ class TestPackageConfiguratorBoxComponentConstraints(
         with self.assertRaisesRegex(
             ValidationError, r"Component types must be unique per configurator!"
         ):
-            self.PackageConfiguratorBoxComponent.create(
+            self.PackageConfiguratorComponent.create(
                 [
                     {
                         'component_type': 'base_greyboard',
@@ -45,7 +45,7 @@ class TestPackageConfiguratorBoxComponentConstraints(
 
     def test_02_box_component_scope_mismatch_sheet_type(self):
         # GIVEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -61,7 +61,7 @@ class TestPackageConfiguratorBoxComponentConstraints(
             ValidationError,
             r"Scope mismatch\. Scope must match between component options!",
         ):
-            self.PackageConfiguratorBoxComponent.create(
+            self.PackageConfiguratorComponent.create(
                 [
                     {
                         'component_type': 'base_greyboard',
@@ -74,7 +74,7 @@ class TestPackageConfiguratorBoxComponentConstraints(
 
     def test_03_box_component_scope_mismatch_sheet(self):
         # GIVEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -90,7 +90,7 @@ class TestPackageConfiguratorBoxComponentConstraints(
             ValidationError,
             r"Scope mismatch\. Scope must match between component options!",
         ):
-            self.PackageConfiguratorBoxComponent.create(
+            self.PackageConfiguratorComponent.create(
                 [
                     {
                         'component_type': 'base_greyboard',
@@ -102,7 +102,7 @@ class TestPackageConfiguratorBoxComponentConstraints(
 
     def test_04_box_component_missing_base_greyboard(self):
         # GIVEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -117,7 +117,7 @@ class TestPackageConfiguratorBoxComponentConstraints(
         with self.assertRaisesRegex(
             ValidationError, r"Base Greyboard component is required!"
         ):
-            self.PackageConfiguratorBoxComponent.create(
+            self.PackageConfiguratorComponent.create(
                 [
                     {
                         'component_type': 'lid_greyboard',
@@ -129,7 +129,7 @@ class TestPackageConfiguratorBoxComponentConstraints(
 
     def test_05_box_component_not_missing_base_greyboard_multi(self):
         # GIVEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -142,7 +142,7 @@ class TestPackageConfiguratorBoxComponentConstraints(
         )
         # WHEN, THEN
         try:
-            self.PackageConfiguratorBoxComponent.create(
+            self.PackageConfiguratorComponent.create(
                 [
                     {
                         'component_type': 'lid_greyboard',
@@ -161,7 +161,7 @@ class TestPackageConfiguratorBoxComponentConstraints(
 
     def test_06_box_component_not_missing_base_greyboard_single(self):
         # GIVEN
-        cfg = self.PackageConfiguratorBox.create(
+        cfg = self.PackageConfigurator.create(
             {
                 'box_type_id': self.package_box_type_1.id,
                 'base_length': 165,
@@ -172,7 +172,7 @@ class TestPackageConfiguratorBoxComponentConstraints(
                 'outside_wrapping_extra': 20.0,
             }
         )
-        self.PackageConfiguratorBoxComponent.create(
+        self.PackageConfiguratorComponent.create(
             {
                 'component_type': 'base_greyboard',
                 'sheet_id': self.package_sheet_greyboard_1.id,
@@ -181,7 +181,7 @@ class TestPackageConfiguratorBoxComponentConstraints(
         )
         # WHEN, THEN
         try:
-            self.PackageConfiguratorBoxComponent.create(
+            self.PackageConfiguratorComponent.create(
                 {
                     'component_type': 'lid_greyboard',
                     'sheet_id': self.package_sheet_greyboard_1.id,

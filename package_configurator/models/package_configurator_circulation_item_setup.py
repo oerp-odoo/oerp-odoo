@@ -7,12 +7,12 @@ from ..utils.fitter import calc_raw_sheet_quantity
 from ..value_objects.layout import Layout2D
 
 
-class PackageConfiguratorBoxCirculationItemSetup(models.Model):
-    _name = 'package.configurator.box.circulation.item.setup'
-    _description = "Package Configurator Box Circulation Component Setup"
+class PackageConfiguratorCirculationItemSetup(models.Model):
+    _name = 'package.configurator.circulation.item.setup'
+    _description = "Package Configurator Circulation Component Setup"
 
     circulation_item_id = fields.Many2one(
-        'package.configurator.box.circulation.item',
+        'package.configurator.circulation.item',
         required=True,
         ondelete='cascade',
     )
