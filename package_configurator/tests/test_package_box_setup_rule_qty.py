@@ -2,7 +2,7 @@ from . import common
 
 
 class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
-    def test_01_box_setup_rule_qty_fixed(self):
+    def test_01_package_setup_rule_qty_fixed(self):
         # GIVEN
         setup_1 = self.PackageBoxSetup.create(
             {
@@ -36,7 +36,7 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
         # THEN
         self.assertEqual(qty, 200)
 
-    def test_02_box_setup_rule_qty_rel(self):
+    def test_02_package_setup_rule_qty_rel(self):
         # GIVEN
         setup_1 = self.PackageBoxSetup.create(
             {
@@ -70,7 +70,7 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
         # THEN
         self.assertEqual(qty, 200)
 
-    def test_03_box_setup_rule_qty_rel_uneven(self):
+    def test_03_package_setup_rule_qty_rel_uneven(self):
         # GIVEN
         setup_1 = self.PackageBoxSetup.create(
             {
@@ -105,7 +105,7 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
         # THEN
         self.assertEqual(qty, 251)
 
-    def test_04_box_setup_rule_qty_rel_invalid(self):
+    def test_04_package_setup_rule_qty_rel_invalid(self):
         # GIVEN
         setup_1 = self.PackageBoxSetup.create(
             {
@@ -131,13 +131,13 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
         self.assertEqual(qty, 200)
 
     # TODO: create TestPackageBoxSetupRule class and move these tests.
-    def test_05_box_setup_inp_qty_measure_box(self):
+    def test_05_package_setup_inp_qty_measure_component(self):
         # GIVEN
         setup = self.PackageBoxSetup.create(
             {
                 'name': 'MY-BOX-PRODUCTION-SETUP-1',
                 'setup_type': 'production',
-                'inp_qty_measure': 'box',
+                'inp_qty_measure': 'component',
             }
         )
         # WHEN
@@ -145,7 +145,7 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
         # THEN
         self.assertEqual(inp_qty, 200)
 
-    def test_06_box_setup_inp_qty_measure_raw(self):
+    def test_06_package_setup_inp_qty_measure_raw(self):
         # GIVEN
         setup = self.PackageBoxSetup.create(
             {

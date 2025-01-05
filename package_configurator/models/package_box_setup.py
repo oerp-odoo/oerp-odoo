@@ -41,12 +41,10 @@ class PackageBoxSetup(models.Model):
         help="How to measure Setup Quantity on rules",
     )
     inp_qty_measure = fields.Selection(
-        # Box here means unconverted quantity coming from circulation which is boxes,
-        # but in reality it would be quantity of specific component of a box!
-        [('box', "Box"), ('raw_sheet', "Raw Sheet")],
+        [('component', "Component"), ('raw_sheet', "Raw Sheet")],
         required=True,
         string="Input Quantity Measure",
-        default='box',
+        default='component',
         help="How to measure Input Quantity on rules. "
         + "Minimum Quantity must match the measure!",
     )
@@ -72,9 +70,9 @@ class PackageBoxSetup(models.Model):
     max_layout_width = fields.Float("Maximum Layout Width (mm)", help=HELP_NO_LIMIT)
 
     def convert_inp_qty(self, qty: int, fit_qty: int):
-        """Calc real input qty when quantity of boxes/components is known."""
+        """Calc real input qty when quantity of components is known."""
         self.ensure_one()
-        if self.inp_qty_measure == 'box':
+        if self.inp_qty_measure == 'component':
             return qty
         try:
             return calc_raw_sheet_quantity(qty, fit_qty)
