@@ -2,6 +2,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 from .. import const
+from ..utils.search import search_default_component_kind
 
 
 class PackageSheet(models.Model):
@@ -13,13 +14,12 @@ class PackageSheet(models.Model):
     sheet_type_id = fields.Many2one(
         "package.sheet.type",
         required=True,
-        domain="[('component_kind_ids', 'in', component_kind_ids)]",
+        domain="[('component_kind_id', '=', component_kind_id)]",
     )
-    component_kind_ids = fields.Many2many(
+    component_kind_id = fields.Many2one(
         'package.component.kind',
-        'package_sheet_component_kind_rel',
-        'sheet_id',
-        'kind_id',
+        required=True,
+        default=search_default_component_kind,
     )
     unit_cost = fields.Float(required=True, digits=const.DecimalPrecision.COST)
     sheet_length = fields.Float(
@@ -49,18 +49,16 @@ class PackageSheet(models.Model):
             st = rec.sheet_type_id
             rec.name = f"{st.display_name} {rec.sheet_length:2g}x{rec.sheet_width:2g}"
 
-    @api.constrains('component_kind_ids', 'sheet_type_id')
-    def _check_component_kind_ids(self):
+    @api.constrains('component_kind_id', 'sheet_type_id')
+    def _check_component_kind_id(self):
         for rec in self:
-            if not rec.component_kind_ids & rec.sheet_type_id.component_kind_ids:
+            if rec.component_kind_id != rec.sheet_type_id.component_kind_id:
                 raise ValidationError(
                     _(
-                        "Sheet (%(kinds1)s) and its Type (%(kinds2)s) must match "
-                        + "at least one Component Kind!",
-                        kinds1=', '.join(rec.component_kind_ids.mapped('name')),
-                        kinds2=', '.join(
-                            rec.sheet_type_id.component_kind_ids.mapped('name')
-                        ),
+                        "Sheet (%(kind1)s) and its Type (%(kind2)s) must have "
+                        + "the same Component Kind!",
+                        kind1=rec.component_kind_id.name,
+                        kind2=rec.sheet_type_id.component_kind_id.name,
                     )
                 )
 

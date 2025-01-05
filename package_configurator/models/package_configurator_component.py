@@ -13,20 +13,33 @@ class PackageConfiguratorComponent(models.Model):
     configurator_id = fields.Many2one(
         'package.configurator', required=True, ondelete='cascade'
     )
-    component_type_id = fields.Many2one('package.component.type', required=True)
+    component_type_allowed_ids = fields.Many2many(
+        related='configurator_id.package_type_id.component_type_ids'
+    )
+    component_type_id = fields.Many2one(
+        'package.component.type',
+        required=True,
+        domain="[('id', 'in', component_type_allowed_ids)]",
+    )
     component_length = fields.Float(compute='_compute_type_data', string="Length")
     component_width = fields.Float(compute='_compute_type_data', string="Width")
     component_kind_ids = fields.Many2many(
         related='component_type_id.component_kind_ids'
     )
+    component_kind_allowed_ids = fields.Many2many(
+        'package.component.kind',
+        compute='_compute_component_kind_allowed_ids',
+        help="Component Kinds that can be used with this Component",
+    )
+    wrappingpaper_used = fields.Boolean(compute='_compute_component_kind_allowed_ids')
     sheet_type_id = fields.Many2one(
         'package.sheet.type',
-        domain="[('component_kind_ids', 'in', component_kind_ids)]",
+        domain="[('component_kind_id', 'in', component_kind_allowed_ids)]",
     )
     sheet_id = fields.Many2one(
         'package.sheet',
         required=True,
-        domain="[('component_kind_ids', 'in', component_kind_ids)]",
+        domain="[('component_kind_id', 'in', component_kind_allowed_ids)]",
         store=True,
         readonly=False,
         compute='_compute_sheet_id',
@@ -75,6 +88,16 @@ class PackageConfiguratorComponent(models.Model):
                     comp.fit_qty = comp._calc_fit_qty()
                     break
 
+    @api.depends('component_type_id', 'configurator_id.package_type_id')
+    def _compute_component_kind_allowed_ids(self):
+        for rec in self:
+            kinds = (
+                rec.component_type_id.component_kind_ids
+                & rec.configurator_id.package_type_id.component_kind_ids
+            )
+            rec.component_kind_allowed_ids = kinds
+            rec.wrappingpaper_used = 'wrappingpaper' in kinds.mapped('code')
+
     @api.depends('sheet_type_id')
     def _compute_sheet_id(self):
         for rec in self:
@@ -116,16 +139,18 @@ class PackageConfiguratorComponent(models.Model):
     @api.constrains('component_type_id', 'sheet_type_id', 'sheet_id')
     def _check_component_kind_ids(self):
         for rec in self:
-            kinds = rec.component_kind_ids & rec.sheet_id.component_kind_ids
-            if rec.sheet_type_id:
-                kinds = kinds & rec.sheet_type_id.component_kind_ids
-            if not kinds:
-                raise ValidationError(
-                    _(
-                        "Kind mismatch. At least one kind must match between "
-                        + "component options!"
-                    )
-                )
+            msg = _(
+                "Kind mismatch. It must match between component options! And be in "
+                + "allowed list per component/package type!"
+            )
+            if rec.sheet_id.component_kind_id not in rec.component_kind_allowed_ids:
+                raise ValidationError(msg)
+            if (
+                rec.sheet_type_id
+                and rec.sheet_type_id.component_kind_id
+                not in rec.component_kind_allowed_ids
+            ):
+                raise ValidationError(msg)
 
     def _get_sheet_usable_dimensions_data(self):
         self.ensure_one()

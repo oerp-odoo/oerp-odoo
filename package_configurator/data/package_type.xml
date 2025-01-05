@@ -15,6 +15,22 @@
                     )
                 ]"
         />
+        <field
+            name="component_type_ids"
+            eval="
+                [
+                    Command.set(
+                        [
+                            ref('package_component_type_base'),
+                            ref('package_component_type_lid'),
+                            ref('package_component_type_base_wrappingpaper_inside'),
+                            ref('package_component_type_base_wrappingpaper_outside'),
+                            ref('package_component_type_lid_wrappingpaper_inside'),
+                            ref('package_component_type_lid_wrappingpaper_outside'),
+                        ]
+                    )
+                ]"
+        />
     </record>
     <record id="package_type_insert" model="package.type">
         <field name="name">Insert</field>
@@ -27,6 +43,19 @@
                         [
                             ref('package_component_kind_carton'),
                             ref('package_component_kind_wrappingpaper'),
+                        ]
+                    )
+                ]"
+        />
+        <field
+            name="component_type_ids"
+            eval="
+                [
+                    Command.set(
+                        [
+                            ref('package_component_type_base'),
+                            ref('package_component_type_base_wrappingpaper_inside'),
+                            ref('package_component_type_base_wrappingpaper_outside'),
                         ]
                     )
                 ]"

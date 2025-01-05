@@ -1,5 +1,4 @@
 from odoo.exceptions import ValidationError
-from odoo.fields import Command
 
 from .common import TestProductPackageConfiguratorCommon
 
@@ -14,9 +13,7 @@ class TestPackageSheetTypeConstraints(TestProductPackageConfiguratorCommon):
                     'name': 'Orange/orange',
                     'thickness': 1.5,
                     'thickness_uom': 'mm',
-                    'component_kind_ids': [
-                        Command.set([cls.component_kind_greyboard.id])
-                    ],
+                    'component_kind_id': cls.component_kind_greyboard.id,
                 },
             ]
         )
@@ -31,9 +28,7 @@ class TestPackageSheetTypeConstraints(TestProductPackageConfiguratorCommon):
                         'name': 'Orange/orange',
                         'thickness': 1.5,
                         'thickness_uom': 'gsm',
-                        'component_kind_ids': [
-                            Command.set([self.component_kind_greyboard.id])
-                        ],
+                        'component_kind_id': self.component_kind_greyboard.id,
                     },
                 ]
             )
@@ -48,9 +43,7 @@ class TestPackageSheetTypeConstraints(TestProductPackageConfiguratorCommon):
                         'name': 'ABC',
                         'thickness': 1.5,
                         'thickness_uom': 'mm',
-                        'component_kind_ids': [
-                            Command.set([self.component_kind_wrappingpaper.id])
-                        ],
+                        'component_kind_id': self.component_kind_wrappingpaper.id,
                     },
                 ]
             )

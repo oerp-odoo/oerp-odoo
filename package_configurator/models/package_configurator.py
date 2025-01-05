@@ -1,6 +1,8 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
+from ..utils.search import search_record_by_context_key
+
 
 class PackageConfigurator(models.Model):
     _name = 'package.configurator'
@@ -21,12 +23,20 @@ class PackageConfigurator(models.Model):
             ] = company.package_default_outside_wrapping_extra
         return res
 
+    @api.model
+    def _get_default_package_type_id(self):
+        return search_record_by_context_key(
+            self.env['package.type'], 'package_type_code'
+        )
+
     state = fields.Selection(
         selection=[("draft", "Draft"), ("done", "Done")],
         default="draft",
         required=True,
     )
-    package_type_id = fields.Many2one('package.type', required=True)
+    package_type_id = fields.Many2one(
+        'package.type', required=True, default=_get_default_package_type_id
+    )
     base_length = fields.Float(required=True)
     base_width = fields.Float(required=True)
     base_height = fields.Float(required=True)

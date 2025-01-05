@@ -1,5 +1,3 @@
-from odoo.fields import Command
-
 from . import common
 
 
@@ -24,9 +22,7 @@ class TestPackageConfiguratorLaminationCost(
                     'sheet_width': 700,
                     # On purpose to calc only foil cost!
                     'unit_cost': 0,
-                    'component_kind_ids': [
-                        Command.set([cls.component_kind_greyboard.id])
-                    ],
+                    'component_kind_id': cls.component_kind_greyboard.id,
                 },
                 {
                     'sheet_type_id': cls.package_sheet_type_wrappingpaper_1.id,
@@ -34,9 +30,7 @@ class TestPackageConfiguratorLaminationCost(
                     'sheet_width': 700,
                     # On purpose to calc only foil cost!
                     'unit_cost': 0,
-                    'component_kind_ids': [
-                        Command.set([cls.component_kind_wrappingpaper.id])
-                    ],
+                    'component_kind_id': cls.component_kind_wrappingpaper.id,
                 },
             ]
         )

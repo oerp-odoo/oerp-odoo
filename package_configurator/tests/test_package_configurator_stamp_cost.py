@@ -1,5 +1,3 @@
-from odoo.fields import Command
-
 from . import common
 
 
@@ -25,7 +23,7 @@ class TestPackageConfiguratorStampCost(common.TestProductPackageConfiguratorComm
                 'sheet_width': 700,
                 # On purpose to calc only stamp cost!
                 'unit_cost': 0,
-                'component_kind_ids': [Command.set([cls.component_kind_greyboard.id])],
+                'component_kind_id': cls.component_kind_greyboard.id,
             }
         )
         cls.cfg_1 = cls.PackageConfigurator.create(

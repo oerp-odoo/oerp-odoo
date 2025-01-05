@@ -1,4 +1,3 @@
-from odoo.fields import Command
 from odoo.tests.common import TransactionCase
 
 
@@ -45,20 +44,22 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
             'package_configurator.package_component_kind_wrappingpaper'
         )
         cls.component_type_base = cls.env.ref(
-            'package_configurator.component_type_base'
+            'package_configurator.package_component_type_base'
         )
-        cls.component_type_lid = cls.env.ref('package_configurator.component_type_lid')
+        cls.component_type_lid = cls.env.ref(
+            'package_configurator.package_component_type_lid'
+        )
         cls.component_type_base_wrappingpaper_inside = cls.env.ref(
-            'package_configurator.component_type_base_wrappingpaper_inside'
+            'package_configurator.package_component_type_base_wrappingpaper_inside'
         )
         cls.component_type_base_wrappingpaper_outside = cls.env.ref(
-            'package_configurator.component_type_base_wrappingpaper_outside'
+            'package_configurator.package_component_type_base_wrappingpaper_outside'
         )
         cls.component_type_lid_wrappingpaper_inside = cls.env.ref(
-            'package_configurator.component_type_lid_wrappingpaper_inside'
+            'package_configurator.package_component_type_lid_wrappingpaper_inside'
         )
         cls.component_type_lid_wrappingpaper_outside = cls.env.ref(
-            'package_configurator.component_type_lid_wrappingpaper_outside'
+            'package_configurator.package_component_type_lid_wrappingpaper_outside'
         )
         # TODO: move these outside of common.
         (
@@ -70,17 +71,13 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
                     'name': 'Orange/orange',
                     'thickness': 1.5,
                     'thickness_uom': 'mm',
-                    'component_kind_ids': [
-                        Command.set([cls.component_kind_greyboard.id])
-                    ],
+                    'component_kind_id': cls.component_kind_greyboard.id,
                 },
                 {
                     'name': 'Some Art 1',
                     'thickness': 150,
                     'thickness_uom': 'gsm',
-                    'component_kind_ids': [
-                        Command.set([cls.component_kind_wrappingpaper.id])
-                    ],
+                    'component_kind_id': cls.component_kind_wrappingpaper.id,
                 },
             ]
         )
@@ -90,7 +87,7 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
                 'sheet_length': 1000,
                 'sheet_width': 700,
                 'unit_cost': 0.05,
-                'component_kind_ids': [Command.set([cls.component_kind_greyboard.id])],
+                'component_kind_id': cls.component_kind_greyboard.id,
             }
         )
         cls.package_sheet_wrappingpaper_1 = cls.PackageSheet.create(
@@ -99,9 +96,7 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
                 'sheet_length': 700,
                 'sheet_width': 400,
                 'unit_cost': 0.04,
-                'component_kind_ids': [
-                    Command.set([cls.component_kind_wrappingpaper.id])
-                ],
+                'component_kind_id': cls.component_kind_wrappingpaper.id,
             }
         )
         cls.package_sheet_wrappingpaper_2 = cls.PackageSheet.create(
@@ -110,8 +105,6 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
                 'sheet_length': 800,
                 'sheet_width': 400,
                 'unit_cost': 0.06,
-                'component_kind_ids': [
-                    Command.set([cls.component_kind_wrappingpaper.id])
-                ],
+                'component_kind_id': cls.component_kind_wrappingpaper.id,
             }
         )

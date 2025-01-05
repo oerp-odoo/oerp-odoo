@@ -61,7 +61,7 @@ class TestPackageConfiguratorComponentConstraints(
         # WHEN, THEN
         with self.assertRaisesRegex(
             ValidationError,
-            r"Kind mismatch\. At least one kind must match between component options!",
+            r"Kind mismatch\. It must match between component options!",
         ):
             self.PackageConfiguratorComponent.create(
                 [
@@ -91,7 +91,7 @@ class TestPackageConfiguratorComponentConstraints(
         # WHEN, THEN
         with self.assertRaisesRegex(
             ValidationError,
-            r"Kind mismatch\. At least one kind must match between component options!",
+            r"Kind mismatch\. It must match between component options!",
         ):
             self.PackageConfiguratorComponent.create(
                 [

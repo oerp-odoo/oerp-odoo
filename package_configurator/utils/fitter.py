@@ -31,12 +31,19 @@ def calc_fit_quantity_multi(fitters: list[LayoutFitter]):
     return quantities
 
 
-def calc_raw_sheet_quantity(product_qty: int, fit_qty: int):
+def calc_raw_sheet_quantity(product_qty: int, fit_qty: int, fallback_qty=0):
     """Calculate how many sheets are needed.
 
     Args:
         product_qty: how much products need to be produced.
         fit_qty: number of products that fit on single sheet.
+        fallback_qty: qty to use if fit_qty is zero. If its None, then
+            ZeroDivisionError is raised.
 
     """
-    return math.ceil(product_qty / fit_qty)
+    try:
+        return math.ceil(product_qty / fit_qty)
+    except ZeroDivisionError:
+        if fallback_qty is None:
+            raise
+        return fallback_qty
