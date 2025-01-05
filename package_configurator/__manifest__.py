@@ -25,7 +25,7 @@
         'views/package_sheet.xml',
         'views/package_stamp.xml',
         'views/package_foil.xml',
-        'views/package_box_type.xml',
+        'views/package_kind.xml',
         'views/package_sheet_type.xml',
         'views/package_lamination.xml',
         'views/package_configurator.xml',
@@ -40,7 +40,7 @@
         'views/menus.xml',
     ],
     'demo': [
-        'demo/package_box_type.xml',
+        'demo/package_kind.xml',
         'demo/package_sheet_type.xml',
         'demo/package_sheet.xml',
         'demo/package_lamination.xml',

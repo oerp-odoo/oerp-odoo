@@ -9,13 +9,15 @@ class TestPackageConfiguratorAutofillSheets(
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.package_box_type_1 = cls.PackageBoxType.create({'name': 'MY-BOX-TYPE-1'})
+        cls.package_kind_box_1 = cls.PackageKind.create(
+            {'name': 'MY-BOX-TYPE-1', 'package_type_id': cls.package_type_box.id}
+        )
 
     def test_01_configure_box_autofill_base_greyboard(self):
         # WHEN
         cfg = self.PackageConfigurator.create(
             {
-                'box_type_id': self.package_box_type_1.id,
+                'package_kind_id': self.package_kind_box_1.id,
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,
@@ -36,7 +38,7 @@ class TestPackageConfiguratorAutofillSheets(
         # WHEN
         cfg = self.PackageConfigurator.create(
             {
-                'box_type_id': self.package_box_type_1.id,
+                'package_kind_id': self.package_kind_box_1.id,
                 # Too big to fit.
                 'base_length': 16500,
                 'base_width': 4200,

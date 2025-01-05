@@ -5,13 +5,15 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.package_box_type_1 = cls.PackageBoxType.create({'name': 'MY-BOX-TYPE-1'})
+        cls.package_kind_box_1 = cls.PackageKind.create(
+            {'name': 'MY-BOX-TYPE-1', 'package_type_id': cls.package_type_box.id}
+        )
 
     def test_01_configure_box_basic(self):
         # WHEN
         cfg = self.PackageConfigurator.create(
             {
-                'box_type_id': self.package_box_type_1.id,
+                'package_kind_id': self.package_kind_box_1.id,
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,
@@ -100,7 +102,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         # GIVEN
         cfg = self.PackageConfigurator.create(
             {
-                'box_type_id': self.package_box_type_1.id,
+                'package_kind_id': self.package_kind_box_1.id,
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,
@@ -296,7 +298,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         self.package_sheet_wrappingpaper_2.min_qty = 50
         cfg = self.PackageConfigurator.create(
             {
-                'box_type_id': self.package_box_type_1.id,
+                'package_kind_id': self.package_kind_box_1.id,
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,
@@ -482,7 +484,7 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         # GIVEN
         cfg = self.PackageConfigurator.create(
             {
-                'box_type_id': self.package_box_type_1.id,
+                'package_kind_id': self.package_kind_box_1.id,
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 0.0,

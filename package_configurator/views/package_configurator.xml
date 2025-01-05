@@ -8,7 +8,7 @@
                 <field name="package_type_id" invisible="1"/>
                 <field name="lid_used" invisible="1"/>
                 <field name="create_date"/>
-                <field name="box_type_id"/>
+                <field name="package_kind_id"/>
                 <field name="print_house_id"/>
                 <field name="base_length"/>
                 <field name="base_width"/>
@@ -60,7 +60,7 @@
                                 <field name="lid_extra" invisible="1"/>
                             </group>
                         <group name="general" string="General">
-                            <field name="box_type_id"/>
+                            <field name="package_kind_id"/>
                             <field name="print_house_id"/>
                         </group>
                         </group>

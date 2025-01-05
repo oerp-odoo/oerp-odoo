@@ -7,13 +7,15 @@ class TestPackageWarnings(common.TestProductPackageConfiguratorCommon):
     def setUpClass(cls):
         super().setUpClass()
         cls.PackageWarning = cls.env['package.warning']
-        cls.package_box_type_1 = cls.PackageBoxType.create({'name': 'MY-BOX-TYPE-1'})
+        cls.package_kind_box_1 = cls.PackageKind.create(
+            {'name': 'MY-BOX-TYPE-1', 'package_type_id': cls.package_type_box.id}
+        )
 
     def test_01_configure_box_warning_box_component_not_fitting_on_sheet(self):
         # GIVEN
         cfg = self.PackageConfigurator.create(
             {
-                'box_type_id': self.package_box_type_1.id,
+                'package_kind_id': self.package_kind_box_1.id,
                 'base_length': 10000,
                 'base_width': 10000,
                 'base_height': 10000,
@@ -48,14 +50,14 @@ class TestPackageWarnings(common.TestProductPackageConfiguratorCommon):
 
     def test_02_configure_box_warning_missing_default_components(self):
         # GIVEN
-        self.package_box_type_1.default_component_ids |= (
+        self.package_kind_box_1.default_component_ids |= (
             self.PackageDefaultComponent.create(
                 {'component_type_id': self.component_type_lid.id}
             )
         )
         cfg = self.PackageConfigurator.create(
             {
-                'box_type_id': self.package_box_type_1.id,
+                'package_kind_id': self.package_kind_box_1.id,
                 'base_length': 1,
                 'base_width': 1,
                 'base_height': 1,

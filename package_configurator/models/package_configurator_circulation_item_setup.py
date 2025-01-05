@@ -71,7 +71,7 @@ class PackageConfiguratorCirculationItemSetup(models.Model):
                 component.fit_qty,
                 component_type=component.component_type_id or None,
                 layout=layout,
-                box_type=circ.configurator_id.box_type_id,
+                box_type=circ.configurator_id.package_kind_id,
             )
             if setup_rule:
                 vals_list.append(self._prepare_ciculation_setup(circ_item, setup_rule))

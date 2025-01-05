@@ -57,14 +57,14 @@ class PackageBoxSetup(models.Model):
         'res.company', required=True, default=lambda s: s.env.company
     )
     # Constrains limiting this setup usage.
-    box_type_ids = fields.Many2many(
-        'package.box.type',
-        'package_box_setup_box_type_rel',
+    package_kind_ids = fields.Many2many(
+        'package.kind',
+        'package_setup_package_kind_rel',
         'setup_id',
-        'box_type_id',
-        string="Box Types",
-        help="Box types that can use this setup. If left empty, it means all box "
-        + "types can use it.",
+        'package_kind_id',
+        string="Package Kinds",
+        help="Package Kinds that can use this setup. If left empty, it means all kinds "
+        + "can use it.",
     )
     min_layout_length = fields.Float("Minimum Layout Length (mm)", help=HELP_NO_LIMIT)
     min_layout_width = fields.Float("Minimum Layout Width (mm)", help=HELP_NO_LIMIT)
@@ -135,4 +135,4 @@ class PackageBoxSetup(models.Model):
 
     def _match_box_type(self, box_type):
         self.ensure_one()
-        return not self.box_type_ids or box_type in self.box_type_ids
+        return not self.package_kind_ids or box_type in self.package_kind_ids

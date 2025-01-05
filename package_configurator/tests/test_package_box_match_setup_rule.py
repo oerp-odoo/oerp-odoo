@@ -347,20 +347,23 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
 
     def test_09_match_setup_rule_by_box_type_single(self):
         # GIVEN
-        box_type_1, box_type_2 = self.PackageBoxType.create(
-            [{'name': 'BT1'}, {'name': 'BT1'}]
+        box_type_1, box_type_2 = self.PackageKind.create(
+            [
+                {'name': 'BT1', 'package_type_id': self.package_type_box.id},
+                {'name': 'BT2', 'package_type_id': self.package_type_box.id},
+            ]
         )
         setup_1, setup_2 = self.PackageBoxSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
                     'setup_type': 'production',
-                    'box_type_ids': [(4, box_type_1.id)],
+                    'package_kind_ids': [(4, box_type_1.id)],
                 },
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-2',
                     'setup_type': 'production',
-                    'box_type_ids': [(4, box_type_2.id)],
+                    'package_kind_ids': [(4, box_type_2.id)],
                 },
             ],
         )
@@ -377,20 +380,23 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
 
     def test_10_match_setup_rule_by_box_type_multi(self):
         # GIVEN
-        box_type_1, box_type_2 = self.PackageBoxType.create(
-            [{'name': 'BT1'}, {'name': 'BT1'}]
+        box_type_1, box_type_2 = self.PackageKind.create(
+            [
+                {'name': 'BT1', 'package_type_id': self.package_type_box.id},
+                {'name': 'BT2', 'package_type_id': self.package_type_box.id},
+            ]
         )
         setup_1, setup_2 = self.PackageBoxSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
                     'setup_type': 'production',
-                    'box_type_ids': [(4, box_type_1.id), (4, box_type_2.id)],
+                    'package_kind_ids': [(4, box_type_1.id), (4, box_type_2.id)],
                 },
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-2',
                     'setup_type': 'production',
-                    'box_type_ids': [(4, box_type_2.id)],
+                    'package_kind_ids': [(4, box_type_2.id)],
                 },
             ],
         )
