@@ -37,6 +37,11 @@ class PackageConfigurator(models.Model):
     package_type_id = fields.Many2one(
         'package.type', required=True, default=_get_default_package_type_id
     )
+    package_kind_id = fields.Many2one(
+        'package.kind',
+        required=True,
+        domain="[('package_type_id', '=', package_type_id)]",
+    )
     base_length = fields.Float(default=0)
     base_width = fields.Float(default=0)
     base_height = fields.Float(default=0)
@@ -74,7 +79,6 @@ class PackageConfigurator(models.Model):
         inverse_name='configurator_id',
         string="Laminations",
     )
-    box_type_id = fields.Many2one('package.box.type', required=True)
     print_house_id = fields.Many2one('package.print.house')
 
     @api.depends('package_type_id')
@@ -87,7 +91,7 @@ class PackageConfigurator(models.Model):
         'base_length',
         'base_width',
         'base_height',
-        'box_type_id',
+        'package_kind_id',
         'lid_height',
         'component_ids.sheet_id',
         'component_ids.fit_qty',
@@ -99,17 +103,17 @@ class PackageConfigurator(models.Model):
                 'package.warning'
             ].get_formatted_warnings(self)
 
-    @api.onchange('box_type_id')
+    @api.onchange('package_kind_id')
     def _onchange_box_type_id(self):
-        if self.box_type_id.default_component_ids and not self.component_ids:
+        if self.package_kind_id.default_component_ids and not self.component_ids:
             PackageComponent = self.env['package.configurator.component']
-            for default_comp in self.box_type_id.default_component_ids:
+            for default_comp in self.package_kind_id.default_component_ids:
                 self.component_ids |= PackageComponent.new(
                     {'component_type': default_comp.component_type}
                 )
 
     @api.constrains(
-        'box_type_id',
+        'package_kind_id',
         'base_length',
         'base_width',
         'base_height',
@@ -124,10 +128,10 @@ class PackageConfigurator(models.Model):
             )
 
         for box in self:
-            res = box.box_type_id.validate_dimensions(
+            res = box.package_kind_id.validate_dimensions(
                 box.base_length, box.base_width, box.base_height
             )
-            box_type = box.box_type_id
+            box_type = box.package_kind_id
             name = box_type.name
             if not res['length']:
                 raise ValidationError(get_msg(name, _("length"), box_type.min_length))

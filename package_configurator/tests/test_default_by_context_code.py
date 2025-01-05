@@ -5,7 +5,9 @@ class TestDefaultByContextCode(common.TestProductPackageConfiguratorCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.package_box_type_1 = cls.PackageBoxType.create({'name': 'MY-BOX-TYPE-1'})
+        cls.package_kind_box_1 = cls.PackageKind.create(
+            {'name': 'MY-BOX-TYPE-1', 'package_type_id': cls.package_type_box.id}
+        )
         (
             cls.package_sheet_type_greyboard_1,
             cls.package_sheet_type_wrappingpaper_1,
@@ -30,7 +32,7 @@ class TestDefaultByContextCode(common.TestProductPackageConfiguratorCommon):
         # WHEN
         cfg = self.PackageConfigurator.with_context(package_type_code='box').create(
             {
-                'box_type_id': self.package_box_type_1.id,
+                'package_kind_id': self.package_kind_box_1.id,
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,
@@ -45,7 +47,7 @@ class TestDefaultByContextCode(common.TestProductPackageConfiguratorCommon):
         # WHEN
         cfg = self.PackageConfigurator.with_context(package_type_code='insert').create(
             {
-                'box_type_id': self.package_box_type_1.id,
+                'package_kind_id': self.package_kind_box_1.id,
                 'base_length': 165,
                 'base_width': 42,
                 'base_height': 14.5,

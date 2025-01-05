@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <!-- Boxes -->
+    <record id="package_kind_box_base_lid_0302" model="package.kind">
+        <field name="name">Base/Lid 0302</field>
+        <field name="package_type_id" ref="package_type_box"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="package_kind_box_base_lid_362" model="package.kind">
+        <field name="name">Base/Lid 362</field>
+        <field name="package_type_id" ref="package_type_box"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <record id="package_kind_box_base_lid_363" model="package.kind">
+        <field name="name">Base/Lid 363</field>
+        <field name="package_type_id" ref="package_type_box"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+    <!-- Inserts -->
+    <record id="package_kind_insert_general" model="package.kind">
+        <field name="name">General Insert</field>
+        <field name="package_type_id" ref="package_type_insert"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+</odoo>

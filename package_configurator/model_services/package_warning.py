@@ -45,7 +45,7 @@ class PackageWarning(models.AbstractModel):
         return res
 
     def _get_warning_missing_default_components(self, cfg):
-        default_comps = cfg.box_type_id.default_component_ids
+        default_comps = cfg.package_kind_id.default_component_ids
         if not default_comps:
             return None
         default_comp_types = set(default_comps.mapped('component_type_id.code'))

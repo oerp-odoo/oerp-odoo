@@ -7,10 +7,12 @@ class TestPackageConfiguratorConstraints(common.TestProductPackageConfiguratorCo
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.package_box_type_1 = cls.PackageBoxType.create({'name': 'MY-BOX-TYPE-1'})
+        cls.package_kind_box_1 = cls.PackageKind.create(
+            {'name': 'MY-BOX-TYPE-1', 'package_type_id': cls.package_type_box.id}
+        )
         cls.cfg_1 = cls.PackageConfigurator.create(
             {
-                'box_type_id': cls.package_box_type_1.id,
+                'package_kind_id': cls.package_kind_box_1.id,
                 'base_length': 10,
                 'base_width': 10,
                 'base_height': 10,
@@ -20,7 +22,7 @@ class TestPackageConfiguratorConstraints(common.TestProductPackageConfiguratorCo
         )
 
     def test_01_check_cfg_box_length_less_than_min(self):
-        self.package_box_type_1.min_length = 100
+        self.package_kind_box_1.min_length = 100
         # GIVEN
         # WHEN, THEN
         with self.assertRaisesRegex(
@@ -30,24 +32,24 @@ class TestPackageConfiguratorConstraints(common.TestProductPackageConfiguratorCo
 
     def test_02_box_type_width_less_than_min(self):
         # GIVEN
-        self.package_box_type_1.min_width = 100
+        self.package_kind_box_1.min_width = 100
         # WHEN
-        res = self.package_box_type_1.validate_dimensions(10, 10, 10)
+        res = self.package_kind_box_1.validate_dimensions(10, 10, 10)
         # THEN
         self.assertEqual(res, {'length': True, 'width': False, 'height': True})
 
     def test_03_box_type_height_less_than_min(self):
         # GIVEN
-        self.package_box_type_1.min_height = 100
+        self.package_kind_box_1.min_height = 100
         # WHEN
-        res = self.package_box_type_1.validate_dimensions(10, 10, 10)
+        res = self.package_kind_box_1.validate_dimensions(10, 10, 10)
         # THEN
         self.assertEqual(res, {"length": True, "width": True, "height": False})
 
     def test_04_box_type_dimensions_ok(self):
         # GIVEN
-        self.package_box_type_1.min_height = 10
+        self.package_kind_box_1.min_height = 10
         # WHEN
-        res = self.package_box_type_1.validate_dimensions(10, 10, 10)
+        res = self.package_kind_box_1.validate_dimensions(10, 10, 10)
         # THEN
         self.assertEqual(res, {"length": True, "width": True, "height": True})

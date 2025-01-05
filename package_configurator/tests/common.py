@@ -24,7 +24,7 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
         cls.PackagePrintHouse = cls.env['package.print.house']
         cls.PackagePrintPricelist = cls.env['package.print.pricelist']
         cls.PackagePrintPricelistRule = cls.env['package.print.pricelist.rule']
-        cls.PackageBoxType = cls.env['package.box.type']
+        cls.PackageKind = cls.env['package.kind']
         cls.PackageSheetType = cls.env['package.sheet.type']
         cls.PackageSheet = cls.env['package.sheet']
         cls.PackageBoxLayout = cls.env['package.box.layout']

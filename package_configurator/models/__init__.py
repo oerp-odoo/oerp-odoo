@@ -16,7 +16,7 @@ from . import (
     package_configurator_circulation_item,
     package_configurator_circulation_item_setup,
     package_default_component,
-    package_box_type,
+    package_kind,
     package_box_setup,
     package_box_setup_rule,
     package_sheet,
