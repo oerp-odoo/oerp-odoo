@@ -1,5 +1,3 @@
-from odoo.fields import Command
-
 from ..value_objects.layout import Layout2D
 from .common import TestProductPackageConfiguratorCommon
 
@@ -14,9 +12,7 @@ class TestPackageSheetMatch(TestProductPackageConfiguratorCommon):
                     'name': 'Orange/orange',
                     'thickness': 1.5,
                     'thickness_uom': 'mm',
-                    'component_kind_ids': [
-                        Command.set([cls.component_kind_greyboard.id])
-                    ],
+                    'component_kind_id': cls.component_kind_greyboard.id,
                 },
             ]
         )
@@ -30,27 +26,21 @@ class TestPackageSheetMatch(TestProductPackageConfiguratorCommon):
                     'sheet_width': 500,
                     'sheet_length': 1000,
                     'unit_cost': 2,
-                    'component_kind_ids': [
-                        Command.set([self.component_kind_greyboard.id])
-                    ],
+                    'component_kind_id': self.component_kind_greyboard.id,
                 },
                 {
                     'sheet_type_id': self.package_sheet_type_greyboard_1.id,
                     'sheet_width': 600,
                     'sheet_length': 1000,
                     'unit_cost': 2,
-                    'component_kind_ids': [
-                        Command.set([self.component_kind_greyboard.id])
-                    ],
+                    'component_kind_id': self.component_kind_greyboard.id,
                 },
                 {
                     'sheet_type_id': self.package_sheet_type_greyboard_1.id,
                     'sheet_width': 700,
                     'sheet_length': 1000,
                     'unit_cost': 2,
-                    'component_kind_ids': [
-                        Command.set([self.component_kind_greyboard.id])
-                    ],
+                    'component_kind_id': self.component_kind_greyboard.id,
                 },
             ]
         )
@@ -70,27 +60,21 @@ class TestPackageSheetMatch(TestProductPackageConfiguratorCommon):
                     'sheet_width': 500,
                     'sheet_length': 1000,
                     'unit_cost': 2,
-                    'component_kind_ids': [
-                        Command.set([self.component_kind_greyboard.id])
-                    ],
+                    'component_kind_id': self.component_kind_greyboard.id,
                 },
                 {
                     'sheet_type_id': self.package_sheet_type_greyboard_1.id,
                     'sheet_width': 600,
                     'sheet_length': 1000,
                     'unit_cost': 200,
-                    'component_kind_ids': [
-                        Command.set([self.component_kind_greyboard.id])
-                    ],
+                    'component_kind_id': self.component_kind_greyboard.id,
                 },
                 {
                     'sheet_type_id': self.package_sheet_type_greyboard_1.id,
                     'sheet_width': 700,
                     'sheet_length': 1000,
                     'unit_cost': 300,
-                    'component_kind_ids': [
-                        Command.set([self.component_kind_greyboard.id])
-                    ],
+                    'component_kind_id': self.component_kind_greyboard.id,
                 },
             ]
         )

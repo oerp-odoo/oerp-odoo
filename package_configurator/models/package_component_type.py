@@ -12,6 +12,8 @@ class PackageComponentType(models.Model):
         'package_component_type_component_kind_rel',
         'type_id',
         'kind_id',
+        string="Component Kinds",
+        help="Component Kinds that are part of this Component Type",
     )
 
     _sql_constraints = [

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="component_type_base" model="package.component.type">
+    <record id="package_component_type_base" model="package.component.type">
         <field name="name">Base</field>
         <field name="code">base</field>
         <field
@@ -16,7 +16,7 @@
                 ]"
         />
     </record>
-    <record id="component_type_lid" model="package.component.type">
+    <record id="package_component_type_lid" model="package.component.type">
         <field name="name">Lid</field>
         <field name="code">lid</field>
         <field
@@ -33,7 +33,7 @@
         />
     </record>
     <record
-        id="component_type_base_wrappingpaper_inside"
+        id="package_component_type_base_wrappingpaper_inside"
         model="package.component.type"
     >
         <field name="name">Base Inside Wrapping Paper</field>
@@ -44,7 +44,7 @@
         />
     </record>
     <record
-        id="component_type_base_wrappingpaper_outside"
+        id="package_component_type_base_wrappingpaper_outside"
         model="package.component.type"
     >
         <field name="name">Base Outside Wrapping Paper</field>
@@ -54,7 +54,10 @@
             eval="[Command.set([ref('package_component_kind_wrappingpaper')])]"
         />
     </record>
-    <record id="component_type_lid_wrappingpaper_inside" model="package.component.type">
+    <record
+        id="package_component_type_lid_wrappingpaper_inside"
+        model="package.component.type"
+    >
         <field name="name">Lid Inside Wrapping Paper</field>
         <field name="code">lid_wrappingpaper_inside</field>
         <field
@@ -63,7 +66,7 @@
         />
     </record>
     <record
-        id="component_type_lid_wrappingpaper_outside"
+        id="package_component_type_lid_wrappingpaper_outside"
         model="package.component.type"
     >
         <field name="name">Lid Outside Wrapping Paper</field>

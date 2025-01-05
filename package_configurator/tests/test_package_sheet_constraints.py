@@ -1,5 +1,4 @@
 from odoo.exceptions import ValidationError
-from odoo.fields import Command
 
 from .common import TestProductPackageConfiguratorCommon
 
@@ -14,16 +13,14 @@ class TestPackageSheetConstraints(TestProductPackageConfiguratorCommon):
                     'name': 'Orange/orange',
                     'thickness': 1.5,
                     'thickness_uom': 'mm',
-                    'component_kind_ids': [
-                        Command.set([cls.component_kind_greyboard.id])
-                    ],
+                    'component_kind_id': cls.component_kind_greyboard.id,
                 },
             ]
         )
 
     def test_01_package_sheet_kind_mismatch(self):
         with self.assertRaisesRegex(
-            ValidationError, r"Sheet \(.+\) and its Type \(.+\) must match at least"
+            ValidationError, r"Sheet \(.+\) and its Type \(.+\) must have the same"
         ):
             self.PackageSheet.create(
                 {
@@ -31,8 +28,6 @@ class TestPackageSheetConstraints(TestProductPackageConfiguratorCommon):
                     'sheet_width': 500,
                     'sheet_length': 1000,
                     'unit_cost': 2,
-                    'component_kind_ids': [
-                        Command.set([self.component_kind_wrappingpaper.id])
-                    ],
+                    'component_kind_id': self.component_kind_wrappingpaper.id,
                 }
             )

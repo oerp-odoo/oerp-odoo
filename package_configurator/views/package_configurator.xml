@@ -80,6 +80,21 @@
                                         invisible="1"
                                         column_invisible="1"
                                     />
+                                    <field
+                                        name="component_kind_allowed_ids"
+                                        invisible="1"
+                                        column_invisible="1"
+                                    />
+                                    <field
+                                        name="wrappingpaper_used"
+                                        invisible="1"
+                                        column_invisible="1"
+                                    />
+                                   <field
+                                        name="component_type_allowed_ids"
+                                        invisible="1"
+                                        column_invisible="1"
+                                    />
                                     <field name="component_type_id"/>
                                     <field
                                         name="sheet_type_id"
@@ -92,13 +107,16 @@
                                     <field
                                         name="print_color_id"
                                         column_invisible="not parent.print_house_id"
-                                        readonly="'wrappingpaper' not in component_kind_ids.mapped('code')"
+                                        readonly="not wrappingpaper_used"
                                     />
                                     <field name="component_length"/>
                                     <field name="component_width"/>
                                     <field name="fit_qty"/>
                                 </tree>
                             </field>
+                        </page>
+                        <page name="circulations" string="Circulations">
+                            <field name="circulation_ids"/>
                         </page>
                         <page name="stamps" string="Emboss/Deboss">
                             <field name="cfg_stamp_ids">
@@ -146,9 +164,6 @@
                                 </tree>
                             </field>
                         </page>
-                        <page name="circulations" string="Circulations">
-                            <field name="circulation_ids"/>
-                        </page>
                     </notebook>
                 </sheet>
             </form>
@@ -159,19 +174,15 @@
         <field name="name">Box Configurator</field>
         <field name="res_model">package.configurator</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('package_type', '=', 'box')]</field>
-        <field
-            name="context"
-        >{'default_package_type': 'box', 'package_type': 'box'}</field>
+        <field name="domain">[('package_type_id.code', '=', 'box')]</field>
+        <field name="context">{'package_type_code': 'box'}</field>
     </record>
 
     <record id="package_configurator_insert_action" model="ir.actions.act_window">
         <field name="name">Insert Configurator</field>
         <field name="res_model">package.configurator</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('package_type', '=', 'insert')]</field>
-        <field
-            name="context"
-        >{'default_package_type': 'insert', 'package_type': 'insert'}</field>
+        <field name="domain">[('package_type_id.code', '=', 'insert')]</field>
+        <field name="context">{'package_type_code': 'insert'}</field>
     </record>
 </odoo>

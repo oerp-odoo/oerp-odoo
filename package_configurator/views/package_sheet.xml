@@ -6,11 +6,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="sheet_type_id"/>
-                <field
-                    name="component_kind_ids"
-                    widget="many2many_tags"
-                    optional="hide"
-                />
+                <field name="component_kind_id" optional="hide"/>
                 <field name="sheet_length"/>
                 <field name="sheet_width"/>
                 <field name="unit_cost"/>
@@ -28,7 +24,7 @@
                     <group name="main">
                         <group name="left">
                             <field name="sheet_type_id" options="{'no_create': True}"/>
-                            <field name="component_kind_ids" invisible="1"/>
+                            <field name="component_kind_id" invisible="1"/>
                             <field name="sheet_length"/>
                             <field name="sheet_width"/>
                         </group>
@@ -44,23 +40,31 @@
         </field>
     </record>
 
-    <!-- TODO scope with component_kind_ids! -->
     <record id="package_sheet_greyboard_action" model="ir.actions.act_window">
         <field name="name">Grey Boards</field>
         <field name="res_model">package.sheet</field>
-        <field name="domain">[('scope', '=', 'greyboard')]</field>
+        <field name="domain">[('component_kind_id.code', '=', 'greyboard')]</field>
         <field
             name="context"
-        >{'default_scope': 'greyboard', 'default_thickness_uom': 'mm'}</field>
+        >{'package_component_kind_code': 'greyboard', 'default_thickness_uom': 'mm'}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="package_sheet_carton_action" model="ir.actions.act_window">
+        <field name="name">Cartons</field>
+        <field name="res_model">package.sheet</field>
+        <field name="domain">[('component_kind_id.code', '=', 'carton')]</field>
+        <field
+            name="context"
+        >{'package_component_kind_code': 'carton', 'default_thickness_uom': 'mm'}</field>
         <field name="view_mode">tree,form</field>
     </record>
     <record id="package_sheet_wrappingpaper_action" model="ir.actions.act_window">
         <field name="name">Wrapping Papers</field>
         <field name="res_model">package.sheet</field>
-        <field name="domain">[('scope', '=', 'wrappingpaper')]</field>
+        <field name="domain">[('component_kind_id.code', '=', 'wrappingpaper')]</field>
         <field
             name="context"
-        >{'default_scope': 'wrappingpaper', 'default_thickness_uom': 'gsm'}</field>
+        >{'package_component_kind_code': 'wrappingpaper', 'default_thickness_uom': 'gsm'}</field>
         <field name="view_mode">tree,form</field>
     </record>
 </odoo>

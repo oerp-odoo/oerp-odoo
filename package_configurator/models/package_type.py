@@ -12,6 +12,15 @@ class PackageType(models.Model):
         'package_type_component_kind_rel',
         'type_id',
         'kind_id',
+        string="Component Kinds",
+    )
+    component_type_ids = fields.Many2many(
+        'package.component.type',
+        'package_type_component_type_rel',
+        'package_type_id',
+        'component_type_id',
+        string="Component Types",
+        help="Component Types that can be used by this Package Type",
     )
 
     _sql_constraints = [

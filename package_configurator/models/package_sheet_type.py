@@ -2,6 +2,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 from .. import const
+from ..utils.search import search_default_component_kind
 
 
 class PackageSheetType(models.Model):
@@ -9,11 +10,10 @@ class PackageSheetType(models.Model):
     _description = "Package Sheet Type"
 
     name = fields.Char(required=True)
-    component_kind_ids = fields.Many2many(
+    component_kind_id = fields.Many2one(
         'package.component.kind',
-        'package_sheet_type_component_kind_rel',
-        'type_id',
-        'kind_id',
+        required=True,
+        default=search_default_component_kind,
     )
     thickness = fields.Float(required=True)
     # TODO: maybe should add uom.uom instead of this?..
@@ -32,7 +32,7 @@ class PackageSheetType(models.Model):
         for rec in self:
             rec.display_name = f"{rec.name} {rec.thickness:2g}{rec.thickness_uom}"
 
-    @api.constrains('thickness_uom', 'component_kind_ids')
+    @api.constrains('thickness_uom', 'component_kind_id')
     def _check_thickness_uom(self):
         for rec in self:
             allowed_uoms = rec._get_allowed_uoms()
@@ -47,13 +47,9 @@ class PackageSheetType(models.Model):
 
     def _get_allowed_uoms(self):
         self.ensure_one()
-        allowed_uoms = []
-        codes = self.component_kind_ids.mapped('code')
-        if (
-            const.ComponentKind.GREYBOARD in codes
-            or const.ComponentKind.CARTON in codes
-        ):
-            allowed_uoms.append('mm')
-        if const.ComponentKind.WRAPPINGPAPER in codes:
-            allowed_uoms.append('gsm')
-        return tuple(allowed_uoms)
+        code = self.component_kind_id.code
+        if code in (const.ComponentKind.GREYBOARD, const.ComponentKind.CARTON):
+            return ('mm',)
+        if const.ComponentKind.WRAPPINGPAPER == code:
+            return ('gsm',)
+        return ()
