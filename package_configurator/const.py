@@ -28,12 +28,6 @@ class SetupType(StrEnum):
     FOIL = 'foil'
 
 
-# class SheetTypeScope(StrEnum):
-#     GREYBOARD = 'greyboard'
-#     CARTON = 'carton'
-#     WRAPPINGPAPER = 'wrappingpaper'
-
-
 class ComponentKind(StrEnum):
     GREYBOARD = 'greyboard'
     CARTON = 'carton'
@@ -55,12 +49,6 @@ SETUP_TYPE_SELECTION = [
     (SetupType.PRINT, "Print"),
     (SetupType.FOIL, "Foil"),
 ]
-
-# SHEET_SCOPE_SELECTION = [
-#     (SheetTypeScope.GREYBOARD, "Grey Board"),
-#     (SheetTypeScope.CARTON, "Carton"),
-#     (SheetTypeScope.WRAPPINGPAPER, "Wrapping Paper"),
-# ]
 
 DEFAUL_GLOBAL_BOX_EXTRA = 30  # mm
 # Extra size for length and width to compensate, so lid would fit on a
