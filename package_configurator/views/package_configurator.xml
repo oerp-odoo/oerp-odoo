@@ -5,13 +5,15 @@
         <field name="model">package.configurator</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="package_type_id" invisible="1"/>
+                <field name="lid_used" invisible="1"/>
                 <field name="create_date"/>
                 <field name="box_type_id"/>
                 <field name="print_house_id"/>
                 <field name="base_length"/>
                 <field name="base_width"/>
                 <field name="base_height"/>
-                <field name="lid_height"/>
+                <field name="lid_height" invisible="not lid_used"/>
                 <field name="state"/>
             </tree>
         </field>
@@ -29,6 +31,7 @@
                     <!-- TODO: add state field with statusbar widget -->
                     <group name="main">
                         <field name="package_type_id" invisible="1"/>
+                        <field name="lid_used" invisible="1"/>
                         <group name="dimensions" string="Dimensions">
                             <group>
                                 <table class="table">
@@ -51,7 +54,7 @@
                                 </table>
                             </group>
                             <group>
-                                <field name="lid_height"/>
+                                <field name="lid_height" invisible="not lid_used"/>
                                 <field name="outside_wrapping_extra"/>
                                 <!-- Not intended to be showed via UI. -->
                                 <field name="lid_extra" invisible="1"/>

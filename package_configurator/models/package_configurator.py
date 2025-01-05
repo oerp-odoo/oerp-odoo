@@ -37,9 +37,13 @@ class PackageConfigurator(models.Model):
     package_type_id = fields.Many2one(
         'package.type', required=True, default=_get_default_package_type_id
     )
-    base_length = fields.Float(required=True)
-    base_width = fields.Float(required=True)
-    base_height = fields.Float(required=True)
+    base_length = fields.Float(default=0)
+    base_width = fields.Float(default=0)
+    base_height = fields.Float(default=0)
+    lid_height = fields.Float(default=0)
+    lid_extra = fields.Float()
+    lid_used = fields.Boolean(compute='_compute_lid_used')
+    outside_wrapping_extra = fields.Float()
     company_id = fields.Many2one(
         'res.company', required=True, default=lambda s: s.env.company
     )
@@ -70,11 +74,14 @@ class PackageConfigurator(models.Model):
         inverse_name='configurator_id',
         string="Laminations",
     )
-    lid_height = fields.Float(required=True)
-    lid_extra = fields.Float()
-    outside_wrapping_extra = fields.Float()
     box_type_id = fields.Many2one('package.box.type', required=True)
     print_house_id = fields.Many2one('package.print.house')
+
+    @api.depends('package_type_id')
+    def _compute_lid_used(self):
+        for rec in self:
+            codes = rec.package_type_id.component_type_ids.mapped('code')
+            rec.lid_used = 'lid' in codes
 
     @api.depends(
         'base_length',
