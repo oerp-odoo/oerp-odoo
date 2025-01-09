@@ -9,6 +9,8 @@ class MrpProduction(models.Model):
         compute='_compute_sale_primary_id',
         store=True,
         string="Primary Sale Order",
+        index=True,
+        auto_join=True,
     )
 
     @api.depends('procurement_group_id.parent_root_id.sale_id')
