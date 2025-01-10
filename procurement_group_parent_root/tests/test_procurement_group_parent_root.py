@@ -51,6 +51,8 @@ class TestProcurementGroupParentRoot(BaseCommon):
 
     def test_02_procurement_group_parent_root_multi_groups_hierarchy(self):
         # GIVEN
+        # Order of creation is important. The one with lower ID is
+        # considered parent to avoid infinite looping.
         group_1, group_2 = self.ProcurementGroup.create(
             [{'name': 'MY-PG1'}, {'name': 'MY-PG2'}]
         )

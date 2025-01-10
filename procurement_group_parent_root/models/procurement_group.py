@@ -18,10 +18,14 @@ class ProcurementGroup(models.Model):
 
     def _get_parent_root(self):
         def get_parent(g):
-            groups = g.stock_move_ids.move_dest_ids.group_id - g
-            # If there are multiple parent groups, all of them should
-            # eventually still point to the next parent (if there is).
-            return groups[:1]
+            groups = g.stock_move_ids.move_dest_ids.group_id
+            # Parent is the one the was created before every other procurement
+            # group! We do this to avoid infinite looping where going from
+            # related dest moves to other group can lead to self group back
+            # and forth!
+            parent = min(groups, key=lambda x: x.id, default=g.browse())
+            # Exclude itself to avoid infinite loop!
+            return parent - g
 
         self.ensure_one()
         parent_group = self
