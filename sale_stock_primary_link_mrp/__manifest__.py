@@ -2,8 +2,8 @@
 # See LICENSE and COPYRIGHT files for details.
 {
     "name": "Sale - Primary Sale Order on Manufacturing",
-    "version": "17.0.1.0.0",
-    "summary": "Show primary sale order on manufacturing orders",
+    "version": "17.0.1.1.0",
+    "summary": "Show primary sale order on manufacturing orders and workorders",
     "license": "LGPL-3",
     "author": "Andrius Laukavičius",
     "website": "https://timefordev.com",
@@ -14,6 +14,6 @@
         # oerp-odoo
         "sale_stock_primary_link",
     ],
-    "data": ["views/mrp_production.xml"],
+    "data": ["views/mrp_production.xml", "views/mrp_workorder.xml"],
     "installable": True,
 }

@@ -1,1 +1,1 @@
-from . import mrp_production, sale_order
+from . import mrp_production, mrp_workorder, sale_order
