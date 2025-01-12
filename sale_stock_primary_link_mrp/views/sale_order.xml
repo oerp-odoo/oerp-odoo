@@ -6,7 +6,11 @@
         <field name="inherit_id" ref="sale.sale_order_tree"/>
         <field name="arch" type="xml">
             <field name="state" position="after">
-                <field name="production_from_primary_ids" invisible="1"/>
+                <field
+                    name="production_from_primary_ids"
+                    invisible="1"
+                    column_invisible="1"
+                />
             </field>
         </field>
     </record>
