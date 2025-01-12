@@ -16,7 +16,7 @@ class PackageConfiguratorCirculationItemSetup(models.Model):
         required=True,
         ondelete='cascade',
     )
-    setup_rule_id = fields.Many2one('package.box.setup.rule', required=True)
+    setup_rule_id = fields.Many2one('package.setup.rule', required=True)
     setup_id = fields.Many2one(related='setup_rule_id.setup_id')
     setup_raw_qty = fields.Integer(
         "Raw Setup Quantity", compute='_compute_setup_raw_qty'

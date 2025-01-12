@@ -7,10 +7,10 @@ from ..value_objects.layout import Layout2D
 HELP_NO_LIMIT = "0 means no limit"
 
 
-class PackageBoxSetup(models.Model):
+class PackageSetup(models.Model):
     """Model to tell how much specific sheet is needed for setup (wastage)."""
 
-    _name = 'package.box.setup'
+    _name = 'package.setup'
     _description = "Package Box Setup"
     _order = "sequence, id"
 
@@ -18,7 +18,7 @@ class PackageBoxSetup(models.Model):
     def _rules_ordered(self):
         self.ensure_one()
         # Doing search, so we would get rules ordered.
-        return self.env['package.box.setup.rule'].search([('setup_id', '=', self.id)])
+        return self.env['package.setup.rule'].search([('setup_id', '=', self.id)])
 
     name = fields.Char(required=True)
     setup_type = fields.Selection(
@@ -49,7 +49,7 @@ class PackageBoxSetup(models.Model):
         + "Minimum Quantity must match the measure!",
     )
     active = fields.Boolean(default=True)
-    rule_ids = fields.One2many('package.box.setup.rule', 'setup_id', string="Rules")
+    rule_ids = fields.One2many('package.setup.rule', 'setup_id', string="Rules")
     sequence = fields.Integer(default=10)
     company_id = fields.Many2one(
         'res.company', required=True, default=lambda s: s.env.company
@@ -104,7 +104,7 @@ class PackageBoxSetup(models.Model):
             for rule in setup._rules_ordered:
                 if rule.match_rule(inp_qty, component_type=component_type):
                     return rule
-        return self.env['package.box.setup.rule']
+        return self.env['package.setup.rule']
 
     def _match_setup(self, layout: Layout2D | None = None, box_type=None):
         self.ensure_one()

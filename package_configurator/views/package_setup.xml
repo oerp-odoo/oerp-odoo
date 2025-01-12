@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="package_box_setup_view_tree" model="ir.ui.view">
-        <field name="name">package.box.setup.tree</field>
-        <field name="model">package.box.setup</field>
+    <record id="package_setup_view_tree" model="ir.ui.view">
+        <field name="name">package.setup.tree</field>
+        <field name="model">package.setup</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="sequence" widget="handle"/>
@@ -15,9 +15,9 @@
         </field>
     </record>
 
-    <record id="package_box_setup_view_form" model="ir.ui.view">
-        <field name="name">package.box.setup.form</field>
-        <field name="model">package.box.setup</field>
+    <record id="package_setup_view_form" model="ir.ui.view">
+        <field name="name">package.setup.form</field>
+        <field name="model">package.setup</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -58,23 +58,23 @@
         </field>
     </record>
 
-    <record id="package_box_setup_production_action" model="ir.actions.act_window">
+    <record id="package_setup_production_action" model="ir.actions.act_window">
         <field name="name">Productions Setup</field>
-        <field name="res_model">package.box.setup</field>
+        <field name="res_model">package.setup</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('setup_type', '=', 'production')]</field>
         <field name="context">{'default_setup_type': 'production'}</field>
     </record>
-    <record id="package_box_setup_print_action" model="ir.actions.act_window">
+    <record id="package_setup_print_action" model="ir.actions.act_window">
         <field name="name">Prints Setup</field>
-        <field name="res_model">package.box.setup</field>
+        <field name="res_model">package.setup</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('setup_type', '=', 'print')]</field>
         <field name="context">{'default_setup_type': 'print'}</field>
     </record>
-    <record id="package_box_setup_foil_action" model="ir.actions.act_window">
+    <record id="package_setup_foil_action" model="ir.actions.act_window">
         <field name="name">Foils Setup</field>
-        <field name="res_model">package.box.setup</field>
+        <field name="res_model">package.setup</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('setup_type', '=', 'foil')]</field>
         <field name="context">{'default_setup_type': 'foil'}</field>

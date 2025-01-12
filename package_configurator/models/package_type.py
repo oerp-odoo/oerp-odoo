@@ -1,12 +1,20 @@
 from odoo import fields, models
 
+from .. import const
+
 
 class PackageType(models.Model):
     _name = 'package.type'
     _description = "Package Type"
 
     name = fields.Char(required=True)
-    code = fields.Char(required=True)
+    code = fields.Selection(
+        [
+            (const.PackageType.BOX, "Box"),
+            (const.PackageType.INSERT, "Insert"),
+        ],
+        required=True,
+    )
     component_kind_ids = fields.Many2many(
         'package.component.kind',
         'package_type_component_kind_rel',

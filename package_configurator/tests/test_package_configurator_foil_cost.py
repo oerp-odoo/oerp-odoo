@@ -102,13 +102,13 @@ class TestPackageConfiguratorFoilCost(common.TestProductPackageConfiguratorCommo
 
     def test_03_cfg_box_foil_cost_with_setup(self):
         # GIVEN
-        setup_1 = self.PackageBoxSetup.create(
+        setup_1 = self.PackageSetup.create(
             {
                 'name': 'MY-BOX-FOIL-SETUP-1',
                 'setup_type': 'foil',
             },
         )
-        self.PackageBoxSetupRule.create(
+        self.PackageSetupRule.create(
             {'setup_id': setup_1.id, 'min_qty': 50, 'setup_fixed_qty': 20},
         )
         circ = self.PackageConfiguratorCirculation.create(

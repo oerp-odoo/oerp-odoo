@@ -2,10 +2,10 @@ from ..value_objects.layout import Layout2D
 from . import common
 
 
-class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
-    def test_01_match_setup_rule_by_box_qty_setup_order_one(self):
+class TestPackageMatchSetupRule(common.TestProductPackageConfiguratorCommon):
+    def test_01_match_setup_rule_by_component_qty_setup_order_one(self):
         # GIVEN
-        setup_1, setup_2 = self.PackageBoxSetup.create(
+        setup_1, setup_2 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
@@ -17,7 +17,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
                 },
             ],
         )
-        rules = self.PackageBoxSetupRule.create(
+        rules = self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 100, 'setup_fixed_qty': 0},
                 {'setup_id': setup_1.id, 'min_qty': 200, 'setup_fixed_qty': 0},
@@ -30,7 +30,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         # WHEN QTY too low for any rule
         rule = (setup_1 | setup_2).match_setup_rule(50, 1)
         # THEN
-        self.assertEqual(rule, self.PackageBoxSetupRule)
+        self.assertEqual(rule, self.PackageSetupRule)
         # WHEN QTY less than 200
         rule = (setup_1 | setup_2).match_setup_rule(150, 1)
         # THEN
@@ -52,9 +52,9 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         # THEN
         self.assertEqual(rule, setup_1_rule_2)
 
-    def test_02_match_setup_rule_by_box_qty_setup_order_two(self):
+    def test_02_match_setup_rule_by_component_qty_setup_order_two(self):
         # GIVEN
-        setup_1, setup_2 = self.PackageBoxSetup.create(
+        setup_1, setup_2 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
@@ -71,7 +71,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             setup_1_rule_2,
             setup_2_rule_1,
             setup_2_rule_2,
-        ) = self.PackageBoxSetupRule.create(
+        ) = self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 100, 'setup_fixed_qty': 0},
                 {'setup_id': setup_1.id, 'min_qty': 200, 'setup_fixed_qty': 0},
@@ -83,7 +83,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
         # WHEN QTY too low for any rule
         rule = (setup_2 | setup_1).match_setup_rule(50, 1, layout=layout)
         # THEN
-        self.assertEqual(rule, self.PackageBoxSetupRule)
+        self.assertEqual(rule, self.PackageSetupRule)
         # WHEN QTY less than 200
         rule = (setup_2 | setup_1).match_setup_rule(150, 1, layout=layout)
         # THEN
@@ -107,7 +107,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
 
     def test_03_match_setup_rule_by_min_layout_length(self):
         # GIVEN
-        setup_1, setup_2 = self.PackageBoxSetup.create(
+        setup_1, setup_2 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
@@ -121,7 +121,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
                 },
             ],
         )
-        setup_1_rule_1, setup_2_rule_1 = self.PackageBoxSetupRule.create(
+        setup_1_rule_1, setup_2_rule_1 = self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 0},
                 {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 0},
@@ -132,7 +132,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             100, 1, layout=Layout2D(length=50, width=50)
         )
         # THEN
-        self.assertEqual(rule, self.PackageBoxSetupRule)
+        self.assertEqual(rule, self.PackageSetupRule)
         # WHEN layout length less than 200
         rule = (setup_1 | setup_2).match_setup_rule(
             100, 1, layout=Layout2D(length=150, width=50)
@@ -148,7 +148,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
 
     def test_04_match_setup_rule_by_max_layout_length(self):
         # GIVEN
-        setup_1, setup_2 = self.PackageBoxSetup.create(
+        setup_1, setup_2 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
@@ -162,7 +162,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
                 },
             ],
         )
-        setup_1_rule_1, setup_2_rule_1 = self.PackageBoxSetupRule.create(
+        setup_1_rule_1, setup_2_rule_1 = self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 0},
                 {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 0},
@@ -185,11 +185,11 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             100, 1, layout=Layout2D(length=250, width=50)
         )
         # THEN
-        self.assertEqual(rule, self.PackageBoxSetupRule)
+        self.assertEqual(rule, self.PackageSetupRule)
 
     def test_05_match_setup_rule_by_min_layout_width(self):
         # GIVEN
-        setup_1, setup_2 = self.PackageBoxSetup.create(
+        setup_1, setup_2 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
@@ -203,7 +203,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
                 },
             ],
         )
-        setup_1_rule_1, setup_2_rule_1 = self.PackageBoxSetupRule.create(
+        setup_1_rule_1, setup_2_rule_1 = self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 0},
                 {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 0},
@@ -214,7 +214,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             100, 1, layout=Layout2D(length=50, width=50)
         )
         # THEN
-        self.assertEqual(rule, self.PackageBoxSetupRule)
+        self.assertEqual(rule, self.PackageSetupRule)
         # WHEN layout width less than 200
         rule = (setup_1 | setup_2).match_setup_rule(
             100, 1, layout=Layout2D(length=50, width=150)
@@ -230,7 +230,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
 
     def test_06_match_setup_rule_by_max_layout_width(self):
         # GIVEN
-        setup_1, setup_2 = self.PackageBoxSetup.create(
+        setup_1, setup_2 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
@@ -244,7 +244,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
                 },
             ],
         )
-        setup_1_rule_1, _setup_2_rule_1 = self.PackageBoxSetupRule.create(
+        setup_1_rule_1, _setup_2_rule_1 = self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 0},
                 {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 0},
@@ -267,11 +267,11 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             100, 1, layout=Layout2D(length=50, width=250)
         )
         # THEN
-        self.assertEqual(rule, self.PackageBoxSetupRule)
+        self.assertEqual(rule, self.PackageSetupRule)
 
     def test_07_match_setup_rule_by_all_layout_constraints(self):
         # GIVEN
-        setup_1, setup_2 = self.PackageBoxSetup.create(
+        setup_1, setup_2 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
@@ -291,7 +291,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
                 },
             ],
         )
-        setup_1_rule_1, setup_2_rule_1 = self.PackageBoxSetupRule.create(
+        setup_1_rule_1, setup_2_rule_1 = self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 0},
                 {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 0},
@@ -312,7 +312,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
 
     def test_08_not_match_setup_rule_by_layout_constraints(self):
         # GIVEN
-        setup_1, setup_2 = self.PackageBoxSetup.create(
+        setup_1, setup_2 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
@@ -332,7 +332,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
                 },
             ],
         )
-        setup_1_rule_1, setup_2_rule_1 = self.PackageBoxSetupRule.create(
+        setup_1_rule_1, setup_2_rule_1 = self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 0},
                 {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 0},
@@ -343,7 +343,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             100, 1, layout=Layout2D(length=5000, width=5000)
         )
         # THEN
-        self.assertEqual(rule, self.PackageBoxSetupRule)
+        self.assertEqual(rule, self.PackageSetupRule)
 
     def test_09_match_setup_rule_by_box_type_single(self):
         # GIVEN
@@ -353,7 +353,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
                 {'name': 'BT2', 'package_type_id': self.package_type_box.id},
             ]
         )
-        setup_1, setup_2 = self.PackageBoxSetup.create(
+        setup_1, setup_2 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
@@ -367,7 +367,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
                 },
             ],
         )
-        setup_1_rule_1, setup_2_rule_1 = self.PackageBoxSetupRule.create(
+        setup_1_rule_1, setup_2_rule_1 = self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 0},
                 {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 0},
@@ -386,7 +386,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
                 {'name': 'BT2', 'package_type_id': self.package_type_box.id},
             ]
         )
-        setup_1, setup_2 = self.PackageBoxSetup.create(
+        setup_1, setup_2 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
@@ -400,7 +400,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
                 },
             ],
         )
-        setup_1_rule_1, setup_2_rule_1 = self.PackageBoxSetupRule.create(
+        setup_1_rule_1, setup_2_rule_1 = self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 0},
                 {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 0},
@@ -413,7 +413,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
 
     def test_11_match_setup_rule_by_component_type_all_used(self):
         # GIVEN
-        setup_1, setup_2 = self.PackageBoxSetup.create(
+        setup_1, setup_2 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
@@ -429,7 +429,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             setup_1_rule_1,
             setup_1_rule_2,
             setup_2_rule_1,
-        ) = self.PackageBoxSetupRule.create(
+        ) = self.PackageSetupRule.create(
             [
                 {
                     'setup_id': setup_1.id,
@@ -462,7 +462,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
 
     def test_12_match_setup_rule_by_component_type_some_used(self):
         # GIVEN
-        setup_1, setup_2 = self.PackageBoxSetup.create(
+        setup_1, setup_2 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
@@ -478,7 +478,7 @@ class TestPackageBoxMatchSetupRule(common.TestProductPackageConfiguratorCommon):
             setup_1_rule_1,
             setup_1_rule_2,
             setup_2_rule_1,
-        ) = self.PackageBoxSetupRule.create(
+        ) = self.PackageSetupRule.create(
             [
                 {
                     'setup_id': setup_1.id,

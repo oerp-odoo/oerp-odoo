@@ -148,7 +148,7 @@ class PackageConfigurator(models.Model):
     def _find_box_setups(self):
         self.ensure_one()
         domain = self._prepare_box_setups_domain()
-        return self.env['package.box.setup'].search(domain)
+        return self.env['package.setup'].search(domain)
 
     def _prepare_box_setups_domain(self):
         self.ensure_one()
