@@ -31,8 +31,18 @@
                     <!-- TODO: add state field with statusbar widget -->
                     <group name="main">
                         <field name="package_type_id" invisible="1"/>
+                        <field name="component_length_width_editable" invisible="1"/>
+                        <field
+                            name="dimensions_visible"
+                            invisible="1"
+                            column_invisible="1"
+                        />
                         <field name="lid_used" invisible="1"/>
-                        <group name="dimensions" string="Dimensions">
+                        <group
+                            name="dimensions"
+                            string="Dimensions"
+                            invisible="not dimensions_visible"
+                        >
                             <group>
                                 <table class="table">
                                     <thead>
@@ -111,6 +121,14 @@
                                         name="print_color_id"
                                         column_invisible="not parent.print_house_id"
                                         readonly="not wrappingpaper_used"
+                                    />
+                                    <field
+                                        name="_component_length"
+                                        column_invisible="not parent.component_length_width_editable"
+                                    />
+                                    <field
+                                        name="_component_width"
+                                        column_invisible="not parent.component_length_width_editable"
                                     />
                                     <field name="component_length"/>
                                     <field name="component_width"/>
