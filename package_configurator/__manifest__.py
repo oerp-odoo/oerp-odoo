@@ -32,7 +32,7 @@
         'views/package_configurator_circulation.xml',
         'views/package_configurator_circulation_item_setup.xml',
         'views/package_default_component.xml',
-        'views/package_box_setup.xml',
+        'views/package_setup.xml',
         'views/package_print_house.xml',
         'views/package_print_pricelist.xml',
         'views/package_print_pricelist_rule.xml',

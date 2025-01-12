@@ -18,7 +18,7 @@ class TestPackageConfiguratorSetup(common.TestProductPackageConfiguratorCommon):
 
     def test_01_configure_box_do_setup_sheet_type_all(self):
         # GIVEN
-        setup_1, setup_2 = self.PackageBoxSetup.create(
+        setup_1, setup_2 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
@@ -33,7 +33,7 @@ class TestPackageConfiguratorSetup(common.TestProductPackageConfiguratorCommon):
                 },
             ],
         )
-        setup_1_rule_1, setup_2_rule_1 = self.PackageBoxSetupRule.create(
+        setup_1_rule_1, setup_2_rule_1 = self.PackageSetupRule.create(
             [
                 # To be used for first circulation
                 {'setup_id': setup_1.id, 'min_qty': 50, 'setup_fixed_qty': 100},
@@ -237,7 +237,7 @@ class TestPackageConfiguratorSetup(common.TestProductPackageConfiguratorCommon):
 
     def test_02_configure_box_do_setup_sheet_type_some(self):
         # GIVEN
-        setup_1, setup_2, setup_print = self.PackageBoxSetup.create(
+        setup_1, setup_2, setup_print = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
@@ -257,7 +257,7 @@ class TestPackageConfiguratorSetup(common.TestProductPackageConfiguratorCommon):
                 },
             ],
         )
-        self.PackageBoxSetupRule.create(
+        self.PackageSetupRule.create(
             [
                 # To be used for first circulation
                 {'setup_id': setup_1.id, 'min_qty': 50, 'setup_fixed_qty': 100},
@@ -351,7 +351,7 @@ class TestPackageConfiguratorSetup(common.TestProductPackageConfiguratorCommon):
 
     def test_03_configure_box_do_setup_print_type_some(self):
         # GIVEN
-        setup_1, setup_2 = self.PackageBoxSetup.create(
+        setup_1, setup_2 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRINT-SETUP-1',
@@ -366,7 +366,7 @@ class TestPackageConfiguratorSetup(common.TestProductPackageConfiguratorCommon):
                 },
             ],
         )
-        self.PackageBoxSetupRule.create(
+        self.PackageSetupRule.create(
             [
                 # To be used for first circulation
                 {'setup_id': setup_1.id, 'min_qty': 50, 'setup_fixed_qty': 100},
@@ -461,7 +461,7 @@ class TestPackageConfiguratorSetup(common.TestProductPackageConfiguratorCommon):
 
     def test_04_configure_box_do_setup_sheet_n_print_type(self):
         # GIVEN
-        setup_1, setup_2 = self.PackageBoxSetup.create(
+        setup_1, setup_2 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
@@ -475,7 +475,7 @@ class TestPackageConfiguratorSetup(common.TestProductPackageConfiguratorCommon):
                 },
             ],
         )
-        self.PackageBoxSetupRule.create(
+        self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 100},
                 {'setup_id': setup_2.id, 'min_qty': 1, 'setup_fixed_qty': 100},
@@ -553,7 +553,7 @@ class TestPackageConfiguratorSetup(common.TestProductPackageConfiguratorCommon):
 
     def test_05_configure_box_do_setup_print_no_color(self):
         # GIVEN
-        setup_1 = self.PackageBoxSetup.create(
+        setup_1 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRINT-SETUP-2',
@@ -562,7 +562,7 @@ class TestPackageConfiguratorSetup(common.TestProductPackageConfiguratorCommon):
                 },
             ],
         )
-        self.PackageBoxSetupRule.create(
+        self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 100},
             ]
@@ -618,7 +618,7 @@ class TestPackageConfiguratorSetup(common.TestProductPackageConfiguratorCommon):
 
     def test_06_configure_box_do_setup_qty_measure_raw(self):
         # GIVEN
-        setup_1 = self.PackageBoxSetup.create(
+        setup_1 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
@@ -628,7 +628,7 @@ class TestPackageConfiguratorSetup(common.TestProductPackageConfiguratorCommon):
                 },
             ],
         )
-        self.PackageBoxSetupRule.create(
+        self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 50, 'setup_fixed_qty': 100},
             ]
@@ -680,7 +680,7 @@ class TestPackageConfiguratorSetup(common.TestProductPackageConfiguratorCommon):
 
     def test_07_configure_box_do_setup_inp_qty_measure_raw(self):
         # GIVEN
-        setup_1 = self.PackageBoxSetup.create(
+        setup_1 = self.PackageSetup.create(
             [
                 {
                     'name': 'MY-BOX-PRODUCTION-SETUP-1',
@@ -691,7 +691,7 @@ class TestPackageConfiguratorSetup(common.TestProductPackageConfiguratorCommon):
                 },
             ],
         )
-        rule_1, rule_2 = self.PackageBoxSetupRule.create(
+        rule_1, rule_2 = self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 50, 'setup_fixed_qty': 100},
                 {'setup_id': setup_1.id, 'min_qty': 1, 'setup_fixed_qty': 200},

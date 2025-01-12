@@ -96,20 +96,20 @@
                 />
             </menuitem>
 
-            <menuitem id="package_box_setup_menu" name="Setups" sequence="40">
+            <menuitem id="package_setup_menu" name="Setups" sequence="40">
                 <menuitem
-                    id="package_box_setup_production_menu"
-                    action="package_box_setup_production_action"
+                    id="package_setup_production_menu"
+                    action="package_setup_production_action"
                     sequence="5"
                 />
                 <menuitem
-                    id="package_box_setup_print_menu"
-                    action="package_box_setup_print_action"
+                    id="package_setup_print_menu"
+                    action="package_setup_print_action"
                     sequence="10"
                 />
                 <menuitem
-                    id="package_box_setup_foil_menu"
-                    action="package_box_setup_foil_action"
+                    id="package_setup_foil_menu"
+                    action="package_setup_foil_action"
                     sequence="10"
                 />
             </menuitem>

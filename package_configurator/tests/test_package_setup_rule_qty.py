@@ -1,17 +1,17 @@
 from . import common
 
 
-class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
+class TestPackageSetupRuleQty(common.TestProductPackageConfiguratorCommon):
     def test_01_package_setup_rule_qty_fixed(self):
         # GIVEN
-        setup_1 = self.PackageBoxSetup.create(
+        setup_1 = self.PackageSetup.create(
             {
                 'name': 'MY-BOX-PRODUCTION-SETUP-1',
                 'setup_type': 'production',
                 'setup_qty_mode': 'fixed',
             }
         )
-        rules = self.PackageBoxSetupRule.create(
+        rules = self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 2000, 'setup_fixed_qty': 200},
                 {'setup_id': setup_1.id, 'min_qty': 1000, 'setup_fixed_qty': 100},
@@ -38,14 +38,14 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
 
     def test_02_package_setup_rule_qty_rel(self):
         # GIVEN
-        setup_1 = self.PackageBoxSetup.create(
+        setup_1 = self.PackageSetup.create(
             {
                 'name': 'MY-BOX-PRODUCTION-SETUP-1',
                 'setup_type': 'production',
                 'setup_qty_mode': 'relative',
             }
         )
-        rules = self.PackageBoxSetupRule.create(
+        rules = self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 2000, 'setup_fixed_qty': 200},
                 {'setup_id': setup_1.id, 'min_qty': 1000, 'setup_fixed_qty': 100},
@@ -72,14 +72,14 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
 
     def test_03_package_setup_rule_qty_rel_uneven(self):
         # GIVEN
-        setup_1 = self.PackageBoxSetup.create(
+        setup_1 = self.PackageSetup.create(
             {
                 'name': 'MY-BOX-PRODUCTION-SETUP-1',
                 'setup_type': 'production',
                 'setup_qty_mode': 'relative',
             }
         )
-        rules = self.PackageBoxSetupRule.create(
+        rules = self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 1700, 'setup_fixed_qty': 251},
                 {'setup_id': setup_1.id, 'min_qty': 1000, 'setup_fixed_qty': 90},
@@ -107,14 +107,14 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
 
     def test_04_package_setup_rule_qty_rel_invalid(self):
         # GIVEN
-        setup_1 = self.PackageBoxSetup.create(
+        setup_1 = self.PackageSetup.create(
             {
                 'name': 'MY-BOX-PRODUCTION-SETUP-1',
                 'setup_type': 'production',
                 'setup_qty_mode': 'relative',
             }
         )
-        rules = self.PackageBoxSetupRule.create(
+        rules = self.PackageSetupRule.create(
             [
                 {'setup_id': setup_1.id, 'min_qty': 2000, 'setup_fixed_qty': 200},
                 {'setup_id': setup_1.id, 'min_qty': 1000, 'setup_fixed_qty': 100},
@@ -130,10 +130,10 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
         # THEN
         self.assertEqual(qty, 200)
 
-    # TODO: create TestPackageBoxSetupRule class and move these tests.
+    # TODO: create TestPackageSetupRule class and move these tests.
     def test_05_package_setup_inp_qty_measure_component(self):
         # GIVEN
-        setup = self.PackageBoxSetup.create(
+        setup = self.PackageSetup.create(
             {
                 'name': 'MY-BOX-PRODUCTION-SETUP-1',
                 'setup_type': 'production',
@@ -147,7 +147,7 @@ class TestPackageBoxSetupRuleQty(common.TestProductPackageConfiguratorCommon):
 
     def test_06_package_setup_inp_qty_measure_raw(self):
         # GIVEN
-        setup = self.PackageBoxSetup.create(
+        setup = self.PackageSetup.create(
             {
                 'name': 'MY-BOX-PRODUCTION-SETUP-1',
                 'setup_type': 'production',

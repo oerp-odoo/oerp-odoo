@@ -3,13 +3,13 @@ import math
 from odoo import api, fields, models
 
 
-class PackageBoxSetupRule(models.Model):
-    _name = 'package.box.setup.rule'
+class PackageSetupRule(models.Model):
+    _name = 'package.setup.rule'
     _description = "Package Box Setup Rule"
     _order = "component_type_sequence, min_qty desc, id"
 
     name = fields.Char(compute='_compute_name')
-    setup_id = fields.Many2one('package.box.setup', required=True, ondelete='cascade')
+    setup_id = fields.Many2one('package.setup', required=True, ondelete='cascade')
     min_qty = fields.Integer(
         "Minimum Quantity",
         help="Minimum quantity of either boxes or raw sheets to match this rule",

@@ -28,6 +28,15 @@ class SetupType(StrEnum):
     FOIL = 'foil'
 
 
+class ComponentType(StrEnum):
+    BASE = 'base'
+    LID = 'lid'
+    BASE_WRAPPINGPAPER_INSIDE = 'base_wrappingpaper_inside'
+    BASE_WRAPPINGPAPER_OUTSIDE = 'base_wrappingpaper_outside'
+    LID_WRAPPINGPPAER_INSIDE = 'lid_wrappingpaper_inside'
+    LID_WRAPPINGPPAER_OUTSIDE = 'lid_wrappingpaper_outside'
+
+
 class ComponentKind(StrEnum):
     GREYBOARD = 'greyboard'
     CARTON = 'carton'
