@@ -7,6 +7,13 @@
         <field name="arch" type="xml">
             <field name="state" position="after">
                 <field name="purchase_status" optional="show"/>
+                <field
+                    name="production_progress"
+                    widget="progressbar"
+                    optional="show"
+                    class="d-flex offset-3"
+                    invisible="not production_from_primary_ids"
+                />
             </field>
         </field>
     </record>

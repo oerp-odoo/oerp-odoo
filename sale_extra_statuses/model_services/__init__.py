@@ -1,1 +1,1 @@
-from . import sale_order_purchase_status
+from . import sale_order_purchase_status, sale_order_production_progress
