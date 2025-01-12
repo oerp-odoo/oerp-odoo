@@ -2,6 +2,7 @@ from . import (
     test_package_configurator_constraints,
     test_package_box_layout,
     test_package_configurator_box,
+    test_package_configurator_insert,
     test_package_warnings,
     test_package_configurator_autofill_sheets,
     test_package_configurator_setup,

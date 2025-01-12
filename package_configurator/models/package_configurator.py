@@ -80,6 +80,10 @@ class PackageConfigurator(models.Model):
         string="Laminations",
     )
     print_house_id = fields.Many2one('package.print.house')
+    component_length_width_editable = fields.Boolean(
+        compute='_compute_package_type_options'
+    )
+    dimensions_visible = fields.Boolean(compute='_compute_package_type_options')
 
     @api.depends('package_type_id')
     def _compute_lid_used(self):
@@ -102,6 +106,14 @@ class PackageConfigurator(models.Model):
             rec.description_warnings = self.env[
                 'package.warning'
             ].get_formatted_warnings(self)
+
+    @api.depends('package_type_id')
+    def _compute_package_type_options(self):
+        for rec in self:
+            # For now only editable for insert types.
+            is_insert = rec.package_type_id.code == 'insert'
+            rec.component_length_width_editable = is_insert
+            rec.dimensions_visible = not is_insert
 
     @api.onchange('package_kind_id')
     def _onchange_box_type_id(self):

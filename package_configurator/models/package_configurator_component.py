@@ -21,8 +21,19 @@ class PackageConfiguratorComponent(models.Model):
         required=True,
         domain="[('id', 'in', component_type_allowed_ids)]",
     )
-    component_length = fields.Float(compute='_compute_type_data', string="Length")
-    component_width = fields.Float(compute='_compute_type_data', string="Width")
+    # TODO: make sure these private fields won't appear in search in UI!
+    _component_length = fields.Float(string="Length (Custom)")
+    _component_width = fields.Float(string="Width (Custom)")
+    component_length = fields.Float(
+        compute='_compute_type_data',
+        # inverse='_inverse_component_length',
+        string="Length",
+    )
+    component_width = fields.Float(
+        compute='_compute_type_data',
+        # inverse='_inverse_component_width',
+        string="Width",
+    )
     component_kind_ids = fields.Many2many(
         related='component_type_id.component_kind_ids'
     )
@@ -57,6 +68,8 @@ class PackageConfiguratorComponent(models.Model):
         'component_type_id',
         'sheet_id',
         'print_color_id',
+        '_component_length',
+        '_component_width',
         'configurator_id.base_length',
         'configurator_id.base_width',
         'configurator_id.lid_height',
@@ -78,8 +91,11 @@ class PackageConfiguratorComponent(models.Model):
                         continue
                     comp.update(
                         {
-                            'component_length': layout.length,
-                            'component_width': layout.width,
+                            # TODO: move length/width to separate compute. Now
+                            # with/length is filled only if sheet is selected. But it
+                            # should only be needed for fit_qty, not component_length
+                            # and component_width!
+                            **comp._calc_length_width(layout),
                             **comp._get_sheet_usable_dimensions_data(),
                         }
                     )
@@ -106,13 +122,17 @@ class PackageConfiguratorComponent(models.Model):
             # We can't rely on component_length, component_width compute,
             # because this one can be computed earlier and then those
             # values would be 0, so we directly get result from get_cfg_layouts!
-            res = self.env['package.box.layout'].get_cfg_layouts(rec.configurator_id)
-            layout = res[rec.component_type_id.code]
-            if not layout.length or not layout.width:
+            layout = self.env['package.box.layout'].get_cfg_layouts(
+                rec.configurator_id
+            )[rec.component_type_id.code]
+            res = rec._calc_length_width(layout)
+            length = res['component_length']
+            width = res['component_width']
+            if not length or not width:
                 continue
             rec.sheet_id = rec.env['package.sheet.match'].match(
                 rec.sheet_type_id,
-                vo_layout.Layout2D(length=layout.length, width=layout.width),
+                vo_layout.Layout2D(length=length, width=width),
             )
 
     @api.onchange('component_type_id')
@@ -151,6 +171,21 @@ class PackageConfiguratorComponent(models.Model):
                 not in rec.component_kind_allowed_ids
             ):
                 raise ValidationError(msg)
+
+    def _calc_length_width(self, layout: vo_layout.Layout2D):
+        def calc(custom_dim, layout_dimension):
+            if custom_dim:
+                return custom_dim + (
+                    # Even if custom value was entered, it must add global extra!
+                    self.configurator_id.company_id.package_default_global_box_extra
+                )
+            return layout_dimension
+
+        self.ensure_one()
+        return {
+            'component_length': calc(self._component_length, layout.length),
+            'component_width': calc(self._component_width, layout.width),
+        }
 
     def _get_sheet_usable_dimensions_data(self):
         self.ensure_one()
