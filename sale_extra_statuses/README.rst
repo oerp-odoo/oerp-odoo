@@ -11,6 +11,12 @@ Purchase Status:
   when Incoming Shipments have two steps (input+stock).
 * Done (If all stock is received to warehouse).
 
+Delivery Progress:
+
+* Empty if no related delivery orders (pickings).
+* Percentage how many delivery orders are completed out of total (
+  that are delivering to customer).
+
 Production Progress:
 
 * Empty if no related manufacturing orders.

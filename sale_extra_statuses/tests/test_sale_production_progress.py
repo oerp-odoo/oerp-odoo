@@ -12,7 +12,6 @@ class TestSaleProductionProgress(BaseCommon):
         cls.ProductProduct = cls.env['product.product']
         cls.MrpProduction = cls.env['mrp.production']
         cls.MrpBom = cls.env['mrp.bom']
-        cls.warehouse_1 = cls.env.ref('stock.warehouse0')
         cls.product_1, cls.product_2 = cls.ProductProduct.create(
             [
                 {'name': 'MY-PRODUCT-1', 'type': 'product'},

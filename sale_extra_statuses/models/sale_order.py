@@ -14,6 +14,9 @@ class SaleOrder(models.Model):
         compute='_compute_purchase_status',
         store=True,
     )
+    delivery_progress = fields.Float(
+        compute='_compute_delivery_progress', digits=(16, 2), store=True
+    )
     production_progress = fields.Float(
         compute='_compute_production_progress', digits=(16, 2), store=True
     )
@@ -26,6 +29,12 @@ class SaleOrder(models.Model):
         SOPS = self.env['sale.order.purchase.status']
         for rec in self:
             rec.purchase_status = SOPS.get_status(rec)
+
+    @api.depends('picking_ids.state')
+    def _compute_delivery_progress(self):
+        SODP = self.env['sale.order.delivery.progress']
+        for rec in self:
+            rec.delivery_progress = SODP.get_progress(rec)
 
     @api.depends('production_from_primary_ids.state')
     def _compute_production_progress(self):

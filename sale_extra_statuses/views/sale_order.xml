@@ -6,7 +6,15 @@
         <field name="inherit_id" ref="sale.sale_order_tree"/>
         <field name="arch" type="xml">
             <field name="state" position="after">
+                <field name="picking_ids" column_invisible="1"/>
                 <field name="purchase_status" optional="show"/>
+                <field
+                    name="delivery_progress"
+                    widget="progressbar"
+                    optional="show"
+                    class="d-flex offset-3"
+                    invisible="not picking_ids"
+                />
                 <field
                     name="production_progress"
                     widget="progressbar"
