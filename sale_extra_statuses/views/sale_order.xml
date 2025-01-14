@@ -9,18 +9,18 @@
                 <field name="picking_ids" column_invisible="1"/>
                 <field name="purchase_status" optional="show"/>
                 <field
-                    name="delivery_progress"
-                    widget="progressbar"
-                    optional="show"
-                    class="d-flex offset-3"
-                    invisible="not picking_ids"
-                />
-                <field
                     name="production_progress"
                     widget="progressbar"
                     optional="show"
                     class="d-flex offset-3"
                     invisible="not production_from_primary_ids"
+                />
+                <field
+                    name="delivery_progress"
+                    widget="progressbar"
+                    optional="show"
+                    class="d-flex offset-3"
+                    invisible="not picking_ids"
                 />
             </field>
         </field>
