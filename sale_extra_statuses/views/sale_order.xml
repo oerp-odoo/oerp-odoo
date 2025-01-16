@@ -7,7 +7,18 @@
         <field name="arch" type="xml">
             <field name="state" position="after">
                 <field name="picking_ids" column_invisible="1"/>
+                <field name="component_availability_state" column_invisible="1"/>
                 <field name="purchase_status" optional="show"/>
+                <field
+                    name="component_progress"
+                    decoration-success="component_availability_state == 'available'"
+                    decoration-warning="component_availability_state == 'unavailable'"
+                    decoration-danger="component_availability_state == 'late'"
+                    widget="progressbar"
+                    optional="show"
+                    class="d-flex offset-3"
+                    invisible="not component_availability_state"
+                />
                 <field
                     name="production_progress"
                     widget="progressbar"

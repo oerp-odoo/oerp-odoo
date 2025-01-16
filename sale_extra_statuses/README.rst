@@ -22,6 +22,15 @@ Production Progress:
 * Empty if no related manufacturing orders.
 * Percentage how many manufacturing orders are completed out of total.
 
+Component Progress:
+
+* Empty if no related manufacturing orders.
+* Percentage how many manufacturing orders have all components available. Also if some
+  components are unavailable, progress will have either yellow or red color. Yellow
+  means that Sale Order Delivery Date is later than all manufacturing Start Dates.
+  Red means one of the dates are not set or any manufacturing Start Date is later than
+  Sale Order Delivery Date.
+
 Contributors
 ------------
 

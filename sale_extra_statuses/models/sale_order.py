@@ -20,6 +20,18 @@ class SaleOrder(models.Model):
     production_progress = fields.Float(
         compute='_compute_production_progress', digits=(16, 2), store=True
     )
+    component_progress = fields.Float(
+        compute='_compute_component_availability', digits=(16, 2), store=True
+    )
+    component_availability_state = fields.Selection(
+        [
+            ('available', "Available"),
+            ('unavailable', "Unavailable"),
+            ('late', "Late"),
+        ],
+        compute='_compute_component_availability',
+        store=True,
+    )
 
     @api.depends(
         'purchase_from_primary_ids.state',
@@ -41,3 +53,23 @@ class SaleOrder(models.Model):
         SOPP = self.env['sale.order.production.progress']
         for rec in self:
             rec.production_progress = SOPP.get_progress(rec)
+
+    @api.depends(
+        'commitment_date',
+        'production_from_primary_ids.state',
+        'production_from_primary_ids.reservation_state',
+        'production_from_primary_ids.date_start',
+        'production_from_primary_ids.move_raw_ids',
+        'production_from_primary_ids.move_raw_ids.forecast_availability',
+        'production_from_primary_ids.move_raw_ids.forecast_expected_date',
+    )
+    def _compute_component_availability(self):
+        SOCA = self.env['sale.order.component.availability']
+        for rec in self:
+            state, progress = SOCA.get_availability_info(rec)
+            rec.update(
+                {
+                    'component_availability_state': state,
+                    'component_progress': progress,
+                }
+            )
