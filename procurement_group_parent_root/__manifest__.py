@@ -12,5 +12,5 @@
         # odoo
         "stock",
     ],
-    "installable": True,
+    "installable": False,
 }

@@ -14,6 +14,6 @@
         # oerp-odoo
         "procurement_group_parent_root",
     ],
-    "installable": True,
+    "installable": False,
     "data": ["views/res_config_settings.xml"],
 }

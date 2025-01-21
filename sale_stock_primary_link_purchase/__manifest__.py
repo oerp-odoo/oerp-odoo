@@ -15,5 +15,5 @@
         "sale_stock_primary_link",
     ],
     "data": ["views/purchase_order.xml"],
-    "installable": True,
+    "installable": False,
 }

@@ -50,5 +50,5 @@
         'demo/package_print_house.xml',
     ],
     'application': True,
-    'installable': True,
+    'installable': False,
 }

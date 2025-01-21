@@ -23,5 +23,5 @@
             'github_api/static/src/js/error_dialogs.esm.js',
         ],
     },
-    'installable': True,
+    'installable': False,
 }

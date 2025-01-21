@@ -20,5 +20,5 @@
         'views/mrp_production.xml',
         'views/purchase_order.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

@@ -16,5 +16,5 @@
         "sale_stock_primary_link_mrp",
     ],
     "data": ["views/sale_order.xml"],
-    "installable": True,
+    "installable": False,
 }

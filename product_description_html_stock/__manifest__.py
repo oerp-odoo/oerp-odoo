@@ -18,5 +18,6 @@
         'views/product_template_views.xml',
     ],
     'installable': False,
-    'auto_install': True,
+    # TODO: set to True once it is installable
+    'auto_install': False,
 }
