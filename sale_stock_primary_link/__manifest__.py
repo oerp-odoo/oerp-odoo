@@ -15,5 +15,5 @@
         "procurement_group_parent_root",
     ],
     "data": ["views/stock_picking.xml"],
-    "installable": True,
+    "installable": False,
 }

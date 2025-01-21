@@ -13,5 +13,5 @@
         # base-toc
         'http_client',
     ],
-    'installable': True,
+    'installable': False,
 }

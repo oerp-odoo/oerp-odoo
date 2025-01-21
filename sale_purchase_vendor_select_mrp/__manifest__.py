@@ -13,6 +13,7 @@
         "sale_purchase_vendor_select",
         "mrp",
     ],
-    "installable": True,
-    "auto_install": True,
+    "installable": False,
+    # TODO: set to True once it is installable
+    'auto_install': False,
 }
