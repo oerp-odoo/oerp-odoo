@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Unique Product Code",
-    'version': '17.0.1.0.0',
+    'version': '18.0.1.0.0',
     'summary': 'product, code, unique',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
@@ -15,5 +15,5 @@
     'data': [
         'views/res_config_settings_views.xml',
     ],
-    'installable': False,
+    'installable': True,
 }
