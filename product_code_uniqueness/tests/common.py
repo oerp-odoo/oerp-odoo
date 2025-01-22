@@ -10,11 +10,15 @@ class TestProductCommon(TransactionCase):
         super().setUpClass()
         cls.ResCompany = cls.env['res.company']
         cls.IrConfigParameter = cls.env['ir.config_parameter']
+        cls.ProductComboItem = cls.env['product.combo.item']
         cls.product_comp_rule = cls.env.ref('product.product_comp_rule')
         # Product code 'E-COM07'.
         cls.product_1 = cls.env.ref('product.product_product_6')
         # Product code 'FURN_7800'.
         cls.product_2 = cls.env.ref('product.product_product_3')
+        # Unlink product-related combos to prevent company-specific conflicts or inconsistencies.
+        cls.ProductComboItem.search([('product_id', 'in', cls.product_2.ids)]).unlink()
+        # By default, product's company is not set.
         cls.main_company_id = cls.env.ref('base.main_company').id
         cls.demo_company_id = cls.ResCompany.create({'name': "Demo Company"}).id
         # By default, product's company is not set.

@@ -24,3 +24,4 @@ Contributors
 ============
 
 * Andrius Laukavičius (timefordev)
+* Ugnė Sinkevičienė (ugne@versada.eu)

@@ -1,4 +1,3 @@
-from odoo import _
 from odoo.osv import expression
 
 # TODO: move these to more general module.
@@ -15,11 +14,8 @@ def build_default_code(obj, default):
     default_code = obj.default_code
     # Leave original default_code (False) if it is not set.
     if default_code:
-        if default is None:
-            default = {}
-        default.setdefault('default_code', default_code + _(" (copy)"))
-    return default
-
+        return default_code + obj.env._(" (copy)")
+    return False
 
 def search_multicompany(
     model_obj, domain, offset=0, limit=None, order=None, options=None

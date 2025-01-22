@@ -17,4 +17,9 @@ class ProductTemplate(models.Model):
 
     def copy_data(self, default=None):
         """Extend to copy `default_code` with ' (copy)' extension."""
-        return super().copy_data(build_default_code(self, default))
+        default = dict(default or {})
+        vals_list = super().copy_data(default=default)
+        if 'default_code' not in default:
+            for template, vals in zip(self, vals_list):
+                vals['default_code'] = build_default_code(template, default=default)
+        return vals_list

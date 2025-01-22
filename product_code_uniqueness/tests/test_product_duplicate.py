@@ -59,3 +59,17 @@ class TestProductDuplicate(common.TestProductCommon):
             False,
             "Product was not correctly duplicated!",
         )
+
+    def test_07_products_duplicate(self):
+        """Test case for copying multiple `product.product` records."""
+        product_1, product_2 = (self.product_1 + self.product_2).copy()
+        self.assertEqual(
+            product_1.default_code,
+            'E-COM07 (copy)',
+            "Product was not correctly duplicated!",
+        )
+        self.assertEqual(
+            product_2.default_code,
+            'FURN_7800 (copy)',
+            "Product was not correctly duplicated!",
+        )

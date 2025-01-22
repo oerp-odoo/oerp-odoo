@@ -1,4 +1,4 @@
-from odoo import _, api, models
+from odoo import api, models
 from odoo.exceptions import ValidationError
 
 from ..utils import build_default_code, search_multicompany_count
@@ -14,7 +14,12 @@ class ProductProduct(models.Model):
 
     def copy_data(self, default=None):
         """Extend to copy `default_code` with ' (copy)' extension."""
-        return super().copy_data(build_default_code(self, default))
+        default = dict(default or {})
+        vals_list = super().copy_data(default=default)
+        if 'default_code' not in default:
+            for template, vals in zip(self, vals_list):
+                vals['default_code'] = build_default_code(template, default=default)
+        return vals_list
 
     @api.constrains('default_code', 'company_id')
     def _check_default_code(self):
@@ -46,7 +51,7 @@ class ProductProduct(models.Model):
                 )
                 if matches > 1:
                     raise ValidationError(
-                        _(
+                        self.env._(
                             "Product code (%s) must be unique per company! "
                             "There might be an archived product with the "
                             "same code too.",
