@@ -1,6 +1,8 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+from odoo.tools.safe_eval import safe_eval
 
+from .. import const
 from ..utils.search import search_record_by_context_key
 
 
@@ -37,10 +39,22 @@ class PackageConfigurator(models.Model):
     package_type_id = fields.Many2one(
         'package.type', required=True, default=_get_default_package_type_id
     )
+    package_type_code = fields.Selection(related='package_type_id.code')
     package_kind_id = fields.Many2one(
         'package.kind',
         required=True,
         domain="[('package_type_id', '=', package_type_id)]",
+    )
+    configurator_box_id = fields.Many2one(
+        'package.configurator',
+        string="Box",
+        domain=[('package_type_id.code', '=', const.PackageType.BOX)],
+    )
+    configurator_insert_ids = fields.One2many(
+        'package.configurator', 'configurator_box_id', string="Inserts"
+    )
+    configurator_insert_count = fields.Integer(
+        compute='_compute_configurator_insert_count'
     )
     base_length = fields.Float(default=0)
     base_width = fields.Float(default=0)
@@ -84,6 +98,11 @@ class PackageConfigurator(models.Model):
         compute='_compute_package_type_options'
     )
     dimensions_visible = fields.Boolean(compute='_compute_package_type_options')
+
+    @api.depends('configurator_insert_ids')
+    def _compute_configurator_insert_count(self):
+        for rec in self:
+            rec.configurator_insert_count = len(rec.configurator_insert_ids)
 
     @api.depends('package_type_id')
     def _compute_lid_used(self):
@@ -156,6 +175,19 @@ class PackageConfigurator(models.Model):
         """Create/recreate setup records for each circulation."""
         self.ensure_one()
         return self.circulation_ids.create_circulation_setups(self._find_box_setups())
+
+    def action_open_cfg_inserts(self):
+        self.ensure_one()
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "package_configurator.package_configurator_insert_action"
+        )
+        domain = safe_eval(action['domain'])
+        domain.append(('configurator_box_id', '=', self.id))
+        action['domain'] = domain
+        context = safe_eval(action['context'])
+        context['default_configurator_box_id'] = self.id
+        action['context'] = context
+        return action
 
     def _find_box_setups(self):
         self.ensure_one()

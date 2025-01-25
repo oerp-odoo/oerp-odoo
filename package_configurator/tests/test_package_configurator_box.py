@@ -557,3 +557,186 @@ class TestPackageConfiguratorBox(common.TestProductPackageConfiguratorCommon):
         self.assertEqual(comp_lid_wrappingpaper_inside.component_width, 0)
         self.assertEqual(comp_lid_wrappingpaper_outside.component_length, 0)
         self.assertEqual(comp_lid_wrappingpaper_outside.component_width, 0)
+
+    def test_05_configure_box_w_insert(self):
+        # GIVEN
+        package_kind_insert_general = self.PackageKind.create(
+            {'name': 'MY-GENERAL-1', 'package_type_id': self.package_type_insert.id}
+        )
+        package_sheet_type_carton_1 = self.PackageSheetType.create(
+            [
+                {
+                    'name': 'Orange/orange',
+                    'thickness': 1,
+                    'thickness_uom': 'mm',
+                    'component_kind_id': self.component_kind_carton.id,
+                },
+            ]
+        )
+        package_sheet_carton_1 = self.PackageSheet.create(
+            {
+                'sheet_type_id': package_sheet_type_carton_1.id,
+                'sheet_length': 1000,
+                'sheet_width': 700,
+                'unit_cost': 0.05,
+                'component_kind_id': self.component_kind_carton.id,
+            }
+        )
+        cfg_box = self.PackageConfigurator.create(
+            {
+                'package_kind_id': self.package_kind_box_1.id,
+                'base_length': 165,
+                'base_width': 42,
+                'base_height': 14.5,
+                'lid_height': 16,
+                'lid_extra': 2.0,
+                'outside_wrapping_extra': 20.0,
+                'package_type_id': self.package_type_box.id,
+            },
+        )
+        self.PackageConfiguratorComponent.create(
+            [
+                {
+                    'component_type_id': self.component_type_base.id,
+                    'sheet_id': self.package_sheet_greyboard_1.id,
+                    'configurator_id': cfg_box.id,
+                },
+            ]
+        )
+        box_circulation_1 = self.PackageConfiguratorCirculation.create(
+            [
+                {'quantity': 100, 'configurator_id': cfg_box.id},
+            ]
+        )
+        cfg_insert = self.PackageConfigurator.create(
+            {
+                'package_kind_id': package_kind_insert_general.id,
+                'base_length': 165,
+                'base_width': 42,
+                'base_height': 14.5,
+                'lid_height': 16,
+                'lid_extra': 2.0,
+                'outside_wrapping_extra': 20.0,
+                'package_type_id': self.package_type_insert.id,
+                'configurator_box_id': cfg_box.id,
+            },
+        )
+        self.PackageConfiguratorComponent.create(
+            [
+                {
+                    'component_type_id': self.component_type_base.id,
+                    'sheet_id': package_sheet_carton_1.id,
+                    'configurator_id': cfg_insert.id,
+                },
+            ]
+        )
+        # WHEN
+        insert_circulation_1 = self.PackageConfiguratorCirculation.create(
+            [
+                {'quantity': 100, 'configurator_id': cfg_insert.id},
+            ]
+        )
+        # THEN
+        # With 100 box circulation
+        # comp_base only.
+        self.assertEqual(insert_circulation_1.total_cost, 0.19999999999999998)
+        self.assertEqual(insert_circulation_1.unit_cost, 0.002)
+        # Cost of 100 inserts is 0.19999999999999998 and cost of 100 boxes (wo inserts)
+        # is also 0.19999999999999998. So if insert is linked with box, box price is
+        # 2 * 0.1999999999999999
+        self.assertEqual(box_circulation_1.total_cost, 0.39999999999999997)
+        # 0.3999999999999997 / 100
+        self.assertEqual(box_circulation_1.unit_cost, 0.004)
+
+    def test_06_configure_box_w_insert_circ_qty_mismatch(self):
+        # GIVEN
+        package_kind_insert_general = self.PackageKind.create(
+            {'name': 'MY-GENERAL-1', 'package_type_id': self.package_type_insert.id}
+        )
+        package_sheet_type_carton_1 = self.PackageSheetType.create(
+            [
+                {
+                    'name': 'Orange/orange',
+                    'thickness': 1,
+                    'thickness_uom': 'mm',
+                    'component_kind_id': self.component_kind_carton.id,
+                },
+            ]
+        )
+        package_sheet_carton_1 = self.PackageSheet.create(
+            {
+                'sheet_type_id': package_sheet_type_carton_1.id,
+                'sheet_length': 1000,
+                'sheet_width': 700,
+                'unit_cost': 0.05,
+                'component_kind_id': self.component_kind_carton.id,
+            }
+        )
+        cfg_box = self.PackageConfigurator.create(
+            {
+                'package_kind_id': self.package_kind_box_1.id,
+                'base_length': 165,
+                'base_width': 42,
+                'base_height': 14.5,
+                'lid_height': 16,
+                'lid_extra': 2.0,
+                'outside_wrapping_extra': 20.0,
+                'package_type_id': self.package_type_box.id,
+            },
+        )
+        self.PackageConfiguratorComponent.create(
+            [
+                {
+                    'component_type_id': self.component_type_base.id,
+                    'sheet_id': self.package_sheet_greyboard_1.id,
+                    'configurator_id': cfg_box.id,
+                },
+            ]
+        )
+        box_circulation_1 = self.PackageConfiguratorCirculation.create(
+            [
+                {'quantity': 100, 'configurator_id': cfg_box.id},
+            ]
+        )
+        cfg_insert = self.PackageConfigurator.create(
+            {
+                'package_kind_id': package_kind_insert_general.id,
+                'base_length': 165,
+                'base_width': 42,
+                'base_height': 14.5,
+                'lid_height': 16,
+                'lid_extra': 2.0,
+                'outside_wrapping_extra': 20.0,
+                'package_type_id': self.package_type_insert.id,
+                'configurator_box_id': cfg_box.id,
+            },
+        )
+        self.PackageConfiguratorComponent.create(
+            [
+                {
+                    'component_type_id': self.component_type_base.id,
+                    'sheet_id': package_sheet_carton_1.id,
+                    'configurator_id': cfg_insert.id,
+                },
+            ]
+        )
+        # WHEN
+        insert_circulation_1 = self.PackageConfiguratorCirculation.create(
+            [
+                # NOTE. Different quantity then box, so this won't be
+                # included to box cost as it won't be clear which box
+                # circ it should match.
+                {'quantity': 200, 'configurator_id': cfg_insert.id},
+            ]
+        )
+        # THEN
+        # With 200 inserts circulation
+        # comp_base only.
+        self.assertEqual(insert_circulation_1.total_cost, 0.39999999999999997)
+        self.assertEqual(insert_circulation_1.unit_cost, 0.002)
+        # With 100 boxes circulation
+        # Insert have different circ quantity, so
+        # it is not matched, thus not included in total cost of box circulation!
+        self.assertEqual(box_circulation_1.total_cost, 0.19999999999999998)
+        # 0.3999999999999998 / 100
+        self.assertEqual(box_circulation_1.unit_cost, 0.002)
