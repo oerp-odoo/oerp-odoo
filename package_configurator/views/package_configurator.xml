@@ -26,11 +26,27 @@
             <form>
                 <header>
                     <button name="action_setup" string="Setup" type="object"/>
+                    <!-- TODO: add state field with statusbar widget -->
                 </header>
                 <sheet>
-                    <!-- TODO: add state field with statusbar widget -->
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_open_cfg_inserts"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-external-link-square"
+                            invisible="package_type_code != 'box'"
+                        >
+                            <field
+                                name="configurator_insert_count"
+                                widget="statinfo"
+                                string="Inserts"
+                            />
+                        </button>
+                    </div>
                     <group name="main">
                         <field name="package_type_id" invisible="1"/>
+                        <field name="package_type_code" invisible="1"/>
                         <field name="component_length_width_editable" invisible="1"/>
                         <field
                             name="dimensions_visible"
@@ -38,12 +54,21 @@
                             column_invisible="1"
                         />
                         <field name="lid_used" invisible="1"/>
-                        <group
-                            name="dimensions"
-                            string="Dimensions"
-                            invisible="not dimensions_visible"
-                        >
-                            <group>
+                        <group name="main">
+                            <group name="general" string="General">
+                                <field
+                                    name="configurator_box_id"
+                                    options="{'no_create': True}"
+                                    invisible="package_type_code != 'insert'"
+                                />
+                                <field name="package_kind_id"/>
+                                <field name="print_house_id"/>
+                            </group>
+                            <group
+                                name="dimensions"
+                                string="Dimensions"
+                                invisible="not dimensions_visible"
+                            >
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -62,17 +87,21 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <group>
+                                    <field name="lid_height" invisible="not lid_used"/>
+                                </group>
                             </group>
-                            <group>
-                                <field name="lid_height" invisible="not lid_used"/>
+                            <!-- For now not visible to insert. -->
+                            <group
+                                name="extra"
+                                string="Extra"
+                                invisible="package_type_code == 'insert'"
+                            >
+
                                 <field name="outside_wrapping_extra"/>
                                 <!-- Not intended to be showed via UI. -->
                                 <field name="lid_extra" invisible="1"/>
                             </group>
-                        <group name="general" string="General">
-                            <field name="package_kind_id"/>
-                            <field name="print_house_id"/>
-                        </group>
                         </group>
                         <separator
                             name="warnings"

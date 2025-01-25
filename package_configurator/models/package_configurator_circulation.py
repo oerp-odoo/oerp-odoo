@@ -22,13 +22,15 @@ class PackageConfiguratorCirculation(models.Model):
     total_lamination_cost = fields.Float(
         compute='_compute_total_lamination_cost', digits=const.DecimalPrecision.COST
     )
-    # price/cost fields should be part of package.configurator.circulation
-    # abstraction, which would need to be implemented in concrete class.
     unit_cost = fields.Float(
-        compute='_compute_cost', digits=const.DecimalPrecision.COST
+        compute='_compute_cost',
+        digits=const.DecimalPrecision.COST,
+        recursive=True,
     )
     total_cost = fields.Float(
-        compute='_compute_cost', digits=const.DecimalPrecision.COST
+        compute='_compute_cost',
+        digits=const.DecimalPrecision.COST,
+        recursive=True,
     )
 
     @property
@@ -73,6 +75,7 @@ class PackageConfiguratorCirculation(models.Model):
         'item_ids.quantity',
         'item_ids.stamp_cost',
         'item_ids.circulation_setup_ids.setup_raw_qty',
+        'configurator_id.configurator_insert_ids.circulation_ids.total_cost',
     )
     def _compute_cost(self):
         for rec in self:
@@ -91,6 +94,17 @@ class PackageConfiguratorCirculation(models.Model):
         return CirculationItemSetup
 
     def _get_cost_data(self):
+        def get_insert_circs(cfg_inserts):
+            return cfg_inserts.mapped('circulation_ids').filtered(
+                # To include insert circulation, it must match its box circulation!
+                lambda r: r.quantity
+                == self.quantity
+            )
+
+        def get_insert_total_costs(cfg_inserts):
+            insert_circs = get_insert_circs(cfg_inserts)
+            return sum(ic.total_cost for ic in insert_circs)
+
         self.ensure_one()
         data = {'unit_cost': 0, 'total_cost': 0}
         if not self.quantity:
@@ -103,5 +117,8 @@ class PackageConfiguratorCirculation(models.Model):
             total_cost += item.stamp_cost
             total_cost += item.foil_cost
         total_cost += self.total_lamination_cost
+        cfg_inserts = self.configurator_id.configurator_insert_ids
+        if cfg_inserts:
+            total_cost += get_insert_total_costs(cfg_inserts)
         data.update({'unit_cost': total_cost / self.quantity, 'total_cost': total_cost})
         return data
