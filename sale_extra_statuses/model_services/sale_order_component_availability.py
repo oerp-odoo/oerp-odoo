@@ -27,10 +27,16 @@ class SaleOrderComponentAvailability(models.AbstractModel):
         )
 
     def _get_unavailability_state(self, sale, unavailable_mos):
-        dt_commitment = sale.commitment_date
-        if not dt_commitment:
-            return 'late'
+        # This is similar to mrp.production:components_availability_state,
+        # but here if some date is not set, we assume its not available instead of
+        # just False state!
+        # Its unavailable, when at least one date that is compared, is not set.
+        if any(not mo.date_start for mo in unavailable_mos) or unavailable_mos.mapped(
+            'move_raw_ids'
+        ).filtered(lambda r: not r.forecast_expected_date):
+            return 'unavailable'
         for mo in unavailable_mos:
-            if not mo.date_start or mo.date_start > dt_commitment:
+            raw_moves = mo.move_raw_ids
+            if any(rm.forecast_expected_date > mo.date_start for rm in raw_moves):
                 return 'late'
-        return 'unavailable'
+        return 'expected'

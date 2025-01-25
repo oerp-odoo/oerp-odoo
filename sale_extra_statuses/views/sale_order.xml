@@ -12,8 +12,8 @@
                 <field
                     name="component_progress"
                     decoration-success="component_availability_state == 'available'"
-                    decoration-warning="component_availability_state == 'unavailable'"
-                    decoration-danger="component_availability_state == 'late'"
+                    decoration-warning="component_availability_state == 'expected'"
+                    decoration-danger="component_availability_state in ('late', 'unavailable')"
                     widget="progressbar"
                     optional="show"
                     class="d-flex offset-3"

@@ -27,6 +27,7 @@ class SaleOrder(models.Model):
         [
             ('available', "Available"),
             ('unavailable', "Unavailable"),
+            ('expected', "Expected"),
             ('late', "Late"),
         ],
         compute='_compute_component_availability',
@@ -58,7 +59,6 @@ class SaleOrder(models.Model):
         'commitment_date',
         'production_from_primary_ids.state',
         'production_from_primary_ids.reservation_state',
-        'production_from_primary_ids.date_start',
         'production_from_primary_ids.move_raw_ids',
         'production_from_primary_ids.move_raw_ids.forecast_availability',
         'production_from_primary_ids.move_raw_ids.forecast_expected_date',
