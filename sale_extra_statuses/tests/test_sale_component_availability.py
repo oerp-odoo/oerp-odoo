@@ -148,7 +148,7 @@ class TestSaleComponentAvailability(BaseCommon):
                 },
             ],
         )
-        (mo_1 | mo_2).write({'date_start': '2022-02-19 00:00:00'})
+        (mo_1 | mo_2).write({'date_start': datetime(2022, 2, 19)})
         mo_1.move_raw_ids.unlink()
         (mo_1 | mo_2).action_confirm()
         # WHEN
@@ -178,7 +178,7 @@ class TestSaleComponentAvailability(BaseCommon):
                 },
             ],
         )
-        (mo_1 | mo_2).write({'date_start': '2022-02-19 00:00:00'})
+        (mo_1 | mo_2).write({'date_start': datetime(2022, 2, 19)})
         mo_1.move_raw_ids.unlink()
         (mo_1 | mo_2).action_confirm()
         # WHEN
@@ -208,7 +208,7 @@ class TestSaleComponentAvailability(BaseCommon):
                 },
             ],
         )
-        (mo_1 | mo_2).write({'date_start': '2022-02-19 00:00:00'})
+        (mo_1 | mo_2).write({'date_start': datetime(2022, 2, 19)})
         mo_1.move_raw_ids.unlink()
         # WHEN
         (mo_1 | mo_2).action_confirm()
