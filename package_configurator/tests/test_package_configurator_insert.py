@@ -117,7 +117,7 @@ class TestPackageConfiguratorInsert(common.TestProductPackageConfiguratorCommon)
         )
         # THEN
         # Layouts
-        # +30 comes from package_default_global_box_extra
+        # +30 comes from package_default_global_extra
         self.assertEqual(comp_base.component_length, 130)
         self.assertEqual(comp_base.component_width, 80)
         self.assertEqual(comp_base_wrappingpaper_inside.component_length, 180)

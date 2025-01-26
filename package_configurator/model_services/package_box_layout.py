@@ -11,7 +11,7 @@ class PackageBoxLayout(models.AbstractModel):
 
     def get_cfg_layouts(self, cfg):
         # This is not change'able directly on configurator on purpose!
-        global_extra = cfg.company_id.package_default_global_box_extra
+        global_extra = cfg.company_id.package_default_global_extra
         components = cfg.mapped('component_ids')
         # FIXME: if you switch between component types and sheets,
         # it is possible that multiple bases will be created

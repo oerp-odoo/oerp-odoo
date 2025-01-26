@@ -15,10 +15,10 @@
                 >
                     <block title="Defaults" name="settings_package_defaults">
                         <setting
-                            id="settings_package_default_global_box_extra"
-                            help="Set default Global Box Extra in mm"
+                            id="settings_package_default_global_extra"
+                            help="Set Default Global Package Extra in mm"
                         >
-                            <field name="package_default_global_box_extra"/>
+                            <field name="package_default_global_extra"/>
                         </setting>
                         <setting
                             id="settings_package_default_lid_extra"

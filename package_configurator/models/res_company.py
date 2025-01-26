@@ -7,10 +7,9 @@ class ResCompany(models.Model):
 
     _inherit = 'res.company'
 
-    # TODO: rename to get rid of word "box"!
-    package_default_global_box_extra = fields.Float(
-        string="Default Global Box Extra",
-        default=const.DEFAUL_GLOBAL_BOX_EXTRA,
+    package_default_global_extra = fields.Float(
+        string="Default Global Package Extra",
+        default=const.DEFAUL_GLOBAL_PACKAGE_EXTRA,
     )
     package_default_lid_extra = fields.Float(
         string="Default Lid Extra",
