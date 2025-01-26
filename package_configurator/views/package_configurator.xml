@@ -5,8 +5,8 @@
         <field name="model">package.configurator</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="package_type_id" invisible="1"/>
-                <field name="lid_used" invisible="1"/>
+                <field name="package_type_id" column_invisible="1"/>
+                <field name="lid_used" column_invisible="1"/>
                 <field name="create_date"/>
                 <field name="package_kind_id"/>
                 <field name="print_house_id"/>

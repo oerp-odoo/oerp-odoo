@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <record id="package_type_box" model="package.type">
-        <field name="name">Box</field>
         <field name="code">box</field>
         <field
             name="component_kind_ids"
@@ -33,7 +32,6 @@
         />
     </record>
     <record id="package_type_insert" model="package.type">
-        <field name="name">Insert</field>
         <field name="code">insert</field>
         <field
             name="component_kind_ids"

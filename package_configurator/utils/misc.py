@@ -55,3 +55,8 @@ def get_selection_label(record, fname):
         return ''
     selection_map = get_selection_map(record, fname)
     return selection_map[val]
+
+
+def compute_selection_name(records, selection_fname, name_fname='name'):
+    for rec in records:
+        rec[name_fname] = get_selection_label(rec, selection_fname) or False
