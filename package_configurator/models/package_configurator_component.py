@@ -177,7 +177,7 @@ class PackageConfiguratorComponent(models.Model):
             if custom_dim:
                 return custom_dim + (
                     # Even if custom value was entered, it must add global extra!
-                    self.configurator_id.company_id.package_default_global_box_extra
+                    self.configurator_id.company_id.package_default_global_extra
                 )
             return layout_dimension
 
