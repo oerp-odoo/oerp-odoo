@@ -1,21 +1,22 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 from ..const import ComponentType
+from ..utils.misc import compute_selection_name
 
 
 class PackageComponentType(models.Model):
     _name = 'package.component.type'
     _description = "Package Component Type"
 
-    name = fields.Char(required=True)
+    name = fields.Char(compute='_compute_name', store=True)
     code = fields.Selection(
         [
             (ComponentType.BASE, "Base"),
             (ComponentType.LID, "Lid"),
-            (ComponentType.BASE_WRAPPINGPAPER_INSIDE, "Base Wrappingpaper Inside"),
-            (ComponentType.BASE_WRAPPINGPAPER_OUTSIDE, "Base Wrappingpaper Outside"),
-            (ComponentType.LID_WRAPPINGPPAER_INSIDE, "Lid Wrappingppaer Inside"),
-            (ComponentType.LID_WRAPPINGPPAER_OUTSIDE, "Lid Wrappingppaer Outside"),
+            (ComponentType.BASE_WRAPPINGPAPER_INSIDE, "Base Inside Wrapping Paper"),
+            (ComponentType.BASE_WRAPPINGPAPER_OUTSIDE, "Base Outside Wrapping Paper"),
+            (ComponentType.LID_WRAPPINGPPAER_INSIDE, "Lid Inside Wrapping Paper"),
+            (ComponentType.LID_WRAPPINGPPAER_OUTSIDE, "Lid Outside Wrapping Paper"),
         ],
         required=True,
     )
@@ -27,6 +28,10 @@ class PackageComponentType(models.Model):
         string="Component Kinds",
         help="Component Kinds that are part of this Component Type",
     )
+
+    @api.depends('code')
+    def _compute_name(self):
+        compute_selection_name(self, 'code')
 
     _sql_constraints = [
         (

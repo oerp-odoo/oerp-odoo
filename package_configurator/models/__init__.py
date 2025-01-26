@@ -26,4 +26,7 @@ from . import (
     package_print_color,
     package_print_pricelist,
     package_print_pricelist_rule,
+    # package_labor_type,
+    # package_labor,
+    # package_labor_process,
 )

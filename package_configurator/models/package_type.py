@@ -1,13 +1,14 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 from .. import const
+from ..utils.misc import compute_selection_name
 
 
 class PackageType(models.Model):
     _name = 'package.type'
     _description = "Package Type"
 
-    name = fields.Char(required=True)
+    name = fields.Char(compute='_compute_name', store=True)
     code = fields.Selection(
         [
             (const.PackageType.BOX, "Box"),
@@ -30,6 +31,10 @@ class PackageType(models.Model):
         string="Component Types",
         help="Component Types that can be used by this Package Type",
     )
+
+    @api.depends('code')
+    def _compute_name(self):
+        compute_selection_name(self, 'code')
 
     _sql_constraints = [
         (
