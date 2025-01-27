@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="package_labor_type_generic" model="package.labor.type">
+        <field name="code">generic</field>
+    </record>
+    <record id="package_labor_type_wrappingpaper_cladding" model="package.labor.type">
+        <field name="code">wrappingpaper_cladding</field>
+    </record>
+    <record id="package_labor_type_lamination" model="package.labor.type">
+        <field name="code">lamination</field>
+    </record>
+    <record id="package_labor_type_foiling" model="package.labor.type">
+        <field name="code">foiling</field>
+    </record>
+    <record id="package_labor_type_insert_putting" model="package.labor.type">
+        <field name="code">insert_putting</field>
+    </record>
+    <record id="package_labor_type_insert_formation" model="package.labor.type">
+        <field name="code">insert_formation</field>
+    </record>
+</odoo>

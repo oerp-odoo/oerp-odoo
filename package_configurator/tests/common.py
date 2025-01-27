@@ -1,5 +1,7 @@
 from odoo.tests.common import TransactionCase
 
+M = 'package_configurator'
+
 
 class TestProductPackageConfiguratorCommon(TransactionCase):
     @classmethod
@@ -29,37 +31,44 @@ class TestProductPackageConfiguratorCommon(TransactionCase):
         cls.PackageSheet = cls.env['package.sheet']
         cls.PackageBoxLayout = cls.env['package.box.layout']
         cls.PackageLamination = cls.env['package.lamination']
+        cls.PackageLabor = cls.env['package.labor']
+        cls.PackageLaborItem = cls.env['package.labor.item']
         cls.uom_cm = cls.env.ref('uom.product_uom_cm')
-        cls.package_type_box = cls.env.ref('package_configurator.package_type_box')
-        cls.package_type_insert = cls.env.ref(
-            'package_configurator.package_type_insert'
-        )
+        cls.package_type_box = cls.env.ref(f'{M}.package_type_box')
+        cls.package_type_insert = cls.env.ref(f'{M}.package_type_insert')
         cls.component_kind_greyboard = cls.env.ref(
-            'package_configurator.package_component_kind_greyboard'
+            f'{M}.package_component_kind_greyboard'
         )
-        cls.component_kind_carton = cls.env.ref(
-            'package_configurator.package_component_kind_carton'
-        )
+        cls.component_kind_carton = cls.env.ref(f'{M}.package_component_kind_carton')
         cls.component_kind_wrappingpaper = cls.env.ref(
-            'package_configurator.package_component_kind_wrappingpaper'
+            f'{M}.package_component_kind_wrappingpaper'
         )
-        cls.component_type_base = cls.env.ref(
-            'package_configurator.package_component_type_base'
-        )
-        cls.component_type_lid = cls.env.ref(
-            'package_configurator.package_component_type_lid'
-        )
+        cls.component_type_base = cls.env.ref(f'{M}.package_component_type_base')
+        cls.component_type_lid = cls.env.ref(f'{M}.package_component_type_lid')
         cls.component_type_base_wrappingpaper_inside = cls.env.ref(
-            'package_configurator.package_component_type_base_wrappingpaper_inside'
+            f'{M}.package_component_type_base_wrappingpaper_inside'
         )
         cls.component_type_base_wrappingpaper_outside = cls.env.ref(
-            'package_configurator.package_component_type_base_wrappingpaper_outside'
+            f'{M}.package_component_type_base_wrappingpaper_outside'
         )
         cls.component_type_lid_wrappingpaper_inside = cls.env.ref(
-            'package_configurator.package_component_type_lid_wrappingpaper_inside'
+            f'{M}.package_component_type_lid_wrappingpaper_inside'
         )
         cls.component_type_lid_wrappingpaper_outside = cls.env.ref(
-            'package_configurator.package_component_type_lid_wrappingpaper_outside'
+            f'{M}.package_component_type_lid_wrappingpaper_outside'
+        )
+        # Labor types
+        cls.labor_type_generic = cls.env.ref(f'{M}.package_labor_type_generic')
+        cls.labor_type_wrappingpaper_cladding = cls.env.ref(
+            f'{M}.package_labor_type_wrappingpaper_cladding'
+        )
+        cls.labor_type_lamination = cls.env.ref(f'{M}.package_labor_type_lamination')
+        cls.labor_type_foiling = cls.env.ref(f'{M}.package_labor_type_foiling')
+        cls.labor_type_insert_putting = cls.env.ref(
+            f'{M}.package_labor_type_insert_putting'
+        )
+        cls.labor_type_insert_formation = cls.env.ref(
+            f'{M}.package_labor_type_insert_formation'
         )
         # TODO: move these outside of common.
         (

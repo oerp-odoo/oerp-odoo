@@ -1,22 +1,9 @@
 from odoo import api, fields, models
 
 from .. import const
+from ..utils.component import get_comps
 from ..utils.lamination import calc_area_and_price
 from ..value_objects import layout as vo_layout
-
-
-# TODO: move to utils/component.py?
-def get_comps(comps, *comp_types):
-    def filter_comps(comps, ctype):
-        return comps.filtered(lambda r: r.component_type_id.code == ctype)
-
-    res = []
-    for ctype in comp_types:
-        comp = filter_comps(comps, ctype)
-        # Adding even if there is no comp found, to make it more
-        # flexible.
-        res.append(comp)
-    return res
 
 
 class PackageConfiguratorLamination(models.Model):

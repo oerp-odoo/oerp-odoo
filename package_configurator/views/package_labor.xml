@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="package_labor_view_tree" model="ir.ui.view">
+        <field name="name">package.labor.tree</field>
+        <field name="model">package.labor</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="currency_id" invisible="1"/>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="hour_cost"/>
+                <field name="default_hour_profit"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="package_labor_view_form" model="ir.ui.view">
+        <field name="name">package.labor.form</field>
+        <field name="model">package.labor</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="general">
+                            <field name="name"/>
+                            <field name="hour_cost"/>
+                            <field name="default_hour_profit"/>
+                        </group>
+                        <group name="constraints" string="Constraints">
+                            <field name="min_qty"/>
+                            <field name="max_qty"/>
+                            <field name="min_layout_length"/>
+                            <field name="min_layout_width"/>
+                            <field name="max_layout_length"/>
+                            <field name="max_layout_width"/>
+                        </group>
+                        <group name="misc" string="Misc">
+                            <field name="active" widget="boolean_toggle"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="items" string="Labor Items">
+                            <field name="item_ids">
+                                <tree editable="bottom">
+                                    <field name="is_generic" column_invisible="1"/>
+                                    <field name="labor_type_id"/>
+                                    <field
+                                        name="custom_name"
+                                        readonly="not is_generic"
+                                        invisible="not is_generic"
+                                    />
+                                    <field name="units_per_hour"/>
+                                    <field name="setup_minutes"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="package_labor_action" model="ir.actions.act_window">
+        <field name="name">Labor</field>
+        <field name="res_model">package.labor</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

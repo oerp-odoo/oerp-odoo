@@ -2,9 +2,8 @@ from odoo import fields, models
 
 from .. import const
 from ..utils.fitter import calc_raw_sheet_quantity
+from ..utils.misc import match_max, match_min
 from ..value_objects.layout import Layout2D
-
-HELP_NO_LIMIT = "0 means no limit"
 
 
 class PackageSetup(models.Model):
@@ -64,10 +63,18 @@ class PackageSetup(models.Model):
         help="Package Kinds that can use this setup. If left empty, it means all kinds "
         + "can use it.",
     )
-    min_layout_length = fields.Float("Minimum Layout Length (mm)", help=HELP_NO_LIMIT)
-    min_layout_width = fields.Float("Minimum Layout Width (mm)", help=HELP_NO_LIMIT)
-    max_layout_length = fields.Float("Maximum Layout Length (mm)", help=HELP_NO_LIMIT)
-    max_layout_width = fields.Float("Maximum Layout Width (mm)", help=HELP_NO_LIMIT)
+    min_layout_length = fields.Float(
+        "Minimum Layout Length (mm)", help=const.HELP_NO_LIMIT
+    )
+    min_layout_width = fields.Float(
+        "Minimum Layout Width (mm)", help=const.HELP_NO_LIMIT
+    )
+    max_layout_length = fields.Float(
+        "Maximum Layout Length (mm)", help=const.HELP_NO_LIMIT
+    )
+    max_layout_width = fields.Float(
+        "Maximum Layout Width (mm)", help=const.HELP_NO_LIMIT
+    )
 
     def convert_inp_qty(self, qty: int, fit_qty: int):
         """Calc real input qty when quantity of components is known."""
@@ -115,20 +122,12 @@ class PackageSetup(models.Model):
         return True
 
     def _match_layout(self, layout):
-        def match_min(fname, value):
-            min_ = self[fname]
-            return not min_ or value >= self[fname]
-
-        def match_max(fname, value):
-            max_ = self[fname]
-            return not max_ or value <= self[fname]
-
         self.ensure_one()
         return (
-            match_min('min_layout_length', layout.length)
-            and match_min('min_layout_width', layout.width)
-            and match_max('max_layout_length', layout.length)
-            and match_max('max_layout_width', layout.width)
+            match_min(self, 'min_layout_length', layout.length)
+            and match_min(self, 'min_layout_width', layout.width)
+            and match_max(self, 'max_layout_length', layout.length)
+            and match_max(self, 'max_layout_width', layout.width)
         )
 
     def _match_box_type(self, box_type):

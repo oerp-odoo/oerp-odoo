@@ -60,3 +60,13 @@ def get_selection_label(record, fname):
 def compute_selection_name(records, selection_fname, name_fname='name'):
     for rec in records:
         rec[name_fname] = get_selection_label(rec, selection_fname) or False
+
+
+def match_min(record, fname, value):
+    min_ = record[fname]
+    return not min_ or value >= record[fname]
+
+
+def match_max(record, fname, value):
+    max_ = record[fname]
+    return not max_ or value <= record[fname]

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record
+        id="package_configurator_circulation_labor_process_view_tree"
+        model="ir.ui.view"
+    >
+        <field name="name">package.configurator.circulation.labor.process.tree</field>
+        <field name="model">package.configurator.circulation.labor.process</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="component_type_id"/>
+                <field name="labor_type_id"/>
+                <field name="units_per_hour"/>
+                <field name="setup_minutes"/>
+                <field name="total_labor_hours"/>
+                <field name="unit_cost"/>
+                <field name="total_cost"/>
+                <field name="unit_profit"/>
+                <field name="total_profit"/>
+                <field name="total_price"/>
+            </tree>
+        </field>
+    </record>
+
+    <record
+        id="package_configurator_circulation_labor_process_view_form"
+        model="ir.ui.view"
+    >
+        <field name="name">package.configurator.circulation.labor.process.form</field>
+        <field name="model">package.configurator.circulation.labor.process</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="name"/>
+                            <field name="component_type_id"/>
+                            <field name="labor_type_id"/>
+                            <field name="units_per_hour"/>
+                            <field name="setup_minutes"/>
+                        </group>
+                        <group name="right">
+                            <field name="total_labor_hours"/>
+                            <field name="unit_cost"/>
+                            <field name="total_cost"/>
+                            <field name="unit_profit"/>
+                            <field name="total_profit"/>
+                            <field name="total_price"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record
+        id="package_configurator_circulation_labor_process_action"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Labor Processes</field>
+        <field name="res_model">package.configurator.circulation.labor.process</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

@@ -56,6 +56,9 @@ class PackageConfigurator(models.Model):
     configurator_insert_count = fields.Integer(
         compute='_compute_configurator_insert_count'
     )
+    configurator_circulation_count = fields.Integer(
+        compute='_compute_configurator_circulation_count'
+    )
     base_length = fields.Float(default=0)
     base_width = fields.Float(default=0)
     base_height = fields.Float(default=0)
@@ -103,6 +106,11 @@ class PackageConfigurator(models.Model):
     def _compute_configurator_insert_count(self):
         for rec in self:
             rec.configurator_insert_count = len(rec.configurator_insert_ids)
+
+    @api.depends('circulation_ids')
+    def _compute_configurator_circulation_count(self):
+        for rec in self:
+            rec.configurator_circulation_count = len(rec.circulation_ids)
 
     @api.depends('package_type_id')
     def _compute_lid_used(self):
@@ -176,6 +184,11 @@ class PackageConfigurator(models.Model):
         self.ensure_one()
         return self.circulation_ids.create_circulation_setups(self._find_box_setups())
 
+    def action_labor_processes(self):
+        """Set labor and create/recreate its processes for each circulation item."""
+        self.ensure_one()
+        self.circulation_ids.create_circulation_labors()
+
     def action_open_cfg_inserts(self):
         self.ensure_one()
         action = self.env["ir.actions.actions"]._for_xml_id(
@@ -187,6 +200,15 @@ class PackageConfigurator(models.Model):
         context = safe_eval(action['context'])
         context['default_configurator_box_id'] = self.id
         action['context'] = context
+        return action
+
+    def action_open_circulations(self):
+        self.ensure_one()
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "package_configurator.package_configurator_circulation_action"
+        )
+        action['domain'] = [('configurator_id', '=', self.id)]
+        action['context'] = {'default_configurator_id': self.id}
         return action
 
     def _find_box_setups(self):
