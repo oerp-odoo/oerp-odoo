@@ -19,6 +19,9 @@ class PackageConfiguratorCirculation(models.Model):
         store=True,
         compute='_compute_item_ids',
     )
+    circulation_labor_ids = fields.One2many(
+        'package.configurator.circulation.labor', 'circulation_id'
+    )
     total_lamination_cost = fields.Float(
         compute='_compute_total_lamination_cost', digits=const.DecimalPrecision.COST
     )
@@ -75,6 +78,7 @@ class PackageConfiguratorCirculation(models.Model):
         'item_ids.quantity',
         'item_ids.stamp_cost',
         'item_ids.circulation_setup_ids.setup_raw_qty',
+        'circulation_labor_ids.total_cost',
         'configurator_id.configurator_insert_ids.circulation_ids.total_cost',
     )
     def _compute_cost(self):
@@ -92,6 +96,16 @@ class PackageConfiguratorCirculation(models.Model):
         if vals_list:
             return CirculationItemSetup.create(vals_list)
         return CirculationItemSetup
+
+    def create_circulation_labors(self):
+        self.mapped('circulation_labor_ids').unlink()
+        CircLabor = self.env['package.configurator.circulation.labor']
+        vals_list = []
+        for circ in self:
+            vals_list.extend(CircLabor.prepare_labors(circ))
+        if vals_list:
+            return CircLabor.create(vals_list)
+        return CircLabor
 
     def _get_cost_data(self):
         def get_insert_circs(cfg_inserts):
@@ -116,6 +130,8 @@ class PackageConfiguratorCirculation(models.Model):
             total_cost += multiply(item.print_unit_cost, item.quantity)
             total_cost += item.stamp_cost
             total_cost += item.foil_cost
+        for circ_labor in self.circulation_labor_ids:
+            total_cost += circ_labor.total_cost
         total_cost += self.total_lamination_cost
         cfg_inserts = self.configurator_id.configurator_insert_ids
         if cfg_inserts:

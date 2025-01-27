@@ -6,6 +6,7 @@ from . import (
     test_package_warnings,
     test_package_configurator_autofill_sheets,
     test_package_configurator_setup,
+    test_package_configurator_labor_process,
     test_package_configurator_print_cost,
     test_package_match_setup_rule,
     test_package_setup_rule_qty,
@@ -20,4 +21,6 @@ from . import (
     test_package_configurator_stamp_cost,
     test_package_configurator_foil_cost,
     test_package_configurator_lamination_cost,
+    test_package_labor_match,
+    test_package_labor_generate_process,
 )

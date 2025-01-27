@@ -26,10 +26,27 @@
             <form>
                 <header>
                     <button name="action_setup" string="Setup" type="object"/>
+                    <button
+                        name="action_labor_processes"
+                        string="Create Labor"
+                        type="object"
+                    />
                     <!-- TODO: add state field with statusbar widget -->
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_open_circulations"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-circle-o-notch"
+                        >
+                            <field
+                                name="configurator_circulation_count"
+                                widget="statinfo"
+                                string="Circulations"
+                            />
+                        </button>
                         <button
                             name="action_open_cfg_inserts"
                             type="object"
@@ -164,9 +181,6 @@
                                     <field name="fit_qty"/>
                                 </tree>
                             </field>
-                        </page>
-                        <page name="circulations" string="Circulations">
-                            <field name="circulation_ids"/>
                         </page>
                         <page name="stamps" string="Emboss/Deboss">
                             <field name="cfg_stamp_ids">

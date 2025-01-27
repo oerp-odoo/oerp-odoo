@@ -22,6 +22,28 @@
             name="domain_force"
         >[('circulation_id.configurator_id.company_id', 'in', company_ids)]</field>
     </record>
+    <record id="package_configurator_circulation_labor_rule_company" model="ir.rule">
+        <field name="name">package.configurator.circulation.labor: Multi-Company</field>
+        <field name="model_id" ref="model_package_configurator_circulation_labor"/>
+        <field
+            name="domain_force"
+        >[('circulation_id.configurator_id.company_id', 'in', company_ids)]</field>
+    </record>
+    <record
+        id="package_configurator_circulation_labor_process_rule_company"
+        model="ir.rule"
+    >
+        <field
+            name="name"
+        >package.configurator.circulation.labor.process: Multi-Company</field>
+        <field
+            name="model_id"
+            ref="model_package_configurator_circulation_labor_process"
+        />
+        <field
+            name="domain_force"
+        >[('circulation_labor_id.circulation_id.configurator_id.company_id', 'in', company_ids)]</field>
+    </record>
     <record
         id="package_configurator_circulation_item_setup_rule_company"
         model="ir.rule"
@@ -132,5 +154,16 @@
         <field name="name">package.foil: Multi-Company</field>
         <field name="model_id" ref="model_package_foil"/>
         <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <!-- Labor -->
+    <record id="package_labor_rule_company" model="ir.rule">
+        <field name="name">package.labor: Multi-Company</field>
+        <field name="model_id" ref="model_package_labor"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="package_labor_item_rule_company" model="ir.rule">
+        <field name="name">package.labor.item: Multi-Company</field>
+        <field name="model_id" ref="model_package_labor_item"/>
+        <field name="domain_force">[('labor_id.company_id', 'in', company_ids)]</field>
     </record>
 </odoo>

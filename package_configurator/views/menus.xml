@@ -113,7 +113,14 @@
                     sequence="10"
                 />
             </menuitem>
-            <menuitem id="package_addins_menu" name="Addins" sequence="45">
+            <menuitem id="package_labor_root_menu" name="Labor" sequence="45">
+                <menuitem
+                    id="package_labor_menu"
+                    action="package_labor_action"
+                    sequence="5"
+                />
+            </menuitem>
+            <menuitem id="package_addins_menu" name="Addins" sequence="50">
                 <menuitem
                     id="package_stamp_menu"
                     action="package_stamp_action"
@@ -130,7 +137,7 @@
                     sequence="15"
                 />
             </menuitem>
-            <menuitem id="package_misc_menu" name="Misc" sequence="50">
+            <menuitem id="package_misc_menu" name="Misc" sequence="55">
                 <menuitem
                     id="package_area_menu"
                     action="package_area_action"

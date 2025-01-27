@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, tools
 
 from ..const import ComponentType
 from ..utils.misc import compute_selection_name
@@ -40,3 +40,24 @@ class PackageComponentType(models.Model):
             'The Code must be unique !',
         )
     ]
+
+    @api.model
+    @tools.ormcache('code')
+    def get_id(self, code):
+        return self.search([('code', '=', code)]).id
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        result = super().create(vals_list)
+        self.env.registry.clear_cache()
+        return result
+
+    def write(self, vals):
+        result = super().write(vals)
+        self.env.registry.clear_cache()
+        return result
+
+    def unlink(self):
+        result = super().unlink()
+        self.env.registry.clear_cache()
+        return result

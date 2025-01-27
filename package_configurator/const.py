@@ -9,6 +9,7 @@ class DecimalPrecision(StrEnum):
     SIZE = 'Package Configurator Size'
     PRICE = 'Package Configurator Price'
     COST = 'Package Configurator Cost'
+    MEASURE = 'Package Configurator Measure'
 
 
 class ComponentSide(StrEnum):
@@ -37,6 +38,19 @@ class ComponentType(StrEnum):
     LID_WRAPPINGPPAER_OUTSIDE = 'lid_wrappingpaper_outside'
 
 
+class LaborType(StrEnum):
+    # generic type means, its not tied specifically to configurator options
+    # (e.g. foiling, lamination), so it can be applied whenever you want.
+    GENERIC = 'generic'
+    WRAPPINGPAPER_CLADDING = 'wrappingpaper_cladding'
+    LAMINATION = 'lamination'
+    FOILING = 'foiling'
+    # Labor cost for making insert.
+    INSERT_PUTTING = 'insert_putting'
+    # Laber cost for fitting it in a box.
+    INSERT_FORMATION = 'insert_formation'
+
+
 class ComponentKind(StrEnum):
     GREYBOARD = 'greyboard'
     CARTON = 'carton'
@@ -58,7 +72,7 @@ SETUP_TYPE_SELECTION = [
     (SetupType.PRINT, "Print"),
     (SetupType.FOIL, "Foil"),
 ]
-
+HELP_NO_LIMIT = "0 means no limit"
 DEFAUL_GLOBAL_PACKAGE_EXTRA = 30  # mm
 # Extra size for length and width to compensate, so lid would fit on a
 # base!

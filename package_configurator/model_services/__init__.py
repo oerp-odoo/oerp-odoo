@@ -3,4 +3,5 @@ from . import (
     package_sheet_quantity,
     package_sheet_match,
     package_warning,
+    package_labor_process_generation,
 )
