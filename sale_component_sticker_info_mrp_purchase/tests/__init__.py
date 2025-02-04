@@ -1,1 +1,1 @@
-from . import test_sale_group_name_mrp_purchase
+from . import test_sale_group_name_mrp_purchase, test_export_purchase_sticker_info

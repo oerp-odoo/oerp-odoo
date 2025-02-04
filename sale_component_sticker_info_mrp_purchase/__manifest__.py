@@ -17,6 +17,8 @@
         'sale_component_sticker_info',
     ],
     'data': [
+        'security/ir.model.access.csv',
+        'data/ir_actions_server.xml',
         'views/mrp_production.xml',
         'views/purchase_order.xml',
     ],

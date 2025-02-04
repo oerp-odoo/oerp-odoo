@@ -1,0 +1,1 @@
+from . import purchase_component_sticker_info_export
