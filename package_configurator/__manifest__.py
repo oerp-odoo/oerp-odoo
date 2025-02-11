@@ -40,6 +40,7 @@
         'views/package_print_pricelist_rule.xml',
         'views/package_print_color.xml',
         'views/package_labor.xml',
+        'views/package_labor_item.xml',
         'views/menus.xml',
     ],
     'demo': [

@@ -119,6 +119,11 @@
                     action="package_labor_action"
                     sequence="5"
                 />
+                <menuitem
+                    id="package_labor_item_menu"
+                    action="package_labor_item_action"
+                    sequence="10"
+                />
             </menuitem>
             <menuitem id="package_addins_menu" name="Addins" sequence="50">
                 <menuitem

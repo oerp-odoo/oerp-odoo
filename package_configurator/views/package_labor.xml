@@ -5,7 +5,7 @@
         <field name="model">package.labor</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="currency_id" invisible="1"/>
+                <field name="currency_id" column_invisible="1"/>
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="hour_cost"/>
