@@ -50,8 +50,8 @@ class TestExportPurchaseStickerInfo(TransactionCase):
                 0,
                 {
                     'product_id': self.product_1.id,
-                    'product_qty': 2,
-                    'component_sticker_info': 'A-1 S001; A-2 S001',
+                    'product_qty': 3,
+                    'component_sticker_info': 'A-1 S001 [QTY:1.0]; A-2 S001 [QTY:2.0]',
                 },
             )
         ]
@@ -65,15 +65,15 @@ class TestExportPurchaseStickerInfo(TransactionCase):
                     'Internal Reference': 'C1',
                     'Vendor Reference': 'MY-PARTNER-REF-1',
                     'Name': 'P1',
-                    'Quantity': 2,
-                    'Group Name': 'A-1 S001',
+                    'Quantity': 1.0,
+                    'Info': 'A-1 S001',
                 },
                 {
                     'Internal Reference': 'C1',
                     'Vendor Reference': 'MY-PARTNER-REF-1',
                     'Name': 'P1',
-                    'Quantity': 2,
-                    'Group Name': 'A-2 S001',
+                    'Quantity': 2.0,
+                    'Info': 'A-2 S001',
                 },
             ],
         )
@@ -87,7 +87,7 @@ class TestExportPurchaseStickerInfo(TransactionCase):
                 {
                     'product_id': self.product_1.id,
                     'product_qty': 2,
-                    'component_sticker_info': 'A-1 S001; A-2 S001',
+                    'component_sticker_info': 'A-1 S001 [QTY:1.0]; A-2 S001 [QTY:1.0]',
                 },
             )
         ]
@@ -97,8 +97,8 @@ class TestExportPurchaseStickerInfo(TransactionCase):
                 0,
                 {
                     'product_id': self.product_2.id,
-                    'product_qty': 1,
-                    'component_sticker_info': 'B-1 S001; B-2 S001',
+                    'product_qty': 2,
+                    'component_sticker_info': 'B-1 S001 [QTY:1.0]; B-2 S001',
                 },
             )
         ]
@@ -106,37 +106,40 @@ class TestExportPurchaseStickerInfo(TransactionCase):
         res = self.PurchaseComponentStickerInfo.prepare_data(
             self.purchase_1 | self.purchase_2
         )
+        self.maxDiff = None
         # THEN
-        self.assertEqual(
+        self.assertCountEqual(
             res,
             [
                 {
                     'Internal Reference': 'C1',
                     'Vendor Reference': 'MY-PARTNER-REF-1',
                     'Name': 'P1',
-                    'Quantity': 2.0,
-                    'Group Name': 'A-1 S001',
+                    'Quantity': 1.0,
+                    'Info': 'A-1 S001',
                 },
                 {
                     'Internal Reference': 'C1',
                     'Vendor Reference': 'MY-PARTNER-REF-1',
                     'Name': 'P1',
+                    'Quantity': 1.0,
+                    'Info': 'A-2 S001',
+                },
+                {
+                    'Internal Reference': 'C2',
+                    'Vendor Reference': 'MY-PARTNER-REF-2',
+                    'Name': 'P2',
+                    'Quantity': 1.0,
+                    'Info': 'B-1 S001',
+                },
+                {
+                    'Internal Reference': 'C2',
+                    'Vendor Reference': 'MY-PARTNER-REF-2',
+                    'Name': 'P2',
+                    # This uses default quantity from line, because there was no
+                    # [QTY:FLOAT] specified.
                     'Quantity': 2.0,
-                    'Group Name': 'A-2 S001',
-                },
-                {
-                    'Internal Reference': 'C2',
-                    'Vendor Reference': 'MY-PARTNER-REF-2',
-                    'Name': 'P2',
-                    'Quantity': 1.0,
-                    'Group Name': 'B-1 S001',
-                },
-                {
-                    'Internal Reference': 'C2',
-                    'Vendor Reference': 'MY-PARTNER-REF-2',
-                    'Name': 'P2',
-                    'Quantity': 1.0,
-                    'Group Name': 'B-2 S001',
+                    'Info': 'B-2 S001',
                 },
             ],
         )
@@ -150,7 +153,7 @@ class TestExportPurchaseStickerInfo(TransactionCase):
                 {
                     'product_id': self.product_1.id,
                     'product_qty': 2.0,
-                    'component_sticker_info': 'A-1 S001; A-2 S001',
+                    'component_sticker_info': 'A-1 S001 [QTY:1.0]; A-2 S001 [QTY:1.0]',
                 },
             ),
             (
@@ -172,22 +175,22 @@ class TestExportPurchaseStickerInfo(TransactionCase):
                     'Internal Reference': 'C1',
                     'Vendor Reference': 'MY-PARTNER-REF-1',
                     'Name': 'P1',
-                    'Quantity': 2.0,
-                    'Group Name': 'A-1 S001',
+                    'Quantity': 1.0,
+                    'Info': 'A-1 S001',
                 },
                 {
                     'Internal Reference': 'C1',
                     'Vendor Reference': 'MY-PARTNER-REF-1',
                     'Name': 'P1',
-                    'Quantity': 2.0,
-                    'Group Name': 'A-2 S001',
+                    'Quantity': 1.0,
+                    'Info': 'A-2 S001',
                 },
                 {
                     'Internal Reference': 'C2',
                     'Vendor Reference': 'MY-PARTNER-REF-1',
                     'Name': 'P2',
                     'Quantity': 3.0,
-                    'Group Name': None,
+                    'Info': None,
                 },
             ],
         )
@@ -200,7 +203,7 @@ class TestExportPurchaseStickerInfo(TransactionCase):
                 0,
                 {
                     'product_id': self.product_2.id,
-                    'product_qty': 3,
+                    'product_qty': 3.0,
                 },
             ),
         ]
@@ -215,12 +218,12 @@ class TestExportPurchaseStickerInfo(TransactionCase):
                     'Vendor Reference': 'MY-PARTNER-REF-1',
                     'Name': 'P2',
                     'Quantity': 3.0,
-                    'Group Name': None,
+                    'Info': None,
                 },
             ],
         )
 
-    def test_05_export_purchase_sicker_info_to_csv(self):
+    def test_05_export_single_purchase_sicker_info_to_csv(self):
         # GIVEN
         self.purchase_1.order_line = [
             (
@@ -228,8 +231,49 @@ class TestExportPurchaseStickerInfo(TransactionCase):
                 0,
                 {
                     'product_id': self.product_1.id,
-                    'product_qty': 2,
-                    'component_sticker_info': 'A-1 S001; A-2 S001',
+                    'product_qty': 2.0,
+                    'component_sticker_info': 'A-1 S001 [QTY:1.0]; A-2 S001 [QTY:1.0]',
+                },
+            )
+        ]
+        wiz = self.Wizard.with_context(
+            active_ids=self.purchase_1.ids,
+            active_model='purchase.order',
+        ).create({})
+        # WHEN
+        res = wiz.action_export()
+        # THEN
+        po_name = self.purchase_1.name
+        self.assertEqual(
+            res,
+            {
+                'type': 'ir.actions.act_url',
+                'url': (
+                    f'/web/content/purchase.component.sticker.info.export/{wiz.id}/'
+                    + f'data/component_sticker_info_{po_name}.csv?download=true'
+                ),
+            },
+        )
+        data = base64.b64decode(wiz.data).decode()
+        data_lines = [d.strip() for d in data.split('\n') if d.strip()]
+        self.assertEqual(len(data_lines), 3)
+        self.assertEqual(
+            data_lines[0],
+            'Internal Reference,Vendor Reference,Name,Quantity,Info',
+        )
+        self.assertEqual(data_lines[1], 'C1,MY-PARTNER-REF-1,P1,1.0,A-1 S001')
+        self.assertEqual(data_lines[2], 'C1,MY-PARTNER-REF-1,P1,1.0,A-2 S001')
+
+    def test_06_export_multi_purchase_sicker_info_to_csv(self):
+        # GIVEN
+        self.purchase_1.order_line = [
+            (
+                0,
+                0,
+                {
+                    'product_id': self.product_1.id,
+                    'product_qty': 2.0,
+                    'component_sticker_info': 'A-1 S001 [QTY:1.0]; A-2 S001 [QTY:1.0]',
                 },
             )
         ]
@@ -239,8 +283,8 @@ class TestExportPurchaseStickerInfo(TransactionCase):
                 0,
                 {
                     'product_id': self.product_2.id,
-                    'product_qty': 1,
-                    'component_sticker_info': 'B-1 S001; B-2 S001',
+                    'product_qty': 3.0,
+                    'component_sticker_info': 'B-1 S001 [QTY:1.0]; B-2 S001 [QTY:2.0]',
                 },
             )
         ]
@@ -266,9 +310,9 @@ class TestExportPurchaseStickerInfo(TransactionCase):
         self.assertEqual(len(data_lines), 5)
         self.assertEqual(
             data_lines[0],
-            'Internal Reference,Vendor Reference,Name,Quantity,Group Name',
+            'Internal Reference,Vendor Reference,Name,Quantity,Info',
         )
-        self.assertEqual(data_lines[1], 'C1,MY-PARTNER-REF-1,P1,2.0,A-1 S001')
-        self.assertEqual(data_lines[2], 'C1,MY-PARTNER-REF-1,P1,2.0,A-2 S001')
+        self.assertEqual(data_lines[1], 'C1,MY-PARTNER-REF-1,P1,1.0,A-1 S001')
+        self.assertEqual(data_lines[2], 'C1,MY-PARTNER-REF-1,P1,1.0,A-2 S001')
         self.assertEqual(data_lines[3], 'C2,MY-PARTNER-REF-2,P2,1.0,B-1 S001')
-        self.assertEqual(data_lines[4], 'C2,MY-PARTNER-REF-2,P2,1.0,B-2 S001')
+        self.assertEqual(data_lines[4], 'C2,MY-PARTNER-REF-2,P2,2.0,B-2 S001')

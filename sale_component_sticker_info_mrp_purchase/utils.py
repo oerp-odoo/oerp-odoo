@@ -1,4 +1,4 @@
-STICKER_INFO_SEP = ';'
+from .const import STICKER_INFO_SEP
 
 
 def get_sale_lines_from_stock_moves(moves):
@@ -49,4 +49,6 @@ def _prepare_component_sticker_info(mo):
         info = f'{info}, {product.packaging_name}'
     if mo.origin:
         info = f'{info}, {mo.origin}'
+    if mo.product_qty:
+        info = f'{info} [QTY:{mo.product_qty}]'
     return info

@@ -44,7 +44,10 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
         cls.bom_1 = cls.MrpBom.create(
             {
                 'product_tmpl_id': cls.product_1.product_tmpl_id.id,
-                'bom_line_ids': [(0, 0, {'product_id': cls.product_1_comp_1.id})],
+                'product_qty': 1,
+                'bom_line_ids': [
+                    (0, 0, {'product_id': cls.product_1_comp_1.id, 'product_qty': 1})
+                ],
             }
         )
         cls.sale_1 = cls.SaleOrder.create({'partner_id': cls.partner_1.id})
@@ -71,7 +74,8 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
         self.assertEqual(len(purchase), 1)
         self.assertEqual(mo.sale_group_name, 'A-1')
         self.assertEqual(
-            purchase.order_line[0].component_sticker_info, f'A-1, {self.sale_1.name}'
+            purchase.order_line[0].component_sticker_info,
+            f'A-1, {self.sale_1.name} [QTY:1.0]',
         )
 
     def test_02_so_group_name_mrp_po_linked_multi_line_w_packaging_name(self):
@@ -85,8 +89,6 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
                 {
                     'group_name': 'A-1',
                     'product_id': self.product_1.id,
-                    # NOTE. Quantity on line means nothing when
-                    # deciding how to generate a sticker info for now.
                     'product_uom_qty': 2,
                 },
             ),
@@ -117,7 +119,7 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
         sale_name = self.sale_1.name
         self.assertEqual(
             purchase.order_line[0].component_sticker_info,
-            f'A-1, {pname}, {sale_name}; A-2, {pname}, {sale_name}',
+            f'A-1, {pname}, {sale_name} [QTY:2.0]; A-2, {pname}, {sale_name} [QTY:1.0]',
         )
 
     def test_03_so_group_name_2_level_mrp_po_linked_multi_line_w_packname(self):
@@ -174,8 +176,6 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
                         {
                             'group_name': 'A-1',
                             'product_id': product_main.id,
-                            # NOTE. Quantity on line means nothing when
-                            # deciding how to generate a sticker info for now.
                             'product_uom_qty': 2,
                         },
                     ),
@@ -211,7 +211,7 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
         sale_name = sale_1.name
         self.assertEqual(
             purchase.order_line[0].component_sticker_info,
-            f'A-1, {pname}, {sale_name}; A-2, {pname}, {sale_name}',
+            f'A-1, {pname}, {sale_name} [QTY:2.0]; A-2, {pname}, {sale_name} [QTY:1.0]',
         )
 
     def test_04_so_group_name_3_level_mrp_po_linked_multi_line_w_packname(self):
@@ -284,8 +284,6 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
                         {
                             'group_name': 'A-1',
                             'product_id': product_main.id,
-                            # NOTE. Quantity on line means nothing when
-                            # deciding how to generate a sticker info for now.
                             'product_uom_qty': 2,
                         },
                     ),
@@ -326,5 +324,5 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
         sale_name = sale_1.name
         self.assertEqual(
             purchase.order_line[0].component_sticker_info,
-            f'A-1, {pname}, {sale_name}; A-2, {pname}, {sale_name}',
+            f'A-1, {pname}, {sale_name} [QTY:2.0]; A-2, {pname}, {sale_name} [QTY:1.0]',
         )
