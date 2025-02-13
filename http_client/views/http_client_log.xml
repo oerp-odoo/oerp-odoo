@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="http_client_log_view_list" model="ir.ui.view">
+        <field name="name">http.client.log.list</field>
+        <field name="model">http.client.log</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="http_verb"/>
+                <field name="endpoint"/>
+                <field name="status_code"/>
+                <field name="model_controller_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="http_client_log_view_form" model="ir.ui.view">
+        <field name="name">http.client.log.form</field>
+        <field name="model">http.client.log</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="http_verb"/>
+                            <field name="endpoint"/>
+                            <field name="status_code"/>
+                        </group>
+                        <group name="left">
+                            <field name="model_controller_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="request_body" string="Request Body">
+                            <field name="request_body"/>
+                        </page>
+                        <page name="response_body" string="Response Body">
+                            <field name="response_body"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="http_client_log_action" model="ir.actions.act_window">
+        <field name="name">Logs</field>
+        <field name="res_model">http.client.log</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="http_client_log_menu"
+        parent="http_client_root_menu"
+        action="http_client_log_action"
+        sequence="10"
+    />
+</odoo>

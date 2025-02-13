@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_regular_client_auth_admin,regular_client_auth admin,model_regular_client_auth,base.group_system,1,1,1,1
+access_http_client_config_admin,http_client_config admin,model_http_client_config,base.group_system,1,1,1,1
+access_http_client_log_admin,http_client_log admin,model_http_client_log,base.group_system,1,0,0,1

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="http_client_config_view_list" model="ir.ui.view">
+        <field name="name">http.client.config.list</field>
+        <field name="model">http.client.config</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="model_controller_id"/>
+                <field name="log_enabled"/>
+                <field name="log_limit_days"/>
+                <field name="log_limit_count"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="http_client_config_view_form" model="ir.ui.view">
+        <field name="name">http.client.config.form</field>
+        <field name="model">http.client.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="general" string="General">
+                            <field
+                                name="model_controller_id"
+                                options="{'no_create': True}"
+                            />
+                        </group>
+                        <group name="log" string="Logging">
+                            <field name="log_enabled"/>
+                            <field
+                                name="log_status_code_filter"
+                                invisible="not log_enabled"
+                            />
+                            <field name="log_limit_days"/>
+                            <field name="log_limit_count"/>
+                        </group>
+                        <group name="misc" string="Misc">
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="http_client_config_action" model="ir.actions.act_window">
+        <field name="name">Configs</field>
+        <field name="res_model">http.client.config</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="http_client_config_menu"
+        parent="http_client_root_menu"
+        action="http_client_config_action"
+        sequence="5"
+    />
+</odoo>

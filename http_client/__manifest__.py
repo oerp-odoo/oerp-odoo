@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "HTTP Client",
-    'version': '17.0.4.0.0',
+    'version': '18.0.5.0.0',
     'summary': 'http, client, manager',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
@@ -14,14 +14,17 @@
     'data': [
         'security/regular_client_auth_security.xml',
         'security/ir.model.access.csv',
-        'views/http_client_auth_views.xml',
-        'views/regular_client_auth_views.xml',
+        'views/menus.xml',
+        'views/http_client_auth.xml',
+        'views/regular_client_auth.xml',
+        'views/http_client_config.xml',
+        'views/http_client_log.xml',
     ],
-    'external_dependencies': {'python': ['mergedeep', 'validators']},
+    'external_dependencies': {'python': ['mergedeep', 'validators', 'footil']},
     'assets': {
         'web.assets_backend': [
             'http_client/static/src/js/error_dialogs.esm.js',
         ],
     },
-    'installable': False,
+    'installable': True,
 }
