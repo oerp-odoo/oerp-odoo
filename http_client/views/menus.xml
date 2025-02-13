@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem
+        id="http_client_root_menu"
+        parent="base.menu_custom"
+        name="HTTP Client"
+        sequence="11"
+    />
+</odoo>

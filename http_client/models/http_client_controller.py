@@ -4,13 +4,15 @@ import traceback
 import mergedeep
 import requests
 
-from odoo import _, api, models
+from odoo import api, models
 from odoo.exceptions import ValidationError
+from odoo.tools import LazyTranslate
 
 from ..exceptions import AuthDataError
 from ..utils import get_endpoint, get_next_link
 
 _logger = logging.getLogger(__name__)
+_lt = LazyTranslate(__name__)
 
 
 def _extract_response_body(response):
@@ -101,7 +103,7 @@ class HttpClientController(models.AbstractModel):
     def _validate_endpoint_with_path_item(self, endpoint, path_item):
         if not (bool(endpoint) ^ bool(path_item)):
             raise ValidationError(
-                _(
+                _lt(
                     "Programming error: endpoint and path_item must satisfy"
                     + " XOR condition."
                 )
@@ -143,7 +145,7 @@ class HttpClientController(models.AbstractModel):
                 url = auth_data['url']
             except TypeError:
                 raise AuthDataError(
-                    _(
+                    _lt(
                         "No Authentication object found to get base URL. "
                         + "Check Authentication objects configuration."
                     )
@@ -166,6 +168,9 @@ class HttpClientController(models.AbstractModel):
             # TODO: implement response.links handling, to continue
             # fetching data if there are next links.
             response = method(endpoint, **kwargs)
+            # TODO: save log entry even if exception is raised after checking
+            # response!
+            self.env['http.client.log'].sudo().handle_log(response, self._name)
             self._check_response(response)
             return response
         except Exception as e:

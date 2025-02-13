@@ -1,8 +1,19 @@
+import operator
+import re
 from urllib.parse import urljoin, urlparse
 
+from footil.formatting import strip_space
 from requests.models import PreparedRequest
 
 from .value_objects import PathItem
+
+OP_RANGE_MAP = {
+    '!=': operator.ne,
+    '>': operator.gt,
+    '>=': operator.ge,
+    '<': operator.lt,
+    '<=': operator.le,
+}
 
 
 def get_endpoint(base_url: str, path_item: PathItem):
@@ -46,3 +57,59 @@ def get_next_link(response, key: str) -> str | None:
         return response.links[key]['url']
     except KeyError:
         return None
+
+
+# TODO: this could go to footil.
+# TODO: add support for float.
+def match_number(number: int, expr: str) -> bool:
+    """Match number by a given number or range conditions.
+
+    Args:
+        number: number that is either matched via range expr or not.
+        expr: single numbers, range or ranges expression. For
+            example: '100,200,!251,>=250,<300' would match numbers 100, 200,
+            greater or equal to 250 (except 251) and lower than 300.
+            Note exact numbers in expr are combined with not equal and range
+            expr using OR operator, where not equal and ranges themselves are
+            combined with AND operator.
+
+    """
+    inclusions, exclussions = _form_match_number_conditions(expr)
+    # If we have inclusion match, then it ignores exclusion!
+    for n in inclusions:
+        if number == n:
+            return True
+    if not exclussions:
+        return False
+    for op, n in exclussions:
+        if not op(number, n):
+            return False
+    return True
+
+
+def _form_match_number_conditions(expr: str):
+    inclusions = []
+    exclusions = []
+    # We ignore all spaces.
+    for part in strip_space(expr).split(','):
+        # First try to match exact number.
+        try:
+            inclusions.append(int(part))
+        except ValueError:
+            msg = (
+                f"Invalid expression: {expr}. Expression can only contain numbers,"
+                + " not equal numbers and range expressions separated by commas. "
+                + "For example: 100,!=201,>=200,<300"
+            )
+            # Now we assume that its ether not equal or range expr.
+            m = re.search(r'\d+', part)
+            if not m:
+                raise ValueError(msg)
+            n = m.group()
+            op_str = part.replace(n, '')
+            try:
+                op = OP_RANGE_MAP[op_str]
+            except KeyError:
+                raise ValueError(msg)
+            exclusions.append((op, int(n)))
+    return (inclusions, exclusions)

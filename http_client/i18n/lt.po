@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-24 15:18+0000\n"
-"PO-Revision-Date: 2024-06-24 15:18+0000\n"
+"POT-Creation-Date: 2025-02-13 09:29+0000\n"
+"PO-Revision-Date: 2025-02-13 09:29+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,6 @@ msgstr ""
 #. module: http_client
 #. odoo-python
 #: code:addons/http_client/models/http_client_auth.py:0
-#, python-format
 msgid "'%s' is not valid URL."
 msgstr ""
 
@@ -49,6 +48,12 @@ msgid ""
 msgstr ""
 
 #. module: http_client
+#: model:ir.model.fields.selection,name:http_client.selection__http_client_auth__auth_method__api_key
+#: model:ir.model.fields.selection,name:http_client.selection__regular_client_auth__auth_method__api_key
+msgid "API Key"
+msgstr ""
+
+#. module: http_client
 #: model:ir.model.fields,field_description:http_client.field_http_client_auth__access_token
 #: model:ir.model.fields,field_description:http_client.field_regular_client_auth__access_token
 msgid "Access Token"
@@ -57,14 +62,12 @@ msgstr ""
 #. module: http_client
 #. odoo-javascript
 #: code:addons/http_client/static/src/js/error_dialogs.esm.js:0
-#, python-format
 msgid "Auth Data Error"
 msgstr ""
 
 #. module: http_client
 #. odoo-javascript
 #: code:addons/http_client/static/src/js/error_dialogs.esm.js:0
-#, python-format
 msgid "Auth Error"
 msgstr ""
 
@@ -76,7 +79,7 @@ msgstr "Autentifikavimo metodas"
 
 #. module: http_client
 #: model_terms:ir.ui.view,arch_db:http_client.regular_client_auth_view_form
-#: model_terms:ir.ui.view,arch_db:http_client.regular_client_auth_view_tree
+#: model_terms:ir.ui.view,arch_db:http_client.regular_client_auth_view_list
 msgid "Authentication"
 msgstr "Autentifikavimas"
 
@@ -95,7 +98,6 @@ msgstr "Autentifikavimo kelio rėžimas"
 #. module: http_client
 #. odoo-python
 #: code:addons/http_client/models/http_client_auth.py:0
-#, python-format
 msgid "Authentication data can only be used if it is confirmed!"
 msgstr ""
 "Autentifikavimo duomenys gali būti naudojami, tik kai yra patvirtinti!"
@@ -103,7 +105,6 @@ msgstr ""
 #. module: http_client
 #. odoo-python
 #: code:addons/http_client/models/http_client_auth.py:0
-#, python-format
 msgid ""
 "Authentication record must be unique per company or can have one global "
 "authentication record."
@@ -119,21 +120,18 @@ msgstr "Komp. universali adreso bazė galutiniam taškui"
 
 #. module: http_client
 #: model:ir.model.fields.selection,name:http_client.selection__http_client_auth__auth_method__basic
-#: model:ir.model.fields.selection,name:http_client.selection__http_client_test_auth__auth_method__basic
 #: model:ir.model.fields.selection,name:http_client.selection__regular_client_auth__auth_method__basic
 msgid "Basic"
 msgstr "Bazinis"
 
 #. module: http_client
 #: model:ir.model.fields.selection,name:http_client.selection__http_client_auth__auth_method__bearer
-#: model:ir.model.fields.selection,name:http_client.selection__http_client_test_auth__auth_method__bearer
 #: model:ir.model.fields.selection,name:http_client.selection__regular_client_auth__auth_method__bearer
 msgid "Bearer"
 msgstr ""
 
 #. module: http_client
 #: model:ir.model.fields.selection,name:http_client.selection__http_client_auth__grant_type__client_credentials
-#: model:ir.model.fields.selection,name:http_client.selection__http_client_test_auth__grant_type__client_credentials
 #: model:ir.model.fields.selection,name:http_client.selection__regular_client_auth__grant_type__client_credentials
 msgid "Client Credentials"
 msgstr "Kliento duomenys"
@@ -151,7 +149,6 @@ msgstr "Patvirtinti"
 
 #. module: http_client
 #: model:ir.model.fields.selection,name:http_client.selection__http_client_auth__state__confirmed
-#: model:ir.model.fields.selection,name:http_client.selection__http_client_test_auth__state__confirmed
 #: model:ir.model.fields.selection,name:http_client.selection__regular_client_auth__state__confirmed
 msgid "Confirmed"
 msgstr "Patvirtinta"
@@ -195,9 +192,6 @@ msgstr "Rodomas pavadinimas"
 #: model:ir.model.fields.selection,name:http_client.selection__http_client_auth__auth_path_type__endpoint
 #: model:ir.model.fields.selection,name:http_client.selection__http_client_auth__refresh_path_type__endpoint
 #: model:ir.model.fields.selection,name:http_client.selection__http_client_auth__verify_path_type__endpoint
-#: model:ir.model.fields.selection,name:http_client.selection__http_client_test_auth__auth_path_type__endpoint
-#: model:ir.model.fields.selection,name:http_client.selection__http_client_test_auth__refresh_path_type__endpoint
-#: model:ir.model.fields.selection,name:http_client.selection__http_client_test_auth__verify_path_type__endpoint
 #: model:ir.model.fields.selection,name:http_client.selection__regular_client_auth__auth_path_type__endpoint
 #: model:ir.model.fields.selection,name:http_client.selection__regular_client_auth__refresh_path_type__endpoint
 #: model:ir.model.fields.selection,name:http_client.selection__regular_client_auth__verify_path_type__endpoint
@@ -252,14 +246,12 @@ msgstr ""
 
 #. module: http_client
 #: model:ir.model.fields.selection,name:http_client.selection__http_client_auth__content_type__json
-#: model:ir.model.fields.selection,name:http_client.selection__http_client_test_auth__content_type__json
 #: model:ir.model.fields.selection,name:http_client.selection__regular_client_auth__content_type__json
 msgid "JSON"
 msgstr ""
 
 #. module: http_client
 #: model:ir.model.fields.selection,name:http_client.selection__http_client_auth__auth_method__jwt
-#: model:ir.model.fields.selection,name:http_client.selection__http_client_test_auth__auth_method__jwt
 #: model:ir.model.fields.selection,name:http_client.selection__regular_client_auth__auth_method__jwt
 msgid "JWT"
 msgstr ""
@@ -268,11 +260,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:http_client.http_client_auth_view_form
 msgid "JWT Token"
 msgstr ""
-
-#. module: http_client
-#: model:ir.model.fields,field_description:http_client.field_regular_client_auth____last_update
-msgid "Last Modified on"
-msgstr "Paskutinį kartą keista"
 
 #. module: http_client
 #: model:ir.model.fields,field_description:http_client.field_regular_client_auth__write_uid
@@ -292,7 +279,6 @@ msgstr ""
 #. module: http_client
 #. odoo-python
 #: code:addons/http_client/models/http_client_auth.py:0
-#, python-format
 msgid "Login was Successful!"
 msgstr ""
 
@@ -304,7 +290,6 @@ msgstr ""
 #. module: http_client
 #. odoo-python
 #: code:addons/http_client/models/http_client_auth.py:0
-#, python-format
 msgid "Logout was Successful!"
 msgstr ""
 
@@ -322,7 +307,6 @@ msgstr ""
 #. module: http_client
 #. odoo-python
 #: code:addons/http_client/models/http_client_controller.py:0
-#, python-format
 msgid ""
 "No Authentication object found to get base URL. Check Authentication objects"
 " configuration."
@@ -332,21 +316,18 @@ msgstr ""
 
 #. module: http_client
 #: model:ir.model.fields.selection,name:http_client.selection__http_client_auth__auth_method__none
-#: model:ir.model.fields.selection,name:http_client.selection__http_client_test_auth__auth_method__none
 #: model:ir.model.fields.selection,name:http_client.selection__regular_client_auth__auth_method__none
 msgid "None"
 msgstr "Joks"
 
 #. module: http_client
 #: model:ir.model.fields.selection,name:http_client.selection__http_client_auth__state__draft
-#: model:ir.model.fields.selection,name:http_client.selection__http_client_test_auth__state__draft
 #: model:ir.model.fields.selection,name:http_client.selection__regular_client_auth__state__draft
 msgid "Not Confirmed"
 msgstr "Nepatvirtinta"
 
 #. module: http_client
 #: model:ir.model.fields.selection,name:http_client.selection__http_client_auth__grant_type__password
-#: model:ir.model.fields.selection,name:http_client.selection__http_client_test_auth__grant_type__password
 #: model:ir.model.fields.selection,name:http_client.selection__regular_client_auth__grant_type__password
 msgid "Password"
 msgstr ""
@@ -355,9 +336,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:http_client.selection__http_client_auth__auth_path_type__path
 #: model:ir.model.fields.selection,name:http_client.selection__http_client_auth__refresh_path_type__path
 #: model:ir.model.fields.selection,name:http_client.selection__http_client_auth__verify_path_type__path
-#: model:ir.model.fields.selection,name:http_client.selection__http_client_test_auth__auth_path_type__path
-#: model:ir.model.fields.selection,name:http_client.selection__http_client_test_auth__refresh_path_type__path
-#: model:ir.model.fields.selection,name:http_client.selection__http_client_test_auth__verify_path_type__path
 #: model:ir.model.fields.selection,name:http_client.selection__regular_client_auth__auth_path_type__path
 #: model:ir.model.fields.selection,name:http_client.selection__regular_client_auth__refresh_path_type__path
 #: model:ir.model.fields.selection,name:http_client.selection__regular_client_auth__verify_path_type__path
@@ -367,10 +345,15 @@ msgstr "Kelias"
 #. module: http_client
 #. odoo-python
 #: code:addons/http_client/models/http_client_controller.py:0
-#, python-format
-msgid "Programming error: endpoint and uri_item must satisfy XOR condition."
+msgid "Programming error: endpoint and path_item must satisfy XOR condition."
 msgstr ""
-"Programavimo klaida: endpoint ir uri_item privalo patenkinti XOR sąlygą."
+
+#. module: http_client
+#: model_terms:ir.ui.view,arch_db:http_client.http_client_auth_view_form
+msgid ""
+"Provide <strong>Identifier</strong> to use as API Key header in request. Use"
+" <strong>Secret</strong> as API Key."
+msgstr ""
 
 #. module: http_client
 #: model_terms:ir.ui.view,arch_db:http_client.http_client_auth_view_form
@@ -408,7 +391,6 @@ msgstr "Slėpinys"
 #. module: http_client
 #. odoo-python
 #: code:addons/http_client/models/http_client_auth.py:0
-#, python-format
 msgid "Session is Valid!"
 msgstr ""
 
@@ -420,7 +402,6 @@ msgstr "Būsena"
 
 #. module: http_client
 #: model:ir.model.constraint,message:http_client.constraint_http_client_auth_name_uniq
-#: model:ir.model.constraint,message:http_client.constraint_http_client_test_auth_name_uniq
 #: model:ir.model.constraint,message:http_client.constraint_regular_client_auth_name_uniq
 msgid "The name must be unique!"
 msgstr ""
@@ -428,7 +409,6 @@ msgstr ""
 #. module: http_client
 #. odoo-python
 #: code:addons/http_client/models/http_client_auth.py:0
-#, python-format
 msgid "There is no Session to verify!"
 msgstr ""
 
@@ -441,7 +421,6 @@ msgstr ""
 #. module: http_client
 #. odoo-python
 #: code:addons/http_client/models/http_client_auth.py:0
-#, python-format
 msgid "Token Expire Delta must be 0 or lower!"
 msgstr ""
 
@@ -487,7 +466,6 @@ msgstr ""
 
 #. module: http_client
 #: model:ir.model.fields.selection,name:http_client.selection__http_client_auth__content_type__x-www-form-urlencoded
-#: model:ir.model.fields.selection,name:http_client.selection__http_client_test_auth__content_type__x-www-form-urlencoded
 #: model:ir.model.fields.selection,name:http_client.selection__regular_client_auth__content_type__x-www-form-urlencoded
 msgid "X WWW Form Urlencoded"
 msgstr ""

@@ -2,6 +2,7 @@ import base64
 import json
 from datetime import datetime, timedelta
 
+from psycopg2.extensions import AsIs
 from requests.structures import CaseInsensitiveDict
 
 from odoo.tests.common import TransactionCase
@@ -143,6 +144,19 @@ class TestHttpClientCommon(TransactionCase):
             'identifier': 'ApiKey',
             'secret': 'SECRET_API_KEY',
         }
+
+    @classmethod
+    def _update_create_date(cls, records, dt):
+        table = records._table
+        dt_str = dt.strftime('%Y-%m-%d %H:%M:%S')
+        cls.env.cr.execute(
+            """
+            UPDATE %s
+            SET create_date = %s
+            WHERE id in %s
+            """,
+            (AsIs(table), dt_str, tuple(records.ids)),
+        )
 
     def mock_jwt_access_ok(self, auth, respones_):
         vals = self._get_dummy_jwt_password_auth_vals()

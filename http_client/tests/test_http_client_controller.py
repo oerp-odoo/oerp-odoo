@@ -136,18 +136,18 @@ class TestHttpClientController(common.TestHttpClientCommon):
     def test_10_call_http_method(self):
         """Call REST when endpoint/uri_pattern is not XOR.
 
-        Case 1: both endpoint and uri_item is used.
-        Case 2: no endpoint nor uri_item is used.
+        Case 1: both endpoint and path_item is used.
+        Case 2: no endpoint nor path_item is used.
         """
         # Case 1.
         endpoint = 'my_endpoint'
-        uri_item = ('my_uri_pattern', False)
+        path_item = ('my_uri_pattern', False)
         with self.assertRaises(ValidationError):
             self.HttpClientController.call_http_method(
-                'get', options={'endpoint': endpoint, 'uri_item': uri_item}
+                'get', options={'endpoint': endpoint, 'path_item': path_item}
             )
         # Case 2.
         with self.assertRaises(ValidationError):
             self.HttpClientController.call_http_method(
-                'get', options={'endpoint': False, 'uri_item': False}
+                'get', options={'endpoint': False, 'path_item': False}
             )
