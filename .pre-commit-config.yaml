@@ -16,7 +16,7 @@ exclude: |
   (LICENSE.*|COPYING.*)
 default_language_version:
   python: python3
-  node: "14.18.0"
+  node: "16.17.0"
 repos:
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.4.1
@@ -31,12 +31,12 @@ repos:
           - --xml-self-closing-space=false
         files: \.(css|htm|html|js|json|jsx|less|md|scss|toml|ts|xml|yaml|yml)$
   - repo: https://github.com/PyCQA/flake8
-    rev: 6.0.0
+    rev: 7.1.1
     hooks:
       - id: flake8
-        additional_dependencies: ["flake8-bugbear==22.9.11"]
+        additional_dependencies: ["flake8-bugbear==24.10.31"]
   - repo: https://github.com/myint/autoflake
-    rev: v1.6.0
+    rev: v2.3.1
     hooks:
       - id: autoflake
         args:
@@ -47,20 +47,21 @@ repos:
           - --remove-duplicate-keys
           - --remove-unused-variables
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.38.0
+    rev: v3.19.0
     hooks:
       - id: pyupgrade
         args:
           - --keep-percent-format
           - --py310-plus
   - repo: https://github.com/PyCQA/isort
-    rev: 5.12.0
+    rev: 5.13.2
     hooks:
       - id: isort
         name: isort except __init__.py
         args:
           - --settings=.
         exclude: /__init__\.py$
+  # TODO: replace with https://github.com/astral-sh/ruff
   - repo: https://github.com/PyCQA/pydocstyle
     rev: 6.3.0
     hooks:
@@ -68,15 +69,23 @@ repos:
         args:
           - --config=setup.cfg
   - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.9.0
+    rev: v1.10.0
     hooks:
+      - id: python-check-blanket-noqa
+      - id: python-check-blanket-type-ignore
+      - id: python-check-mock-methods
       - id: python-no-eval
       - id: python-no-log-warn
-      - id: rst-backticks
       - id: rst-directive-colons
       - id: rst-inline-touching-normal
+      - id: text-unicode-replacement-char
+  - repo: https://github.com/rstcheck/rstcheck
+    rev: v6.2.4
+    hooks:
+      - id: rstcheck
+  # TODO: migrate to new eslint config to use v9.
   - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v8.23.1
+    rev: v8.56.0
     hooks:
       - id: eslint
         verbose: true
@@ -84,7 +93,7 @@ repos:
           - --color
           - --fix
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.4
+    rev: 1.8.0
     hooks:
       - id: bandit
         entry: bandit
@@ -92,18 +101,16 @@ repos:
         language_version: python3
         types: [python]
         args:
-          # B101: Makes no sense that using assert is security issue.
-          # B410: https://github.com/tiran/defusedxml/issues/31
-          - --skip=B101,B410
+          - --ini=setup.cfg
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.28.0
+    rev: v1.35.1
     hooks:
       - id: yamllint
         entry: yamllint
         language: python
         types: [file, yaml]
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.3.0
+    rev: v5.0.0
     hooks:
       - id: trailing-whitespace
       - id: check-ast
@@ -115,7 +122,7 @@ repos:
       - id: check-xml
       - id: check-yaml
         args:
-          # won't load yaml, only validate it (workaround for ansible !vault)
+          # won't load yaml, only validate it
           - --unsafe
       - id: check-case-conflict
       - id: check-merge-conflict
@@ -123,6 +130,7 @@ repos:
         # conflicts
         exclude: /README\.rst$|^docs/.*\.rst$
       - id: check-symlinks
+      - id: destroyed-symlinks
       - id: debug-statements
       # Fixers
       - id: end-of-file-fixer
@@ -132,14 +140,19 @@ repos:
         args: ["--remove"]
       - id: mixed-line-ending
         args: ["--fix=lf"]
+      - id: check-builtin-literals
+      - id: check-toml
+      - id: no-commit-to-branch
+        args:
+          - --branch=18.0
   - repo: https://github.com/OCA/pylint-odoo
-    rev: v9.0.5
+    rev: v9.1.3
     hooks:
       - id: pylint_odoo
         args:
           - --rcfile=.pylintrc-mandatory
   - repo: https://github.com/psf/black
-    rev: 22.8.0
+    rev: 24.10.0
     hooks:
       - id: black
         args:
