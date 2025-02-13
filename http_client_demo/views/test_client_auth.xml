@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <record id="test_client_auth_view_tree" model="ir.ui.view">
-        <field name="name">http.client.test.auth.tree</field>
+    <record id="test_client_auth_view_list" model="ir.ui.view">
+        <field name="name">http.client.test.auth.list</field>
         <field name="model">http.client.test.auth</field>
         <field name="mode">primary</field>
-        <field name="inherit_id" ref="http_client.http_client_auth_view_tree"/>
+        <field name="inherit_id" ref="http_client.http_client_auth_view_list"/>
         <field name="arch" type="xml">
-            <tree position="attributes">
+            <list position="attributes">
                 <attribute name="string">Demo Authentication</attribute>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -28,7 +28,7 @@
     <record id="test_client_auth_action" model="ir.actions.act_window">
         <field name="name">Demo</field>
         <field name="res_model">http.client.test.auth</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem

@@ -113,60 +113,60 @@ class TestHttpClientDemoAuth(common.TestHttpClientDemoCommon):
         auth = self.HttpClientTestAuth.with_user(self.user_demo)
         # WHEN, THEN
         with self.assertRaises(AccessError):
-            auth.check_access_rights('read')
+            auth.check_access('read')
         with self.assertRaises(AccessError):
-            auth.check_access_rights('write')
+            auth.check_access('write')
         with self.assertRaises(AccessError):
-            auth.check_access_rights('create')
+            auth.check_access('create')
         with self.assertRaises(AccessError):
-            auth.check_access_rights('unlink')
+            auth.check_access('unlink')
 
     def test_04_auth_access_rights_admin(self):
         # GIVEN
         auth = self.HttpClientTestAuth.with_user(self.user_admin)
         # WHEN, THEN
         try:
-            auth.check_access_rights('read')
-            auth.check_access_rights('write')
-            auth.check_access_rights('create')
-            auth.check_access_rights('unlink')
+            auth.check_access('read')
+            auth.check_access('write')
+            auth.check_access('create')
+            auth.check_access('unlink')
         except AccessError as e:
             self.fail(f"Access rights error must have not been raised. Error: {e}")
 
     def test_05_auth_access_rules_company_matches_user_company(self):
         # GIVEN
-        auth = self.test_auth_1.with_user(self.user_demo)
+        auth = self.test_auth_1.with_user(self.user_admin)
         # WHEN, THEN
         try:
-            auth.check_access_rule('read')
-            auth.check_access_rule('write')
-            auth.check_access_rule('create')
-            auth.check_access_rule('unlink')
+            auth.check_access('read')
+            auth.check_access('write')
+            auth.check_access('create')
+            auth.check_access('unlink')
         except AccessError as e:
             self.fail(f"Access rule error must have not been raised. Error: {e}")
 
     def test_06_auth_access_rules_company_not_match_user_company(self):
         # GIVEN
-        auth = self.test_auth_2.with_user(self.user_demo)
+        auth = self.test_auth_2.with_user(self.user_admin)
         # WHEN, THEN
         with self.assertRaises(AccessError):
-            auth.check_access_rule('read')
+            auth.check_access('read')
         with self.assertRaises(AccessError):
-            auth.check_access_rule('write')
+            auth.check_access('write')
         with self.assertRaises(AccessError):
-            auth.check_access_rule('create')
+            auth.check_access('create')
         with self.assertRaises(AccessError):
-            auth.check_access_rule('unlink')
+            auth.check_access('unlink')
 
     def test_07_auth_access_rules_no_company_set(self):
         # GIVEN
-        auth = self.test_auth_3.with_user(self.user_demo)
+        auth = self.test_auth_3.with_user(self.user_admin)
         # WHEN, THEN
         try:
-            auth.check_access_rule('read')
-            auth.check_access_rule('write')
-            auth.check_access_rule('create')
-            auth.check_access_rule('unlink')
+            auth.check_access('read')
+            auth.check_access('write')
+            auth.check_access('create')
+            auth.check_access('unlink')
         except AccessError as e:
             self.fail(f"Access rule error must have not been raised. Error: {e}")
 
