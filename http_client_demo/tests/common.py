@@ -10,8 +10,13 @@ class TestHttpClientDemoCommon(common.TestHttpClientCommon):
     def setUpClass(cls):
         """Set up data for demo tests."""
         super().setUpClass()
+        cls.IrModel = cls.env['ir.model']
         cls.HttpClientTestController = cls.env['http.client.test.controller']
         cls.HttpClientTestAuth = cls.env['http.client.test.auth']
+        cls.HttpClientConfig = cls.env['http.client.config']
+        cls.http_client_test_controller_id = cls.IrModel._get(
+            cls.HttpClientTestController._name
+        ).id
         # Groups.
         cls.group_controller = cls.env.ref(GROUP_CONTROLLER_XMLID)
         # Connections.
