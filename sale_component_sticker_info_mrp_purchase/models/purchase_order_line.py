@@ -26,7 +26,8 @@ class PurchaseOrderLine(models.Model):
         # We find MOs for products that are manufactured using
         # this PO line product (component)!
         mos = moves.group_id.mrp_production_ids
-        info = prepare_component_sticker_info(get_sale_mos(mos))
+        product = self.env['product.product'].browse(res.get('product_id'))
+        info = prepare_component_sticker_info(get_sale_mos(mos), product)
         if info:
             res['component_sticker_info'] = info
         return res

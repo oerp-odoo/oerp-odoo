@@ -34,21 +34,46 @@ def prepare_sale_group_name(sale_lines):
     return ', '.join(gn for gn in group_names)
 
 
-def prepare_component_sticker_info(mos):
+def prepare_component_sticker_info(mos, raw_product):
     infos = []
     for mo in mos:
         if mo.sale_group_name:
-            infos.append(_prepare_component_sticker_info(mo))
+            infos.append(_prepare_component_sticker_info(mo, raw_product))
     return f'{STICKER_INFO_SEP} '.join(infos)
 
 
-def _prepare_component_sticker_info(mo):
+def _prepare_component_sticker_info(mo, raw_product):
     product = mo.product_id
     info = mo.sale_group_name
     if product.packaging_name:
         info = f'{info}, {product.packaging_name}'
     if mo.origin:
         info = f'{info}, {mo.origin}'
-    if mo.product_qty:
-        info = f'{info} [QTY:{mo.product_qty}]'
+    qty = _gather_raw_product_quantity(mo, raw_product)
+    if qty:
+        info = f'{info} [QTY:{qty}]'
     return info
+
+
+def _gather_raw_product_quantity(mo, raw_product):
+    def filter_moves(product):
+        return lambda r: r.product_id == product
+
+    for descendant_mo in _get_descendant_mo(mo):
+        # We gather quantity from first matched MO in a chain.
+        moves = descendant_mo.move_raw_ids.filtered(filter_moves(raw_product))
+        if not moves:
+            continue
+        return sum(m.product_uom_qty for m in moves)
+    return 0.0
+
+
+def _get_descendant_mo(mo):
+    def get_child(mo):
+        child_mos = mo._get_children()
+        for child_mo in child_mos:
+            yield child_mo
+            yield from get_child(child_mo)
+
+    yield mo
+    yield from get_child(mo)
