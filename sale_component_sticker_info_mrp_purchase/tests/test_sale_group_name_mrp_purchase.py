@@ -46,7 +46,7 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
                 'product_tmpl_id': cls.product_1.product_tmpl_id.id,
                 'product_qty': 1,
                 'bom_line_ids': [
-                    (0, 0, {'product_id': cls.product_1_comp_1.id, 'product_qty': 1})
+                    (0, 0, {'product_id': cls.product_1_comp_1.id, 'product_qty': 2})
                 ],
             }
         )
@@ -75,7 +75,7 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
         self.assertEqual(mo.sale_group_name, 'A-1')
         self.assertEqual(
             purchase.order_line[0].component_sticker_info,
-            f'A-1, {self.sale_1.name} [QTY:1.0]',
+            f'A-1, {self.sale_1.name} [QTY:2.0]',
         )
 
     def test_02_so_group_name_mrp_po_linked_multi_line_w_packaging_name(self):
@@ -119,7 +119,7 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
         sale_name = self.sale_1.name
         self.assertEqual(
             purchase.order_line[0].component_sticker_info,
-            f'A-1, {pname}, {sale_name} [QTY:2.0]; A-2, {pname}, {sale_name} [QTY:1.0]',
+            f'A-1, {pname}, {sale_name} [QTY:4.0]; A-2, {pname}, {sale_name} [QTY:2.0]',
         )
 
     def test_03_so_group_name_2_level_mrp_po_linked_multi_line_w_packname(self):
@@ -158,11 +158,15 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
             [
                 {
                     'product_tmpl_id': product_main.product_tmpl_id.id,
-                    'bom_line_ids': [(0, 0, {'product_id': product_comp.id})],
+                    'bom_line_ids': [
+                        (0, 0, {'product_id': product_comp.id, 'product_qty': 2})
+                    ],
                 },
                 {
                     'product_tmpl_id': product_comp.product_tmpl_id.id,
-                    'bom_line_ids': [(0, 0, {'product_id': product_raw.id})],
+                    'bom_line_ids': [
+                        (0, 0, {'product_id': product_raw.id, 'product_qty': 3})
+                    ],
                 },
             ]
         )
@@ -211,7 +215,12 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
         sale_name = sale_1.name
         self.assertEqual(
             purchase.order_line[0].component_sticker_info,
-            f'A-1, {pname}, {sale_name} [QTY:2.0]; A-2, {pname}, {sale_name} [QTY:1.0]',
+            # 2 * 2 * 3 = 12
+            # 1 * 2 * 3 = 6
+            (
+                f'A-1, {pname}, {sale_name} [QTY:12.0]; A-2, '
+                + f'{pname}, {sale_name} [QTY:6.0]'
+            ),
         )
 
     def test_04_so_group_name_3_level_mrp_po_linked_multi_line_w_packname(self):
@@ -262,15 +271,21 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
             [
                 {
                     'product_tmpl_id': product_main.product_tmpl_id.id,
-                    'bom_line_ids': [(0, 0, {'product_id': product_comp.id})],
+                    'bom_line_ids': [
+                        (0, 0, {'product_id': product_comp.id, 'product_qty': 2})
+                    ],
                 },
                 {
                     'product_tmpl_id': product_comp.product_tmpl_id.id,
-                    'bom_line_ids': [(0, 0, {'product_id': product_sub_comp.id})],
+                    'bom_line_ids': [
+                        (0, 0, {'product_id': product_sub_comp.id, 'product_qty': 3})
+                    ],
                 },
                 {
                     'product_tmpl_id': product_sub_comp.product_tmpl_id.id,
-                    'bom_line_ids': [(0, 0, {'product_id': product_raw.id})],
+                    'bom_line_ids': [
+                        (0, 0, {'product_id': product_raw.id, 'product_qty': 4})
+                    ],
                 },
             ]
         )
@@ -324,5 +339,10 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
         sale_name = sale_1.name
         self.assertEqual(
             purchase.order_line[0].component_sticker_info,
-            f'A-1, {pname}, {sale_name} [QTY:2.0]; A-2, {pname}, {sale_name} [QTY:1.0]',
+            # 2 * 2 * 3 * 4 = 48
+            # 1 * 2 * 3 * 4 = 24
+            (
+                f'A-1, {pname}, {sale_name} [QTY:48.0]; A-2, '
+                + f'{pname}, {sale_name} [QTY:24.0]'
+            ),
         )
