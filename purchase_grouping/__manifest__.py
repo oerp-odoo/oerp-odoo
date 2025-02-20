@@ -2,7 +2,7 @@
 # See LICENSE and COPYRIGHT files for details.
 {
     "name": "Purchase - Grouping",
-    "version": "17.0.1.0.0",
+    "version": "18.0.2.0.0",
     "summary": "Extra ways to group purchase orders",
     "license": "LGPL-3",
     "author": "Andrius Laukavičius",
@@ -14,6 +14,6 @@
         # oerp-odoo
         "procurement_group_parent_root",
     ],
-    "installable": False,
+    "installable": True,
     "data": ["views/res_config_settings.xml"],
 }
