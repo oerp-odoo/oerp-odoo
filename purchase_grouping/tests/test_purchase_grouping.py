@@ -35,7 +35,8 @@ class TestPurchaseGrouping(BaseCommon):
         product = cls.ProductProduct.create(
             {
                 'name': name,
-                'type': 'product',
+                'type': 'consu',
+                'is_storable': True,
                 'categ_id': category.id,
                 'seller_ids': [(0, 0, {'partner_id': partner.id, 'min_qty': 1.0})],
             }
