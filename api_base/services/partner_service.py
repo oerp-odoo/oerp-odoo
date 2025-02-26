@@ -23,7 +23,12 @@ class PartnerService(Component):
     def create(self, partner_in: pm_partner.PartnerInput):
         """Create partner using input data."""
         self._validate_partner_input(partner_in)
-        partner = self.env['res.partner'].create(self._prepare_partner(partner_in))
+        ctx = self._prepare_partner_context(partner_in)
+        partner = (
+            self.env['res.partner']
+            .with_context(**ctx)
+            .create(self._prepare_partner(partner_in))
+        )
         self._postprocess_create(partner_in, partner)
         return pm_partner.PartnerResponse.from_orm(partner)
 
@@ -36,6 +41,12 @@ class PartnerService(Component):
                 "Name is required for Partner with AddressType as CONTACT"
             )
         return True
+
+    def _prepare_partner_context(self, partner_in: pm_partner.PartnerInput):
+        context = {}
+        if not partner_in.vat_validation:
+            context['no_vat_validation'] = True
+        return context
 
     def _prepare_partner(self, partner_in: pm_partner.PartnerInput):
         return self.env['partner.pydantic.parser'].parse(partner_in.partner)

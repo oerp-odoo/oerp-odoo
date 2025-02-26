@@ -27,6 +27,9 @@ class PartnerInput(BaseModel, metaclass=ExtendableModelMeta):
         extra = Extra.forbid
 
     partner: Partner
+    vat_validation: Optional[bool] = Field(
+        default=True, description="If set to false, VAT validation will be ignored."
+    )
 
 
 class Partner(BaseModel, metaclass=ExtendableModelMeta):
