@@ -16,7 +16,23 @@
                     <div class="o_setting_right_pane">
                         <label for="sale_name_unique"/>
                         <div class="text-muted">
-                            Make sale order number unique per company.
+                            Make sale order number unique.
+                        </div>
+                        <div
+                            class="content-group"
+                            attrs="{'invisible': [('sale_name_unique', '=', False)]}"
+                        >
+                            <div class="row mt16">
+                                <label
+                                    string="Scope"
+                                    for="sale_name_unique_scope"
+                                    class="col-lg-3 o_light_label"
+                                />
+                                <field
+                                    name="sale_name_unique_scope"
+                                    attrs="{'required': [('sale_name_unique', '=', True)]}"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
