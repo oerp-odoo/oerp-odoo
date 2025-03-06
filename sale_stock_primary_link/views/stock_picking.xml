@@ -21,4 +21,21 @@
             </field>
         </field>
     </record>
+
+    <record id="stock_picking_kanban_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.kanban.sale.primary</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.stock_picking_kanban"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="sale_primary_id"/>
+            </field>
+            <xpath expr="//t[@t-esc='record.name.value']/parent::span" position="after">
+                <t t-if="record.sale_primary_id.raw_value">
+                    <!-- Adding space, to not be glued to picking name. -->
+                    <span> </span><span t-esc="record.sale_primary_id.value"/>
+                </t>
+            </xpath>
+        </field>
+    </record>
 </odoo>
