@@ -32,8 +32,8 @@
             </field>
             <xpath expr="//t[@t-esc='record.name.value']/parent::span" position="after">
                 <t t-if="record.sale_primary_id.raw_value">
-                    <!-- Adding space, to not be glued to picking name. -->
-                    <span> </span><span t-esc="record.sale_primary_id.value"/>
+                    <!-- Adding comma, to not be glued to picking name. -->
+                    <span>, </span><span t-esc="record.sale_primary_id.value"/>
                 </t>
             </xpath>
         </field>
