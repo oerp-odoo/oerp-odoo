@@ -21,6 +21,7 @@
         'data/ir_actions_server.xml',
         'views/mrp_production.xml',
         'views/purchase_order.xml',
+        'views/stock_picking.xml',
     ],
     'installable': True,
 }

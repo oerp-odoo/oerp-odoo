@@ -1,1 +1,6 @@
-from . import purchase_order_line, mrp_production, stock_rule
+from . import (
+    purchase_order_line,
+    mrp_production,
+    stock_rule,
+    stock_picking,
+)
