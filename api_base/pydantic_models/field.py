@@ -18,10 +18,10 @@ class FieldOrm(BaseModel, metaclass=ExtendableModelMeta):
     # If existing value is pydantic model itself that should be
     # parsed. subparser value is model name of the subparser.
     subparser: Optional[str] = None
-    # Additionally callable that accepts odoo env and src field
-    # value to convert and return converted value. If subparser was
+    # Additionally callable that accepts odoo env src field
+    # value and pydantic obj to convert and return converted value. If subparser was
     # used, this will get value from subparser.
-    converter: Optional[Callable[[any, any], any]] = None
+    converter: Optional[Callable[[any, any, any], any]] = None
 
 
 class FieldPydantic(BaseModel, metaclass=ExtendableModelMeta):
