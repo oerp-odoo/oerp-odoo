@@ -70,7 +70,7 @@ class PydanticParser(models.AbstractModel):
             if subparser is not None:
                 val = self.env[subparser].parse(val)
             if converter is not None:
-                val = converter(self.env, val)
+                val = converter(self.env, val, obj)
             return val
 
         val = self._get_obj_value(obj, src_fname)

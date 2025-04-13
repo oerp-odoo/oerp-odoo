@@ -20,13 +20,18 @@ class PartnerPydanticParser(models.AbstractModel):
                     'partner_type',
                     FieldOrm(
                         fname='is_company',
-                        converter=lambda env, val: True if val == 'company' else False,
+                        converter=(
+                            lambda env, val, obj: True if val == 'company' else False
+                        ),
                     ),
                 ),
                 ('address_type', FieldOrm(fname='type')),
                 (
                     'country_code',
-                    FieldOrm(fname='country_id', converter=utils.get_country_id),
+                    FieldOrm(
+                        fname='country_id',
+                        converter=lambda env, val, obj: utils.get_country_id(env, val),
+                    ),
                 ),
                 ('postal', FieldOrm(fname='zip')),
             ]
