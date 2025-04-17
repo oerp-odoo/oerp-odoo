@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Callable, Optional
 
 from extendable_pydantic import ExtendableModelMeta
-from pydantic import BaseModel
+from pydantic import BaseModel, root_validator
 
 from odoo import fields
 
@@ -28,10 +28,20 @@ class FieldPydantic(BaseModel, metaclass=ExtendableModelMeta):
     """Field used when converting from odoo to pydantic."""
 
     # odoo field name
-    fname: str
+    fname: Optional[str] = None
     # Callable that receives odoo record and value from odoo record
     # that is being converted to pydantic.
     converter: Optional[Callable[[any, any], any]] = None
+
+    @root_validator
+    def mutually_exclusive(cls, values):
+        fname = values["fname"]
+        converter = values["converter"]
+        if (fname is None and converter is None) or (
+            fname is not None and converter is not None
+        ):
+            raise ValueError("'fname' and 'converter' are mutually exclusive!")
+        return values
 
 
 class X2many(BaseModel, metaclass=ExtendableModelMeta):

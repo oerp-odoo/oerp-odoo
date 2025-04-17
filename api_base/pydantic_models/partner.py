@@ -70,8 +70,7 @@ class PartnerResponse(OrmModel, metaclass=ExtendableModelMeta):
         """Override to map not direct fields."""
         return {
             "partner_type": FieldPydantic(
-                fname='is_company',
-                converter=lambda obj, fname: PartnerType(
+                converter=lambda obj: PartnerType(
                     'company' if obj.is_company else 'individual'
                 ),
             ),

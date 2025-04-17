@@ -12,14 +12,10 @@ class MappedOdooGetter(GenericOdooGetter):
         if key in pm:
             field_orm = pm[key]
             # Fetch odoo field.
-            val = super().get(field_orm.fname, default=default)
-            # Convert to pydantic expected value.
-            converter = field_orm.converter
-            if converter is not None:
-                val = converter(self._obj, val)
-            return val
-        else:
-            return super().get(key, default=default)
+            if field_orm.fname is not None:
+                return super().get(field_orm.fname, default=default)
+            return field_orm.converter(self._obj)
+        return super().get(key, default=default)
 
 
 class OrmModel(BaseModel, metaclass=ExtendableModelMeta):
@@ -35,6 +31,5 @@ class OrmModel(BaseModel, metaclass=ExtendableModelMeta):
 
     @classmethod
     def from_orm(cls, obj):
-        return super().from_orm(
-            obj.with_context(api_base_pydantic_map=cls.get_pydantic_map())
-        )
+        obj = obj.with_context(api_base_pydantic_map=cls.get_pydantic_map())
+        return super().from_orm(obj)
