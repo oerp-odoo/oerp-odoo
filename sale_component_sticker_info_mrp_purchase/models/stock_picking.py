@@ -17,6 +17,8 @@ class StockPicking(models.Model):
     def _sale_group_name(self):
         self.ensure_one()
         group_names = self.group_id.mrp_production_ids.mapped('sale_group_name')
+        # List could consist of False values.
+        group_names = [g for g in group_names if g]
         if not group_names:
             return False
         return const.STICKER_INFO_SEP.join(group_names)
