@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_chain_rule_view_tree" model="ir.ui.view">
+        <field name="name">stock.chain.rule.tree</field>
+        <field name="model">stock.chain.rule</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="location_id"/>
+                <field name="active" widget="boolean_toggle"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="stock_chain_rule_view_form" model="ir.ui.view">
+        <field name="name">stock.chain.rule.form</field>
+        <field name="model">stock.chain.rule</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="location_id"/>
+                        </group>
+                        <group name="right">
+                            <field name="active" widget="boolean_toggle"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="stock_chain_rule_action" model="ir.actions.act_window">
+        <field name="name">Chain Location Rules</field>
+        <field name="res_model">stock.chain.rule</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="stock_chain_rule_menu"
+        parent="stock.menu_warehouse_config"
+        action="stock_chain_rule_action"
+        groups="stock.group_stock_multi_locations"
+        sequence="2"
+    />
+</odoo>
