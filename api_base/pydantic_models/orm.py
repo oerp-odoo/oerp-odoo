@@ -33,3 +33,10 @@ class OrmModel(BaseModel, metaclass=ExtendableModelMeta):
     def from_orm(cls, obj):
         obj = obj.with_context(api_base_pydantic_map=cls.get_pydantic_map())
         return super().from_orm(obj)
+
+
+class OrmModelClean(OrmModel):
+    """Class to be used when None values should be excluded from response."""
+
+    class Config:
+        exclude_none = True
