@@ -10,6 +10,9 @@ included into sticker information.
 Can also export Sticker Information that was set on purchase lines via
 ``Export Component Sticker Info`` action.
 
+Can also send Sticker information email to a vendor when PO is confirmed.
+Vendor or it's contact must have ``Components Document Receiver`` option checked.
+
 Contributors
 ============
 

@@ -22,6 +22,7 @@
         'views/mrp_production.xml',
         'views/purchase_order.xml',
         'views/stock_picking.xml',
+        'views/res_partner.xml',
     ],
     'installable': True,
 }
