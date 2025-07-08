@@ -1,0 +1,1 @@
+CFG_PARAM_EXCEPTION_DESCRIPTION_NO_HTML = 'api_base.no_html_exception_description'
