@@ -1,3 +1,5 @@
+from odoo import SUPERUSER_ID, api
+
 from odoo.addons.base_rest import http
 
 from ..const import CFG_PARAM_EXCEPTION_DESCRIPTION_NO_HTML
@@ -16,20 +18,20 @@ def wrapJsonException(exception, include_description=False, extra_info=None):
 
 
 def _handle_exception(self, exception):
-    if (
-        self.env['ir.config_parameter']
-        .sudo()
-        .get_param(CFG_PARAM_EXCEPTION_DESCRIPTION_NO_HTML)
-    ):
-        # NOTE. We attach attribute to wrapJsonException function
-        # directly so we could propagate it inside, because exception
-        # here is not werkzeug exception (it is odoo one) and we need
-        # to propagate that when werkzeug exception is instantiated!
-        wrapJsonException._description_without_html = True
-        res = orig_handle_exception(self, exception)
-        # Clean up.
-        del wrapJsonException._description_without_html
-        return res
+    with self.env.registry.cursor() as cr:
+        env = api.Environment(cr, SUPERUSER_ID, {})
+        if env['ir.config_parameter'].get_param(
+            CFG_PARAM_EXCEPTION_DESCRIPTION_NO_HTML
+        ):
+            # NOTE. We attach attribute to wrapJsonException function
+            # directly so we could propagate it inside, because exception
+            # here is not werkzeug exception (it is odoo one) and we need
+            # to propagate that when werkzeug exception is instantiated!
+            wrapJsonException._description_without_html = True
+            res = orig_handle_exception(self, exception)
+            # Clean up.
+            del wrapJsonException._description_without_html
+            return res
     return orig_handle_exception(self, exception)
 
 
