@@ -3,6 +3,7 @@ from pydantic import BaseModel
 
 from odoo.addons.pydantic.utils import GenericOdooGetter
 
+from ..exceptions import UnmappedResponseKeyError
 from ..pydantic_models.field import FieldPydantic
 
 
@@ -15,6 +16,10 @@ class MappedOdooGetter(GenericOdooGetter):
             if field_orm.fname is not None:
                 return super().get(field_orm.fname, default=default)
             return field_orm.converter(self._obj)
+        elif key not in self._obj._fields:
+            raise UnmappedResponseKeyError(
+                f"{key} key is not mapped with any of {self._obj._name} fields"
+            )
         return super().get(key, default=default)
 
 
