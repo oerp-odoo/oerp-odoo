@@ -5,8 +5,8 @@ from odoo import fields, models
 from ..pydantic_models.field import FieldOrm
 
 
-def set_val(vals: dict, val: any, fname: str, to_extend=False):
-    if val is not None:
+def set_val(vals: dict, val: any, fname: str, to_extend=False, nullable=False):
+    if val is not None or nullable:
         # With x2m commands we want to extend if multiple
         # commands are used for same field!
         if to_extend and fname in vals:
@@ -28,18 +28,31 @@ class PydanticParser(models.AbstractModel):
     def parse(self, obj: pydantic.BaseModel):
         """Parse pydantic model into odoo model vals dictionary."""
         vals = {}
+        # TODO: maybe we should assume that obj would always BaseModelNullable?
+        nullable_fields = getattr(obj, 'get_nullable_fields', lambda: [])()
         used_keys = set()
         # 1. Parse map.
         for src_fname, field_orm in self.get_orm_map():
             used_keys.add(src_fname)
             val_ = self._parse_value(obj, src_fname, field_orm)
-            set_val(vals, val_, field_orm.fname, to_extend=field_orm.x2m is not None)
+            set_val(
+                vals,
+                val_,
+                field_orm.fname,
+                to_extend=field_orm.x2m is not None,
+                nullable=self._is_nullable(obj, src_fname, nullable_fields),
+            )
         # 2. Parse direct mapped fields.
         # NOTE. All left fields that were not mapped explicitly are
         # assumed that have exact mapping with odoo fields and without
         # any conversion!
         for fname in self._get_direct_map_fields(obj, used_keys):
-            set_val(vals, self._get_obj_value(obj, fname), fname)
+            set_val(
+                vals,
+                self._get_obj_value(obj, fname),
+                fname,
+                nullable=self._is_nullable(obj, fname, nullable_fields),
+            )
         return vals
 
     def get_orm_map(self) -> list[tuple[str, FieldOrm]]:
@@ -113,3 +126,9 @@ class PydanticParser(models.AbstractModel):
         if cmd.value == 6:
             # val must be list of ids
             return cmd.set(val)
+
+    def _is_nullable(self, obj: pydantic.BaseModel, fname: str, nullabe_fields: list):
+        # Field is nullable when it is part of nullable fields and also
+        # it was explicitly specified in BaseModel input. There could be
+        # implicit None as a default value, which does not imply nullable!
+        return fname in nullabe_fields and fname in obj.__fields_set__
