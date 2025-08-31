@@ -34,28 +34,50 @@ def prepare_sale_group_name(sale_lines):
     return ', '.join(gn for gn in group_names)
 
 
-def prepare_component_sticker_info(mos, raw_product):
+def prepare_component_sticker_info(mos, moves, raw_product):
     infos = []
     for mo in mos:
-        if mo.sale_group_name:
-            infos.append(_prepare_component_sticker_info(mo, raw_product))
+        if not mo.sale_group_name:
+            continue
+        infos.append(_prepare_normal_component_sticker_info(mo, raw_product))
+    if not infos:
+        for move in moves:
+            if not move.sale_line_id:
+                continue
+            infos.append(_prepare_kit_component_sticker_info(move, raw_product))
     return f'{STICKER_INFO_SEP} '.join(infos)
 
 
-def _prepare_component_sticker_info(mo, raw_product):
+def _prepare_normal_component_sticker_info(mo, raw_product):
+    # Normal here means assuming it has BOM with normal type.
     product = mo.product_id
-    info = mo.sale_group_name
+    qty = _gather_raw_product_quantity_from_mo(mo, raw_product)
+    return _prepare_sticker_info(mo.sale_group_name, product, mo.origin, qty)
+
+
+def _prepare_kit_component_sticker_info(move, raw_product):
+    sale_line = move.sale_line_id
+    product = sale_line.product_id
+    qty = _gather_raw_product_quantity_from_kit(
+        sale_line.product_uom_qty, product, raw_product
+    )
+    return _prepare_sticker_info(
+        sale_line.group_name, product, sale_line.order_id.name, qty
+    )
+
+
+def _prepare_sticker_info(group_name, product, origin, qty):
+    info = group_name
     if product.packaging_name:
         info = f'{info}, {product.packaging_name}'
-    if mo.origin:
-        info = f'{info}, {mo.origin}'
-    qty = _gather_raw_product_quantity(mo, raw_product)
+    if origin:
+        info = f'{info}, {origin}'
     if qty:
         info = f'{info} [QTY:{qty}]'
     return info
 
 
-def _gather_raw_product_quantity(mo, raw_product):
+def _gather_raw_product_quantity_from_mo(mo, raw_product):
     def filter_moves(product):
         return lambda r: r.product_id == product
 
@@ -65,6 +87,18 @@ def _gather_raw_product_quantity(mo, raw_product):
         if not moves:
             continue
         return sum(m.product_uom_qty for m in moves)
+    return 0.0
+
+
+def _gather_raw_product_quantity_from_kit(product_qty, product, raw_product):
+    bom_map = product.env['mrp.bom']._bom_find(product, bom_type='phantom')
+    if not bom_map:
+        return 0.0
+    bom = bom_map[product]
+    bom_lines_info = bom.explode(product, product_qty)[1]
+    for bom_line, line_info in bom_lines_info:
+        if bom_line.product_id == raw_product:
+            return line_info['qty']
     return 0.0
 
 
