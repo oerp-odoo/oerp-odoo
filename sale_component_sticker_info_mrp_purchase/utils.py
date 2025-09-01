@@ -42,10 +42,21 @@ def prepare_component_sticker_info(mos, moves, raw_product):
         infos.append(_prepare_normal_component_sticker_info(mo, raw_product))
     if not infos:
         for move in moves:
-            if not move.sale_line_id:
+            sale_line = _get_sale_line_from_move(move)
+            if not sale_line:
                 continue
-            infos.append(_prepare_kit_component_sticker_info(move, raw_product))
+            infos.append(_prepare_kit_component_sticker_info(sale_line, raw_product))
     return f'{STICKER_INFO_SEP} '.join(infos)
+
+
+def _get_sale_line_from_move(move):
+    sale_line = move.sale_line_id
+    # There might be two or three step delivery, so related sale line
+    # might not be available on direct move!
+    if not sale_line:
+        for move_ in move.move_dest_ids:
+            return _get_sale_line_from_move(move_)
+    return sale_line
 
 
 def _prepare_normal_component_sticker_info(mo, raw_product):
@@ -55,8 +66,7 @@ def _prepare_normal_component_sticker_info(mo, raw_product):
     return _prepare_sticker_info(mo.sale_group_name, product, mo.origin, qty)
 
 
-def _prepare_kit_component_sticker_info(move, raw_product):
-    sale_line = move.sale_line_id
+def _prepare_kit_component_sticker_info(sale_line, raw_product):
     product = sale_line.product_id
     qty = _gather_raw_product_quantity_from_kit(
         sale_line.product_uom_qty, product, raw_product

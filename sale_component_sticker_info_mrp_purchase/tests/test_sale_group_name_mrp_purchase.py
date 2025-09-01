@@ -12,6 +12,7 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
         cls.MrpBom = cls.env['mrp.bom']
         cls.MrpProduction = cls.env['mrp.production']
         cls.PurchaseOrder = cls.env['purchase.order']
+        cls.warehouse_1 = cls.env.ref('stock.warehouse0')
         cls.stock_route_mto = cls.env.ref('stock.route_warehouse0_mto')
         cls.stock_route_mto.active = True
         cls.stock_route_buy = cls.env.ref('purchase_stock.route_warehouse0_buy')
@@ -347,8 +348,190 @@ class TestSaleGroupNameMrpPurchase(TransactionCase):
             ),
         )
 
-    def test_05_so_group_name_kit_mo(self):
+    def test_05_so_group_name_kit_mo_ship_only(self):
         # GIVEN
+        (product_main, product_comp, product_raw) = self.ProductProduct.create(
+            [
+                {
+                    'name': 'MY-MAIN-PRODUCT',
+                    'route_ids': [
+                        (4, self.stock_route_mto.id),
+                        (4, self.stock_route_manufacture.id),
+                    ],
+                },
+                # Needed to make main product
+                {
+                    'name': 'MY-COMPONENT',
+                    'route_ids': [
+                        (4, self.stock_route_mto.id),
+                        (4, self.stock_route_manufacture.id),
+                    ],
+                },
+                # Needed to make component.
+                {
+                    'name': 'MY-RAW-MATERIAL',
+                    'seller_ids': [(0, 0, {'partner_id': self.partner_vendor_1.id})],
+                    'route_ids': [
+                        (4, self.stock_route_mto.id),
+                        (4, self.stock_route_buy.id),
+                    ],
+                },
+            ]
+        )
+        self.MrpBom.create(
+            [
+                {
+                    'product_tmpl_id': product_main.product_tmpl_id.id,
+                    'type': 'phantom',
+                    'bom_line_ids': [
+                        (0, 0, {'product_id': product_comp.id, 'product_qty': 2})
+                    ],
+                },
+                {
+                    'product_tmpl_id': product_comp.product_tmpl_id.id,
+                    'type': 'phantom',
+                    'bom_line_ids': [
+                        (0, 0, {'product_id': product_raw.id, 'product_qty': 3})
+                    ],
+                },
+            ]
+        )
+        sale_1 = self.SaleOrder.create(
+            {
+                'partner_id': self.partner_1.id,
+                'order_line': [
+                    (
+                        0,
+                        0,
+                        {
+                            'group_name': 'A-1',
+                            'product_id': product_main.id,
+                            'product_uom_qty': 2,
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            'group_name': 'A-2',
+                            'product_id': product_main.id,
+                            'product_uom_qty': 1,
+                        },
+                    ),
+                ],
+            }
+        )
+        # WHEN
+        sale_1.action_confirm()
+        # THEN
+        purchase = self.PurchaseOrder.search(
+            [
+                ('origin', 'like', f'%{sale_1.name}%'),
+            ]
+        )
+        self.assertEqual(len(purchase), 1)
+        sale_name = sale_1.name
+        self.assertEqual(
+            purchase.order_line[0].component_sticker_info,
+            # 2 * 2 * 3 = 12
+            # 1 * 2 * 3 = 6
+            (f'A-1, {sale_name} [QTY:12.0]; A-2, {sale_name} [QTY:6.0]'),
+        )
+
+    def test_06_so_group_name_kit_mo_pick_ship(self):
+        # GIVEN
+        self.warehouse_1.delivery_steps = 'pick_ship'
+        (product_main, product_comp, product_raw) = self.ProductProduct.create(
+            [
+                {
+                    'name': 'MY-MAIN-PRODUCT',
+                    'route_ids': [
+                        (4, self.stock_route_mto.id),
+                        (4, self.stock_route_manufacture.id),
+                    ],
+                },
+                # Needed to make main product
+                {
+                    'name': 'MY-COMPONENT',
+                    'route_ids': [
+                        (4, self.stock_route_mto.id),
+                        (4, self.stock_route_manufacture.id),
+                    ],
+                },
+                # Needed to make component.
+                {
+                    'name': 'MY-RAW-MATERIAL',
+                    'seller_ids': [(0, 0, {'partner_id': self.partner_vendor_1.id})],
+                    'route_ids': [
+                        (4, self.stock_route_mto.id),
+                        (4, self.stock_route_buy.id),
+                    ],
+                },
+            ]
+        )
+        self.MrpBom.create(
+            [
+                {
+                    'product_tmpl_id': product_main.product_tmpl_id.id,
+                    'type': 'phantom',
+                    'bom_line_ids': [
+                        (0, 0, {'product_id': product_comp.id, 'product_qty': 2})
+                    ],
+                },
+                {
+                    'product_tmpl_id': product_comp.product_tmpl_id.id,
+                    'type': 'phantom',
+                    'bom_line_ids': [
+                        (0, 0, {'product_id': product_raw.id, 'product_qty': 3})
+                    ],
+                },
+            ]
+        )
+        sale_1 = self.SaleOrder.create(
+            {
+                'partner_id': self.partner_1.id,
+                'order_line': [
+                    (
+                        0,
+                        0,
+                        {
+                            'group_name': 'A-1',
+                            'product_id': product_main.id,
+                            'product_uom_qty': 2,
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            'group_name': 'A-2',
+                            'product_id': product_main.id,
+                            'product_uom_qty': 1,
+                        },
+                    ),
+                ],
+            }
+        )
+        # WHEN
+        sale_1.action_confirm()
+        # THEN
+        purchase = self.PurchaseOrder.search(
+            [
+                ('origin', 'like', f'%{sale_1.name}%'),
+            ]
+        )
+        self.assertEqual(len(purchase), 1)
+        sale_name = sale_1.name
+        self.assertEqual(
+            purchase.order_line[0].component_sticker_info,
+            # 2 * 2 * 3 = 12
+            # 1 * 2 * 3 = 6
+            (f'A-1, {sale_name} [QTY:12.0]; A-2, {sale_name} [QTY:6.0]'),
+        )
+
+    def test_07_so_group_name_kit_mo_pick_ship(self):
+        # GIVEN
+        self.warehouse_1.delivery_steps = 'pick_pack_ship'
         (product_main, product_comp, product_raw) = self.ProductProduct.create(
             [
                 {
