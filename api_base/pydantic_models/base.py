@@ -19,8 +19,18 @@ class BaseModelNullable(BaseModel, metaclass=ExtendableModelMeta):
     class Config:
         def schema_extra(schema, model):
             for field_name in model.get_nullable_fields():
-                if field_name in schema.get("properties", {}):
-                    schema["properties"][field_name]["nullable"] = True
+                props = schema.get('properties', {})
+                field_schema = props.get(field_name)
+                if not field_schema:
+                    continue
+                # If it's a $ref, wrap it to preserve enums
+                if '$ref' in field_schema:
+                    props[field_name] = {
+                        'allOf': [field_schema],
+                        'nullable': True,
+                    }
+                else:
+                    field_schema['nullable'] = True
 
     @classmethod
     def get_nullable_fields(cls) -> list[str]:
