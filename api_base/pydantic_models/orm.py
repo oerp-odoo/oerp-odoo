@@ -39,7 +39,7 @@ class MappedOdooGetter(GenericOdooGetter):
             # expected, but it makes debugging much harder!
             raise ValidationError(
                 f"Data mismatch. Response for {PM.__name__} can't be generated. "
-                + f"Mandatory field {key} is not set in backend model {model_name}."
+                + f"Mandatory field '{key}' is not set in backend model {model_name}."
             )
         return True
 

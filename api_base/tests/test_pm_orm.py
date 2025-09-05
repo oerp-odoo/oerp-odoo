@@ -12,6 +12,6 @@ class TestPmOrm(common.TestApiBaseCommon):
         with self.assertRaisesRegex(
             ValidationError,
             r"Data mismatch\. Response for .+ can't be generated\. Mandatory field "
-            + r"name is not set in backend model res\.partner\.",
+            + r"'name' is not set in backend model res\.partner\.",
         ):
             PartnerResponse.from_orm(partner)
