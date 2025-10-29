@@ -1,5 +1,6 @@
 import datetime
 import logging
+from warnings import warn
 
 from odoo import api, models
 from odoo.fields import Domain
@@ -18,6 +19,11 @@ class HttpClientLogRotation(models.AbstractModel):
         return self.env['http.client.log']
 
     def rotate(self, cfg: vo.Config):
+        warn(
+            "Http Client Logging feature is deprecated and will be removed soon.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         log_cfg = cfg.log
         limit_count = log_cfg.limit_count
         deleted_cnt = 0
