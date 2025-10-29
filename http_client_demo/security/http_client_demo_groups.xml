@@ -2,6 +2,5 @@
 <odoo>
     <record id="controller_group_use" model="res.groups">
         <field name="name">Enable Test Controller</field>
-        <field name="category_id" ref="base.module_category_hidden"/>
     </record>
 </odoo>

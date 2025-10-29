@@ -131,13 +131,7 @@ class HttpClientAuth(models.AbstractModel):
         required=True,
     )
 
-    _sql_constraints = [
-        (
-            'name_uniq',
-            'unique (name)',
-            'The name must be unique!',
-        )
-    ]
+    _name_uniq = models.Constraint('unique (name)', "The name must be unique!")
 
     @property
     def _auth_endpoint(self):
@@ -464,7 +458,7 @@ class HttpClientAuth(models.AbstractModel):
         self.ensure_one()
         # TODO: make timeout configurable instead of not specifying
         # any timeout at all!
-        response = requests.post(  # pylint: disable=E8106
+        response = requests.post(  # pylint: disable=E8106 # nosec B113
             endpoint,
             **_prepare_payload(self.content_type, data),
         )
