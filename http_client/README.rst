@@ -7,7 +7,7 @@ Features:
 
 * Authentication model to reuse auth options.
 * HTTP calls controller to unify API calls.
-* Save request/response details as log data.
+* Save request/response details as log data (deprecated).
 
 Contributors
 ============
