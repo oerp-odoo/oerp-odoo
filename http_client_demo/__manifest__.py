@@ -19,5 +19,5 @@
         'security/test_models_security.xml',
         'views/test_client_auth.xml',
     ],
-    'installable': True,
+    'installable': False,
 }
