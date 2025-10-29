@@ -2,7 +2,7 @@ import datetime
 import logging
 
 from odoo import api, models
-from odoo.osv import expression
+from odoo.fields import Domain
 
 from .. import value_objects as vo
 
@@ -63,4 +63,4 @@ class HttpClientLogRotation(models.AbstractModel):
     def _prepare_domain_by_days(self, days: int, controller_model: str):
         domain = self._prepare_domain_common(controller_model)
         dt = datetime.datetime.now() - datetime.timedelta(days)
-        return expression.AND([domain, [('create_date', '<', dt)]])
+        return Domain.AND([domain, [('create_date', '<', dt)]])

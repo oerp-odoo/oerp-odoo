@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "HTTP Client Demo",
-    'version': '18.0.5.0.0',
+    'version': '19.0.6.0.0',
     'icon': '/odootil/static/description/icon.png',
     'summary': 'http, client, manager, demo',
     'license': 'LGPL-3',
@@ -19,5 +19,5 @@
         'security/test_models_security.xml',
         'views/test_client_auth.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

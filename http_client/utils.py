@@ -1,9 +1,11 @@
 import operator
 import re
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urlparse
 
 from footil.formatting import strip_space
 from requests.models import PreparedRequest
+
+from odoo.tools.urls import urljoin
 
 from .value_objects import PathItem
 

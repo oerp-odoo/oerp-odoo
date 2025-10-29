@@ -146,7 +146,7 @@ repos:
         args:
           - --branch=18.0
   - repo: https://github.com/OCA/pylint-odoo
-    rev: v9.1.3
+    rev: v9.3.22
     hooks:
       - id: pylint_odoo
         args:

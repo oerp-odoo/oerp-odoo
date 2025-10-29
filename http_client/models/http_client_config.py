@@ -39,13 +39,9 @@ class HttpClientConfig(models.Model):
     )
     active = fields.Boolean(default=True)
 
-    _sql_constraints = [
-        (
-            'model_controller_id_uniq',
-            'unique (model_controller_id)',
-            'The Controller Model must be unique!',
-        )
-    ]
+    _model_controller_id_uniq = models.Constraint(
+        'unique (model_controller_id)', "The Controller Model must be unique!"
+    )
 
     @api.constrains('model_controller_id')
     def _check_model_controller_id(self):
