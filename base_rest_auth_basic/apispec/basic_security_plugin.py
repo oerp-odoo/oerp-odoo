@@ -10,8 +10,8 @@ class BasicSecurityPlugin(BasePlugin):
         super().init_spec(spec)
         self.spec = spec
         self.openapi_version = spec.openapi_version
-        api_key_scheme = {'type': 'apiKey', 'in': 'header', 'name': 'AUTHORIZATION'}
-        spec.components.security_scheme('basic', api_key_scheme)
+        scheme = {'type': 'http', 'scheme': 'basic'}
+        spec.components.security_scheme('basic', scheme)
 
     def operation_helper(self, path=None, operations=None, **kwargs):
         routing = kwargs.get('routing')
