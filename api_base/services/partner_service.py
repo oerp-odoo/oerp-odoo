@@ -26,6 +26,7 @@ class PartnerService(Component):
         ctx = self._prepare_partner_context(partner_in)
         partner = (
             self.env['res.partner']
+            .sudo()
             .with_context(**ctx)
             .create(self._prepare_partner(partner_in))
         )
