@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="template" xml:space="preserve">
+    <t t-inherit="stock.ForecastedDetails" t-inherit-mode="extension">
+        <xpath expr="//table/thead[1]/tr/td[6]" position="after">
+            <td>Primary Sale Order</td>
+        </xpath>
+        <xpath expr="//table/tbody[1]/tr[2]/td[6]" position="after">
+            <td t-if="line.primary_so">
+                <a
+                    href="#"
+                    t-on-click.prevent="() => this.props.openView('sale.order', 'form', line.primary_so.id)"
+                    t-out="line.primary_so.name"
+                    class="fw-bold"
+                />
+            </td>
+        </xpath>
+    </t>
+</template>

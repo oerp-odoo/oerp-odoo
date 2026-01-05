@@ -15,5 +15,8 @@
         "procurement_group_parent_root",
     ],
     "data": ["views/stock_picking.xml"],
+    'assets': {
+        'web.assets_backend': ['sale_stock_primary_link/static/src/**/*.xml'],
+    },
     "installable": True,
 }
