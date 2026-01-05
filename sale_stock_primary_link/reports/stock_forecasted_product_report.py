@@ -25,15 +25,11 @@ class StockForecastedProductProduct(models.AbstractModel):
             in_transit=in_transit,
             read=read,
         )
-        res['primary_so'] = False
-        move = move_in or move_out
-        if move:
-            primary_so = self.sudo()._get_primary_so(move)
-            if primary_so:
-                res['primary_so'] = {
-                    'name': primary_so.name,
-                    'id': primary_so.id,
-                }
+        res.update({'primary_so_in': False, 'primary_so_out': False})
+        if move_in:
+            res['primary_so_in'] = self.sudo()._get_primary_so_data(move_in)
+        if move_out:
+            res['primary_so_out'] = self.sudo()._get_primary_so_data(move_out)
         return res
 
     def _get_primary_so(self, move):
@@ -45,3 +41,12 @@ class StockForecastedProductProduct(models.AbstractModel):
         if source_rec._name == 'stock.move':
             return source_rec.picking_id.sale_primary_id
         return self.env['sale.order']
+
+    def _get_primary_so_data(self, move):
+        primary_so = self.sudo()._get_primary_so(move)
+        if not primary_so:
+            return False
+        return {
+            'name': primary_so.name,
+            'id': primary_so.id,
+        }

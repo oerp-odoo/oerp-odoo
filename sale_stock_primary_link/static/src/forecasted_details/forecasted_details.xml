@@ -2,14 +2,25 @@
 <template id="template" xml:space="preserve">
     <t t-inherit="stock.ForecastedDetails" t-inherit-mode="extension">
         <xpath expr="//table/thead[1]/tr/td[6]" position="after">
-            <td>Primary Sale Order</td>
+            <td>Incoming Primary SO</td>
+            <td>Outgoing Primary SO</td>
         </xpath>
         <xpath expr="//table/tbody[1]/tr[2]/td[6]" position="after">
-            <td t-if="line.primary_so">
+            <td>
                 <a
+                    t-if="line.primary_so_in"
                     href="#"
-                    t-on-click.prevent="() => this.props.openView('sale.order', 'form', line.primary_so.id)"
-                    t-out="line.primary_so.name"
+                    t-on-click.prevent="() => this.props.openView('sale.order', 'form', line.primary_so_in.id)"
+                    t-out="line.primary_so_in.name"
+                    class="fw-bold"
+                />
+            </td>
+            <td>
+                <a
+                    t-if="line.primary_so_out"
+                    href="#"
+                    t-on-click.prevent="() => this.props.openView('sale.order', 'form', line.primary_so_out.id)"
+                    t-out="line.primary_so_out.name"
                     class="fw-bold"
                 />
             </td>
