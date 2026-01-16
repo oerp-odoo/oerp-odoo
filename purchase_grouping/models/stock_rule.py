@@ -1,4 +1,4 @@
-from odoo import models
+from odoo import api, models
 
 
 def get_domain_leaf_index(domain, left_part):
@@ -10,6 +10,12 @@ def get_domain_leaf_index(domain, left_part):
 
 class StockRule(models.Model):
     _inherit = 'stock.rule'
+
+    @api.model
+    def _run_buy(self, procurements):
+        for (procurement, _rule) in procurements:
+            procurement.values['product'] = procurement.product_id
+        return super()._run_buy(procurements)
 
     def _make_po_get_domain(self, company_id, values, partner):
         domain = super()._make_po_get_domain(company_id, values, partner)
@@ -29,4 +35,20 @@ class StockRule(models.Model):
                 domain_lst.pop(leaf_idx)
                 domain = tuple(domain_lst)
             domain += (('group_id.parent_root_id', '=', root_group_id),)
+        product = values.get("product", self.env["product.product"])
+        if grouping != 'no_grouping' and product.purchase_grouping_id:
+            domain += (('purchase_grouping_id', '=', product.purchase_grouping_id.id),)
         return domain
+
+    def _prepare_purchase_order(self, company_id, origins, values):
+        res = super()._prepare_purchase_order(company_id, origins, values)
+        # values is actually a list of values and odoo uses the first one themselves..
+        # So not sure why it even cares to send multiple.
+        product = values[0].get('product')
+        if not product:
+            return res
+        pg = product.purchase_grouping_id
+        if not pg:
+            return res
+        res['purchase_grouping_id'] = pg.id
+        return res

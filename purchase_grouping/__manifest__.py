@@ -15,5 +15,11 @@
         "procurement_group_parent_root",
     ],
     "installable": True,
-    "data": ["views/res_config_settings.xml"],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/res_config_settings.xml",
+        "views/purchase_grouping.xml",
+        "views/product_template.xml",
+        "views/purchase_order.xml",
+    ],
 }

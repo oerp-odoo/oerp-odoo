@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="purchase_grouping_view_tree" model="ir.ui.view">
+        <field name="name">purchase.grouping.tree</field>
+        <field name="model">purchase.grouping</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="purchase_grouping_view_form" model="ir.ui.view">
+        <field name="name">purchase.grouping.form</field>
+        <field name="model">purchase.grouping</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="left">
+                            <field name="name"/>
+                        </group>
+                        <group name="right">
+                            <field name="code"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="purchase_grouping_action" model="ir.actions.act_window">
+        <field name="name">Purchase Groupings</field>
+        <field name="res_model">purchase.grouping</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to create a purchase grouping to group automatically created purchase orders.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="purchase_grouping_menu"
+        parent="purchase.menu_purchase_config"
+        action="purchase_grouping_action"
+        sequence="2"
+    />
+</odoo>

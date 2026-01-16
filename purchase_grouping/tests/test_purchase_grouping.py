@@ -10,6 +10,7 @@ class TestPurchaseGrouping(BaseCommon):
         cls.ResPartner = cls.env['res.partner']
         cls.IrConfigParameter = cls.env['ir.config_parameter']
         cls.PurchaseOrder = cls.env['purchase.order']
+        cls.PurchaseGrouping = cls.env['purchase.grouping']
         cls.ProductCategory = cls.env['product.category']
         cls.ProductProduct = cls.env['product.product']
         cls.ProcurementGroup = cls.env['procurement.group']
@@ -25,8 +26,17 @@ class TestPurchaseGrouping(BaseCommon):
         cls.location_stock = cls.env.ref('stock.stock_location_stock')
         cls.stock_location_route = cls.env.ref('purchase_stock.route_warehouse0_buy')
         cls.stock_rule_buy = cls.stock_location_route.rule_ids[0]
-        cls.values = {
-            'company_id': cls.company_main,
+        cls.purchase_grouping_1, cls.purchase_grouping_2 = cls.PurchaseGrouping.create(
+            [
+                {'name': 'MY-PO-GROUPING-1', 'code': 'my-po-grouping-1'},
+                {'name': 'MY-PO-GROUPING-2', 'code': 'my-po-grouping-2'},
+            ]
+        )
+
+    @property
+    def procurement_values(self):
+        return {
+            'company_id': self.company_main,
             'date_planned': fields.Datetime.now(),
         }
 
@@ -53,7 +63,7 @@ class TestPurchaseGrouping(BaseCommon):
                 False,
                 origin,
                 self.env.company,
-                values,
+                dict(values),
             )
             rule = self.ProcurementGroup._get_rule(
                 procurement.product_id, procurement.location_id, procurement.values
@@ -179,3 +189,101 @@ class TestPurchaseGrouping(BaseCommon):
             [('partner_id', '=', self.partner_vendor_1.id)]
         )
         self.assertEqual(len(purchases), 2)
+
+    def test_05_grouping_by_purchase_grouping_id_same(self):
+        # GIVEN
+        (self.product_1 | self.product_2).write(
+            {'purchase_grouping_id': self.purchase_grouping_1.id}
+        )
+        # WHEN
+        self.run_procurement(
+            self.product_1 | self.product_2,
+            'MY-ORIGIN-1',
+            {
+                'company_id': self.company_main,
+                'date_planned': fields.Datetime.now(),
+            },
+        )
+        self.run_procurement(
+            self.product_1 | self.product_2,
+            'MY-ORIGIN-2',
+            {
+                'company_id': self.company_main,
+                'date_planned': fields.Datetime.now(),
+            },
+        )
+        # THEN
+        purchase = self.PurchaseOrder.search(
+            [('partner_id', '=', self.partner_vendor_1.id)]
+        )
+        self.assertEqual(len(purchase), 1)
+        self.assertEqual(purchase.purchase_grouping_id, self.purchase_grouping_1)
+        lines = purchase.order_line
+        self.assertEqual(len(lines), 2)
+        self.assertEqual(lines.mapped('product_id'), self.product_1 | self.product_2)
+
+    def test_06_grouping_by_purchase_grouping_id_different_single_run(self):
+        # GIVEN
+        self.product_1.purchase_grouping_id = self.purchase_grouping_1.id
+        self.product_2.purchase_grouping_id = self.purchase_grouping_2.id
+        # WHEN
+        self.run_procurement(
+            self.product_1 | self.product_2,
+            'MY-ORIGIN-1',
+            {
+                'company_id': self.company_main,
+                'date_planned': fields.Datetime.now(),
+            },
+        )
+        # THEN
+        purchases = self.PurchaseOrder.search(
+            [('partner_id', '=', self.partner_vendor_1.id)]
+        )
+        self.assertEqual(len(purchases), 2)
+        purchase_1 = purchases.filtered(
+            lambda r: r.purchase_grouping_id == self.purchase_grouping_1
+        )
+        purchase_2 = purchases.filtered(
+            lambda r: r.purchase_grouping_id == self.purchase_grouping_2
+        )
+        self.assertEqual(len(purchase_1), 1)
+        self.assertEqual(len(purchase_2), 1)
+        self.assertEqual(purchase_1.order_line.product_id, self.product_1)
+        self.assertEqual(purchase_2.order_line.product_id, self.product_2)
+
+    def test_07_grouping_by_purchase_grouping_id_different_multi_run(self):
+        # GIVEN
+        self.product_1.purchase_grouping_id = self.purchase_grouping_1.id
+        self.product_2.purchase_grouping_id = self.purchase_grouping_2.id
+        # WHEN
+        self.run_procurement(
+            self.product_1,
+            'MY-ORIGIN-1',
+            {
+                'company_id': self.company_main,
+                'date_planned': fields.Datetime.now(),
+            },
+        )
+        self.run_procurement(
+            self.product_2,
+            'MY-ORIGIN-2',
+            {
+                'company_id': self.company_main,
+                'date_planned': fields.Datetime.now(),
+            },
+        )
+        # THEN
+        purchases = self.PurchaseOrder.search(
+            [('partner_id', '=', self.partner_vendor_1.id)]
+        )
+        self.assertEqual(len(purchases), 2)
+        purchase_1 = purchases.filtered(
+            lambda r: r.purchase_grouping_id == self.purchase_grouping_1
+        )
+        purchase_2 = purchases.filtered(
+            lambda r: r.purchase_grouping_id == self.purchase_grouping_2
+        )
+        self.assertEqual(len(purchase_1), 1)
+        self.assertEqual(len(purchase_2), 1)
+        self.assertEqual(purchase_1.order_line.product_id, self.product_1)
+        self.assertEqual(purchase_2.order_line.product_id, self.product_2)

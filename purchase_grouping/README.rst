@@ -10,6 +10,10 @@ it is possible to choose how to group it:
   only those will have same purchase order (e.g. multiple level BOM purchase procurements
   of the same sale order). Important! For this to work, ``Buy`` rule, must have
   ``Propagation of Procurement Group`` set to ``Propagate``!
+* By specific purchase grouping code. If product has purchase grouping specified, it
+  will group other products of the same grouping on the same purchase order (PO takes
+  the first grouping assigned). This grouping can also be combined with
+  ``By Root Procurement Group``.
 
 Configuration
 =============
