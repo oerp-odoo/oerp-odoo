@@ -4,12 +4,12 @@ from odoo import fields, models
 class ProductPricelist(models.Model):
     _inherit = 'product.pricelist'
 
-    code = fields.Char(copy=False)
+    pricelist_code = fields.Char(copy=False)
 
     _sql_constraints = [
         (
-            'code_uniq',
-            'unique (code)',
-            'The Code must be unique !',
+            'pricelist_code_uniq',
+            'unique (pricelist_code)',
+            'The Pricelist Code must be unique !',
         )
     ]
