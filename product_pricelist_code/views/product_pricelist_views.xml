@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="product.product_pricelist_view_tree"/>
         <field name="arch" type="xml">
             <field name="name" position="after">
-                <field name="code"/>
+                <field name="pricelist_code"/>
             </field>
         </field>
     </record>
@@ -17,7 +17,7 @@
         <field name="inherit_id" ref="product.product_pricelist_view"/>
         <field name="arch" type="xml">
             <field name="currency_id" position="after">
-                <field name="code"/>
+                <field name="pricelist_code"/>
             </field>
         </field>
     </record>
