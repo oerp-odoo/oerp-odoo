@@ -287,3 +287,38 @@ class TestPurchaseGrouping(BaseCommon):
         self.assertEqual(len(purchase_2), 1)
         self.assertEqual(purchase_1.order_line.product_id, self.product_1)
         self.assertEqual(purchase_2.order_line.product_id, self.product_2)
+
+    def test_08_grouping_by_purchase_grouping_id_one_wo_grouping(self):
+        # GIVEN
+        self.product_1.purchase_grouping_id = self.purchase_grouping_1.id
+        self.product_2.purchase_grouping_id = False
+        # WHEN
+        self.run_procurement(
+            self.product_1,
+            'MY-ORIGIN-1',
+            {
+                'company_id': self.company_main,
+                'date_planned': fields.Datetime.now(),
+            },
+        )
+        self.run_procurement(
+            self.product_2,
+            'MY-ORIGIN-2',
+            {
+                'company_id': self.company_main,
+                'date_planned': fields.Datetime.now(),
+            },
+        )
+        # THEN
+        purchases = self.PurchaseOrder.search(
+            [('partner_id', '=', self.partner_vendor_1.id)]
+        )
+        self.assertEqual(len(purchases), 2)
+        purchase_1 = purchases.filtered(
+            lambda r: r.purchase_grouping_id == self.purchase_grouping_1
+        )
+        purchase_2 = purchases.filtered(lambda r: not r.purchase_grouping_id)
+        self.assertEqual(len(purchase_1), 1)
+        self.assertEqual(len(purchase_2), 1)
+        self.assertEqual(purchase_1.order_line.product_id, self.product_1)
+        self.assertEqual(purchase_2.order_line.product_id, self.product_2)

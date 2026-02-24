@@ -36,7 +36,7 @@ class StockRule(models.Model):
                 domain = tuple(domain_lst)
             domain += (('group_id.parent_root_id', '=', root_group_id),)
         product = values.get("product", self.env["product.product"])
-        if grouping != 'no_grouping' and product.purchase_grouping_id:
+        if grouping != 'no_grouping':
             domain += (('purchase_grouping_id', '=', product.purchase_grouping_id.id),)
         return domain
 
