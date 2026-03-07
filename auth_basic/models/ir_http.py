@@ -4,6 +4,8 @@ from odoo import SUPERUSER_ID, models
 from odoo.exceptions import AccessDenied
 from odoo.http import request
 
+from ..utils import make_hash
+
 _logger = logging.getLogger(__name__)
 
 AUTH_HEADER_KEY = 'HTTP_AUTHORIZATION'
@@ -23,7 +25,9 @@ class IrHttp(models.AbstractModel):
             request.uid = SUPERUSER_ID
             # We check credentials value without standard prefix.
             credentials = credentials[len(AUTH_CREDENTIALS_PREFIX) :]
-            auth_basic = request.env["auth.basic"]._retrieve_auth_basic(credentials)
+            auth_basic = request.env["auth.basic"]._retrieve_auth_basic(
+                make_hash(credentials)
+            )
             # reset _env on the request since we change the uid, the
             # next call to env will instantiate an new
             # odoo.api.Environment with the user defined on the

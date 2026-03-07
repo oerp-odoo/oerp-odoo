@@ -5,6 +5,7 @@ from odoo.tools.misc import mute_logger
 
 from odoo.addons.server_environment import serv_config
 
+from ..utils import make_hash
 from . import common
 
 
@@ -28,13 +29,13 @@ class TestAuthBasicConfig(common.TestAuthBasicCommon):
         self.assertEqual(
             self.auth_basic_1._credentials,
             # demo:demo_123
-            'ZGVtbzpkZW1vXzEyMw==',
+            make_hash('ZGVtbzpkZW1vXzEyMw=='),
         )
         self.auth_basic_1.username = 'chipmunk'
         self.assertEqual(
             self.auth_basic_1._credentials,
             # chipmunk:demo_123
-            'Y2hpcG11bms6ZGVtb18xMjM=',
+            make_hash('Y2hpcG11bms6ZGVtb18xMjM='),
         )
 
     def test_03_credentials(self):
@@ -45,12 +46,12 @@ class TestAuthBasicConfig(common.TestAuthBasicCommon):
         serv_config.set(section, 'password', 'test_123')
         self.assertEqual(
             # test:test_123
-            self.AuthBasic._retrieve_auth_basic('dGVzdDp0ZXN0XzEyMw=='),
+            self.AuthBasic._retrieve_auth_basic(make_hash('dGVzdDp0ZXN0XzEyMw==')),
             self.auth_basic_1,
         )
         with self.assertRaises(ValidationError):
             # Old credentials demo:demo_123
-            self.AuthBasic._retrieve_auth_basic('ZGVtbzpkZW1vXzEyMw==')
+            self.AuthBasic._retrieve_auth_basic(make_hash('ZGVtbzpkZW1vXzEyMw=='))
 
     def test_04_retrieve_auth_basic_id(self):
         """Retrieve auth_basic_id using credentials.

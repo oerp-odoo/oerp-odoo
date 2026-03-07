@@ -1,3 +1,4 @@
+import base64
 from unittest.mock import patch
 
 from odoo.exceptions import AccessDenied, ValidationError
@@ -41,12 +42,10 @@ class TestAuthentication(common.TestAuthBasicCommon):
     # object, which does not exist, failing mock. When spec is not none,
     # that check is skipped.
     @patch(PATCH_PATH, spec=_MockedRequest)
-    def test_01_auth_method_basic(self, request):
-        """Authenticate when correct credentials are passed."""
-        self._setup_request(
-            request,
-            _MockedHttpRequest(_prepare_auth_header(self.auth_basic_1._credentials)),
-        )
+    def test_01_auth_method_basic_ok(self, request):
+        ab = self.auth_basic_1
+        creds = base64.b64encode(f'{ab.username}:{ab.password}'.encode()).decode()
+        self._setup_request(request, _MockedHttpRequest(_prepare_auth_header(creds)))
         res = self.IrHttp._auth_method_basic()
         self.assertEqual(res, True)
         self.assertEqual(request.uid, self.user_admin.id)
@@ -54,8 +53,7 @@ class TestAuthentication(common.TestAuthBasicCommon):
         self.assertEqual(request.auth_basic_id, self.auth_basic_1.id)
 
     @patch(PATCH_PATH, spec=_MockedRequest)
-    def test_02_auth_method_basic(self, request):
-        """Try to authenticate when incorrect credentials are passed."""
+    def test_02_auth_method_basic_bad_creds(self, request):
         self._setup_request(
             request, _MockedHttpRequest(_prepare_auth_header('badcredentials'))
         )
@@ -63,8 +61,7 @@ class TestAuthentication(common.TestAuthBasicCommon):
             self.IrHttp._auth_method_basic()
 
     @patch(PATCH_PATH, spec=_MockedRequest)
-    def test_03_auth_method_basic(self, request):
-        """Try to authenticate when no credentials are passed."""
+    def test_03_auth_method_basic_no_creds(self, request):
         self._setup_request(request, _MockedHttpRequest())
         with self.assertRaises(AccessDenied), mute_logger(
             'odoo.addons.auth_basic.models.ir_http'
