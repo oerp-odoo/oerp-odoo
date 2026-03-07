@@ -99,8 +99,8 @@ msgstr ""
 #. module: auth_basic
 #: code:addons/auth_basic/models/auth_basic.py:0
 #, python-format
-msgid "The credentials %s are incorrect"
-msgstr "Įgaliojimai %s yra neteisingi"
+msgid "The credentials are incorrect"
+msgstr "Įgaliojimai yra neteisingi"
 
 #. module: auth_basic
 #: model:ir.model.fields,help:auth_basic.field_auth_basic__user_id
