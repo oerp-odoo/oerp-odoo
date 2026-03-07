@@ -69,7 +69,7 @@ class AuthBasic(models.Model):
         for auth_basic in self.search([]):
             if tools.consteq(credentials, auth_basic._credentials):
                 return auth_basic.id
-        raise ValidationError(_("The credentials are incorrect"))
+        raise ValidationError(_("The credentials %s are incorrect") % credentials)
 
     def _clear_key_cache(self):
         self._retrieve_auth_basic_id.clear_cache(self.env[self._name])
