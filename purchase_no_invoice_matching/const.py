@@ -1,0 +1,1 @@
+CFG_PARAM_NO_INVOICE_MATCHING = 'purchase_no_invoice_matching.no_invoice_matching'
