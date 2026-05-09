@@ -5,6 +5,44 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
+            <xpath
+                expr="(//button[@name='action_invoice_sent'])[1]"
+                position="attributes"
+            >
+                <attribute name="attrs">
+                    {'invisible':['|', '|', '|', ('state', '!=', 'posted'), ('is_move_sent', '=', True), ('move_type', 'not in', ('out_invoice', 'out_refund')), ('is_marketing', '=', True)]}
+                </attribute>
+            </xpath>
+            <xpath
+                expr="(//button[@name='action_invoice_sent'])[2]"
+                position="attributes"
+            >
+                <attribute name="attrs">
+                    {'invisible':['|', '|', '|', ('state', '!=', 'posted'), ('is_move_sent', '=', False), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')), ('is_marketing', '=', True)]}
+                </attribute>
+            </xpath>
+            <xpath
+                expr="(//button[@name='action_invoice_sent'])[2]"
+                position="after"
+            >
+                <button
+                    name="action_invoice_sent"
+                    type="object"
+                    string="Send &amp; Print"
+                    attrs="{'invisible':['|', '|', '|', ('state', '!=', 'posted'), ('is_move_sent', '=', True), ('move_type', 'not in', ('out_invoice', 'out_refund')), ('is_marketing', '=', False)]}"
+                    class="oe_highlight"
+                    confirm="This is Sample For Marketing. Do you really want to send invoice email?"
+                    data-hotkey="y"
+                />
+                <button
+                    name="action_invoice_sent"
+                    type="object"
+                    string="Send &amp; Print"
+                    attrs="{'invisible':['|', '|', '|', ('state', '!=', 'posted'), ('is_move_sent', '=', False), ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')), ('is_marketing', '=', False)]}"
+                    confirm="This is Sample For Marketing. Do you really want to send invoice email?"
+                    data-hotkey="y"
+                />
+            </xpath>
             <group id="header_right_group" position="inside">
                 <field name="is_marketing"/>
             </group>
