@@ -6,15 +6,6 @@ import dataclasses
 @dataclasses.dataclass(frozen=True)
 class Config:
     controller_model: str
-    log: LogConfig
-
-
-@dataclasses.dataclass(frozen=True)
-class LogConfig:
-    enabled: bool
-    limit_days: int = 0
-    limit_count: int = 0
-    status_code_filter: str | None = None
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True)

@@ -2,7 +2,6 @@ from odoo import _, api, fields, models, tools
 from odoo.exceptions import ValidationError
 
 from .. import const, value_objects as vo
-from ..utils import match_number
 
 
 class HttpClientConfig(models.Model):
@@ -16,26 +15,6 @@ class HttpClientConfig(models.Model):
         ondelete='cascade',
         string="Controller Model",
         index=True,
-    )
-    log_enabled = fields.Boolean(
-        string="Logs Enabled",
-        help="If checked, will save request/response data.",
-    )
-    log_limit_days = fields.Integer(
-        "Days to Keep Logs", default=0, help="0 means no limit."
-    )
-    log_limit_count = fields.Integer(
-        "Maximum Logs Count",
-        default=0,
-        help="Maximum number of log entries to keep. 0 means no limit.",
-    )
-    log_status_code_filter = fields.Char(
-        "Filter Logs by Status Code",
-        help="If specified, logs will be created only if status code matches the "
-        + "expression. Expression can contain exact status codes or ranges of codes, "
-        "separated by commas. For example: 200,201,!=404,>=400,<500. This will "
-        + "match 200, 201 all codes greater than 400 or equal (except 404) up to 500 "
-        "exclusive.",
     )
     active = fields.Boolean(default=True)
 
@@ -57,17 +36,6 @@ class HttpClientConfig(models.Model):
                     )
                 )
 
-    @api.constrains('log_status_code_filter')
-    def _check_log_status_code_filter(self):
-        for rec in self:
-            expr = rec.log_status_code_filter
-            if not expr:
-                continue
-            try:
-                match_number(100, expr)
-            except ValueError as e:
-                raise ValidationError(e)
-
     @api.model
     @tools.ormcache('model_name')
     def get_cfg(self, model_name):
@@ -76,12 +44,6 @@ class HttpClientConfig(models.Model):
             return None
         return vo.Config(
             controller_model=model_name,
-            log=vo.LogConfig(
-                enabled=cfg.log_enabled,
-                limit_days=cfg.log_limit_days,
-                limit_count=cfg.log_limit_count,
-                status_code_filter=cfg.log_status_code_filter,
-            ),
         )
 
     @api.model_create_multi
