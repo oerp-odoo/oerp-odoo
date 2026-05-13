@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_apilog_config_admin,apilog_config admin,model_apilog_config,base.group_system,1,1,1,1
+access_apilog_config_label_admin,apilog_config_label admin,model_apilog_config_label,base.group_system,1,1,1,1
+access_apilog_label_admin,apilog_label admin,model_apilog_label,base.group_system,1,1,1,1
+access_apilog_log_admin,apilog_log admin,model_apilog_log,base.group_system,1,0,0,1

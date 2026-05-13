@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="apilog_config_view_tree" model="ir.ui.view">
+        <field name="name">apilog.config.tree</field>
+        <field name="model">apilog.config</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="not active">
+                <field name="active" invisible="1"/>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="direction"/>
+                <field name="source"/>
+                <field name="log_limit_days"/>
+                <field name="log_limit_count"/>
+                <field name="match_expression" string="Expression"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="apilog_config_view_form" model="ir.ui.view">
+        <field name="name">apilog.config.form</field>
+        <field name="model">apilog.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="general" string="General">
+                            <field name="name"/>
+                            <field name="active" widget="boolean_toggle"/>
+                            <field name="direction"/>
+                            <field name="source"/>
+                            <field name="response_body_as_file"/>
+                            <field name="debug"/>
+                        </group>
+                        <group name="matching" string="Matching">
+                            <field
+                                name="match_expression"
+                                string="Expression"
+                                placeholder="'/my/path' in inp.endpoint"
+                            />
+                        </group>
+                        <group name="labeling" string="Labeling">
+                            <field name="label_ids" widget="many2many_tags"/>
+                            <field name="config_label_ids">
+                                <list editable="bottom">
+                                    <field
+                                        name="label_id"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field name="match_expression" string="Expression"/>
+                                </list>
+                            </field>
+                        </group>
+                        <group name="rotation" string="Rotation">
+                            <field name="log_limit_days"/>
+                            <field name="log_limit_count"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="apilog_config_action" model="ir.actions.act_window">
+        <field name="name">Configs</field>
+        <field name="res_model">apilog.config</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'active_test': False}</field>
+    </record>
+
+    <menuitem
+        id="apilog_config_menu"
+        parent="apilog_root_menu"
+        action="apilog_config_action"
+        sequence="5"
+    />
+</odoo>
