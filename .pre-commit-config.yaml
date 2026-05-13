@@ -144,9 +144,9 @@ repos:
       - id: check-toml
       - id: no-commit-to-branch
         args:
-          - --branch=18.0
+          - --branch=19.0
   - repo: https://github.com/OCA/pylint-odoo
-    rev: v9.3.22
+    rev: v9.3.15
     hooks:
       - id: pylint_odoo
         args:

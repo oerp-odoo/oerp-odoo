@@ -1,0 +1,449 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * odootil
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-21 06:50+0000\n"
+"PO-Revision-Date: 2022-10-21 06:50+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: odootil
+#: code:addons/odootil/models/base.py:0
+#, python-format
+msgid "%s is not in recordset"
+msgstr "%s nėra įrašų rinkinyje"
+
+#. module: odootil
+#: code:addons/odootil/models/odootil_year_field.py:0
+#, python-format
+msgid "%s is not valid year!"
+msgstr "%s nėra teisingi metai!"
+
+#. module: odootil
+#: code:addons/odootil/models/odootil.py:0
+#, python-format
+msgid "'%s' is not valid URL."
+msgstr "'%s' nėra teisingas komp. universalusis adresas."
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_odootil_base_struct__active
+#: model:ir.model.fields,field_description:odootil.field_odootil_base_struct_color__active
+msgid "Active"
+msgstr "Aktyvus"
+
+#. module: odootil
+#: code:addons/odootil/models/odootil.py:0
+#, python-format
+msgid "April"
+msgstr "Balandis"
+
+#. module: odootil
+#: code:addons/odootil/models/odootil.py:0
+#, python-format
+msgid "August"
+msgstr "Rugpjūtis"
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_base
+msgid "Base"
+msgstr "Bazė"
+
+#. module: odootil
+#: model:ir.model.constraint,message:odootil.constraint_item_cycle_test_week_container_stard_end_not_xor
+#: model:ir.model.constraint,message:odootil.constraint_odootil_item_cycle_container_stard_end_not_xor
+msgid "Both Start and End must be specified or not specified!"
+msgstr "Turi būti nurodyta tiek pradžia, tiek pabaiga arba nenurodytas nė vienas!"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_odootil_base_struct_color__color
+msgid "Color Index"
+msgstr "Spalvos indeksas"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_odootil_company_field__company_id
+msgid "Company"
+msgstr "Įmonė"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week__create_uid
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week_container__create_uid
+#: model:ir.model.fields,field_description:odootil.field_odootil_decor_test__create_uid
+msgid "Created by"
+msgstr "Sukūrė"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week__create_date
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week_container__create_date
+#: model:ir.model.fields,field_description:odootil.field_odootil_decor_test__create_date
+msgid "Created on"
+msgstr "Sukurta"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_odootil_decor_test__currency_id
+msgid "Currency"
+msgstr "Valiuta"
+
+#. module: odootil
+#: code:addons/odootil/models/odootil.py:0
+#, python-format
+msgid "Date From must be earlier than %sDate To."
+msgstr "Data nuo turi būti ankstesnė nei %sData iki."
+
+#. module: odootil
+#: code:addons/odootil/models/odootil.py:0
+#, python-format
+msgid "December"
+msgstr "Gruodis"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week__display_name
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week_container__display_name
+#: model:ir.model.fields,field_description:odootil.field_odootil_decor_test__display_name
+msgid "Display Name"
+msgstr "Rodomas pavadinimas"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week_container__odootil_item_cycle_end_id
+msgid "End Week"
+msgstr "Paskutinė savaitė"
+
+#. module: odootil
+#: code:addons/odootil/models/odootil.py:0
+#, python-format
+msgid "February"
+msgstr "Vasaris"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_odootil_hidden_mixin__hid_hidden
+msgid "Hidden"
+msgstr "Paslėptas"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week__id
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week_container__id
+#: model:ir.model.fields,field_description:odootil.field_odootil_decor_test__id
+msgid "ID"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model.fields,help:odootil.field_odootil_hidden_mixin__hid_hidden
+msgid ""
+"If checked, will exclude it from search if Hidden option is not explicitly "
+"included."
+msgstr ""
+"Jeigu bus pažymėta, neįtrauks į paiešką, nebent 'Paslėptas' pasirinkimas bus"
+" tiesiogiai nurodytas."
+
+#. module: odootil
+#: code:addons/odootil/models/odootil.py:0
+#, python-format
+msgid "Email '%s' is incorrect. %s"
+msgstr "Įvestas neteisingas el. paštas '%s'. %s"
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_item_cycle_test_week
+msgid "Item Cycle Test Week"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_item_cycle_test_week_container
+msgid "Item Cycle Test Week Container"
+msgstr ""
+
+#. module: odootil
+#: code:addons/odootil/models/odootil.py:0
+#, python-format
+msgid "January"
+msgstr "Sausis"
+
+#. module: odootil
+#: code:addons/odootil/models/odootil.py:0
+#, python-format
+msgid "July"
+msgstr "Liepa"
+
+#. module: odootil
+#: code:addons/odootil/models/odootil.py:0
+#, python-format
+msgid "June"
+msgstr "Birželis"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week____last_update
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week_container____last_update
+#: model:ir.model.fields,field_description:odootil.field_odootil_decor_test____last_update
+msgid "Last Modified on"
+msgstr "Paskutinį kartą keista"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week__write_uid
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week_container__write_uid
+#: model:ir.model.fields,field_description:odootil.field_odootil_decor_test__write_uid
+msgid "Last Updated by"
+msgstr "Paskutinį kartą atnaujino"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week__write_date
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week_container__write_date
+#: model:ir.model.fields,field_description:odootil.field_odootil_decor_test__write_date
+msgid "Last Updated on"
+msgstr "Paskutinį kartą atnaujinta"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_odootil_social_network_fields__linkedin_identifier
+msgid "LinkedIn"
+msgstr ""
+
+#. module: odootil
+#: code:addons/odootil/models/odootil.py:0
+#, python-format
+msgid "March"
+msgstr "Kovas"
+
+#. module: odootil
+#: code:addons/odootil/models/odootil.py:0
+#, python-format
+msgid "May"
+msgstr "Gegužė"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_odootil_social_network_fields__messenger_identifier
+msgid "Messenger"
+msgstr ""
+
+#. module: odootil
+#: code:addons/odootil/models/base.py:0
+#, python-format
+msgid "Model '%s' not found."
+msgstr "Modelis '%s' nerastas."
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_odootil_month_field__odootil_month
+msgid "Month"
+msgstr "Mėnuo"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week_container__name
+#: model:ir.model.fields,field_description:odootil.field_odootil_base_struct__name
+#: model:ir.model.fields,field_description:odootil.field_odootil_base_struct_color__name
+#: model:ir.model.fields,field_description:odootil.field_odootil_decor_test__name
+msgid "Name"
+msgstr "Pavadinimas"
+
+#. module: odootil
+#: model:ir.model.constraint,message:odootil.constraint_odootil_base_struct_color_name_uniq
+#: model:ir.model.constraint,message:odootil.constraint_odootil_base_struct_name_uniq
+msgid ""
+"Name must be unique! There might be an archived record with the same name."
+msgstr ""
+"Pavadinimas turi būti unikalus! Gali būti archyvuotas įrašas tuo pačiu pavadinimu."
+
+#. module: odootil
+#: code:addons/odootil/models/odootil.py:0
+#, python-format
+msgid "New"
+msgstr ""
+
+#. module: odootil
+#: code:addons/odootil/models/odootil.py:0
+#, python-format
+msgid "November"
+msgstr "Lapkritis"
+
+#. module: odootil
+#: code:addons/odootil/models/odootil_seq.py:0
+#, python-format
+msgid "Number must be unique for records without company selected."
+msgstr "Numeris turi būti unikalus įrašams be parinktos įmonės."
+
+#. module: odootil
+#: code:addons/odootil/models/odootil.py:0
+#, python-format
+msgid "October"
+msgstr "Spalis"
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_odootil
+msgid "Odoo Utilities"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_odootil_base_struct_color
+msgid "Odootil Base Structure Color Mixin"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_odootil_base_struct
+msgid "Odootil Base Structure Mixin"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_odootil_bin_field
+msgid "Odootil Binary Field Mixin"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_odootil_company_field
+msgid "Odootil Company Field Mixin"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_odootil_decor_test
+msgid "Odootil Decorator Test"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_odootil_hidden_mixin
+msgid "Odootil Hidden Mixin"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_odootil_hide_field
+msgid "Odootil Hide Field Mixin"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_odootil_item_cycle_container
+msgid "Odootil Item Cycle Container Mixin"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_odootil_item_cycle
+msgid "Odootil Item Cycle Mixin"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_odootil_month_field
+msgid "Odootil Month Field Mixin"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_odootil_seq
+msgid "Odootil Sequence Mixin"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_odootil_social_network_fields
+msgid "Odootil Social Applications Fields Mixin"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_odootil_toggle_active
+msgid "Odootil Toggle Active"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_odootil_year_field
+msgid "Odootil Year Field Mixin"
+msgstr ""
+
+#. module: odootil
+#: code:addons/odootil/models/base.py:0
+#, python-format
+msgid "Only single active_id is allowed"
+msgstr "Leidžiamas tik vienas active_id"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week__position
+#: model:ir.model.fields,field_description:odootil.field_odootil_item_cycle__position
+msgid "Position"
+msgstr "Pozicija"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_odootil_decor_test__price
+msgid "Price"
+msgstr ""
+
+#. module: odootil
+#: code:addons/odootil/models/base.py:0
+#, python-format
+msgid "Programming error: 'active_model' is missing in context"
+msgstr "Programavimo klaida: kontekste trūksta 'active_model'"
+
+#. module: odootil
+#: code:addons/odootil/models/base.py:0
+#, python-format
+msgid ""
+"Programming error: at least 'active_id' or 'active_ids' key must be present "
+"in context"
+msgstr ""
+"Programavimo klaida: bent 'active_id' arba 'active_ids' raktas turi būti "
+"kontekste"
+
+#. module: odootil
+#: code:addons/odootil/models/odootil.py:0
+#, python-format
+msgid "September"
+msgstr "Rugsėjis"
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_ir_sequence
+msgid "Sequence"
+msgstr "Seka"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_odootil_social_network_fields__skype_identifier
+msgid "Skype"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week_container__odootil_item_cycle_start_id
+msgid "Start Week"
+msgstr "Pradžios savaitė"
+
+#. module: odootil
+#: model:ir.model,name:odootil.model_ir_config_parameter
+msgid "System Parameter"
+msgstr "Sistemos parametrai"
+
+#. module: odootil
+#: model:ir.model.constraint,message:odootil.constraint_item_cycle_test_week_position_uniq
+#: model:ir.model.constraint,message:odootil.constraint_odootil_item_cycle_position_uniq
+msgid "The position must be unique !"
+msgstr "Pozicija privalo būti unikali !"
+
+#. module: odootil
+#: code:addons/odootil/models/base.py:0
+#, python-format
+msgid "These fields are required: %s"
+msgstr "Šie laukai yra privalomi: %s"
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_odootil_social_network_fields__viber_identifier
+msgid "Viber"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_item_cycle_test_week_container__odootil_item_cycle_ids
+msgid "Weeks Range"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_odootil_social_network_fields__whatsapp_identifier
+msgid "WhatsApp"
+msgstr ""
+
+#. module: odootil
+#: model:ir.model.fields,field_description:odootil.field_odootil_year_field__odootil_year
+msgid "Year"
+msgstr "Metai"
+
+#. module: odootil
+#: code:addons/odootil/models/base.py:0
+#, python-format
+msgid "end index must be greater than start."
+msgstr "pabaigos indeksas turi būti didesnis nei pradžios."
+
+#. module: odootil
+#: code:addons/odootil/models/odootil.py:0
+#, python-format
+msgid "or equal to "
+msgstr "arba lygi "
