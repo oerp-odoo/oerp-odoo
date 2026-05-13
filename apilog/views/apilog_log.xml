@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="apilog_log_view_tree" model="ir.ui.view">
+        <field name="name">apilog.log.tree</field>
+        <field name="model">apilog.log</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="create_date"/>
+                <field name="http_verb" optional="show"/>
+                <field name="endpoint" optional="show"/>
+                <field name="status_code" optional="show"/>
+                <field name="direction" optional="show"/>
+                <field name="source" optional="hide"/>
+                <field name="config_id" optional="show"/>
+                <field name="label_ids" widget="many2many_tags" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="apilog_log_view_form" model="ir.ui.view">
+        <field name="name">apilog.log.form</field>
+        <field name="model">apilog.log</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <field name="request_body" invisible="1"/>
+                        <field name="request_headers" invisible="1"/>
+                        <field name="response_body" invisible="1"/>
+                        <field name="response_headers" invisible="1"/>
+                        <group name="general" string="General">
+                            <field name="http_verb"/>
+                            <field name="endpoint"/>
+                            <field name="status_code"/>
+                            <field name="create_date"/>
+                        </group>
+                        <group name="origin" string="Origin Details">
+                            <field name="direction"/>
+                            <field name="source"/>
+                            <field name="config_id"/>
+                            <field name="res_model"/>
+                            <field
+                                name="res_id"
+                                widget="integer"
+                                options="{'format': 0}"
+                            />
+                            <field name="label_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="request_body" string="Request Body">
+                            <field name="request_body_formatted"/>
+                        </page>
+                        <page name="request_headers" string="Request Headers">
+                            <field name="request_headers_formatted"/>
+                        </page>
+                        <page name="response_body" string="Response Body">
+                            <field
+                                name="response_body_file"
+                                invisible="not response_body_file"
+                                filename="response_body_filename"
+                            />
+                            <field name="response_body_filename" invisible="1"/>
+                            <field
+                                name="response_body_formatted"
+                                invisible="response_body_file"
+                            />
+                        </page>
+                        <page name="response_headers" string="Response Headers">
+                            <field name="response_headers_formatted"/>
+                        </page>
+                        <page name="response_traceback" string="Response Traceback">
+                            <field name="response_traceback"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="apilog_log_view_form_search" model="ir.ui.view">
+        <field name="name">apilog.log.search</field>
+        <field name="model">apilog.log</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="endpoint"/>
+                <field name="request_body"/>
+                <field name="response_body"/>
+                <field name="http_verb"/>
+                <field name="status_code"/>
+                <field name="config_id"/>
+                <field
+                    name="label_ids"
+                    filter_domain="[('label_ids', 'child_of', self)]"
+                />
+                <separator/>
+                <filter
+                    string="Incoming"
+                    name="direction_incoming"
+                    domain="[('direction', '=', 'incoming')]"
+                />
+                <filter
+                    string="Outgoing"
+                    name="direction_outgoing"
+                    domain="[('direction', '=', 'outgoing')]"
+                />
+                <separator/>
+                <group>
+                    <filter
+                        string="HTTP Verb"
+                        name="group_by_http_verb"
+                        context="{'group_by': 'http_verb'}"
+                    />
+                    <filter
+                        string="Direction"
+                        name="group_direction"
+                        context="{'group_by': 'direction'}"
+                    />
+                    <filter
+                        string="Config"
+                        name="group_config_id"
+                        context="{'group_by': 'config_id'}"
+                    />
+                    <filter
+                        string="Status Code"
+                        name="group_status_code"
+                        context="{'group_by': 'status_code'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="apilog_log_action" model="ir.actions.act_window">
+        <field name="name">Logs</field>
+        <field name="res_model">apilog.log</field>
+        <field name="context">{'force_disable_unaccent': True}</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="apilog_log_menu"
+        parent="apilog_root_menu"
+        action="apilog_log_action"
+        sequence="1"
+    />
+</odoo>
