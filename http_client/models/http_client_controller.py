@@ -12,7 +12,7 @@ from ..exceptions import AuthDataError
 from ..utils import get_endpoint, get_next_link
 
 _logger = logging.getLogger(__name__)
-_lt = LazyTranslate(__name__)
+_lt = LazyTranslate(__name__, default_lang='en_US')
 
 
 def _extract_response_body(response):
@@ -80,7 +80,7 @@ class HttpClientController(models.AbstractModel):
         return True
 
     @api.model
-    def postprocess_response_error(self, response):
+    def postprocess_response_error(self, response, options=None):
         """Log error using response object.
 
         Can be overridden to implement different error handling logic.
@@ -88,16 +88,16 @@ class HttpClientController(models.AbstractModel):
         _log_endpoint_error(response)
 
     @api.model
-    def postprocess_response_ok(self, response):
+    def postprocess_response_ok(self, response, options=None):
         """Override to add extra logic when response is successful."""
 
     @api.model
-    def _check_response(self, response):
+    def _check_response(self, response, options=None):
         """Check if returned response is successful."""
         if not response.ok:
-            self.postprocess_response_error(response)
+            self.postprocess_response_error(response, options=options)
             return False
-        self.postprocess_response_ok(response)
+        self.postprocess_response_ok(response, options=options)
         return True
 
     def _validate_endpoint_with_path_item(self, endpoint, path_item):
@@ -165,13 +165,8 @@ class HttpClientController(models.AbstractModel):
             endpoint = get_endpoint_from_path_item(path_item, auth_data)
         method = getattr(requests, method_name)
         try:
-            # TODO: implement response.links handling, to continue
-            # fetching data if there are next links.
             response = method(endpoint, **kwargs)
-            # TODO: save log entry even if exception is raised after checking
-            # response!
-            self.env['http.client.log'].sudo().handle_log(response, self._name)
-            self._check_response(response)
+            self._check_response(response, options=options)
             return response
         except Exception as e:
             # We raise general exception on unexpected exceptions.

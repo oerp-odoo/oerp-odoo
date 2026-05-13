@@ -6,9 +6,6 @@
         <field name="arch" type="xml">
             <list>
                 <field name="model_controller_id"/>
-                <field name="log_enabled"/>
-                <field name="log_limit_days"/>
-                <field name="log_limit_count"/>
             </list>
         </field>
     </record>
@@ -25,15 +22,6 @@
                                 name="model_controller_id"
                                 options="{'no_create': True}"
                             />
-                        </group>
-                        <group name="log" string="Logging">
-                            <field name="log_enabled"/>
-                            <field
-                                name="log_status_code_filter"
-                                invisible="not log_enabled"
-                            />
-                            <field name="log_limit_days"/>
-                            <field name="log_limit_count"/>
                         </group>
                         <group name="misc" string="Misc">
                             <field name="active" widget="boolean_toggle"/>

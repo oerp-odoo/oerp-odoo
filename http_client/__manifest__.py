@@ -18,7 +18,6 @@
         'views/http_client_auth.xml',
         'views/regular_client_auth.xml',
         'views/http_client_config.xml',
-        'views/http_client_log.xml',
     ],
     'external_dependencies': {'python': ['mergedeep', 'validators', 'footil']},
     'assets': {

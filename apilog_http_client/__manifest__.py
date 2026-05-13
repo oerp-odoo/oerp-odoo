@@ -1,22 +1,17 @@
 # Author: Andrius Laukavičius. Copyright: Andrius Laukavičius.
 # See LICENSE and COPYRIGHT files for details.
 {
-    'name': 'API Logger',
+    'name': 'API Logger - HTTP Client',
     'version': '19.0.2.0.0',
-    'summary': 'Base module to log incoming and outgoing requests within odoo',
+    'summary': 'Integrate apilog with HTTP client to support its outgoing logs',
     'license': 'LGPL-3',
     'author': 'Andrius Laukavičius',
     'website': 'https://timefordev.com',
     'category': 'Hidden/Tools',
     'depends': [
-        'odootil',
+        'http_client',
+        'apilog',
     ],
-    'data': [
-        'security/ir.model.access.csv',
-        'views/menus.xml',
-        'views/apilog_log.xml',
-        'views/apilog_config.xml',
-        'views/apilog_label.xml',
-    ],
+    'data': [],
     'installable': True,
 }
