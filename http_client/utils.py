@@ -1,13 +1,19 @@
+import base64
+import datetime
+import json
 import operator
 import re
 from urllib.parse import urlparse
 
+import validators
 from footil.formatting import strip_space
 from requests.models import PreparedRequest
 
+from odoo.exceptions import ValidationError
 from odoo.tools.urls import urljoin
 
-from .value_objects import PathItem
+from .const import B64_PADDING
+from .value_objects.request import RelativePath
 
 OP_RANGE_MAP = {
     '!=': operator.ne,
@@ -18,14 +24,34 @@ OP_RANGE_MAP = {
 }
 
 
-def get_endpoint(base_url: str, path_item: PathItem):
-    """Return endpoint using base URL and PathItem.
+def check_url(env, url):
+    """Check URL validity.
+
+    Args:
+        url (str): url to check
+
+    Returns:
+        None
+
+    Raises:
+        ValidationError if not valid
+
+    """
+    # Using '' as default, to make sure False value is not passed,
+    # which cant be validated by validators.url.
+    if not validators.url(url or ''):
+        raise ValidationError(env._("'%s' is not valid URL.", url))
+    return True
+
+
+def build_url(base_url: str, relative_path: RelativePath):
+    """Return URL using base URL and RelativePath.
 
     Args:
         base_url: base URL for endpoint.
-        path_item: path data to combine with base_url.
+        relative_path: path data to combine with base_url.
 
-    If base_url has path, it will be appended to path_item as if it
+    If base_url has path, it will be appended to relative_path as if it
     was its prefix.
 
     Returns:
@@ -38,18 +64,18 @@ def get_endpoint(base_url: str, path_item: PathItem):
         f'{url_obj.scheme}://{url_obj.netloc}' if url_obj.scheme else url_obj.netloc
     )
     url_path = url_obj.path
-    path_expression = path_item.path_expression
+    pattern = relative_path.pattern
     if url_path:
         # We keep path without ending `/` if there is one, to make sure
-        # that we can always combine it with `path_expression`
+        # that we can always combine it with `pattern`
         url_path = url_path[:-1] if url_path.endswith('/') else url_path
-        path_expression = f'{url_path}{path_item.path_expression}'
-    endpoint = urljoin(base_url, path_expression)
-    if path_item.args:
-        endpoint = endpoint.format(*path_item.args)
-    if path_item.params:
+        pattern = f'{url_path}{relative_path.pattern}'
+    endpoint = urljoin(base_url, pattern)
+    if relative_path.args:
+        endpoint = endpoint.format(*relative_path.args)
+    if relative_path.params:
         req = PreparedRequest()
-        req.prepare_url(endpoint, path_item.params)
+        req.prepare_url(endpoint, relative_path.params)
         endpoint = req.url
     return endpoint
 
@@ -59,6 +85,28 @@ def get_next_link(response, key: str) -> str | None:
         return response.links[key]['url']
     except KeyError:
         return None
+
+
+def is_jwt_token_expired(token, delta=0):
+    """Check if token expiration date has passed.
+
+    Args:
+        token (str): encoded JWT token.
+        delta (int): number of seconds to move expiration. Negative
+            value can be used to make sure we don't end up with expired
+            token after it was checked and expired few seconds later.
+
+    Returns:
+        True if token has expired, False otherwise.
+
+    """
+    # We only care about second part as it should hold information
+    # when token expires.
+    # Compare only up to a second as token usually holds only that info.
+    now_stamp = int(datetime.datetime.now().timestamp())
+    p2 = f"{token.split('.')[1]}{B64_PADDING}"
+    token_timestamp = json.loads(base64.b64decode(p2))['exp']
+    return token_timestamp + delta <= now_stamp
 
 
 # TODO: this could go to footil.

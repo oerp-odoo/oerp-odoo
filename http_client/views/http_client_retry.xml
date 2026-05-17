@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="http_client_retry_view_list" model="ir.ui.view">
+        <field name="name">http.client.retry.list</field>
+        <field name="model">http.client.retry</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="mount_prefixes"/>
+                <field name="retries_total"/>
+                <field name="retries_connect"/>
+                <field name="retries_read"/>
+                <field name="retries_redirect"/>
+                <field name="backoff_factor"/>
+                <field name="allowed_methods"/>
+                <field name="status_forcelist"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="http_client_retry_view_form" model="ir.ui.view">
+        <field name="name">http.client.retry.form</field>
+        <field name="model">http.client.retry</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="main">
+                        <group name="general" string="General">
+                            <field name="name"/>
+                            <field name="mount_prefixes"/>
+                            <field name="backoff_factor"/>
+                        </group>
+                        <group name="retries" string="Retries">
+                            <field name="retries_total"/>
+                            <field name="retries_connect"/>
+                            <field name="retries_read"/>
+                            <field name="retries_redirect"/>
+                        </group>
+                        <group name="filters" string="Filters">
+                            <field name="allowed_methods" placeholder="GET, POST"/>
+                            <field name="status_forcelist" placeholder="500, 501, 502"/>
+                        </group>
+                        <group name="raises" string="Raises">
+                            <field name="raise_on_status"/>
+                            <field name="raise_on_redirect"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="http_client_retry_action" model="ir.actions.act_window">
+        <field name="name">Retries</field>
+        <field name="res_model">http.client.retry</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="http_client_retry_menu"
+        parent="http_client_root_menu"
+        action="http_client_retry_action"
+        sequence="15"
+    />
+</odoo>

@@ -5,7 +5,7 @@ from odoo import api, models
 from odoo.exceptions import ValidationError
 
 from odoo.addons.http_client.models.http_client_controller import _raise_endpoint_error
-from odoo.addons.http_client.value_objects import PathItem
+from odoo.addons.http_client.value_objects.request import RelativePath
 
 from ..exceptions import MissingGithubError
 from ..value_objects import PullParams, Repo
@@ -40,8 +40,8 @@ class GithubApi(models.AbstractModel):
         if options is None:
             options = {}
         path = PATH_PULLS.format(pfx=repo.pfx_path)
-        options['path_item'] = PathItem(
-            path_expression=path, params=dataclasses.asdict(params) if params else None
+        options['relative_path'] = RelativePath(
+            pattern=path, params=dataclasses.asdict(params) if params else None
         )
         options = self._prepare_request_options(path, options=options)
         # Listing pull requests can return paginated response, so we might
@@ -137,6 +137,6 @@ class GithubApi(models.AbstractModel):
             options['kwargs']['json'] = payload
         headers = options['kwargs'].setdefault('headers', {})
         headers.update(**EXTRA_HEADERS)
-        if 'path_item' not in options:
-            options['path_item'] = PathItem(path_expression=path)
+        if 'relative_path' not in options:
+            options['relative_path'] = RelativePath(pattern=path)
         return options
