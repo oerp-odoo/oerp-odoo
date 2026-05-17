@@ -7,7 +7,7 @@ import re
 
 import jinja2
 
-from odoo.modules.module import get_module_path, get_resource_path
+from odoo.modules.module import get_module_path
 from odoo.tools import convert
 from odoo.tools.misc import file_open
 
@@ -82,12 +82,6 @@ def render_file_template(path, variables, encoding='utf-8'):
         return render_template(template)
 
 
-def read_resource_path(module, *args, mode='rb'):
-    path = get_resource_path(module, *args)
-    with open(path, mode=mode) as f:
-        return f.read()
-
-
 def parse_filename(
     filename: str,
     space_replacer=None,
@@ -134,3 +128,10 @@ def load_py_module(name: str, module: str, path: pathlib.Path):
     py_module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(py_module)
     return py_module
+
+
+def load_py_attribute(ref: str):
+    """Load py attribute using dotted path reference."""
+    module_path, attr = ref.rsplit(".", 1)
+    module = importlib.import_module(module_path)
+    return getattr(module, attr)

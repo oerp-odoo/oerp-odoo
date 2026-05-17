@@ -51,7 +51,8 @@ DUMMY_BEARER_RESPONSE = {
     'scope': 'some/scope',
 }
 DUMMY_URL = 'http://127.0.0.1'
-DUMMY_ENDPOINT = f"{DUMMY_URL}/my_path"
+DUMMY_PATH = '/my_path'
+DUMMY_ENDPOINT = f"{DUMMY_URL}{DUMMY_PATH}"
 HTTP_CLIENT_MODULE_PATH = 'odoo.addons.http_client.models.http_client_controller'
 # Tokens with expiration.
 VALID_ACCESS_TOKEN_1 = encode_jwt_token(
@@ -85,7 +86,12 @@ class TestHttpClientCommon(TransactionCase):
         cls.user_demo = cls.env.ref('base.user_demo')
         cls.user_admin = cls.env.ref('base.user_admin')
         cls.group_user = cls.env.ref('base.group_user')
-        cls.HttpClientController = cls.env['http.client.controller']
+        cls.HttpClient = cls.env['http.client']
+        cls.HttpClientRetry = cls.env['http.client.retry']
+        cls.HttpClientAuth = cls.env['http.client.auth']
+        cls.HttpClientEncoder = cls.env['http.client.encoder']
+        cls.HttpClientProfile = cls.env['http.client.profile']
+        cls.HttpClientTransport = cls.env['http.client.transport']
 
     @classmethod
     def get_auth_model(cls):

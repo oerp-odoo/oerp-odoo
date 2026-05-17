@@ -1,11 +1,30 @@
 import responses
 
+from ..const import HttpVerb
+from ..value_objects.request import RelativePath, RequestInput
 from . import common
 
 
-class TestCallFollowLinks(common.TestHttpClientCommon):
+class TestHttpClientSendPaginated(common.TestHttpClientCommon):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.auth_1 = cls.HttpClientAuth.create(
+            {
+                'name': 'MY-AUTH-1',
+            }
+        )
+        cls.auth_1.action_confirm()
+        cls.profile_1 = cls.HttpClientProfile.create(
+            {
+                'name': 'MY-PROFILE-1',
+                'base_url': common.DUMMY_URL,
+                'auth_id': cls.auth_1.id,
+            }
+        )
+
     @responses.activate
-    def test_01_call_http_method_follow_links_multi(self):
+    def test_01_client_send_paginated_multi(self):
         # GIVEN
         endpoint_1 = common.DUMMY_ENDPOINT
         endpoint_2 = f'{common.DUMMY_ENDPOINT}?page=2'
@@ -30,12 +49,13 @@ class TestCallFollowLinks(common.TestHttpClientCommon):
             status=200,
             json={'c': 30},
         )
-        # WHEN
-        response_res = self.HttpClientController.call_http_method_follow_links(
-            'next',
-            'get',
-            options={'endpoint': endpoint_1},
+        inp = RequestInput(
+            method=HttpVerb.GET,
+            relative_path=RelativePath(pattern=common.DUMMY_PATH),
+            profile=self.profile_1,
         )
+        # WHEN
+        response_res = self.HttpClient.send_paginated('next', inp)
         calls = responses.calls
         self.assertEqual(len(calls), 3)
         self.assertEqual(calls[0].request.url, endpoint_1)
@@ -47,7 +67,7 @@ class TestCallFollowLinks(common.TestHttpClientCommon):
         self.assertEqual(response_res[2].json(), {'c': 30})
 
     @responses.activate
-    def test_02_call_http_method_follow_links_no_links(self):
+    def test_02_client_send_paginated_no_links(self):
         # GIVEN
         endpoint_1 = common.DUMMY_ENDPOINT
         responses.add(
@@ -56,12 +76,13 @@ class TestCallFollowLinks(common.TestHttpClientCommon):
             status=200,
             json={'a': 10},
         )
-        # WHEN
-        response_res = self.HttpClientController.call_http_method_follow_links(
-            'next',
-            'get',
-            options={'endpoint': endpoint_1},
+        inp = RequestInput(
+            method=HttpVerb.GET,
+            relative_path=RelativePath(pattern=common.DUMMY_PATH),
+            profile=self.profile_1,
         )
+        # WHEN
+        response_res = self.HttpClient.send_paginated('next', inp)
         calls = responses.calls
         self.assertEqual(len(calls), 1)
         self.assertEqual(calls[0].request.url, endpoint_1)
@@ -69,7 +90,7 @@ class TestCallFollowLinks(common.TestHttpClientCommon):
         self.assertEqual(response_res[0].json(), {'a': 10})
 
     @responses.activate
-    def test_03_call_http_method_follow_links_different_key(self):
+    def test_03_client_send_paginated_different_key(self):
         # GIVEN
         endpoint_1 = common.DUMMY_ENDPOINT
         endpoint_2 = f'{common.DUMMY_ENDPOINT}?page=2'
@@ -80,12 +101,13 @@ class TestCallFollowLinks(common.TestHttpClientCommon):
             json={'a': 10},
             headers={'Link': f'<{endpoint_2}>; rel="upcoming"'},
         )
-        # WHEN
-        response_res = self.HttpClientController.call_http_method_follow_links(
-            'next',
-            'get',
-            options={'endpoint': endpoint_1},
+        inp = RequestInput(
+            method=HttpVerb.GET,
+            relative_path=RelativePath(pattern=common.DUMMY_PATH),
+            profile=self.profile_1,
         )
+        # WHEN
+        response_res = self.HttpClient.send_paginated('next', inp)
         calls = responses.calls
         self.assertEqual(len(calls), 1)
         self.assertEqual(calls[0].request.url, endpoint_1)

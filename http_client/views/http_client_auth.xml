@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <list>
                 <field name="name"/>
-                <field name="url"/>
+                <field name="base_url" optional="hide"/>
                 <field name="auth_method"/>
                 <field name="identifier"/>
                 <field name="company_id" groups="base.group_multi_company"/>
@@ -64,7 +64,6 @@
                     <group name="main">
                         <group name="general" string="General">
                             <field name="name" required="1"/>
-                            <field name="url" readonly="state != 'draft'"/>
                             <field name="auth_method" readonly="state != 'draft'"/>
                             <field
                                 name="grant_type"
@@ -110,13 +109,13 @@
                                 readonly="state != 'draft'"
                             />
                             <field
-                                name="scope"
-                                invisible="grant_type not in ('client_credentials', 'password')"
+                                name="base_url"
+                                required="grant_type"
                                 readonly="state != 'draft'"
                             />
                             <field
-                                name="auth_path_type"
-                                required="grant_type"
+                                name="scope"
+                                invisible="grant_type not in ('client_credentials', 'password')"
                                 readonly="state != 'draft'"
                             />
                             <field
@@ -124,23 +123,8 @@
                                 required="grant_type"
                                 readonly="state != 'draft'"
                             />
-                            <field
-                                name="refresh_path_type"
-                                readonly="state != 'draft'"
-                            />
-                            <field
-                                name="path_refresh"
-                                invisible="not refresh_path_type"
-                                required="refresh_path_type"
-                                readonly="state != 'draft'"
-                            />
-                            <field name="verify_path_type" readonly="state != 'draft'"/>
-                            <field
-                                name="path_verify"
-                                invisible="not verify_path_type"
-                                required="verify_path_type"
-                                readonly="state != 'draft'"
-                            />
+                            <field name="path_refresh" readonly="state != 'draft'"/>
+                            <field name="path_verify" readonly="state != 'draft'"/>
                             <field
                                 name="token_expire_delta"
                                 readonly="state != 'draft'"
@@ -158,4 +142,18 @@
             </form>
         </field>
     </record>
+
+    <record id="http_client_auth_action" model="ir.actions.act_window">
+        <field name="name">Authentications</field>
+        <field name="res_model">http.client.auth</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="http_client_auth_menu"
+        parent="http_client_root_menu"
+        action="http_client_auth_action"
+        sequence="10"
+    />
+
 </odoo>

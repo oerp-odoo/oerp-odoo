@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "HTTP Client Demo",
-    'version': '19.0.6.0.0',
+    'version': '19.0.7.0.0',
     'icon': '/odootil/static/description/icon.png',
     'summary': 'http, client, manager, demo',
     'license': 'LGPL-3',
@@ -11,13 +11,6 @@
     'depends': [
         # oerp-odoo
         'http_client',
-        'auth_menus',
-    ],
-    'data': [
-        'security/http_client_demo_groups.xml',
-        'security/ir.model.access.csv',
-        'security/test_models_security.xml',
-        'views/test_client_auth.xml',
     ],
     'installable': True,
 }

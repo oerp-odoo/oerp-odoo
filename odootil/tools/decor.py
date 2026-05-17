@@ -11,19 +11,28 @@ from .record import cleanup_noop_values
 _logger = logging.getLogger(__name__)
 
 
-def deprecated(func):
+def deprecated(message=None):
     """Deprecate functions/methods."""
 
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        warnings.warn(
-            f"{func.__name__} is deprecated and will be removed in a future version.",
-            category=DeprecationWarning,
-            stacklevel=2,
-        )
-        return func(*args, **kwargs)
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            warning = (
+                f"{func.__name__} is deprecated and will be removed "
+                f"in a future version."
+            )
+            if message:
+                warning += f" {message}"
+            warnings.warn(
+                warning,
+                category=DeprecationWarning,
+                stacklevel=2,
+            )
+            return func(*args, **kwargs)
 
-    return wrapper
+        return wrapper
+
+    return decorator
 
 
 def no_noop_write(method):

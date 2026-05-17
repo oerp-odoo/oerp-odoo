@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo noupdate="1">
-    <record id="regular_client_auth_rule_company" model="ir.rule">
-        <field name="name">Regular Client Auth: multi-company</field>
-        <field name="model_id" ref="http_client.model_regular_client_auth"/>
+    <record id="http_client_auth_rule_company" model="ir.rule">
+        <field name="name">http.client.auth: multi-company</field>
+        <field name="model_id" ref="http_client.model_http_client_auth"/>
         <field
             name="domain_force"
         >['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>

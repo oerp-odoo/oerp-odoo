@@ -1,22 +1,16 @@
 import base64
-import datetime
-import json
 
 import requests
-import validators
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
+from .. import const
 from ..exceptions import AuthDataError, AuthError
-from ..utils import get_endpoint
-from ..value_objects import PathItem
-from .http_client_controller import _raise_endpoint_error
+from ..utils import build_url, check_url, is_jwt_token_expired
+from ..value_objects.request import RelativePath
 
 TOKEN_AUTH_PREFIX_MAP = {'bearer': 'Bearer', 'jwt': 'JWT'}
-DEFAULT_EXPIRE_DELTA = -60
-DEFAULT_API_KEY_HEADER = 'ApiKey'
-B64_PADDING = '=='  # Should handle any base64 string.
 
 
 def _prepare_payload(content_type, data):
@@ -26,38 +20,14 @@ def _prepare_payload(content_type, data):
     return {'data': data}
 
 
-def is_jwt_token_expired(token, delta=0):
-    """Check if token expiration date has passed.
-
-    Args:
-        token (str): encoded JWT token.
-        delta (int): number of seconds to move expiration. Negative
-            value can be used to make sure we don't end up with expired
-            token after it was checked and expired few seconds later.
-
-    Returns:
-        True if token has expired, False otherwise.
-
-    """
-    # We only care about second part as it should hold information
-    # when token expires.
-    # Compare only up to a second as token usually holds only that info.
-    now_stamp = int(datetime.datetime.now().timestamp())
-    p2 = f"{token.split('.')[1]}{B64_PADDING}"
-    token_timestamp = json.loads(base64.b64decode(p2))['exp']
-    return token_timestamp + delta <= now_stamp
-
-
-class HttpClientAuth(models.AbstractModel):
+class HttpClientAuth(models.Model):
     """Base Authentication model to connect with HTTP calls."""
 
     _name = 'http.client.auth'
     _description = "HTTP Client Authentication"
-    # Whether multiple auth records can be created per single company.
-    _multi_auths_per_company = False
 
     name = fields.Char(copy=False)
-    url = fields.Char("URL", required=True, help="Base URL for endpoints")
+    base_url = fields.Char("Base URL", help="Base URL for authentication")
     auth_method = fields.Selection(
         [
             ('none', "None"),
@@ -75,7 +45,7 @@ class HttpClientAuth(models.AbstractModel):
     access_token = fields.Char(copy=False)
     refresh_token = fields.Char(copy=False)
     token_expire_delta = fields.Integer(
-        default=DEFAULT_EXPIRE_DELTA,
+        default=const.DEFAULT_EXPIRE_DELTA,
         help="Delta to use when comparing token expiration. E.g -60, means"
         + " renew token even if it would still be valid for 60 seconds."
         + "Set 0 to compare with exact expiration time.",
@@ -96,22 +66,6 @@ class HttpClientAuth(models.AbstractModel):
         default='x-www-form-urlencoded',
     )
     scope = fields.Char()
-    auth_path_type = fields.Selection(
-        [('path', "Path"), ('endpoint', "Endpoint")],
-        "Authentication Path Mode",
-        help="* Path: relative path to URL"
-        + "\n* Endpoint: full URL for authentication",
-    )
-    refresh_path_type = fields.Selection(
-        [('path', "Path"), ('endpoint', "Endpoint")],
-        "Token Refresh Path Mode",
-        help="* Path: relative path to URL" + "\n* Endpoint: full URL for refresh",
-    )
-    verify_path_type = fields.Selection(
-        [('path', "Path"), ('endpoint', "Endpoint")],
-        "Token Verify Path Mode",
-        help="* Path: relative path to URL" + "\n* Endpoint: full URL for verify",
-    )
     path_auth = fields.Char("Authentication Path")
     path_refresh = fields.Char(
         "Token Refresh Path",
@@ -147,106 +101,23 @@ class HttpClientAuth(models.AbstractModel):
     def _verify_endpoint(self):
         return self._form_custom_endpoint('verify')
 
-    def _form_custom_endpoint(self, name):
-        """Form endpoint using path_NAME and NAME_path_type fields."""
-        self.ensure_one()
-        path_fname = f'path_{name}'
-        path = self[path_fname]
-        path_type_fname = f'{name}_path_type'
-        if self[path_type_fname] == 'path':
-            return get_endpoint(self.url, PathItem(path_expression=path))
-        return path
-
-    @api.model
-    def _get_domain(self, company_id=False):
-        return [('state', '=', 'confirmed'), ('company_id', '=', company_id)]
-
     @api.onchange('auth_method')
     def _onchange_auth_method(self):
         if self.auth_method == 'none':
             self.grant_type = False
         if self.auth_method == 'api_key' and not self.identifier:
-            self.identifier = DEFAULT_API_KEY_HEADER
+            self.identifier = const.DEFAULT_API_KEY_HEADER
 
-    @api.constrains('url')
-    def _check_url(self):
-        for rec in self:
-            self.check_url(rec.url)
+    @api.constrains('base_url')
+    def _check_base_url(self):
+        for rec in self.filtered('base_url'):
+            check_url(self.env, rec.base_url)
 
     @api.constrains('token_expire_delta')
     def _check_token_expire_delta(self):
         for rec in self:
             if rec.token_expire_delta > 0:
                 raise ValidationError(_("Token Expire Delta must be 0 or lower!"))
-
-    @api.constrains('grant_type', 'auth_path_type', 'path_auth')
-    def _check_path_auth(self):
-        for rec in self:
-            if rec.grant_type and rec.auth_path_type == 'endpoint':
-                self.check_url(rec.path_auth)
-
-    @api.constrains('grant_type', 'refresh_path_type', 'path_refresh')
-    def _check_path_refresh(self):
-        for rec in self:
-            if rec.grant_type and rec.refresh_path_type == 'endpoint':
-                self.check_url(rec.path_refresh)
-
-    @api.constrains('state', 'company_id')
-    def _check_auth_unique(self):
-        if self._multi_auths_per_company:
-            return
-        for rec in self:
-            if rec.state == 'confirmed':
-                domain = self._get_domain(company_id=rec.company_id.id)
-                if self.search_count(domain) > 1:
-                    raise ValidationError(
-                        _(
-                            "Authentication record must be unique per "
-                            + "company or can have one global authentication"
-                            + " record."
-                        )
-                    )
-
-    @api.model
-    def check_url(self, url):
-        """Check URL validity.
-
-        Args:
-            url (str): url to check
-
-        Returns:
-            None
-
-        Raises:
-            ValidationError if not valid
-
-        """
-        if self.env.context.get('skip_check_url'):
-            return
-        # Using '' as default, to make sure False value is not passed,
-        # which cant be validated by validators.url.
-        if not validators.url(url or ''):
-            raise ValidationError(_("'%s' is not valid URL.", url))
-
-    @api.model
-    def get_auth(self, company_id):
-        """Return auth object for specific company.
-
-        If no auth can be found for specific company, defaults to global
-        auth if there is one.
-
-        Args:
-            company_id (int): Company ID related with auth object.
-
-        Returns:
-            http.client.auth
-
-        """
-        auth = self.search(self._get_domain(company_id=company_id))
-        if not auth:
-            # Search without company specified.
-            auth = self.search(self._get_domain())
-        return auth
 
     def provide_token(self, force_new=False):
         """Return either saved token or generate new one if needed."""
@@ -258,22 +129,23 @@ class HttpClientAuth(models.AbstractModel):
         # Using fixed value if no token generation was specified.
         return self.secret
 
-    def get_data(self):
-        """Return base URL and auth data in expected requests format."""
+    def authorize(self):
+        """Return authorization headers.
+
+        Can also refresh secrets in case temporary secrets are used
+        (like in access/refresh tokens case).
+        """
         self.ensure_one()
         self._validate_auth_data()
-        data = {'url': self.url, 'auth': None}
         auth_method = self.auth_method
         if auth_method == 'basic':
-            data['auth'] = {'auth': (self.identifier, self.secret)}
+            return {'Authorization': self._prepare_basic_auth()}
         elif auth_method == 'api_key':
-            data['auth'] = {'headers': {self.identifier: self.secret}}
+            return {self.identifier: self.secret}
         elif auth_method in TOKEN_AUTH_PREFIX_MAP:
             prefix = TOKEN_AUTH_PREFIX_MAP[auth_method]
-            data['auth'] = {
-                'headers': {'Authorization': f'{prefix} {self.provide_token()}'}
-            }
-        return data
+            return {'Authorization': f'{prefix} {self.provide_token()}'}
+        return {}
 
     def name_get(self):
         return [(r.id, r.name or f'({r.id}) {r.url}') for r in self]
@@ -337,6 +209,22 @@ class HttpClientAuth(models.AbstractModel):
                 'next': {'type': 'ir.actions.act_window_close'},
             },
         }
+
+    def _form_custom_endpoint(self, name):
+        self.ensure_one()
+        path_fname = f'path_{name}'
+        path = self[path_fname]
+        return build_url(self.base_url, RelativePath(pattern=path))
+
+    @api.model
+    def _get_domain(self, company_id=False):
+        return [('state', '=', 'confirmed'), ('company_id', '=', company_id)]
+
+    def _prepare_basic_auth(self):
+        self.ensure_one()
+        v = f'{self.identifier}:{self.secret}'
+        secret = base64.b64encode(v.encode()).decode()
+        return f'Basic {secret}'
 
     def _validate_auth_data(self):
         self.ensure_one()
@@ -463,7 +351,7 @@ class HttpClientAuth(models.AbstractModel):
             **_prepare_payload(self.content_type, data),
         )
         if not response.ok:
-            _raise_endpoint_error(response, AuthError)
+            self.env['http.client'].raise_response_error(response, AuthError)
         return response.json()
 
     def _is_jwt_token_expired(self, token):
