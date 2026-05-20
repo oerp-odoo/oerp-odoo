@@ -1,4 +1,5 @@
 from odoo.exceptions import AccessError
+from odoo.tests.common import new_test_user
 
 from .common import TestOdootilCommon
 
@@ -13,7 +14,7 @@ class TestIrConfigParameter(TestOdootilCommon):
         cls.param = cls.env['ir.config_parameter'].create(
             {'key': 'test.some.param.1', 'value': "{'a': 10, 'b': False}"}
         )
-        cls.user_demo = cls.env.ref('base.user_demo')
+        cls.user_1 = new_test_user(cls.env, 'test_user_1')
 
     def _custom_conversion_fun(self, value):
         # Simple conversion to return True, if value evaluates to True.
@@ -47,6 +48,6 @@ class TestIrConfigParameter(TestOdootilCommon):
     def test_05_get_param_eval(self):
         """Use get_param_eval with demo user that has no access."""
         with self.assertRaises(AccessError):
-            self.IrConfigParameter.with_user(self.user_demo).get_param_eval(
+            self.IrConfigParameter.with_user(self.user_1).get_param_eval(
                 'test.some.param.1'
             )
