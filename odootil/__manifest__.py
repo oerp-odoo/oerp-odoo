@@ -13,7 +13,13 @@
         'web',
     ],
     'external_dependencies': {
-        'python': ['footil', 'num2words', 'validators', 'email_validator']
+        'python': [
+            'footil',
+            'num2words',
+            'validators',
+            'email_validator',
+            'haversine',
+        ]
     },
     'data': [
         'security/ir.model.access.csv',
