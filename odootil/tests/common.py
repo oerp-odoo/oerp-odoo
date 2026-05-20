@@ -254,21 +254,6 @@ class TestBaseCommon(AccessCase):
         cls.ResUsers = cls.env['res.users']
         # Companies.
         cls.company_main = cls.env.ref('base.main_company')
-        # Users.
-        cls.user_portal = cls.env.ref('base.demo_user0')
-        cls.user_demo = cls.env.ref('base.user_demo')
-        cls.user_admin = cls.env.ref('base.user_admin')
-        cls.user_root = cls.env.ref('base.user_root')
-        # Models with Demo user
-        cls.ResPartnerDemo = cls.ResPartner.with_user(cls.user_demo)
-        # Partners.
-        cls.partner_main = cls.env.ref('base.main_partner')
-        cls.partner_portal = cls.user_portal.partner_id
-        cls.partner_demo = cls.user_demo.partner_id
-        cls.partner_admin = cls.user_admin.partner_id
-        cls.partner_root = cls.user_root.partner_id
-        cls.partner_azure = cls.env.ref('base.res_partner_12')
-        cls.partner_azure_brandon = cls.env.ref('base.res_partner_address_15')
         # Groups
         cls.group_user = cls.env.ref('base.group_user')
         cls.group_system = cls.env.ref('base.group_system')
@@ -540,10 +525,6 @@ class TestOdootilCommon(TestBaseCommon):
         """Set up common data."""
         super().setUpClass()
         cls.Odootil = cls.env['odootil']
-        cls.partner_1 = cls.env.ref('base.res_partner_1')
-        cls.partner_2 = cls.env.ref('base.res_partner_2')
-        cls.partner_3 = cls.env.ref('base.res_partner_3')
-        cls.partner_4 = cls.env.ref('base.res_partner_4')
 
 
 class TestAccountCommon(TestBaseCommon):

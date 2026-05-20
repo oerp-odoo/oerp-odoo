@@ -10,8 +10,12 @@ class TestContextHelpers(common.TestOdootilCommon):
     def setUpClass(cls):
         """Set up data for context helper tests."""
         super().setUpClass()
-        cls.partner_1 = cls.env.ref('base.res_partner_1')
-        cls.partner_2 = cls.env.ref('base.res_partner_2')
+        cls.partner_1, cls.partner_2 = cls.ResPartner.create(
+            [
+                {'name': 'MY-PARTNER-1'},
+                {'name': 'MY-PARTNER-1'},
+            ]
+        )
 
     def test_01_get_active_data(self):
         """Get active data from context with needed keys."""

@@ -10,18 +10,30 @@ class TestRecordSetHelpers(common.TestOdootilCommon):
     def setUpClass(cls):
         """Set up data for recordset helper methods."""
         super().setUpClass()
+        cls.ResPartnerCategory = cls.env['res.partner.category']
+        cls.partner_1, cls.partner_2, cls.partner_3 = cls.ResPartner.create(
+            [
+                # color to be used as ordering key.
+                {'name': 'MY-PARTNER-1', 'color': 1},
+                {'name': 'MY-PARTNER-2', 'color': 2},
+                {'name': 'MY-PARTNER-3', 'color': 3},
+            ]
+        )
+        cls.partner_2_child = cls.ResPartner.create(
+            {'name': 'MY-PARTNER-2-CHILD-1', 'parent_id': cls.partner_2.id}
+        )
         cls.partners = cls.partner_1 | cls.partner_2 | cls.partner_3
         cls.partners_to_sort = cls.partner_1 | cls.partner_3 | cls.partner_2
-        # color to be used as ordering key.
-        cls.partner_1.color = 1
-        cls.partner_2.color = 2
-        cls.partner_3.color = 3
         cls.partner_4 = cls.ResPartner.create({'name': 'P4'})
         cls._order = 'color, id'
         cls._order_2 = 'color desc, id'
         cls.new_rec_vals = {'name': 'dummy'}
-        cls.tag_prospects = cls.env.ref('base.res_partner_category_2')
-        cls.tag_services = cls.env.ref('base.res_partner_category_11')
+        cls.tag_1, cls.tag_2 = cls.ResPartnerCategory.create(
+            [
+                {'name': 'MY-TAG-1', 'color': 3},
+                {'name': 'MY-TAG-2', 'color': 7},
+            ]
+        )
 
     def test_01_get_record_index(self):
         """Get index for partner_1."""
@@ -224,17 +236,17 @@ class TestRecordSetHelpers(common.TestOdootilCommon):
         # Case 1.
         commands = [
             (0, 0, {'name': 'New Tag'}),
-            (4, self.tag_prospects.id),
-            (4, self.tag_services.id),
+            (4, self.tag_1.id),
+            (4, self.tag_2.id),
         ]
         tags = self.partner_4.resolve_2many_commands_to_recs('category_id', commands)
-        self.assertCountEqual(tags, self.tag_prospects | self.tag_services)
+        self.assertCountEqual(tags, self.tag_1 | self.tag_2)
         self.assertEqual(
             commands,
             [
                 (0, 0, {'name': 'New Tag'}),
-                (4, self.tag_prospects.id),
-                (4, self.tag_services.id),
+                (4, self.tag_1.id),
+                (4, self.tag_2.id),
             ],
         )
         # Case 2.
@@ -242,15 +254,15 @@ class TestRecordSetHelpers(common.TestOdootilCommon):
             'category_id',
             [
                 (0, 0, {'name': 'New Tag'}),
-                (4, self.tag_prospects.id),
-                (6, 0, self.tag_services.ids),
+                (4, self.tag_1.id),
+                (6, 0, self.tag_2.ids),
             ],
         )
-        self.assertEqual(tags, self.tag_services)
+        self.assertEqual(tags, self.tag_2)
         # Case 3.
         tags = self.partner_4.resolve_2many_commands_to_recs(
             'category_id',
-            [(0, 0, {'name': 'New Tag'}), (4, self.tag_prospects.id), (5,)],
+            [(0, 0, {'name': 'New Tag'}), (4, self.tag_1.id), (5,)],
         )
         self.assertFalse(tags)
         # Case 4.
@@ -258,11 +270,11 @@ class TestRecordSetHelpers(common.TestOdootilCommon):
             'category_id',
             [
                 (0, 0, {'name': 'New Tag'}),
-                (4, self.tag_prospects.id),
-                (3, self.tag_services.id),
+                (4, self.tag_1.id),
+                (3, self.tag_2.id),
             ],
         )
-        self.assertEqual(tags, self.tag_prospects)
+        self.assertEqual(tags, self.tag_1)
 
     def test_14_resolve_2many_commands_to_recs(self):
         """Resolve 2many commands into recs with force create.
@@ -275,13 +287,13 @@ class TestRecordSetHelpers(common.TestOdootilCommon):
         # Case 1.
         commands = [
             (0, 0, {'name': 'New Tag 1'}),
-            (4, self.tag_prospects.id),
-            (4, self.tag_services.id),
+            (4, self.tag_1.id),
+            (4, self.tag_2.id),
         ]
         tags = self.partner_4.resolve_2many_commands_to_recs(
             'category_id', commands, force_create=True
         )
-        tags_prospect_n_services = self.tag_prospects | self.tag_services
+        tags_prospect_n_services = self.tag_1 | self.tag_2
         tag_new = tags - tags_prospect_n_services
         self.assertEqual(tag_new.name, 'New Tag 1')
         self.assertCountEqual(tags, tags_prospect_n_services | tag_new)
@@ -290,16 +302,16 @@ class TestRecordSetHelpers(common.TestOdootilCommon):
         self.assertEqual(
             commands,
             [
-                (4, self.tag_prospects.id),
-                (4, self.tag_services.id),
+                (4, self.tag_1.id),
+                (4, self.tag_2.id),
                 (4, tag_new.id),
             ],
         )
         # Case 2.
         commands = [
             (0, 0, {'name': 'New Tag 2'}),
-            (4, self.tag_prospects.id),
-            (6, 0, self.tag_services.ids),
+            (4, self.tag_1.id),
+            (6, 0, self.tag_2.ids),
         ]
         tags = self.partner_4.resolve_2many_commands_to_recs(
             'category_id', commands, force_create=True
@@ -309,15 +321,15 @@ class TestRecordSetHelpers(common.TestOdootilCommon):
             commands,
             [
                 (0, 0, {'name': 'New Tag 2'}),
-                (4, self.tag_prospects.id),
-                (6, 0, self.tag_services.ids),
+                (4, self.tag_1.id),
+                (6, 0, self.tag_2.ids),
             ],
         )
-        self.assertEqual(tags, self.tag_services)
+        self.assertEqual(tags, self.tag_2)
         # Case 3.
         tags = self.partner_4.resolve_2many_commands_to_recs(
             'category_id',
-            [(0, 0, {'name': 'New Tag 3'}), (4, self.tag_prospects.id), (5,)],
+            [(0, 0, {'name': 'New Tag 3'}), (4, self.tag_1.id), (5,)],
             force_create=True,
         )
         self.assertFalse(tags)
@@ -326,14 +338,14 @@ class TestRecordSetHelpers(common.TestOdootilCommon):
             'category_id',
             [
                 (0, 0, {'name': 'New Tag 4'}),
-                (4, self.tag_prospects.id),
-                (3, self.tag_services.id),
+                (4, self.tag_1.id),
+                (3, self.tag_2.id),
             ],
             force_create=True,
         )
-        tag_new = tags - self.tag_prospects
+        tag_new = tags - self.tag_1
         self.assertEqual(tag_new.name, 'New Tag 4')
-        self.assertCountEqual(tags, self.tag_prospects | tag_new)
+        self.assertCountEqual(tags, self.tag_1 | tag_new)
 
     def test_15_sync_related_field_value_from_rel_record(self):
         # GIVEN

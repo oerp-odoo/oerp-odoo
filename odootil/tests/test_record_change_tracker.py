@@ -9,10 +9,19 @@ class TestRecordChangeTracker(common.TestOdootilCommon):
     def setUpClass(cls):
         """Set up data for RecordChangeTracker tests."""
         super().setUpClass()
+        cls.ResPartnerCategory = cls.env['res.partner.category']
+        (cls.partner_1, cls.partner_2, cls.partner_3, cls.partner_4) = (
+            cls.ResPartner.create(
+                [
+                    {'name': 'MY-PARTNER-1'},
+                    {'name': 'MY-PARTNER-2'},
+                    {'name': 'MY-PARTNER-3'},
+                    {'name': 'MY-PARTNER-4'},
+                ]
+            )
+        )
         cls.partners = cls.partner_1 | cls.partner_2 | cls.partner_3 | cls.partner_4
-        # To make sure categories won't interfere with tests.
-        cls.partners.write({'category_id': [(5,)]})
-        cls.partner_category_1 = cls.env.ref('base.res_partner_category_3')
+        cls.partner_category_1 = cls.ResPartnerCategory.create({'name': 'MY-TAG-1'})
         cls.country_lt = cls.env.ref('base.lt')
         cls.country_ee = cls.env.ref('base.ee')
 

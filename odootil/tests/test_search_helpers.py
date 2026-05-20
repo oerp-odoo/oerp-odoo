@@ -11,8 +11,6 @@ class TestSearchHelpers(TestOdootilCommon):
         """Set up data for partner name_get search."""
         super().setUpClass()
         cls.ResPartnerCategory = cls.env['res.partner.category']
-        cls.partner_1_name = cls.partner_1.name
-        cls.partner_1_search_args = [('id', '=', cls.partner_1.id)]
         cls.company_2 = cls.ResCompany.create({'name': 'Company 2222222'})
         cls.partner_twin_1 = cls.ResPartner.create(
             {

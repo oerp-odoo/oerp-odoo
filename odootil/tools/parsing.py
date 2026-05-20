@@ -7,7 +7,7 @@ from odoo.tools import LazyTranslate
 
 from ..const import DEFAULT_DELIMITER
 
-_lt = LazyTranslate(__name__)
+_lt = LazyTranslate(__name__, default_lang='en_US')
 
 
 def parse_to_list(

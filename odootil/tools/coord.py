@@ -8,8 +8,11 @@ import haversine
 
 from odoo import _
 from odoo.exceptions import ValidationError
+from odoo.tools import LazyTranslate
 
 from .. import const
+
+_lt = LazyTranslate(__name__, default_lang='en_US')
 
 
 def parse_dd_coord(
@@ -47,20 +50,20 @@ def parse_dd_coord(
     parts = coord.split(delimiter)
     # Using translation function, but this is not gonna work, because
     # odoo needs to find an env!
-    suffix = _(
+    suffix = _lt(
         f" Input: coord='{coord}', delimiter='{delimiter}', "
         + f"clean_whitespace='{clean_whitespace}'"
     )
     if len(parts) != 2:
         raise ValidationError(
-            format_error(_("Coordinate must consist of exactly two values!") + suffix)
+            format_error(_lt("Coordinate must consist of exactly two values!") + suffix)
         )
     try:
         latitude = float(parts[0].strip())
         longitude = float(parts[1].strip())
     except ValueError:
         raise ValidationError(
-            format_error(_("Coordinate values must be float or int!") + suffix)
+            format_error(_lt("Coordinate values must be float or int!") + suffix)
         )
     lat_lower, lat_upper = const.LATITUDE_LOWER_BOUND, const.LATITUDE_UPPER_BOUND
     long_lower, long_upper = const.LONGITUDE_LOWER_BOUND, const.LONGITUDE_UPPER_BOUND
@@ -69,7 +72,7 @@ def parse_dd_coord(
     ):
         raise ValidationError(
             format_error(
-                _(
+                _lt(
                     "Latitude range must be between %(lat_lower)s and +%(lat_upper)s. "
                     + "Longitude between %(long_lower)s and +%(long_upper)s!%(suffix)s",
                     lat_lower=lat_lower,
@@ -121,7 +124,7 @@ def parse_route_coordinates_expr(
             parse_dd_coord(form_coord_string(latitude, longitude), error_prefix=msg)
 
     msg = f"{error_prefix}Incorrect Route Coordinates Syntax: %s"
-    comment = _(
+    comment = _lt(
         "Coordinates must be a list of two pair list strings! Minimum of"
         + " two coordinates are required!"
     )
