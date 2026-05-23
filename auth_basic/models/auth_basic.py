@@ -26,13 +26,10 @@ class AuthBasic(models.Model):
         help="The user used to process the requests authenticated by basic auth",
     )
 
-    _sql_constraints = [
-        (
-            "name_uniq",
-            "unique(name)",
-            "Basic Authentication name must be unique.",
-        )
-    ]
+    _name_uniq = models.Constraint(
+        'unique(name)',
+        'Basic Authentication name must be unique!',
+    )
 
     @property
     def _server_env_fields(self):
@@ -73,14 +70,11 @@ class AuthBasic(models.Model):
                 return auth_basic.id
         raise ValidationError(_("The credentials %s are incorrect") % credentials[:8])
 
-    def _clear_key_cache(self):
-        self._retrieve_auth_basic_id.clear_cache(self.env[self._name])
-
     @api.model
     def create(self, vals):
         """Extend to clear cache."""
         record = super().create(vals)
-        self._clear_key_cache()
+        self.env.registry.clear_cache()
         return record
 
     def write(self, vals):
@@ -89,11 +83,11 @@ class AuthBasic(models.Model):
         # values on existing record, unlink it and create new one!
         super().write(vals)
         if set(CACHE_DEPS).intersection(vals):
-            self._clear_key_cache()
+            self.env.registry.clear_cache()
         return True
 
     def unlink(self):
         """Extend to clear cache."""
         res = super().unlink()
-        self._clear_key_cache()
+        self.env.registry.clear_cache()
         return res
