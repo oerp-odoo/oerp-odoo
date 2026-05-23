@@ -1,2 +1,3 @@
 -r requirements.txt
 responses==0.26.1
+odoo-addon-server-environment @ git+https://github.com/OCA/server-env.git@19.0#subdirectory=server_environment

@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Menus for Authentication Modules",
-    'version': '15.0.1.0.0',
+    'version': '19.0.2.0.0',
     'summary': 'auth, menu',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
