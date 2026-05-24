@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="delivery_tracking_link_view_tree" model="ir.ui.view">
-        <field name="name">delivery.tracking.link.tree</field>
+    <record id="delivery_tracking_link_view_list" model="ir.ui.view">
+        <field name="name">delivery.tracking.link.list</field>
         <field name="model">delivery.tracking.link</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="url_format"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -33,7 +33,7 @@
     <record id="delivery_tracking_link_action" model="ir.actions.act_window">
         <field name="name">Tracking Links</field>
         <field name="res_model">delivery.tracking.link</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem
