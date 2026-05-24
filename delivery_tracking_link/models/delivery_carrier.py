@@ -7,6 +7,8 @@ class DeliveryCarrier(models.Model):
     _inherit = 'delivery.carrier'
 
     tracking_link_id = fields.Many2one('delivery.tracking.link')
+    # Rename standard field to not clash with tracking_link_id.
+    tracking_url = fields.Char(string="Tracking URL")
 
     def get_tracking_link(self, picking):
         """Extend to use tracking_link_id for simple delivery_type.

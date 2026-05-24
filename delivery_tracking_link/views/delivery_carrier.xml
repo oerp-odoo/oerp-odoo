@@ -8,8 +8,8 @@
             <field name="integration_level" position="after">
                 <field
                     name="tracking_link_id"
-                    options="{'no_create_edit': True, 'no_quick_create': True}"
-                    attrs="{'invisible': [('delivery_type', 'not in', ('fixed', 'base_on_rule'))]}"
+                    options="{'no_create_edit': True, 'no_create': True}"
+                    invisible="delivery_type not in ('fixed', 'base_on_rule')"
                 />
             </field>
         </field>

@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Custom Delivery Tracking Links",
-    'version': '15.0.2.0.0',
+    'version': '19.0.3.0.0',
     'summary': 'delivery, stock, tracking',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
@@ -10,14 +10,14 @@
     'category': 'Inventory/Delivery',
     'depends': [
         # odoo
-        'delivery',
+        'stock_delivery',
     ],
     'data': [
         'security/ir.model.access.csv',
-        'views/delivery_tracking_link_views.xml',
-        'views/delivery_carrier_views.xml',
-        'views/stock_picking_views.xml',
+        'views/delivery_tracking_link.xml',
+        'views/delivery_carrier.xml',
+        'views/stock_picking.xml',
     ],
     'demo': ['demo/delivery_tracking_link.xml'],
-    'installable': False,
+    'installable': True,
 }
