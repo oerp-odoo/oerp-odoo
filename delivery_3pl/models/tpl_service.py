@@ -1,34 +1,21 @@
-import logging
-
-import requests
-from footil.formatting import get_formatted_exception
-
 from odoo import fields, models
 from odoo.exceptions import ValidationError
 
-from ..utils import safe_urljoin
 
-_logger = logging.getLogger(__name__)
-
-
-class TplService(models.AbstractModel):
-    """Base class to be used for 3PL service models.
-
-    When subclassing this model, it expects `auth_id` M2O field with
-    comodel_name to `tpl.auth` subclass.
-    """
-
+class TplService(models.Model):
     _name = 'tpl.service'
     _description = "3PL Service"
-    _accept_header = 'application/json'
+    _rec_name = 'integration'
 
-    debug = fields.Boolean()
     active = fields.Boolean(default=True)
     company_id = fields.Many2one(
         'res.company',
         required=True,
         default=lambda s: s.env.user.company_id,
     )
+    integration = fields.Selection([])
+    http_client_profile_id = fields.Many2one('http.client.profile', copy=False)
+    # TODO: add service matching filter to use sale_order as a context.
     # Invoice/email management fields.
     invoice_state_target = fields.Selection(
         [('draft', 'Draft'), ('open', 'Open'), ('paid', 'Paid')],
@@ -45,43 +32,36 @@ class TplService(models.AbstractModel):
         help="Bank Journal to use for payment",
     )
     warehouse_id = fields.Many2one('stock.warehouse')
-    force_warehouse = fields.Boolean(
-        help="Use this warehouse even if warehouse was set during initial " + "creation"
-    )
 
-    def log(self, msg, log_args=None, logger=None):
-        """Log message if debug is enabled."""
-        self.ensure_one()
-        if not self.debug:
-            return
-        if not log_args:
-            log_args = ()
-        if logger is None:
-            logger = _logger
-        logger.info(msg, *log_args)
+    def get_3pl_service(self, sale_order, integration=None, raise_not_found=True):
+        service_matchers = self.get_3pl_service_matchers()
+        if integration is not None:
+            try:
+                service_matchers = {integration: service_matchers[integration]}
+            except KeyError:
+                raise ValidationError(
+                    self.env._(
+                        "No 3PL service matcher found for integration %s", integration
+                    )
+                )
+        for service_matcher in service_matchers.values():
+            service = service_matcher(sale_order)
+            if service:
+                return service
+        if raise_not_found:
+            raise ValidationError(
+                self.env._(
+                    "No 3PL service found for sale order %s. Make sure"
+                    + " it is created and active.",
+                    sale_order.name,
+                )
+            )
+        return self.env['tpl.service']
 
-    def call_requests_method(self, method_name, endpoint, log_details='', **kwargs):
-        """Call specific request method and handle response."""
-        self.ensure_one()
-        method = getattr(requests, method_name)
-        headers = kwargs.setdefault('headers', {})
-        headers['Accept'] = self._accept_header
-        headers['Authorization'] = self.auth_id.prepare_auth_header()
-        if log_details:
-            # To make space between main log sentence.
-            log_details = ' %s' % log_details
-        try:
-            _logger.info("Calling '%s' endpoint.%s", endpoint, log_details)
-            return method(endpoint, **kwargs)
-        # We raise on unexpected exceptions.
-        except Exception:
-            raise ValidationError(get_formatted_exception())
+    def get_3pl_service_matchers(self):
+        """Return 3PL service matchers.
 
-    def prepare_endpoint(self, path, args=None):
-        """Prepare endpoint using path and extra args."""
-        self.ensure_one()
-        return safe_urljoin(self.auth_id.url, path, args=args)
-
-    def get_warehouse_data(self):
-        self.ensure_one()
-        return (self.warehouse_id, self.force_warehouse)
+        Key is unique string and value is function that expects sale.order
+        record as input.
+        """
+        return {}

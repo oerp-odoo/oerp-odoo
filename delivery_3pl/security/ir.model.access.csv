@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tpl_service_user,tpl_service user,model_tpl_service,base.group_system,1,1,1,1
