@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="tpl_root_menu" parent="base.menu_custom" name="3PL" sequence="15"/>
+</odoo>
