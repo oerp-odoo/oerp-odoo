@@ -1,9 +1,31 @@
+import logging
+
+from odoo.exceptions import UserError, ValidationError
+
+_logger = logging.getLogger(__name__)
+
+
 def force_picking_done(picking):
     picking.move_ids.mapped('move_line_ids').write({'picked': True})
     _auto_assign_missing(picking)
     # Passing context to make sure email is sent only if picking is in
     # done state!
     picking.with_context(stock_move_email_on_done=True)._action_done()
+
+
+def auto_finish_picking(picking, raise_exc=True):
+    """Reserve and make picking done if all needed quantity is reserved."""
+    try:
+        picking.action_assign()
+        # picking.action_set_quantities_to_reservation()
+        # Passing context to make sure email is sent only if picking is in
+        # done state!
+        picking.with_context(stock_move_email_on_done=True).button_validate()
+    except (UserError, ValidationError) as e:
+        if raise_exc:
+            raise
+        _logger.info("Picking not auto finished. Got Exception: %s", str(e))
+    return True
 
 
 # TODO: implement option to either force assign or rely on available

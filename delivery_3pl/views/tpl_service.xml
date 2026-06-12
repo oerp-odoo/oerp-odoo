@@ -40,7 +40,12 @@
                                 options="{'no_create_edit': True}"
                             />
                         </group>
-                        <!-- TODO: add filters -->
+                        <group name="filters" string="Filters">
+                            <field
+                                name="filter_expression"
+                                placeholder="e.g. sale.partner_id.country_id.code == 'LT'"
+                            />
+                        </group>
                     </group>
                 </sheet>
             </form>

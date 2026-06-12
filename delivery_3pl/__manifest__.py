@@ -17,8 +17,10 @@
     'data': [
         'security/ir.model.access.csv',
         'security/tpl_service_security.xml',
+        'data/ir_cron.xml',
         'views/menus.xml',
         'views/tpl_service.xml',
+        'views/sale_order.xml',
     ],
     'installable': True,
 }

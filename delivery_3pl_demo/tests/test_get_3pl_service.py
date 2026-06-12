@@ -27,7 +27,9 @@ class TestGet3plService(TransactionCase):
                 ],
             }
         )
-        cls.tpl_service_1 = cls.TplService.create({'integration': 'my_integration_1'})
+        cls.tpl_service_1 = cls.TplService.create(
+            {'name': 'MY-SERVICE-1', 'integration': 'my_integration_1'}
+        )
 
     def test_01_get_3pl_service(self):
         # WHEN
@@ -43,14 +45,50 @@ class TestGet3plService(TransactionCase):
         # THEN
         self.assertEqual(service, self.tpl_service_1)
 
-    def test_03_get_3pl_service_no_match_raise(self):
+    def test_03_get_3pl_service_no_3pl_lines(self):
+        # GIVEN
+        # Custom demo sale lines filter not expecting this particular code.
+        self.product_1.default_code = 'NOT-3PL'
+        # WHEN
+        service = self.TplService.get_3pl_service(self.sale_1, raise_not_found=False)
+        # THEN
+        self.assertEqual(service, self.TplService)
+
+    def test_04_get_3pl_service_w_filter(self):
+        # GIVEN
+        service_1 = self.tpl_service_1
+        service_1.filter_expression = 'sale.name == "something-123"'
+        service_2 = self.TplService.create(
+            {
+                'name': 'MY-SERVICE-2',
+                'integration': 'my_integration_1',
+                'filter_expression': f'sale.name == "{self.sale_1.name}"',
+            }
+        )
+        # WHEN
+        service = self.TplService.get_3pl_service(self.sale_1)
+        # THEN
+        self.assertEqual(service, service_2)
+
+    def test_05_get_3pl_service_w_filter_no_match(self):
+        # GIVEN
+        service_1 = self.tpl_service_1
+        service_1.filter_expression = 'sale.name == "something-123"'
+        # WHEN
+        service = self.TplService.get_3pl_service(self.sale_1, raise_not_found=False)
+        # THEN
+        self.assertEqual(service, self.TplService)
+
+    def test_06_get_3pl_service_no_match_raise(self):
         # WHEN, THEN
         with self.assertRaisesRegex(
-            ValidationError, r"No 3PL service matcher found for integration unknown"
+            ValidationError,
+            r"No 3PL service found for sale order .+\. Make sure it is created "
+            + r"and active\.",
         ):
             self.TplService.get_3pl_service(self.sale_1, integration='unknown')
 
-    def test_04_get_3pl_service_inactive(self):
+    def test_07_get_3pl_service_inactive(self):
         # GIVNE
         self.tpl_service_1.active = False
         # WHEN

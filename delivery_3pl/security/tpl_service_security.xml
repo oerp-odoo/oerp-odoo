@@ -3,8 +3,6 @@
     <record id="tpl_service_company_rule" model="ir.rule">
         <field name="name">tpl.service: Multi-Company</field>
         <field name="model_id" ref="model_tpl_service"/>
-        <field
-            name="domain_force"
-        >['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
     </record>
 </odoo>

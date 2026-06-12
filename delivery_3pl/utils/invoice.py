@@ -1,6 +1,7 @@
-def invoice_3pl_order(sale_order, tpl_service):
+def invoice_3pl_order(sale_order):
     env = sale_order.env
     invoices = sale_order._create_invoices()
+    tpl_service = sale_order.tpl_service_id
     state_target = tpl_service.invoice_state_target
     state_email = tpl_service.invoice_state_email
     if state_target in ('open', 'paid'):
