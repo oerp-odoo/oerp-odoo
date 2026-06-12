@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.3pl</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <button name="action_draft" position="after">
+                <button
+                    name="action_3pl_sync_shipment_status"
+                    type="object"
+                    string="Sync 3PL Shipment Status"
+                    invisible="not tpl_service_id or tpl_status != 'progress'"
+                    groups="base.group_system"
+                />
+            </button>
+            <group name="sales_person" position="after">
+                <group string="3PL" name="3pl">
+                    <field
+                        name="tpl_service_id"
+                        readonly="state not in ('draft', 'sent')"
+                    />
+                    <field name="tpl_identifier" invisible="not tpl_service_id"/>
+                    <field name="tpl_status" invisible="not tpl_service_id"/>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>
