@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="crm_lead_view_form_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.form.team.required</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <field name="team_id" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="quick_create_opportunity_form_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.form.quick.create.team.required</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.quick_create_opportunity_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div//field[@name='partner_id']/parent::div" position="after">
+                <div class="d-flex align-items-center" colspan="2">
+                    <i class="fa fa-user-plus" title="Sales Team"/>
+                    <field
+                        name="team_id"
+                        class="o_field_highlight w-100 mb-0"
+                        required="1"
+                        placeholder="Sales Team"
+                    />
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
