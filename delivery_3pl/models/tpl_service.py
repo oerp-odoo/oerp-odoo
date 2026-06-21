@@ -32,7 +32,9 @@ class TplService(models.Model):
         lambda s: s._get_integration_selection(),
         required=True,
     )
-    http_client_profile_id = fields.Many2one('http.client.profile', copy=False)
+    http_client_profile_id = fields.Many2one(
+        'http.client.profile', string="HTTP Client Profile", copy=False
+    )
     # Invoice/email management fields.
     invoice_state_target = fields.Selection(
         [('draft', 'Draft'), ('open', 'Open'), ('paid', 'Paid')],

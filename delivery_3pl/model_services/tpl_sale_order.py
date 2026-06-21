@@ -58,7 +58,12 @@ class TplSaleOrder(models.AbstractModel):
         if picking:
             picking.write(picking_vals)
             auto_finish_picking(picking, raise_exc=False)
-        sale.tpl_status = 'done'
+        sale_vals = {'tpl_status': 'done'}
+        picking_carrier = picking.carrier_id
+        if picking_carrier and sale.carrier_id != picking_carrier:
+            # Sync carrier.
+            sale_vals['carrier_id'] = picking_carrier.id
+        sale.write(sale_vals)
         invoice_3pl_order(sale)
         return True
 

@@ -39,6 +39,10 @@
                                 name="warehouse_id"
                                 options="{'no_create_edit': True}"
                             />
+                            <field
+                                name="carrier_default_id"
+                                options="{'no_create_edit': True}"
+                            />
                         </group>
                         <group name="filters" string="Filters">
                             <field
@@ -47,6 +51,7 @@
                             />
                         </group>
                     </group>
+                    <notebook/>
                 </sheet>
             </form>
 
