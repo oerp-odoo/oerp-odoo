@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Product Delivery Field",
-    'version': '15.0.1.0.0',
+    'version': '19.0.2.0.0',
     'summary': 'Field to mark if product is used for delivery',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
@@ -15,5 +15,5 @@
     'data': [
         'views/product_template_views.xml',
     ],
-    'installable': False,
+    'installable': True,
 }
