@@ -1,11 +1,13 @@
 from lxml import etree
 
 
-def preprocess_arch_readonly_fields(arch, readonly_condition, ignored_fields=None):
+def preprocess_arch_readonly_fields(
+    arch, readonly_condition, ignored_fields=None, xpath='//field'
+):
     if ignored_fields is None:
         ignored_fields = []
     archnode = etree.fromstring(arch)
-    field_nodes = archnode.xpath('//field')
+    field_nodes = archnode.xpath(xpath)
     if not field_nodes:
         return arch
     for field_node in field_nodes:
