@@ -10,20 +10,19 @@
                 <field
                     name="view_body_qweb_id"
                     options="{'no_create': True}"
-                    attrs="{'invisible': [('body_engine', '!=', 'qweb_view')], 'required': [('body_engine', '=', 'qweb_view')]}"
+                    invisible="body_engine != 'qweb_view'"
+                    required="body_engine == 'qweb_view'"
                 />
             </field>
             <field name="body_html" position="attributes">
-                <attribute
-                    name="attrs"
-                >{'invisible': [('body_engine', '=', 'qweb_view')]}</attribute>
+                <attribute name="invisible">body_engine == 'qweb_view'</attribute>
             </field>
             <field name="body_html" position="after">
                 <field
                     name="view_qweb_arch_base"
                     widget="ace"
                     options="{'mode': 'xml'}"
-                    attrs="{'invisible': [('body_engine', '!=', 'qweb_view')]}"
+                    invisible="body_engine != 'qweb_view'"
                 />
             </field>
         </field>
