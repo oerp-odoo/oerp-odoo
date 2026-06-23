@@ -25,10 +25,10 @@ class MailTemplate(models.Model):
         res_ids,
         engine='inline_template',
         compute_lang=False,
+        res_ids_lang=False,
         set_lang=False,
         add_context=None,
         options=None,
-        post_process=False,
     ):
         if field == 'body_html' and self.body_engine == 'qweb_view':
             self = self.with_context(
@@ -45,10 +45,10 @@ class MailTemplate(models.Model):
             res_ids,
             engine=engine,
             compute_lang=compute_lang,
+            res_ids_lang=res_ids_lang,
             set_lang=set_lang,
             add_context=add_context,
             options=options,
-            post_process=post_process,
         )
 
     @api.model
@@ -60,9 +60,8 @@ class MailTemplate(models.Model):
         engine='inline_template',
         add_context=None,
         options=None,
-        post_process=False,
     ):
-        body_engine_data = self._context.get('body_engine_data')
+        body_engine_data = self.env.context.get('body_engine_data')
         if body_engine_data:
             template_src = body_engine_data['template_src']
             engine = body_engine_data['engine']
@@ -75,5 +74,4 @@ class MailTemplate(models.Model):
             engine=engine,
             add_context=add_context,
             options=options,
-            post_process=post_process,
         )

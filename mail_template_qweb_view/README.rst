@@ -13,4 +13,4 @@ Go to :code:`Settings / Technical / Email / Email Templates`, open template and 
 Contributors
 ============
 
-* Andrius Laukavičius (Focusate)
+* Andrius Laukavičius (timefordev)

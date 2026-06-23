@@ -1,12 +1,12 @@
-# Author: Andrius Laukavičius. Copyright: JSC Focusate.
+# Author: Andrius Laukavičius. Copyright: Time for dev.
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Mail Template QWeb View",
-    'version': '15.0.1.0.0',
+    'version': '19.0.2.0.0',
     'summary': 'mail, template, qweb, inheritance',
     'license': 'LGPL-3',
-    'author': "Focusate",
-    'website': "http://www.focusate.eu",
+    'author': "Andrius Laukavičius",
+    'website': "http://timefordev.com",
     'category': 'Productivity/Discuss',
     'depends': [
         # odoo
@@ -15,8 +15,5 @@
     'data': [
         'views/mail_template_views.xml',
     ],
-    'demo': [
-        'demo/mail_template.xml',
-    ],
-    'installable': False,
+    'installable': True,
 }
