@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Product HTML Description - Delivery",
-    'version': '15.0.1.0.0',
+    'version': '19.0.2.0.0',
     'summary': 'Can specify Delivery HTML description for product',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
@@ -17,7 +17,6 @@
     'data': [
         'views/product_template_views.xml',
     ],
-    'installable': False,
-    # TODO: set to True once it is installable
-    'auto_install': False,
+    'installable': True,
+    'auto_install': True,
 }
