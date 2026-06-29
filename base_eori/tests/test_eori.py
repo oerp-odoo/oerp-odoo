@@ -9,8 +9,13 @@ class TestEori(TransactionCase):
         """Set up data for eori tests."""
         super().setUpClass()
         cls.ResCompany = cls.env['res.company']
-        cls.partner_azure = cls.env.ref('base.res_partner_12')
-        cls.partner_azure_freeman = cls.env.ref('base.res_partner_address_15')
+        cls.ResPartner = cls.env['res.partner']
+        cls.partner_company = cls.ResPartner.create(
+            {'name': 'MY-PARTNER-COMPANY-1', 'is_company': True}
+        )
+        cls.partner_contact = cls.ResPartner.create(
+            {'name': 'MY-PARTNER-CONTACT-1', 'parent_id': cls.partner_company.id}
+        )
 
     def test_01_company_eori(self):
         """Create company to set EORI on related partner."""
@@ -20,6 +25,6 @@ class TestEori(TransactionCase):
 
     def test_02_partner_eori(self):
         """Set EORI on commercial partner to sync with contacts."""
-        self.partner_azure.eori = 'E54321'
-        self.assertEqual(self.partner_azure_freeman.eori, self.partner_azure.eori)
-        self.assertEqual(self.partner_azure_freeman.eori, 'E54321')
+        self.partner_company.eori = 'E54321'
+        self.assertEqual(self.partner_contact.eori, self.partner_company.eori)
+        self.assertEqual(self.partner_contact.eori, 'E54321')
