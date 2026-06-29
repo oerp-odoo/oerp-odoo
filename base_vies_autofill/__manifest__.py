@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "VIES Customer Autofill",
-    'version': '15.0.1.0.0',
+    'version': '19.0.2.0.0',
     'summary': 'autofill, VIES, VAT, customer, API',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
@@ -13,7 +13,7 @@
         'base_vat',
     ],
     'data': [
-        'views/res_config_settings_views.xml',
+        'views/res_config_settings.xml',
     ],
-    'installable': False,
+    'installable': True,
 }
