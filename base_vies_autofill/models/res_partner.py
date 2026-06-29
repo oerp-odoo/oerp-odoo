@@ -1,5 +1,6 @@
 import logging
 
+from stdnum.eu.vat import check_vies
 from stdnum.exceptions import InvalidComponent
 
 from odoo import api, models
@@ -19,7 +20,7 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     def _is_vies_autofill_enabled(self):
-        if self._context.get('company_id'):
+        if self.env.context.get('company_id'):
             company = self.env['res.company'].browse(self._context['company_id'])
         else:
             company = self.env.company
@@ -31,7 +32,7 @@ class ResPartner(models.Model):
         if not self._is_vies_autofill_enabled():
             return {}
         try:
-            res = self._check_vies(vat)
+            res = check_vies(vat)
             # Using same handling as in `vies_vat_check` method. Though
             # we can't reuse it, because it cuts vies results to only
             # whether VAT is valid, but we need all the data that it
