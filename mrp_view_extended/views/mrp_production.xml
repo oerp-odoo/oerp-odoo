@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="mrp_production_form_view_inherit" model="ir.ui.view">
+        <field name="name">mrp.production.form.date.finished</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <field name="components_availability_state" position="before">
+                <field name="date_finished" invisible="not date_finished"/>
+            </field>
+        </field>
+    </record>
+</odoo>

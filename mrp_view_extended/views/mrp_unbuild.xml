@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="mrp_unbuild_tree_view_inherit" model="ir.ui.view">
+        <field name="name">mrp.unbuild.tree.create.date</field>
+        <field name="model">mrp.unbuild</field>
+        <field name="inherit_id" ref="mrp.mrp_unbuild_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="create_date"/>
+            </field>
+        </field>
+    </record>
+</odoo>
