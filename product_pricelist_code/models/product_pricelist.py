@@ -6,10 +6,7 @@ class ProductPricelist(models.Model):
 
     pricelist_code = fields.Char(copy=False)
 
-    _sql_constraints = [
-        (
-            'pricelist_code_uniq',
-            'unique (pricelist_code)',
-            'The Pricelist Code must be unique !',
-        )
-    ]
+    _pricelist_code_uniq = models.Constraint(
+        'unique (pricelist_code)',
+        'The Pricelist Code must be unique!',
+    )

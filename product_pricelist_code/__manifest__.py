@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Product Pricelist Code",
-    'version': '15.0.1.0.0',
+    'version': '19.0.2.0.0',
     'summary': 'Identifier for pricelists',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
@@ -13,7 +13,7 @@
         'product',
     ],
     'data': [
-        'views/product_pricelist_views.xml',
+        'views/product_pricelist.xml',
     ],
     'installable': True,
 }
