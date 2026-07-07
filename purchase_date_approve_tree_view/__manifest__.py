@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Purchase Confirmation Date in RQF List View",
-    'version': '15.0.1.1.0',
+    'version': '19.0.2.0.0',
     'summary': 'Adds Confirmation Date in RFQ List View',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
