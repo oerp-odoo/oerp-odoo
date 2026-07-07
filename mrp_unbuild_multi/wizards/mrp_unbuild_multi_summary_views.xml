@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="mrp_unbuild_multi_summary_view_form" model="ir.ui.view">
+        <field name="name">mrp.unbuild.multi.summary.form</field>
+        <field name="model">mrp.unbuild.multi.summary</field>
+        <field name="arch" type="xml">
+            <form>
+                <group name="main">
+                    <group name="left">
+                        <field name="mo_unbuilt_names"/>
+                    </group>
+                    <group name="right">
+                        <field name="mo_skipped_names"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="OK" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
