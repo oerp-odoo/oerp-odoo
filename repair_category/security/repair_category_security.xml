@@ -3,9 +3,8 @@
     <record id="repair_category_rule_company" model="ir.rule">
         <field name="name">Repair Category: Multi-Company</field>
         <field name="model_id" ref="model_repair_category"/>
-        <field name="global" eval="True"/>
         <field
             name="domain_force"
-        >['|', ('company_id','in', company_ids), ('company_id', '=', False)]</field>
+        >['|', ('company_id', 'in', company_ids), ('company_id', '=', False)]</field>
     </record>
 </odoo>

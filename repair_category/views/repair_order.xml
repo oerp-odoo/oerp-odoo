@@ -5,7 +5,7 @@
         <field name="model">repair.order</field>
         <field name="inherit_id" ref="repair.view_repair_order_tree"/>
         <field name="arch" type="xml">
-            <field name="guarantee_limit" position="after">
+            <field name="partner_id" position="after">
                 <field name="category_id"/>
             </field>
         </field>
@@ -16,7 +16,7 @@
         <field name="model">repair.order</field>
         <field name="inherit_id" ref="repair.view_repair_order_form"/>
         <field name="arch" type="xml">
-            <field name="guarantee_limit" position="after">
+            <field name="user_id" position="after">
                 <field name="category_id" options="{'no_quick_create': True}"/>
             </field>
         </field>
@@ -30,7 +30,7 @@
             <field name="product_id" position="after">
                 <field name="category_id"/>
             </field>
-            <filter name="guarantee_limit" position="after">
+            <filter name="status" position="after">
                 <filter
                     string="Category"
                     name="category"
