@@ -18,7 +18,9 @@ class TestSale3plSyncShipmentStatus(TransactionCase):
             {'name': 'MY-SERVICE-1', 'integration': 'my_integration_1'}
         )
         cls.test_user_1 = new_test_user(
-            cls.env, 'my_test_user_1', groups='sales_team.group_sale_salesman_all_leads'
+            cls.env,
+            'my_test_user_1',
+            groups='sales_team.group_sale_salesman_all_leads,stock.group_stock_user',
         )
 
     def test_01_sale_3pl_shipment_status_done(self):
