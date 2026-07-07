@@ -23,7 +23,9 @@ class TestSale3plEvents(TransactionCase):
             {'name': 'MY-SERVICE-1', 'integration': 'my_integration_1'}
         )
         cls.test_user_1 = new_test_user(
-            cls.env, 'my_test_user_1', groups='sales_team.group_sale_salesman_all_leads'
+            cls.env,
+            'my_test_user_1',
+            groups='sales_team.group_sale_salesman_all_leads,stock.group_stock_user',
         )
         cls.carrier_1 = cls.DeliveryCarrier.create(
             {'name': 'MY-CARRIER-1', 'product_id': cls.product_delivery.id}
