@@ -1,11 +1,13 @@
-from datetime import datetime, timedelta
 import ast
 import logging
+from datetime import datetime, timedelta
+
 from footil.formatting import get_formatted_exception
 
-from odoo import models, fields, api, _
-from odoo.osv import expression
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
+from odoo.fields import Domain
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 DEFAULT_DAYS = 120
 DEFAULT_DATE_UPDATED_XMLID = 'sale.field_sale_order__write_date'
@@ -68,20 +70,22 @@ class SaleAutovacuumRule(models.Model):
         for rule in self:
             if rule.days < 1:
                 raise ValidationError(
-                    _("Days Last Updated must be greater than 0!")
+                    self.env._("Days Last Updated must be greater than 0!")
                 )
 
     @api.constrains('domain')
     def _check_domain(self):
         for rule in self:
             try:
-                domain = expression.normalize_domain(
-                    ast.literal_eval(rule.domain)
-                )
+                domain = Domain(ast.literal_eval(rule.domain))
                 self.env['sale.order'].search_count(domain)
-            except (ValueError, AssertionError) as e:
+            except (ValueError, AssertionError, TypeError) as e:
                 raise ValidationError(
-                    _("Incorrect domain: %s. Error: %s", rule.domain, e)
+                    self.env._(
+                        "Incorrect domain: %(domain)s. Error: %(err)s",
+                        domain=rule.domain,
+                        err=e,
+                    )
                 )
 
     def action_confirm(self):
@@ -113,7 +117,7 @@ class SaleAutovacuumRule(models.Model):
             try:
                 rule.action_autovacuum(limit=limit)
                 if auto_commit:
-                    self.env.cr.commit()
+                    self.env.cr.commit()  # pylint: disable=invalid-commit
             except Exception as e:
                 if not auto_commit:
                     raise
@@ -137,27 +141,28 @@ class SaleAutovacuumRule(models.Model):
         self.ensure_one()
         date_fname = self.field_date_updated_id.name
         dt = self._get_last_updated_datetime()
-        domain = [(date_fname, '<', dt)]
+        domain = Domain(date_fname, '<', dt.strftime(DEFAULT_SERVER_DATETIME_FORMAT))
         domain_method = getattr(
             self, f"_prepare_base_domain_action_{self.action}", None
         )
         if domain_method is not None:
-            domain = expression.AND([domain, domain_method()])
+            # domain = Domain.AND([domain, domain_method()])
+            domain &= domain_method()
         return domain
 
     def _prepare_base_domain_action_cancel(self):
         self.ensure_one()
-        return [('state', 'in', ('draft', 'sent'))]
+        return Domain('state', 'in', ('draft', 'sent'))
 
     def _prepare_base_domain_action_unlink(self):
         self.ensure_one()
-        return [('state', '=', 'draft')]
+        return Domain('state', '=', 'draft')
 
     def _prepare_final_domain(self):
         self.ensure_one()
         base_domain = self._prepare_base_domain()
-        domain = ast.literal_eval(self.domain)
-        return expression.AND([base_domain, domain])
+        domain = Domain(ast.literal_eval(self.domain))
+        return Domain.AND([base_domain, domain])
 
     def _action_autovacuum_cancel(self, sales):
         sale_count = len(sales)
@@ -174,12 +179,16 @@ class SaleAutovacuumRule(models.Model):
     def _post_autovacuum_message(self, sale_count, action_word):
         self.ensure_one()
         return self.message_post(
-            body=f'{sale_count} sale quote(s) {action_word}'
+            body=self.env._(
+                '%(sale_count)s sale quote(s) %(action_word)s',
+                sale_count=sale_count,
+                action_word=action_word,
+            )
         )
 
     def _validate_autovacuum(self):
         self.ensure_one()
         if self.state != 'in_progress':
             raise ValidationError(
-                _("Autovacuum rule must be in In Progress State to run!")
+                self.env._("Autovacuum rule must be in In Progress State to run!")
             )
