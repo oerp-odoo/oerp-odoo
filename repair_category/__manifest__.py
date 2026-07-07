@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Repairs Category",
-    'version': '15.0.2.0.0',
+    'version': '19.0.3.0.0',
     'summary': 'Use categories to distinguish different type of repairs',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
@@ -15,8 +15,8 @@
     'data': [
         'security/ir.model.access.csv',
         'security/repair_category_security.xml',
-        'views/repair_category_views.xml',
-        'views/repair_order_views.xml',
+        'views/repair_category.xml',
+        'views/repair_order.xml',
     ],
-    'installable': False,
+    'installable': True,
 }
