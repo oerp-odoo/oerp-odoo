@@ -1,7 +1,7 @@
 from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
-from ..models.res_config_settings import CFG_PARAM_SALE_NAME_UNIQ
+from ..const import CFG_PARAM_SALE_NAME_UNIQ
 
 
 class TestSaleNameUnique(TransactionCase):

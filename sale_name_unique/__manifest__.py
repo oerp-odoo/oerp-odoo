@@ -2,7 +2,7 @@
 # See LICENSE and COPYRIGHT files for details.
 {
     "name": "Sale - Unique Number",
-    "version": "17.0.1.0.0",
+    "version": "19.0.2.0.0",
     "summary": "Make sale number unique per company.",
     "license": "LGPL-3",
     "author": "Andrius Laukavičius",
@@ -12,6 +12,6 @@
         # odoo
         "sale",
     ],
-    "data": ["views/res_config_settings_views.xml"],
-    "installable": False,
+    "data": ["views/res_config_settings.xml"],
+    "installable": True,
 }

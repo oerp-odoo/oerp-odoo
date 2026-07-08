@@ -1,6 +1,6 @@
 from odoo import fields, models
 
-CFG_PARAM_SALE_NAME_UNIQ = 'sale_name_unique.enabled'
+from ..const import CFG_PARAM_SALE_NAME_UNIQ
 
 
 class ResConfigSettings(models.TransientModel):

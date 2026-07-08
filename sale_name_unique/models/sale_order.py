@@ -1,7 +1,7 @@
 from odoo import _, api, models
 from odoo.exceptions import ValidationError
 
-from .res_config_settings import CFG_PARAM_SALE_NAME_UNIQ
+from ..const import CFG_PARAM_SALE_NAME_UNIQ
 
 
 class SaleOrder(models.Model):
