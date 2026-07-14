@@ -15,18 +15,18 @@ class TestView(TransactionCase):
         # GIVEN
         arch = self.ResPartner.get_view(view_type='form')['arch']
         # WHEN
-        res = preprocess_arch_readonly_fields(arch, 'my_custom_state')
+        res = preprocess_arch_readonly_fields(self.ResPartner, arch, 'my_custom_state')
         # THEN
         new_archnode = etree.fromstring(res)
-        field_node = new_archnode.xpath("//field[@name='email']")[0]
-        self.assertEqual('my_custom_state', field_node.get('readonly'))
+        field_node_email = new_archnode.xpath("//field[@name='email']")[0]
+        self.assertEqual('my_custom_state', field_node_email.get('readonly'))
 
     def test_02_preprocess_arch_readonly_fields_excluded(self):
         # GIVEN
         arch = self.ResPartner.get_view(view_type='form')['arch']
         # WHEN
         res = preprocess_arch_readonly_fields(
-            arch, 'my_custom_state', ignored_fields=['is_company']
+            self.ResPartner, arch, 'my_custom_state', ignored_fields=['is_company']
         )
         # THEN
         new_archnode = etree.fromstring(res)
