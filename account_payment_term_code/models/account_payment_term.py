@@ -6,10 +6,7 @@ class AccountPaymentTerm(models.Model):
 
     code = fields.Char(copy=False)
 
-    _sql_constraints = [
-        (
-            'code_uniq',
-            'unique (code)',
-            'The Code must be unique !',
-        )
-    ]
+    _code_uniq = models.Constraint(
+        'unique(code)',
+        'The Code must be unique!',
+    )

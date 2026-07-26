@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "Payment Terms Code",
-    'version': '15.0.1.0.0',
+    'version': '19.0.2.0.0',
     'summary': 'Identifier for payment terms',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
@@ -13,7 +13,7 @@
         'account',
     ],
     'data': [
-        'views/account_payment_term_views.xml',
+        'views/account_payment_term.xml',
     ],
     'installable': True,
 }
