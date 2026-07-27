@@ -16,6 +16,7 @@ from . import (
     test_is_default_mixin,
     test_record_cleanup_noop_values,
     test_record_change_tracker,
+    test_record_id_getters,
     test_strip_space,
     test_validate_email,
     test_email_utils,

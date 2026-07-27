@@ -4,6 +4,8 @@ from collections import defaultdict
 
 from footil.xtyping import is_string
 
+from odoo.exceptions import ValidationError
+
 
 def cleanup_noop_values(records, vals: dict):
     """Remove keys from dictionary if it would update to the already existing value."""
@@ -21,6 +23,90 @@ def cleanup_noop_values(records, vals: dict):
     keys_to_clean = set(vals.keys()) - set(candidate.keys())
     for key in keys_to_clean:
         vals.pop(key)
+
+
+def get_record_id_by_domain(Model, domain, limit=None, raise_not_found=True):
+    _ = Model.env._
+    record = Model.search(domain, limit=limit)
+    if not record:
+        if raise_not_found:
+            description = Model._description
+            raise ValidationError(_(f"No {description} found using domain {domain}"))
+        return None
+    if len(record) > 1:
+        raise ValidationError(
+            _(f"Found more than one record ({Model._name}) using domain {domain}")
+        )
+    return record.id
+
+
+def get_record_id_by_name(
+    Model, name, limit=None, caseless=False, force_create=False, raise_not_found=True
+):
+    if force_create:
+        raise_not_found = False
+    record_id = get_record_id_by_domain(
+        Model,
+        [('name', '=ilike' if caseless else '=', name)],
+        limit=limit,
+        raise_not_found=raise_not_found,
+    )
+    if record_id is None and force_create:
+        # Attempt to create by name
+        try:
+            record_id = Model.create({'name': name}).id
+        except Exception as e:
+            raise ValidationError(
+                Model.env._(
+                    "Could not create record for %(model_name) using name %(name)s."
+                    + " Error: %(e)s",
+                    model_name=Model._name,
+                    name=name,
+                    e=e,
+                )
+            )
+    return record_id
+
+
+def get_partner_id_by_vat(env, vat: str):
+    # Forcing limit, to make search faster. Though we must be sure
+    # VAT uniqueness is guaranteed.
+    company_id = env.user.company_id.id
+    return get_record_id_by_domain(
+        env['res.partner'],
+        domain=[('vat', '=', vat), ('company_id', 'in', (False, company_id))],
+        limit=1,
+    )
+
+
+def validate_record_exists(record, msg=None, raise_err=True):
+    if not msg:
+        msg = record.env._(
+            "%(description)s with ID %(record_id)s does not exist",
+            description=record._description,
+            record_id=record.id,
+        )
+    if not record.exists() or hasattr(record, 'active') and not record.active:
+        if raise_err:
+            raise ValidationError(msg)
+        return msg
+    # From outside, if it tries to access record outside that user companies,
+    # it means it can't.
+    if hasattr(record, 'company_id'):
+        if record.company_id and record.company_id not in record.env.companies:
+            if raise_err:
+                raise ValidationError(msg)
+            return msg
+    return ''
+
+
+def get_record_by_xmlid(env, xmlid, msg):
+    try:
+        record = env.ref(xmlid)
+    except ValueError:
+        raise ValidationError(msg)
+    validate_record_exists(record, msg=msg)
+    return record
 
 
 class RecordChangeTracker:
