@@ -19,10 +19,13 @@ class PydanticOrmDeserializer(models.AbstractModel):
         data = {}
         odoo_fields = list(record._fields.keys())
         for pydantic_field in pydantic_model.model_fields:
-            orm_field_spec = pydantic_model.get_orm_field_spec(
-                pydantic_field,
-                odoo_fields,
-            )
+            try:
+                orm_field_spec = pydantic_model.get_orm_field_spec(
+                    pydantic_field,
+                    odoo_fields,
+                )
+            except AttributeError as e:
+                raise TypeError(f"{pydantic_model} must inherit from OrmModel!") from e
             data[pydantic_field] = self._convert_odoo_value(
                 record, pydantic_model, orm_field_spec
             )
@@ -39,8 +42,17 @@ class PydanticOrmDeserializer(models.AbstractModel):
         if odoo_field.type in ('many2one', 'many2many', 'one2many'):
             if not value:
                 return None
+            if orm_field_spec.converter is not None:
+                return orm_field_spec.converter(
+                    record,
+                    record[orm_field_spec.odoo_field],
+                    pydantic_model,
+                )
             if not orm_field_spec.submodel:
-                raise ValueError("OrmFieldSpec must have submodel for relation fields!")
+                raise ValueError(
+                    f"OrmFieldSpec ({orm_field_spec}) must have submodel for relation "
+                    + f"fields to deserialize into {pydantic_model}! Or have converter!"
+                )
             if odoo_field.type == 'many2one':
                 return self._convert_m2o_value(record, orm_field_spec)
             return self._convert_x2m_value(record, orm_field_spec)

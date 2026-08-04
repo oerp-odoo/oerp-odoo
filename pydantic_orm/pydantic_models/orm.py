@@ -11,6 +11,8 @@ class OrmFieldSpec(pydantic.BaseModel):
 
     model_config = pydantic.ConfigDict(strict=True)
 
+    # TODO: make odoo_field optional, because not all mappings will
+    # actually have odoo field!
     odoo_field: str
     # Callable that receives odoo record and value from odoo record
     # that is being converted to pydantic.
@@ -32,4 +34,4 @@ class OrmModel(pydantic.BaseModel):
             return orm_map[pydantic_field]
         if pydantic_field in odoo_fields:
             return OrmFieldSpec(odoo_field=pydantic_field)
-        raise ValueError(f"No OrmFieldSpec found for {pydantic_field}!")
+        raise ValueError(f"No OrmFieldSpec found for {pydantic_field}! ({cls})")
