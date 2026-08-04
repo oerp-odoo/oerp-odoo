@@ -45,11 +45,12 @@ class PydanticOrmSerializer(models.AbstractModel):
     ) -> Any:
         odoo_field = odoo_model._fields[orm_field_spec.odoo_field]
         value = getattr(obj, pydantic_field)
+        if value is None:
+            return value
         if odoo_field.type in ('many2one', 'many2many', 'one2many'):
-            if value is None:
-                return None
+            self._validate_rel_value(value, orm_field_spec, obj)
             if odoo_field.type == 'many2one':
-                return self._convert_to_m2o(value, odoo_model, orm_field_spec)
+                return self._convert_to_m2o(obj, value, odoo_model, orm_field_spec)
             return self._convert_to_x2m(value, odoo_model, orm_field_spec)
         if orm_field_spec.converter is not None:
             return orm_field_spec.converter(obj, value, odoo_model)
@@ -57,14 +58,13 @@ class PydanticOrmSerializer(models.AbstractModel):
 
     def _convert_to_m2o(
         self,
-        value: OrmModel,
+        obj: OrmModel,
+        value: Any,
         odoo_model: models.BaseModel,
         orm_field_spec: OrmFieldSpec,
     ) -> dict:
         if orm_field_spec.converter is not None:
-            # We don't have converted value here, because `value` is already converted
-            # in related model one.
-            return orm_field_spec.converter(value, None, odoo_model)
+            return orm_field_spec.converter(obj, value, odoo_model)
         rel_model = odoo_model[orm_field_spec.odoo_field]
         return self.serialize(value, rel_model)
 
@@ -83,3 +83,15 @@ class PydanticOrmSerializer(models.AbstractModel):
                 v = orm_field_spec.converter(v, serialized_value, rel_model)
             res.append(v)
         return res
+
+    def _validate_rel_value(
+        self, value: Any, orm_field_spec: OrmFieldSpec, obj: OrmModel
+    ):
+        if isinstance(value, OrmModel):
+            return True
+        if orm_field_spec.converter is None:
+            raise ValueError(
+                f"OrmFieldSpec ({orm_field_spec}) is missing converter for "
+                + f"serializing value {value}. Pydantic Instance: {repr(obj)}"
+            )
+        return True
