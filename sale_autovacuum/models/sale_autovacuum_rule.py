@@ -158,19 +158,27 @@ class SaleAutovacuumRule(models.Model):
 
     def _action_autovacuum_cancel(self, sales):
         sale_count = len(sales)
+        sales_ref = self._get_sales_ref(sales)
         res = sales._action_cancel()
-        self._post_autovacuum_message(sale_count, 'cancelled')
+        self._post_autovacuum_message(sale_count, 'cancelled', sales_ref)
         return res
 
     def _action_autovacuum_unlink(self, sales):
         sale_count = len(sales)
+        sales_ref = self._get_sales_ref(sales)
         res = sales.unlink()
-        self._post_autovacuum_message(sale_count, 'deleted')
+        self._post_autovacuum_message(sale_count, 'deleted', sales_ref)
         return res
 
-    def _post_autovacuum_message(self, sale_count, action_word):
+    def _get_sales_ref(self, sales):
+        names = sorted(sales.mapped('name'))
+        return ', '.join(names)
+
+    def _post_autovacuum_message(self, sale_count, action_word, sales_ref):
         self.ensure_one()
-        return self.message_post(body=f'{sale_count} sale quote(s) {action_word}')
+        return self.message_post(
+            body=f'{sale_count} sale quote(s) {action_word}: {sales_ref}'
+        )
 
     def _validate_autovacuum(self):
         self.ensure_one()
