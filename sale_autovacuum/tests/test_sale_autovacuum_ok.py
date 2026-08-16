@@ -47,11 +47,13 @@ class TestSaleAutovacuumOk(TestSaleAutovacuumCommon):
         self.assertEqual(self.sale_2.state, 'cancel')
         self.assertEqual(self.sale_3.state, 'draft')
         msg = self.sale_autovac_rule_1.message_ids[0]
-        self.assertIn("2 sale quote(s) cancelled", msg.body)
+        n1, n2 = self.sale_1.name, self.sale_2.name
+        self.assertIn(f"2 sale quote(s) cancelled: {n1}, {n2}", msg.body)
 
     def test_05_autovacuum_unlink(self):
         # GIVEN
         self.sale_autovac_rule_1.action = 'unlink'
+        n1, n2 = self.sale_1.name, self.sale_2.name
         # WHEN
         self.sale_autovac_rule_1.action_autovacuum()
         # THEN
@@ -59,4 +61,4 @@ class TestSaleAutovacuumOk(TestSaleAutovacuumCommon):
         self.assertFalse(self.sale_2.exists())
         self.assertTrue(self.sale_3.exists())
         msg = self.sale_autovac_rule_1.message_ids[0]
-        self.assertIn("2 sale quote(s) deleted", msg.body)
+        self.assertIn(f"2 sale quote(s) deleted: {n1}, {n2}", msg.body)
