@@ -1,6 +1,7 @@
 from odoo.exceptions import ValidationError
 
 from ..tools.validation import check_field_unique
+from ..value_objects import value as vo_val
 from .common import TestBaseCommon
 
 
@@ -156,4 +157,53 @@ class TestFieldUnique(TestBaseCommon):
         with self.assertRaisesRegex(ValidationError, r"Code 'T1' must be unique\!"):
             self.OdootilTestFieldUniqueMultiCompany.create(
                 {'name': 'TEST-1', 'code': 'T1'}
+            )
+
+    def test_12_check_field_unique_with_extra_domain_ok(self):
+        # GIVEN
+        recs = self.OdootilTestFieldUnique.create(
+            [
+                {'name': 'TEST-1', 'code': 'T1'},
+                {'name': 'TEST-2', 'code': 'T1'},
+            ]
+        )
+        # WHEN, THEN
+        try:
+            res = check_field_unique(
+                recs,
+                'code',
+                extra_domain=[
+                    (
+                        'name',
+                        '=',
+                        vo_val.Value(val='name', val_type=vo_val.ValueType.EXPRESSION),
+                    ),
+                    ('name', '!=', vo_val.Value(val='TEST-3')),
+                ],
+            )
+        except ValidationError as e:
+            self.fail(f"Should not fail - codes are unique. Error: {e}")
+        self.assertTrue(res)
+
+    def test_13_check_field_unique_with_extra_domain_fail(self):
+        # GIVEN
+        recs = self.OdootilTestFieldUnique.create(
+            [
+                {'name': 'TEST-1', 'code': 'T1'},
+                {'name': 'TEST-1', 'code': 'T1'},
+            ]
+        )
+        # WHEN, THEN
+        with self.assertRaisesRegex(ValidationError, r"Code .+ must be unique\!"):
+            check_field_unique(
+                recs,
+                'code',
+                extra_domain=[
+                    (
+                        'name',
+                        '=',
+                        vo_val.Value(val='name', val_type=vo_val.ValueType.EXPRESSION),
+                    ),
+                    ('name', '!=', vo_val.Value(val='TEST-3')),
+                ],
             )
