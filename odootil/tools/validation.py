@@ -40,7 +40,12 @@ def validate_domain_field(self, field_name, model_name, eval_context=None):
 
 
 def check_field_unique(
-    records, fname, predicate=None, case_insensitive=False, raise_exc=True
+    records,
+    fname,
+    predicate=None,
+    extra_domain=None,
+    case_insensitive=False,
+    raise_exc=True,
 ):
     """Check if existing record field value is unique.
 
@@ -49,6 +54,8 @@ def check_field_unique(
         fname: field name to check
         predicate: function to check iterate record, whether uniqueness
             check is needed. Expects single record as an argument.
+        extra_domain: list of leaves, where value must be
+            odoo.addons.odootil.value_object.Value instance
         case_insensitive: whether to use case insensitive search. This
             option has no effect if field is not char or text type.
         raise_exc: whether to raise exception if field is not unique.
@@ -59,6 +66,14 @@ def check_field_unique(
         domain = get_main_domain(rec)
         if hasattr(records, 'company_id'):
             domain.append(('company_id', '=', rec.company_id.id))
+        if extra_domain is None:
+            return domain
+        for leaf in extra_domain:
+            if isinstance(leaf, str):
+                domain.append(leaf)
+            else:
+                val = leaf[2].evaluate(obj=rec)
+                domain.append((leaf[0], leaf[1], val))
         return domain
 
     def get_main_domain(rec):
