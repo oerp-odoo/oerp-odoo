@@ -9,13 +9,20 @@ from pydantic import BaseModel, Extra, Field
 from ..pydantic_models.field import FieldPydantic
 from ..pydantic_models.orm import OrmModel
 
+try:
+    StrEnum = enum.StrEnum
+except AttributeError:
 
-class PartnerType(str, enum.Enum):
+    class StrEnum(str, enum.StrEnum):
+        pass
+
+
+class PartnerType(StrEnum):
     COMPANY = 'company'
     INDIVIDUAL = 'individual'
 
 
-class AddressType(str, enum.Enum):
+class AddressType(StrEnum):
     CONTACT = 'contact'
     INVOICE = 'invoice'
     DELIVERY = 'delivery'
