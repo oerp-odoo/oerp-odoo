@@ -1,7 +1,7 @@
 from odoo.exceptions import ValidationError
+from odoo.fields import Domain
 
 from ..tools.validation import check_field_unique
-from ..value_objects import value as vo_val
 from .common import TestBaseCommon
 
 
@@ -24,10 +24,12 @@ class TestFieldUnique(TestBaseCommon):
         )
         # WHEN, THEN
         try:
-            res = check_field_unique(recs, 'code', case_insensitive=True)
+            res_1 = check_field_unique(recs[0], 'code', case_insensitive=True)
+            res_2 = check_field_unique(recs[1], 'code', case_insensitive=True)
         except ValidationError as e:
             self.fail(f"Should not fail - codes are unique. Error: {e}")
-        self.assertTrue(res)
+        self.assertTrue(res_1)
+        self.assertTrue(res_2)
 
     def test_02_check_field_unique_case_insensitive_raise_fail(self):
         # GIVEN
@@ -39,7 +41,7 @@ class TestFieldUnique(TestBaseCommon):
         )
         # WHEN, THEN
         with self.assertRaisesRegex(ValidationError, r"Code 'T1' must be unique\!"):
-            check_field_unique(recs, 'code', case_insensitive=True)
+            check_field_unique(recs[0], 'code', case_insensitive=True)
 
     def test_03_check_field_unique_case_insensitive_no_raise_fail(self):
         # GIVEN
@@ -52,7 +54,7 @@ class TestFieldUnique(TestBaseCommon):
         # WHEN, THEN
         try:
             res = check_field_unique(
-                recs, 'code', case_insensitive=True, raise_exc=False
+                recs[0], 'code', case_insensitive=True, raise_exc=False
             )
         except ValidationError as e:
             self.fail(f"Should not raise, raise exception is muted. Error: {e}")
@@ -68,7 +70,7 @@ class TestFieldUnique(TestBaseCommon):
         )
         # WHEN, THEN
         try:
-            res = check_field_unique(recs, 'code', case_insensitive=False)
+            res = check_field_unique(recs[0], 'code', case_insensitive=False)
         except ValidationError as e:
             self.fail(f"Should not fail, codes are unique. Error: {e}")
         self.assertTrue(res)
@@ -83,7 +85,7 @@ class TestFieldUnique(TestBaseCommon):
         )
         # WHEN, THEN
         with self.assertRaisesRegex(ValidationError, r"Code 'T1' must be unique\!"):
-            check_field_unique(recs, 'code', case_insensitive=False)
+            check_field_unique(recs[0], 'code', case_insensitive=False)
 
     def test_06_check_boolean_truthy_field_not_unique(self):
         # GIVEN
@@ -97,7 +99,7 @@ class TestFieldUnique(TestBaseCommon):
         with self.assertRaisesRegex(
             ValidationError, r"Is Default 'True' must be unique!"
         ):
-            check_field_unique(recs, 'is_default')
+            check_field_unique(recs[0], 'is_default')
 
     def test_07_check_boolean_truthy_field_considered_unique(self):
         # GIVEN
@@ -109,7 +111,7 @@ class TestFieldUnique(TestBaseCommon):
         )
         # WHEN, THEN
         try:
-            check_field_unique(recs, 'is_default', predicate=lambda r: r.is_default)
+            check_field_unique(recs[0], 'is_default', predicate=lambda r: r.is_default)
         except ValidationError as e:
             self.fail(f"Must be considered unique. Error: {e}")
 
@@ -123,7 +125,8 @@ class TestFieldUnique(TestBaseCommon):
         )
         # WHEN, THEN
         try:
-            check_field_unique(recs, 'is_default')
+            check_field_unique(recs[0], 'is_default')
+            check_field_unique(recs[1], 'is_default')
         except ValidationError as e:
             self.fail(f"Must be unique. Error: {e}")
 
@@ -170,16 +173,7 @@ class TestFieldUnique(TestBaseCommon):
         # WHEN, THEN
         try:
             res = check_field_unique(
-                recs,
-                'code',
-                extra_domain=[
-                    (
-                        'name',
-                        '=',
-                        vo_val.Value(val='name', val_type=vo_val.ValueType.EXPRESSION),
-                    ),
-                    ('name', '!=', vo_val.Value(val='TEST-3')),
-                ],
+                recs[0], 'code', extra_domain=Domain('name', '=', recs[0].name)
             )
         except ValidationError as e:
             self.fail(f"Should not fail - codes are unique. Error: {e}")
@@ -196,14 +190,5 @@ class TestFieldUnique(TestBaseCommon):
         # WHEN, THEN
         with self.assertRaisesRegex(ValidationError, r"Code .+ must be unique\!"):
             check_field_unique(
-                recs,
-                'code',
-                extra_domain=[
-                    (
-                        'name',
-                        '=',
-                        vo_val.Value(val='name', val_type=vo_val.ValueType.EXPRESSION),
-                    ),
-                    ('name', '!=', vo_val.Value(val='TEST-3')),
-                ],
+                recs[0], 'code', extra_domain=Domain('name', '=', recs[0].name)
             )
