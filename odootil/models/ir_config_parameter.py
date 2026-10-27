@@ -12,7 +12,7 @@ class IrConfigParameter(models.Model):
     def get_param_eval(self, key, default=False, eval_fun=literal_eval):
         """Retrieve the value for a given key and convert it.
 
-        Value is retrieved using `get_param` method. If eval_fun is
+        Value is retrieved using `get_str` method. If eval_fun is
         provided, value is then converted using that function. Otherwise
         no conversion is done.
 
@@ -26,10 +26,10 @@ class IrConfigParameter(models.Model):
         Returns:
             type converted using eval_fun or str if no conversion done,
             or default value if nothing was found (last option works
-            the same as `get_param` method).
+            the same as `get_str` method).
 
         """
-        value = self.get_param(key, default=default)
+        value = self.get_str(key, default=default)
         # Check if we actually got param. If value matches with default,
         # it means we did not found param and it returned default value.
         if value == default:

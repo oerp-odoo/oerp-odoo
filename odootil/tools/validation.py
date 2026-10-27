@@ -1,10 +1,8 @@
 import logging
 
-from psycopg2 import OperationalError
-
 from odoo.exceptions import ValidationError
 from odoo.fields import Domain
-from odoo.service.model import PG_CONCURRENCY_ERRORS_TO_RETRY
+from odoo.sql_db import PG_CONCURRENCY_EXCEPTIONS_TO_RETRY
 from odoo.tools.safe_eval import safe_eval
 
 from ..const import OP_EQ_MAP
@@ -105,6 +103,4 @@ def check_field_unique(
 
 
 def is_retryable_concurrency_error(e):
-    return (
-        isinstance(e, OperationalError) and e.pgcode in PG_CONCURRENCY_ERRORS_TO_RETRY
-    )
+    return isinstance(e, PG_CONCURRENCY_EXCEPTIONS_TO_RETRY)

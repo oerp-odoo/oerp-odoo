@@ -13,15 +13,15 @@ class TestImmutables(TransactionCase):
         # WHEN
         res = deep_freeze_dict(dct)
         # THEN
-        with self.assertRaises(NotImplementedError):
+        with self.assertRaises(TypeError):
             res['a'] = 'x'
-        with self.assertRaises(NotImplementedError):
+        with self.assertRaises(TypeError):
             res['b'] = 'x'
-        with self.assertRaises(NotImplementedError):
+        with self.assertRaises(TypeError):
             res['b']['c'] = 'x'
-        with self.assertRaises(NotImplementedError):
+        with self.assertRaises(TypeError):
             res['b']['d'] = 'x'
-        with self.assertRaises(NotImplementedError):
+        with self.assertRaises(TypeError):
             res['b']['d']['e'] = 'x'
-        with self.assertRaises(NotImplementedError):
+        with self.assertRaises(TypeError):
             res['z'] = 'x'
