@@ -9,4 +9,5 @@ from . import (
     test_http_client_retry_setup,
     test_http_client_auth_constraints,
     test_http_client_auth_authorize,
+    test_http_client_access,
 )
