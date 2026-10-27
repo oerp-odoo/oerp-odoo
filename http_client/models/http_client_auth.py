@@ -147,9 +147,6 @@ class HttpClientAuth(models.Model):
             return {'Authorization': f'{prefix} {self.provide_token()}'}
         return {}
 
-    def name_get(self):
-        return [(r.id, r.name or f'({r.id}) {r.url}') for r in self]
-
     def action_confirm(self):
         """Confirm Authentication records to be used."""
         self.write({'state': 'confirmed'})

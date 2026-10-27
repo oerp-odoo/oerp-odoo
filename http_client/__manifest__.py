@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "HTTP Client",
-    'version': '19.0.7.0.0',
+    'version': '20.0.1.0.0',
     'summary': 'http, client, manager',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
@@ -14,9 +14,7 @@
         'odootil',
     ],
     'data': [
-        'security/http_client_auth_security.xml',
-        'security/http_client_profile_security.xml',
-        'security/ir.model.access.csv',
+        'security/ir.access.csv',
         'views/menus.xml',
         'views/http_client_auth.xml',
         'views/http_client_retry.xml',

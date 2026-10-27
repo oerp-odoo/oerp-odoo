@@ -39,6 +39,7 @@ class RequestInput:
     relative_path: RelativePath | None = None
 
     def __post_init__(self):
+        """Validate data, url and relative_path combinations."""
         if (self.data is None) != (self.data_format_type is None):
             raise ValueError(
                 "data and data_format_type must be used together or not at all"

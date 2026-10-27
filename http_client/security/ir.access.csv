@@ -1,0 +1,6 @@
+id,name,model_id,group_id/id,operation,domain
+access_http_client_auth_admin,http_client_auth admin,http.client.auth,base.group_system,crud,
+http_client_auth_rule_company,http.client.auth: multi-company,http.client.auth,,crud,"['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]"
+access_http_client_profile_admin,http_client_profile admin,http.client.profile,base.group_system,crud,
+http_client_profile_rule_company,http.client.profile: multi-company,http.client.profile,,crud,"['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]"
+access_http_client_retry_admin,http_client_retry admin,http.client.retry,base.group_system,crud,
