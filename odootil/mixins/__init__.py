@@ -6,7 +6,6 @@ from . import (
     odootil_toggle_active,
     odootil_year_field,
     odootil_social_network_fields,
-    odootil_hidden_mixin,
     odootil_strip_space,
     odootil_is_default_mixin,
     odootil_deferred_validation_mixin,
