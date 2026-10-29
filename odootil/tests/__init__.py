@@ -2,7 +2,6 @@ from . import (
     test_check_dates_range,
     test_get_iso_timestamp,
     test_get_selection_label,
-    test_ir_config_parameter,
     test_num2words,
     test_set_sequence_number,
     test_field_unique,

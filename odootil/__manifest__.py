@@ -2,7 +2,7 @@
 # See LICENSE and COPYRIGHT files for details.
 {
     'name': 'Odoo Utilities',
-    'version': '20.0.1.0.0',
+    'version': '20.0.5.0.0',
     'summary': 'odoo, utilities, helper methods',
     'license': 'LGPL-3',
     'author': 'Andrius Laukavičius',
@@ -24,5 +24,5 @@
     'data': [
         'security/ir.access.csv',
     ],
-    'installable': False,
+    'installable': True,
 }
