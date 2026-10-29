@@ -15,7 +15,7 @@ exclude: |
   # You don't usually want a bot to modify your legal texts
   (LICENSE.*|COPYING.*)
 default_language_version:
-  python: python3
+  python: python3.12
   node: "16.17.0"
 repos:
   - repo: https://github.com/pre-commit/mirrors-prettier
@@ -93,24 +93,24 @@ repos:
           - --color
           - --fix
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.8.0
+    rev: 1.9.4
     hooks:
       - id: bandit
         entry: bandit
+        language_version: python3.12
         language: python
-        language_version: python3
         types: [python]
         args:
           - --ini=setup.cfg
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.35.1
+    rev: v1.38.0
     hooks:
       - id: yamllint
         entry: yamllint
         language: python
         types: [file, yaml]
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: check-ast
@@ -144,15 +144,15 @@ repos:
       - id: check-toml
       - id: no-commit-to-branch
         args:
-          - --branch=19.0
+          - --branch=20.0
   - repo: https://github.com/OCA/pylint-odoo
-    rev: v9.3.15
+    rev: v10.0.11
     hooks:
       - id: pylint_odoo
         args:
           - --rcfile=.pylintrc-mandatory
   - repo: https://github.com/psf/black
-    rev: 24.10.0
+    rev: 26.10.1
     hooks:
       - id: black
         args:
