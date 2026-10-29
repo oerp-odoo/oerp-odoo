@@ -4,15 +4,15 @@ on:
   pull_request:
   push:
     branches:
-      - "19.0"
+      - "20.0"
 
 jobs:
   test:
     runs-on: ubuntu-22.04
-    container: ghcr.io/oerp-odoo/oca-ci/py3.12-odoo19.0:latest
+    container: ghcr.io/oca/oca-ci/py3.12-odoo20.0:latest
     services:
       postgres:
-        image: postgres:13
+        image: postgres:16
         env:
           POSTGRES_USER: odoo
           POSTGRES_PASSWORD: odoo
