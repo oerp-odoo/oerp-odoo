@@ -197,8 +197,8 @@ class HttpClientAuth(models.Model):
         self.ensure_one()
         self.write(
             {
-                'access_token': False,
-                'refresh_token': False,
+                'access_token': False,  # nosec: B105
+                'refresh_token': False,  # nosec: B105
             }
         )
         return {
