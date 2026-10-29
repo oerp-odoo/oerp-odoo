@@ -135,9 +135,6 @@ repos:
       # Fixers
       - id: end-of-file-fixer
       - id: fix-byte-order-marker
-      # To remove utf-8 encoding (and the like) in python files.
-      - id: fix-encoding-pragma
-        args: ["--remove"]
       - id: mixed-line-ending
         args: ["--fix=lf"]
       - id: check-builtin-literals
