@@ -15,5 +15,5 @@
     'data': [
         'views/repair_order.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

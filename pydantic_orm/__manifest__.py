@@ -13,5 +13,5 @@
             'pydantic>2.0.0',
         ]
     },
-    'installable': True,
+    'installable': False,
 }

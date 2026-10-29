@@ -15,5 +15,5 @@
     'data': [
         'views/account_payment_term.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

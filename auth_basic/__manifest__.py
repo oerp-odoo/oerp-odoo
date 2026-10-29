@@ -14,5 +14,5 @@
     ],
     'external_dependencies': {'python': ['footil']},
     'data': ['security/ir.model.access.csv', 'views/auth_basic.xml'],
-    'installable': True,
+    'installable': False,
 }

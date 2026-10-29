@@ -17,5 +17,5 @@
         'wizards/mrp_unbuild_multi_views.xml',
         'wizards/mrp_unbuild_multi_summary_views.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

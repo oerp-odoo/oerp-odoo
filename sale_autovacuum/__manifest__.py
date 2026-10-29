@@ -18,5 +18,5 @@
         'views/sale_autocacuum_rule.xml',
         'data/ir_cron.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

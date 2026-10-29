@@ -12,5 +12,5 @@
         # odoo
         'delivery_3pl',
     ],
-    'installable': True,
+    'installable': False,
 }

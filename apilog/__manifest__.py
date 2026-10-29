@@ -18,5 +18,5 @@
         'views/apilog_config.xml',
         'views/apilog_label.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

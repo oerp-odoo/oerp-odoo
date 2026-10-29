@@ -16,5 +16,5 @@
         'views/mrp_production.xml',
         'views/mrp_unbuild.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

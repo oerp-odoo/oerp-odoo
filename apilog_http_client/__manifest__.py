@@ -13,5 +13,5 @@
         'apilog',
     ],
     'data': [],
-    'installable': True,
+    'installable': False,
 }
