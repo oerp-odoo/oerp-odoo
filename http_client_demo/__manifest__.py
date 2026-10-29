@@ -12,5 +12,5 @@
         # oerp-odoo
         'http_client',
     ],
-    'installable': True,
+    'installable': False,
 }

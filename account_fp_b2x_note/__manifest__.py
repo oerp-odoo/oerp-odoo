@@ -15,5 +15,5 @@
     'data': [
         'views/account_fiscal_position_views.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

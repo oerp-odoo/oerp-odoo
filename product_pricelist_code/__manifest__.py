@@ -15,5 +15,5 @@
     'data': [
         'views/product_pricelist.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

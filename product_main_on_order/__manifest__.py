@@ -16,5 +16,5 @@
         'security/ir.model.access.csv',
         'views/product_main_rule.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

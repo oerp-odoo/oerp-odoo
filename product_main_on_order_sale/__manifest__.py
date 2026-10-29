@@ -16,6 +16,6 @@
     'data': [
         'views/menus.xml',
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': True,
 }

@@ -22,5 +22,5 @@
         'views/tpl_service.xml',
         'views/sale_order.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

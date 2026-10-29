@@ -28,5 +28,5 @@
             'http_client/static/src/js/error_dialogs.esm.js',
         ],
     },
-    'installable': True,
+    'installable': False,
 }
