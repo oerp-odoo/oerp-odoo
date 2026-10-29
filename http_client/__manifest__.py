@@ -2,7 +2,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': "HTTP Client",
-    'version': '20.0.1.0.0',
+    'version': '20.0.8.0.0',
     'summary': 'http, client, manager',
     'license': 'LGPL-3',
     'author': "Andrius Laukavičius",
@@ -26,5 +26,5 @@
             'http_client/static/src/js/error_dialogs.esm.js',
         ],
     },
-    'installable': False,
+    'installable': True,
 }
