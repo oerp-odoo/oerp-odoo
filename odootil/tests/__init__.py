@@ -29,4 +29,5 @@ from . import (
     test_mapping,
     test_mute_validation_by_ctx,
     test_view,
+    test_http_verb,
 )

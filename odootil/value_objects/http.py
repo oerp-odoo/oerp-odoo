@@ -1,7 +1,7 @@
 import enum
 
 
-class HttpVerb(str, enum.Enum):
+class HttpVerb(enum.StrEnum):
     GET = 'GET'
     HEAD = 'HEAD'
     OPTIONS = 'OPTIONS'
