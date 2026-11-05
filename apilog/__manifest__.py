@@ -2,7 +2,7 @@
 # See LICENSE and COPYRIGHT files for details.
 {
     'name': 'API Logger',
-    'version': '19.0.2.0.0',
+    'version': '20.0.3.0.0',
     'summary': 'Base module to log incoming and outgoing requests within odoo',
     'license': 'LGPL-3',
     'author': 'Andrius Laukavičius',
@@ -12,11 +12,11 @@
         'odootil',
     ],
     'data': [
-        'security/ir.model.access.csv',
+        'security/ir.access.csv',
         'views/menus.xml',
         'views/apilog_log.xml',
         'views/apilog_config.xml',
         'views/apilog_label.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

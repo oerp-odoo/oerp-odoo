@@ -1,4 +1,3 @@
-import base64
 import inspect
 import io
 import os
@@ -101,21 +100,10 @@ def zip_data(
     return zip_buffer
 
 
-def zip_with_base64(
-    filename: str, data: bytes, compress_level=ZipCompressLevel.DEFAULT
-) -> bytes:
-    compressed_data = zip_data(filename, data, compress_level=compress_level).getvalue()
-    return base64.b64encode(compressed_data)
-
-
 @contextmanager
 def unzip_data(data: bytes):
     with zipfile.ZipFile(io.BytesIO(data), 'r') as zf:
         yield zf
-
-
-def unzip_from_base64(data: bytes):
-    return unzip_data(base64.b64decode(data))
 
 
 def prepare_open_related_logs_action(record):

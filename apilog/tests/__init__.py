@@ -4,4 +4,6 @@ from . import (
     test_apilog_handler,
     test_apilog_formatter,
     test_apilog_rotator,
+    test_apilog_label,
+    test_apilog_config,
 )

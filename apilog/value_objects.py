@@ -10,7 +10,7 @@ from odoo.addons.odootil.value_objects.http import HttpVerb
 from .utils import get_data_safely, sanitize_headers
 
 
-class RequestDirection(str, enum.Enum):
+class RequestDirection(enum.StrEnum):
     INCOMING = 'incoming'
     OUTGOING = 'outgoing'
 

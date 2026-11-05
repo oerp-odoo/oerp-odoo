@@ -1,6 +1,6 @@
 import logging
 
-from odoo.http import HttpDispatcher
+from odoo.http.dispatcher import HttpDispatcher
 
 from .. import value_objects as vo
 from ..utils import get_env, to_werkzeug_response

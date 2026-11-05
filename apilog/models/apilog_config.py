@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models, tools
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 from .. import value_objects as vo
@@ -86,11 +86,11 @@ class ApilogMetadata(models.Model):
     def prepare_source_selection(self):
         return [(k, v['label']) for k, v in self.get_source_config().items()]
 
-    @tools.ormcache()
+    @api.ormcache()
     def has_any_config(self):
         return bool(self.search([], limit=1))
 
-    @tools.ormcache('meta_key')
+    @api.ormcache('meta_key')
     def get_apilog_metadata(self, meta_key):
         configs = self._find_configs(meta_key)
         inp = vo.ApilogMatcherInput(
@@ -114,17 +114,17 @@ class ApilogMetadata(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         records = super().create(vals_list)
-        self.env.registry.clear_cache()
+        self.env.transaction.invalidate_ormcache()
         return records
 
     def write(self, vals):
         result = super().write(vals)
-        self.env.registry.clear_cache()
+        self.env.transaction.invalidate_ormcache()
         return result
 
     def unlink(self):
         result = super().unlink()
-        self.env.registry.clear_cache()
+        self.env.transaction.invalidate_ormcache()
         return result
 
     def _get_labels(self, inp: vo.ApilogMatcherInput):

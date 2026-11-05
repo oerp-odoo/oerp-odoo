@@ -1,6 +1,7 @@
 import json
 
 from odoo import api, fields, models
+from odoo.tools.binary import BinaryBytes
 
 from odoo.addons.odootil.value_objects.http import HttpVerb
 
@@ -88,9 +89,9 @@ class ApilogLog(models.Model):
     def _compute_response_body_value(self):
         for log in self:
             if log.response_body:
-                log.response_body_value = log.response_body.encode()
+                log.response_body_value = BinaryBytes(log.response_body.encode())
             elif log.response_body_file:
-                log.response_body_value = log._read_response_body_file()
+                log.response_body_value = BinaryBytes(log._read_response_body_file())
             else:
                 log.response_body_value = False
 
@@ -120,5 +121,5 @@ class ApilogLog(models.Model):
         filename = utils.form_filename(
             const.RESPONSE_BASE_NAME, json.loads(self.response_headers)
         )
-        with utils.unzip_from_base64(self.response_body_file) as zf:
+        with utils.unzip_data(self.response_body_file.content) as zf:
             return zf.read(filename)
