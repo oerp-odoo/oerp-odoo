@@ -6,7 +6,7 @@ from odoo.addons.odootil.tools.crypto import make_hash
 from odoo.addons.odootil.value_objects.http import HttpVerb
 
 from .. import value_objects as vo
-from ..utils import unzip_from_base64
+from ..utils import unzip_data
 from . import common
 
 
@@ -386,7 +386,7 @@ class TestApilogHandler(common.TestApilogCommon):
         self.assertEqual(log.request_headers, '{"MY-HEADER-1": "H1"}')
         self.assertEqual(log.status_code, 200)
         self.assertEqual(log.response_body, '{"b": 20}')
-        self.assertEqual(log.response_body_value, b'{"b": 20}')
+        self.assertEqual(log.response_body_value.content, b'{"b": 20}')
         self.assertEqual(log.response_headers, '{"MY-RESPONSE-HEADER-1": "RH1"}')
         self.assertFalse(log.label_ids)
         self.assertTrue(log.res_model, 'res.partner')
@@ -424,7 +424,7 @@ class TestApilogHandler(common.TestApilogCommon):
         self.assertEqual(log.config_id, apilog_config_1)
         self.assertFalse(log.response_body)
         data = log.response_body_file
-        with unzip_from_base64(data) as zf:
+        with unzip_data(data.content) as zf:
             extracted_content = zf.read('response_body.txt')
         self.assertEqual(extracted_content, b'{"b": 20}')
         self.assertEqual(log.response_body_filename, 'response_body.zip')
@@ -439,7 +439,7 @@ class TestApilogHandler(common.TestApilogCommon):
             ]
         )
         self.assertEqual(len(attachment), 1)
-        self.assertEqual(log.response_body_value, b'{"b": 20}')
+        self.assertEqual(log.response_body_value.content, b'{"b": 20}')
         # WHEN
         log.unlink()
         # THEN
@@ -482,7 +482,7 @@ class TestApilogHandler(common.TestApilogCommon):
         self.assertEqual(log.config_id, apilog_config_1)
         self.assertFalse(log.response_body)
         data = log.response_body_file
-        with unzip_from_base64(data) as zf:
+        with unzip_data(data.content) as zf:
             extracted_content = zf.read('response_body.json')
         self.assertEqual(extracted_content, b'{"b": 20}')
         self.assertEqual(log.response_body_filename, 'response_body.zip')

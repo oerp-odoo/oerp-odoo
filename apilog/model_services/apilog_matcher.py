@@ -2,11 +2,14 @@ import re
 
 from odoo import _, models
 from odoo.exceptions import ValidationError
-from odoo.tools.safe_eval import safe_eval
+from odoo.tools.safe_eval import safe_eval, safe_whitelist
 
 from odoo.addons.odootil.value_objects.http import HttpVerb
 
 from ..value_objects import ApilogMatcherInput
+
+# 20.0 safe_eval warns on functions that are not whitelisted.
+safe_whitelist.add_function('re.match')
 
 
 class ApilogMatcher(models.AbstractModel):

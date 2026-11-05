@@ -1,0 +1,5 @@
+id,name,model_id,group_id/id,operation,domain
+access_apilog_config_admin,apilog_config admin,apilog.config,base.group_system,crud,
+access_apilog_config_label_admin,apilog_config_label admin,apilog.config.label,base.group_system,crud,
+access_apilog_label_admin,apilog_label admin,apilog.label,base.group_system,crud,
+access_apilog_log_admin,apilog_log admin,apilog.log,base.group_system,rd,

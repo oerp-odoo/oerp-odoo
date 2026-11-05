@@ -5,9 +5,10 @@ import logging
 
 from odoo import models
 from odoo.fields import Command
+from odoo.tools.binary import BinaryBytes
 
 from .. import const, value_objects as vo
-from ..utils import form_filename, get_simple_call_stack, zip_with_base64
+from ..utils import form_filename, get_simple_call_stack, zip_data
 
 _logger = logging.getLogger(__name__)
 
@@ -94,6 +95,8 @@ class ApilogHandler(models.AbstractModel):
             return {base_name: body}
         filename = form_filename(base_name, headers)
         return {
-            'response_body_file': zip_with_base64(filename, body.encode()),
+            'response_body_file': BinaryBytes(
+                zip_data(filename, body.encode()).getvalue()
+            ),
             'response_body_filename': f'{base_name}.zip',
         }

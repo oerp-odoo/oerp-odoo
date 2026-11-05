@@ -11,6 +11,7 @@ class ApilogLabel(models.Model):
     name = fields.Char(required=True)
     code = fields.Char()
     parent_id = fields.Many2one('apilog.label')
+    display_name = fields.Char(compute='_compute_display_name', recursive=True)
 
     _name_uniq = models.Constraint(
         'unique(name)',
@@ -24,15 +25,22 @@ class ApilogLabel(models.Model):
     @api.constrains('parent_id')
     def _check_parent_id(self):
         for label in self:
-            if not label._check_recursion():
+            if label._has_cycle():
                 raise ValidationError(_("Error! You cannot create recursive labels!"))
 
-    def name_get(self):
-        """Override to display names hierarchy."""
-        return generate_names(
-            {
-                'pattern': ('$join_parent_attrs("parent_id", "name", " / ", "True")'),
-                'strip_falsy': True,
-                'objects': self,
-            }
+    @api.depends('name', 'parent_id.display_name')
+    def _compute_display_name(self):
+        """Display names hierarchy."""
+        names = dict(
+            generate_names(
+                {
+                    'pattern': (
+                        '$join_parent_attrs("parent_id", "name", " / ", "True")'
+                    ),
+                    'strip_falsy': True,
+                    'objects': self,
+                }
+            )
         )
+        for label in self:
+            label.display_name = names[label.id]
