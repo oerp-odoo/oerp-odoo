@@ -292,7 +292,7 @@ class Base(models.AbstractModel):
             int
 
         """
-        if not end:
+        if end is None:
             end = len(self)
         if start > end:
             raise ValidationError(_("end index must be greater than start."))
