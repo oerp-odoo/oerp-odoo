@@ -391,3 +391,11 @@ class TestRecordSetHelpers(common.TestOdootilCommon):
         partner_child.sync_related_field_value('parent_id', 'phone', inverse=True)
         # THEN
         self.assertEqual(partner_parent.phone, '+370 699 22456')
+
+    def test_17_get_record_index_explicit_zero_end(self):
+        """An explicit end=0 is an empty range, not the whole recordset."""
+        # GIVEN
+        partners = self.partner_1 | self.partner_2
+        # WHEN
+        with self.assertRaisesRegex(ValidationError, r'is not in recordset'):
+            partners.get_record_index(self.partner_1, end=0)
