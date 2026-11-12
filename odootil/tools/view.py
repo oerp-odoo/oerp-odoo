@@ -28,6 +28,10 @@ def _is_readonly_ignored_field(model: BaseModel, field_node, ignored_fields: lis
     fname = field_node.get('name')
     if fname in ignored_fields:
         return True
+    # Fields of embedded subviews (e.g. One2many lines) belong to another
+    # model; the readonly set on their parent field already covers them.
+    if any(node.tag == 'field' for node in field_node.iterancestors()):
+        return True
     # If view has readonly condition, it means python's readonly is
     # already overwritten.
     if field_node.get('readonly'):
